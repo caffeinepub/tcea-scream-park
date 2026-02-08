@@ -1,0 +1,439 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Expand the TCEA Scream Park scary promotional website further with targeted bloody header/haunted-house-card effects, new sub-scenes for select haunted houses, new standalone home-page imagery sections (procession + Clown Town interior elevation) with descriptions, updated event info (hours, 6pm procession details, 11pm release/chase warning), ticket pricing and multiple pass types, new food booths with menus and scary descriptions, site rules (actors/procession/food/entry), and haunted-house wait times—while keeping the black-and-green horror theme and realistic AI-generated visuals plus looping audio.",
+  "architectural_notes": [
+    "Add additional AI-generated static images (beyond logo/hero) and store them under frontend/public/assets/generated; render them as static assets (no backend image serving).",
+    "Autoplay looping background audio will be added (chainsaw + eerie ambience); ensure implementation includes a user control (mute/volume) and handles browser autoplay restrictions gracefully.",
+    "Add new standalone Home page image sections (Procession + Clown Town interior elevation) as static assets under frontend/public/assets/generated with accompanying written descriptions; place the Procession section below the existing hero.",
+    "Home page only: add strobe/flash background visual effects (avoid impacting readability and accessibility; keep effect scoped to Home).",
+    "Audio: ensure chainsaw SFX is actually audible by default via a clear user-initiated 'Sound On' control when autoplay is blocked; keep persistent mute/on state across navigation."
+  ],
+  "known_issues": [
+    "App creation/build process encountered an error during generation; user requested to retry ('Generate again').",
+    "Background audio (chainsaw + ambience) currently not audible for the user; needs a fix that works with browser autoplay restrictions."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-multi-section-marketing-website-titled-tcea-scream-park-with-clear-navigation-to-home-auditions-haunted-houses-food-booths-merch-shops-scare-zones-and-info-location",
+      "title": "Create a multi-section marketing website titled \"TCEA Scream Park\" with clear navigation to: Home, Auditions, Haunted Houses, Food Booths, Merch Shops, Scare Zones, and Info/Location.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-auditions-section-containing-dates-february-7th-march-2nd-2026-time-10-00-am-9-00-pm-frequency-every-day-and-a-we-re-looking-for-list-that-includes-sliders-stilt-walkers-chainsaw-actors-and-a-catch-all-such-as-and-more",
+      "title": "Add an Auditions section containing: dates \"February 7th–March 2nd, 2026\", time \"10:00 AM–9:00 PM\", frequency \"every day\", and a \"We’re looking for\" list that includes sliders, stilt walkers, chainsaw actors, and a catch-all such as \"and more\".",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-location-info-section-that-states-tcea-scream-park-is-an-extreme-haunted-attraction-located-in-waterford-virginia-va",
+      "title": "Add a Location/Info section that states TCEA Scream Park is an \"extreme haunted attraction\" located in Waterford, Virginia (VA).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-food-booths-section-listing-all-food-booths-and-menus-provided-by-the-user-including-the-new-booth-scary-bears-spicy-eyes-with-the-label-food-booth-123-also-display-a-pricing-note-that-all-food-is-9-and-a-note-about-free-samples-after-procession-for-honey-boneless-wings",
+      "title": "Add a Food Booths section listing all food booths and menus provided by the user, including the new booth \"Scary bears spicy eyes\" with the label \"food booth #123\". Also display a pricing note that \"All food is $9\" and a note about \"free samples after procession for honey boneless wings\".",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-haunted-houses-section-listing-exactly-these-5-haunted-houses-schoolhouse-break-terror-hell-hole-clown-town-haunted-house-asylum-hell-and-emily-s-playground-include-the-relative-location-info-3-haunted-houses-are-near-felix-pizza-and-2-are-near-the-chain-pizza-food-booth",
+      "title": "Add a Haunted Houses section listing exactly these 5 haunted houses: \"Schoolhouse break\", \"Terror Hell hole\", \"clown town haunted house\", \"asylum hell\", and \"Emily’s playground\". Include the relative location info: 3 haunted houses are near Felix pizza, and 2 are near the Chain pizza food booth.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-merch-shops-section-listing-at-least-these-two-shops-with-their-items-and-prices-dungeon-master-shop-hell-hole-merch-19-and-painted-smiles-shop-clown-town-hoodies-and-bags-13-include-an-additional-and-more-many-more-shops-note",
+      "title": "Add a Merch Shops section listing at least these two shops with their items and prices: \"Dungeon Master Shop\" (Hell hole merch, $19) and \"Painted smiles Shop\" (Clown town hoodies and bags, $13). Include an additional \"and more\"/\"many more shops\" note.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-scare-zones-section-listing-exactly-these-2-scare-zones-carnival-bros-circus-and-playtime-s-over",
+      "title": "Add a Scare Zones section listing exactly these 2 scare zones: \"carnival bros circus\" and \"playtime’s over\".",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-many-things-to-come-teaser-section-to-indicate-more-content-will-be-added-later",
+      "title": "Add a \"Many things to come\" teaser section to indicate more content will be added later.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-scary-horror-visual-theme-across-the-site-colors-typography-spacing-components-with-a-distinct-style-that-fits-a-haunted-attraction-brand-and-keep-it-consistent-across-all-sections",
+      "title": "Apply a coherent scary/horror visual theme across the site (colors, typography, spacing, components) with a distinct style that fits a haunted attraction brand, and keep it consistent across all sections.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-static-images-as-part-of-the-design-a-logo-and-a-hero-background-visual-stored-under-frontend-public-assets-generated-and-render-them-on-the-site-no-backend-image-serving",
+      "title": "Add generated static images as part of the design: a logo and a hero/background visual, stored under frontend/public/assets/generated, and render them on the site (no backend image serving).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-wide-visual-theme-so-the-entire-website-uses-a-black-and-green-horror-palette-with-readable-contrast-across-all-sections-including-backgrounds-text-borders-and-interactive-states",
+      "title": "Update the site-wide visual theme so the entire website uses a black-and-green horror palette (with readable contrast) across all sections, including backgrounds, text, borders, and interactive states.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-existing-site-logo-with-a-newly-ai-generated-realistic-scary-horror-style-logo-and-update-the-ui-to-use-the-new-logo-asset-everywhere-the-old-logo-is-currently-rendered-header-home-hero",
+      "title": "Replace the existing site logo with a newly AI-generated, realistic scary horror-style logo and update the UI to use the new logo asset everywhere the old logo is currently rendered (header + home hero).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-one-ai-generated-realistic-scary-image-for-each-haunted-house-each-scare-zone-and-each-food-booth-store-all-images-as-static-assets-under-frontend-public-assets-generated",
+      "title": "Add one AI-generated, realistic scary image for each haunted house, each scare zone, and each food booth; store all images as static assets under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-new-ai-generated-images-in-the-haunted-houses-scare-zones-and-food-booths-sections-so-each-listed-item-displays-its-corresponding-image-within-its-card-layout",
+      "title": "Render the new AI-generated images in the Haunted Houses, Scare Zones, and Food Booths sections so each listed item displays its corresponding image within its card layout.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-background-treatment-to-feel-more-engaging-while-remaining-black-and-green-across-the-entire-site-e-g-green-fog-glow-grunge-noise-subtle-bloody-texture-accents-without-reducing-readability",
+      "title": "Update the site background treatment to feel more engaging while remaining black-and-green across the entire site (e.g., green fog/glow, grunge/noise, subtle bloody texture accents) without reducing readability.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-resolve-the-prior-build-generation-failure-and-successfully-regenerate-a-working-build-of-the-tcea-scream-park-site-with-the-requested-black-and-green-horror-theme-including-bloody-engaging-background-treatment-a-new-ai-generated-realistic-scary-logo-and-ai-generated-realistic-scary-images-one-per-haunted-house-scare-zone-and-food-booth-stored-and-served-as-static-assets",
+      "title": "Resolve the prior build/generation failure and successfully regenerate a working build of the TCEA Scream Park site with the requested black-and-green horror theme (including bloody/engaging background treatment), a new AI-generated realistic scary logo, and AI-generated realistic scary images (one per haunted house, scare zone, and food booth) stored and served as static assets.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-autoplay-looping-background-sound-effects-to-the-website-consisting-of-1-chainsaw-sounds-and-2-eerie-ambient-sounds-configured-to-start-automatically-on-page-load-and-loop-continuously",
+      "title": "Add autoplay looping background sound effects to the website consisting of (1) chainsaw sounds and (2) eerie ambient sounds, configured to start automatically on page load and loop continuously.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-new-scary-written-content-for-each-haunted-house-all-5-existing-houses-and-each-scare-zone-both-existing-zones-for-each-item-add-a-a-scary-tagline-and-b-a-scary-half-paragraph-description-and-render-both-in-their-respective-section-cards",
+      "title": "Create new scary written content for each haunted house (all 5 existing houses) and each scare zone (both existing zones): for each item add (a) a scary tagline and (b) a scary half-paragraph description, and render both in their respective section cards.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-new-scary-written-content-for-each-food-booth-for-every-food-booth-listed-add-a-a-scary-tagline-and-b-a-scary-half-paragraph-description-and-render-them-in-the-food-booths-section-cards-without-removing-the-existing-booth-menu-lists-pricing-note-or-free-sample-note",
+      "title": "Add new scary written content for each food booth: for every food booth listed, add (a) a scary tagline and (b) a scary half-paragraph description, and render them in the Food Booths section cards without removing the existing booth menu lists, pricing note, or free sample note.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-haunted-house-titles-feel-more-bloody-and-more-scary-by-updating-the-haunted-house-card-title-styling-e-g-distressed-bloody-treatment-while-keeping-the-overall-black-and-green-horror-theme-and-readability",
+      "title": "Make haunted house titles feel more bloody and more scary by updating the haunted house card title styling (e.g., distressed/bloody treatment) while keeping the overall black-and-green horror theme and readability.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-website-wide-scary-tagline-written-by-the-system-and-display-it-prominently-in-the-home-hero-area-as-part-of-the-site-branding",
+      "title": "Create a website-wide scary tagline (written by the system) and display it prominently in the home hero area as part of the site branding.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-teaser-section-dedicated-to-upcoming-2027-haunted-houses-featuring-exactly-these-two-items-hogs-pen-and-shattered-minds-the-section-must-include-created-teaser-copy-and-a-section-level-tagline-both-written-by-the-system",
+      "title": "Add a new teaser section dedicated to upcoming 2027 haunted houses, featuring exactly these two items: 'Hogs Pen' and 'Shattered Minds'. The section must include created teaser copy and a section-level tagline (both written by the system).",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-very-scary-event-warning-disclaimer-at-the-bottom-of-the-website-in-the-footer-area-with-newly-written-english-text-that-matches-the-horror-tone",
+      "title": "Add a very scary event warning/disclaimer at the bottom of the website (in the footer area) with newly written English text that matches the horror tone.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-bloody-visual-treatment-to-the-website-header-the-sticky-top-navigation-header-area-using-blood-effects-graphics-while-keeping-the-existing-black-and-green-horror-palette-and-readable-contrast",
+      "title": "Add a bloody visual treatment to the website header (the sticky top navigation/header area), using blood effects/graphics while keeping the existing black-and-green horror palette and readable contrast.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-bloody-effect-graphic-at-the-top-of-each-haunted-house-card-in-the-haunted-houses-section-i-e-a-visible-blood-drip-splatter-treatment-overlaying-the-top-edge-of-every-card",
+      "title": "Add a bloody effect/graphic at the top of each haunted house card in the Haunted Houses section (i.e., a visible blood drip/splatter treatment overlaying the top edge of every card).",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-standalone-home-page-section-placed-below-the-existing-home-hero-section-that-features-a-new-ai-generated-image-depicting-a-procession-on-main-street-plaza-clowns-and-other-characters-coming-out-the-gate-onto-main-street-plaza-and-includes-a-scary-english-description-that-explicitly-states-it-happens-only-at-6pm-and-that-guests-will-see-sliders-stilt-walkers-zombies-and-many-more",
+      "title": "Add a new standalone Home page section placed below the existing Home hero section that features a new AI-generated image depicting a procession on Main Street Plaza (clowns and other characters coming out the gate onto Main Street Plaza) and includes a scary English description that explicitly states it happens only at 6pm and that guests will see sliders, stilt walkers, zombies, and many more.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-standalone-section-featuring-a-scenic-elevation-style-sneak-peek-image-of-the-inside-of-the-clown-town-haunted-house-with-an-english-description-for-the-image",
+      "title": "Add a new standalone section featuring a scenic elevation-style sneak peek image of the inside of the Clown Town haunted house, with an English description for the image.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-sub-scene-entries-inside-the-existing-haunted-house-cards-for-terror-hell-hole-and-clown-town-haunted-house-only-add-a-scene-named-vicky-s-doom-inside-terror-hell-hole-and-a-scene-named-fences-chaos-inside-clown-town-haunted-house-display-these-as-sub-scenes-within-those-two-house-cards",
+      "title": "Add sub-scene entries inside the existing haunted house cards for 'Terror Hell hole' and 'clown town haunted house' only: add a scene named 'Vicky’s doom' inside 'Terror Hell hole' and a scene named 'Fences chaos' inside 'clown town haunted house'. Display these as sub-scenes within those two house cards.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-ticketing-and-pass-information-to-the-site-in-english-tickets-cost-30-and-there-are-exactly-four-passes-bloody-pass-covered-in-blood-u-think-u-brave-pass-bugs-on-you-no-mercy-no-physical-contact-regular-pass-and-horn-pass",
+      "title": "Add ticketing and pass information to the site in English: tickets cost $30 and there are exactly four passes—Bloody Pass (covered in blood), \"U Think U brave\" pass (bugs on you, no mercy, no physical contact), Regular pass, and Horn pass.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-new-food-booths-and-menus-in-english-including-scary-descriptions-for-each-booth-and-each-food-item-add-a-booth-named-terror-bite-serving-hell-hole-poppers-and-vicky-s-favorite-slime-add-a-booth-named-chaos-carnival-noted-as-next-to-clown-town-serving-mozzarella-sticks-gyros-and-jax-s-burritos",
+      "title": "Add the new food booths and menus in English, including scary descriptions for each booth and each food item: add a booth named 'Terror bite' serving 'Hell hole Poppers' and 'Vicky’s Favorite Slime'; add a booth named 'chaos  carnival' (noted as next to Clown Town) serving 'mozzarella sticks', 'Gyros', and 'Jax’s Burritos'.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-new-ai-generated-realistic-scary-images-as-static-assets-for-the-newly-added-items-new-home-procession-image-section-new-clown-town-interior-elevation-section-and-each-newly-added-food-booth-and-render-them-in-their-respective-sections-cards-using-the-existing-static-asset-approach",
+      "title": "Add new AI-generated realistic scary images as static assets for the newly added items (new Home procession image section, new Clown Town interior elevation section, and each newly added food booth) and render them in their respective sections/cards using the existing static-asset approach.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-site-rules-and-event-warnings-in-english-including-rules-for-scare-actors-rules-for-the-procession-rules-for-food-and-rules-shown-before-entering-the-property-also-include-an-11pm-nightly-warning-that-once-closing-happens-every-night-every-house-and-zone-will-release-and-guests-may-be-chased-if-in-the-way-and-they-will-not-stop-to-scare-you-out",
+      "title": "Add site rules and event warnings in English, including: rules for scare actors, rules for the procession, rules for food, and rules shown before entering the property; also include an 11pm nightly warning that once closing happens every night, every house and zone will release and guests may be chased if in the way and they will not stop to scare you out.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-operating-hours-and-wait-time-info-in-english-show-that-the-park-is-open-fridays-through-sunday-from-5pm-until-whenever-the-last-person-is-add-haunted-house-wait-time-information-and-add-a-food-booths-note-copy-communicating-lucky-we-can-t-scare-you-all-while-you-eat",
+      "title": "Add operating hours and wait-time info in English: show that the park is open Fridays through Sunday from 5pm until whenever the last person is; add haunted house wait time information; and add a Food Booths note/copy communicating: \"Lucky we can’t scare you all while you eat\".",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-website-background-audio-so-the-chainsaw-loop-is-reliably-audible-for-users-while-still-handling-browser-autoplay-restrictions-gracefully-the-site-must-provide-a-clear-user-gesture-path-that-starts-playback-successfully-when-autoplay-is-blocked-and-once-enabled-the-audio-must-continue-looping-across-the-session",
+      "title": "Fix the website background audio so the chainsaw loop is reliably audible for users, while still handling browser autoplay restrictions gracefully. The site must provide a clear user gesture path that starts playback successfully when autoplay is blocked, and once enabled the audio must continue looping across the session.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-strobe-flash-background-effects-on-the-home-page-only-the-home-hero-section-matching-the-existing-black-and-green-horror-style-without-reducing-text-readability",
+      "title": "Add strobe/flash background effects on the Home page only (the #home hero section), matching the existing black-and-green horror style without reducing text readability.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-expand-the-auditions-section-to-include-the-new-audition-roles-costume-manager-and-masks-manager-each-with-a-short-scary-english-description-while-keeping-the-existing-audition-dates-hours-and-the-existing-roles-list-intact",
+      "title": "Expand the Auditions section to include the new audition roles “Costume Manager” and “Masks Manager”, each with a short scary English description, while keeping the existing audition dates/hours and the existing roles list intact.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Build a scary 'TCEA Scream Park' website including auditions (Feb 7–Mar 2, 2026; 10am–9pm daily), roles needed, Waterford VA location, 5 haunted houses with relative locations, food booths/menus and $9 pricing with free sample note, merch shops/prices, and 2 scare zones; include 'many things to come' placeholder content.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Update the entire website visual theme to a black-and-green horror style (more engaging, green/black palette across all sections).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Replace the existing logo with a new AI-generated horror-style logo.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add AI-generated realistic scary images for each haunted house, each scare zone, and each food booth (one image per item) and display them on the site.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add autoplay looping background sound effects to the website (chainsaw sounds + eerie ambient audio).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create and add scary content: half-paragraph descriptions + scary taglines for each haunted house and each scare zone; also add scary taglines/descriptions for each food booth; make haunted house titles/badges feel more bloody/scary.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add a very scary event warning/disclaimer at the bottom (footer) of the website.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Create and display a website-wide scary tagline (site-level branding line).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add a new teaser section for upcoming 2027 haunted houses, featuring 'Hogs Pen' and 'Shattered Minds' with created teaser copy and a section tagline.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add targeted bloody effects/graphics: apply a bloody treatment to the website header and add a bloody effect at the top of each haunted house card (not site-wide).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add sub-scenes inside specific haunted houses only: add a new scene 'Vicky’s Doom' within 'Terror Hell hole' and 'Fences chaos' within 'clown town haunted house', displayed as sub-scenes within those house cards.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add a standalone Home page 'Procession on Main Street Plaza' section placed below the existing hero, including a new AI-generated image (clowns and other characters coming out the gate onto Main Street plaza) and scary description; include that it happens only at 6pm and features sliders, stilt walkers, zombies, and more.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add a standalone image section featuring a scenic elevation-style sneak peek image of the inside of the Clown Town haunted house, with a written description.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Add ticketing info: tickets are $30 and there are 4 passes—Bloody Pass (get covered in blood), 'U Think U Brave' pass (bugs on you, no mercy, no physical contact), Regular pass, and Horn pass—displayed on the website.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add new food booths with menus and scary descriptions for each food item/booth: 'Terror bite' (Hell hole poppers, Vicky’s Favorite Slime) and 'chaos carnival' (next to Clown Town; mozzarella sticks, gyros, Jax’s Burritos).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add rules sections: rules for scare actors, rules for the procession, rules for food, and rules shown before entering the property; also add a nightly 11pm warning that after close every night every house and zone releases and guests may be chased if in the way (they will not stop to scare you out).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add operating hours info: open Fridays through Sunday from 5pm until whenever the last person is; also add haunted house wait times information.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add a Food Booths note/copy communicating: 'Lucky we can’t scare you all while you eat.'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Fix the background audio system so the chainsaw sound reliably plays and is audible; include a visible sound on/off control (and handle browser autoplay restrictions).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add strobe/flash background effects on the Home page only (as part of the background/visual effects).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Expand Auditions roles by adding new roles (Costume Manager, Masks Manager) with scary role descriptions.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "TCEA Scream Park",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

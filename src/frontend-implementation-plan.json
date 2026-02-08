@@ -1,0 +1,61 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Audio autoplay reliability, Home strobe hero effect, and expanded Auditions roles",
+  "requirements": [
+    {
+      "id": "REQ-34",
+      "summary": "Make the chainsaw background loop reliably audible with graceful autoplay-block handling and accurate mute/unmute state.",
+      "acceptanceCriteria": [
+        "On a fresh load where autoplay is blocked, the UI shows an “Enable Sound” prompt; clicking it successfully starts the looping audio.",
+        "When sound is enabled, the chainsaw loop is clearly audible at a reasonable volume (not near-silent).",
+        "The existing sound control (mute/unmute) continues to work and accurately reflects whether audio is currently playing.",
+        "No console errors are produced during normal playback, mute/unmute, and unmount cleanup."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
+          "operation": "modify",
+          "description": "Harden the background audio manager to handle autoplay restrictions via an explicit user-gesture flow (persistent “Enable Sound” prompt when needed), ensure the chainsaw loop is set to an audibly reasonable volume, and make mute/unmute reflect actual playback state (including blocked unmute attempts). Remove/avoid console errors during normal operation and ensure clean teardown on unmount. Use shadcn-ui Button for the prompt/control UI—verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "summary": "Add an accessibility-aware strobe/flash background effect limited to the Home (#home) hero section.",
+      "acceptanceCriteria": [
+        "A visible strobe/flash lighting effect is present in the Home hero background area only; other sections are unaffected.",
+        "Home hero text and buttons remain readable during the effect (no prolonged full-white flashes covering content).",
+        "Respect accessibility: if the user prefers reduced motion, the strobe/flash effect is disabled or significantly reduced."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/HomeHeroSection.tsx",
+          "operation": "modify",
+          "description": "Add a hero-only, layered strobe/flash overlay behind the hero content (and above the background image/gradients) that matches the black/green horror theme and preserves readability (low opacity, short pulses, no full-coverage white). Gate the effect with reduced-motion handling (disable or significantly reduce when the user prefers reduced motion)."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Add Tailwind keyframes/animation utilities for the Home hero strobe/flash effect (e.g., a subtle green-tinted pulse/flicker) so the effect can be applied via classes and controlled with motion-safe/motion-reduce variants."
+        }
+      ]
+    },
+    {
+      "id": "REQ-36",
+      "summary": "Add “Costume Manager” and “Masks Manager” to Auditions with short scary English descriptions, preserving existing dates/hours and roles.",
+      "acceptanceCriteria": [
+        "“Costume Manager” and “Masks Manager” appear in the Auditions section as roles.",
+        "Each of the two new roles includes a short scary description in English displayed in the Auditions UI.",
+        "Existing Auditions info remains unchanged: dates (February 7th – March 2nd, 2026), hours (10:00 AM – 9:00 PM), and the existing role entries (including “And Many More...”)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "operation": "modify",
+          "description": "Expand the roles data to include the two new roles with short scary English descriptions while keeping all existing roles and the “And Many More...” entry intact. Update the UI to display descriptions for the two new roles without altering the existing dates/hours content. Use shadcn-ui Card/Badge components as appropriate for consistent styling—verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

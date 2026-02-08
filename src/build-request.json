@@ -1,0 +1,81 @@
+{
+  "kind": "build_request",
+  "title": "Fix audible background audio, add Home-page strobe effect, and expand Auditions roles with descriptions",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-34",
+      "text": "Fix the website background audio so the chainsaw loop is reliably audible for users, while still handling browser autoplay restrictions gracefully. The site must provide a clear user gesture path that starts playback successfully when autoplay is blocked, and once enabled the audio must continue looping across the session.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-8",
+          "msg-12"
+        ],
+        "quotes": [
+          "Add the fixed sound system cause I can’t hear it",
+          "Add strobe effects on the home page, add the audio fixed and you can hear it add the sound effect is a chainsaw sound have the audio fixed and played on"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On a fresh load where autoplay is blocked, the UI shows an “Enable Sound” prompt; clicking it successfully starts the looping audio.",
+        "When sound is enabled, the chainsaw loop is clearly audible at a reasonable volume (not near-silent).",
+        "The existing sound control (mute/unmute) continues to work and accurately reflects whether audio is currently playing.",
+        "No console errors are produced during normal playback, mute/unmute, and unmount cleanup."
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "text": "Add strobe/flash background effects on the Home page only (the #home hero section), matching the existing black-and-green horror style without reducing text readability.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-12"
+        ],
+        "quotes": [
+          "Add strobe effects on the home page"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A visible strobe/flash lighting effect is present in the Home hero background area only; other sections are unaffected.",
+        "Home hero text and buttons remain readable during the effect (no prolonged full-white flashes covering content).",
+        "Respect accessibility: if the user prefers reduced motion, the strobe/flash effect is disabled or significantly reduced."
+      ]
+    },
+    {
+      "id": "REQ-36",
+      "text": "Expand the Auditions section to include the new audition roles “Costume Manager” and “Masks Manager”, each with a short scary English description, while keeping the existing audition dates/hours and the existing roles list intact.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6",
+          "msg-8",
+          "msg-12"
+        ],
+        "quotes": [
+          "Add the new AUDTION roles and description",
+          "Fix the audio add sound on, add description for new audition roles",
+          "add description for new audition roles"
+        ]
+      },
+      "acceptanceCriteria": [
+        "“Costume Manager” and “Masks Manager” appear in the Auditions section as roles.",
+        "Each of the two new roles includes a short scary description in English displayed in the Auditions UI.",
+        "Existing Auditions info remains unchanged: dates (February 7th – March 2nd, 2026), hours (10:00 AM – 9:00 PM), and the existing role entries (including “And Many More...”)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the existing single-actor backend architecture; no backend changes are required for these requests."
+  ],
+  "nonGoals": [
+    "Do not add new backend functionality or persistence for audio settings (no backend state for user preferences).",
+    "Do not add new audio tracks beyond the existing audio assets unless explicitly requested.",
+    "Do not apply strobe/flash effects site-wide; Home page only."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

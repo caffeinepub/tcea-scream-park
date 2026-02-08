@@ -1,0 +1,60 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-fix-the-website-background-audio-so-the-chainsaw-loop-is-reliably-audible-for-users-while-still-handling-browser-autoplay-restrictions-gracefully-the-site-must-provide-a-clear-user-gesture-path-that-starts-playback-successfully-when-autoplay-is-blocked-and-once-enabled-the-audio-must-continue-looping-across-the-session",
+      "featureTitle": "Fix the website background audio so the chainsaw loop is reliably audible for users, while still handling browser autoplay restrictions gracefully. The site must provide a clear user gesture path that starts playback successfully when autoplay is blocked, and once enabled the audio must continue looping across the session.",
+      "files": [
+        "frontend/src/components/audio/BackgroundAudioManager.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-34"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-strobe-flash-background-effects-on-the-home-page-only-the-home-hero-section-matching-the-existing-black-and-green-horror-style-without-reducing-text-readability",
+      "featureTitle": "Add strobe/flash background effects on the Home page only (the #home hero section), matching the existing black-and-green horror style without reducing text readability.",
+      "files": [
+        "frontend/src/components/sections/HomeHeroSection.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-35"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-expand-the-auditions-section-to-include-the-new-audition-roles-costume-manager-and-masks-manager-each-with-a-short-scary-english-description-while-keeping-the-existing-audition-dates-hours-and-the-existing-roles-list-intact",
+      "featureTitle": "Expand the Auditions section to include the new audition roles “Costume Manager” and “Masks Manager”, each with a short scary English description, while keeping the existing audition dates/hours and the existing roles list intact.",
+      "files": [
+        "frontend/src/components/sections/AuditionsSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-36"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
