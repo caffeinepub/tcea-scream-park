@@ -1,61 +1,42 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Force autoplay background audio at 60% volume with clown-laugh fallback and no controls",
+  "title": "Homepage Auditions: add Food/Training/Scary Vibes block",
   "requirements": [
     {
-      "id": "REQ-40",
-      "summary": "Force chainsaw loop autoplay at 0.6 volume and remove all audio controls/prompts from the UI",
+      "id": "REQ-1",
+      "summary": "Add a clearly separated Food/Training/Scary Vibes highlight block within the homepage Auditions section, styled consistently with existing Auditions card/badge accents.",
       "acceptanceCriteria": [
-        "The chainsaw audio element uses the existing file path \"/assets/audio/chainsaw-loop.mp3\" and loops continuously.",
-        "The chainsaw audio volume is set to 0.6.",
-        "On page load, the app attempts to start playback automatically without requiring the user to click a sound button.",
-        "No sound on/off toggle button is rendered anywhere (including the fixed bottom-right icon button).",
-        "No \"Enable Sound\" prompt UI is shown (including the fixed top-right prompt card)."
+        "On the homepage, within the Auditions section content, a new block is visible that presents Food, Training, and Scary Vibes as three distinct items (e.g., three mini-cards, a 3-column grid on desktop / stacked on mobile, or equivalent).",
+        "The new block uses existing site typography/colors and matches the current horror theme (e.g., accent backgrounds, destructive border accents) without introducing a new unrelated theme.",
+        "All user-facing text in the new block is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
-          "operation": "modify",
-          "description": "Update background audio to always attempt autoplay of the chainsaw loop on mount, set chainsaw volume to 0.6 and loop=true, and remove all sound UI (including the fixed toggle button and any \"Enable sound\" prompt rendering/logic) while keeping the component mounted in the app."
-        }
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "summary": "Add an automatic looping clown-laugh audio fallback when chainsaw autoplay fails (no controls)",
-      "acceptanceCriteria": [
-        "A new static audio asset exists at \"/assets/audio/clown-laugh.mp3\" (or equivalent under frontend/public/assets/audio so it is reachable at that URL).",
-        "If the initial chainsaw autoplay attempt fails/throws, the app attempts to autoplay the clown-laugh audio automatically as a fallback.",
-        "The clown-laugh fallback loops continuously when it is the active audio.",
-        "The fallback logic does not introduce new UI controls/buttons for audio."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/audio/clown-laugh.mp3",
+          "path": "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
           "operation": "create",
-          "description": "Add the new static audio file so it is reachable at the URL \"/assets/audio/clown-laugh.mp3\"."
+          "description": "Create a reusable Auditions subcomponent that renders three distinct items (Food, Training, Scary Vibes) using the existing shadcn-ui Card/Badge styling patterns and the current horror theme classes (e.g., bg-accent, border-destructive variants). Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
+          "path": "frontend/src/components/sections/AuditionsSection.tsx",
           "operation": "modify",
-          "description": "Extend the autoplay logic: if chainsaw.play() fails/throws, automatically attempt to start a looping clown-laugh Audio instance (using \"/assets/audio/clown-laugh.mp3\") as a fallback, without rendering any user-facing audio controls."
+          "description": "Compose the new AuditionPerksBlock into the existing Auditions card content (within the Auditions section), ensuring it is clearly separated (spacing/divider) and visually consistent with existing badges/cards/accents. Use existing shadcn-ui components already imported/used (e.g., Card, Badge) rather than modifying any files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-42",
-      "summary": "Mitigate browser autoplay restrictions by re-attempting playback on first-user-gesture events without adding audio UI",
+      "id": "REQ-2",
+      "summary": "Keep the existing audition date range and hours unchanged while integrating the new layout block, without breaking or removing current Auditions content.",
       "acceptanceCriteria": [
-        "When autoplay is blocked on initial load, the app registers first-user-gesture listeners and automatically re-attempts playback once a gesture occurs (without showing a dedicated audio prompt UI).",
-        "After playback successfully starts once, the gesture listeners are cleaned up to avoid repeated calls.",
-        "No additional audio-related UI is added as part of this mitigation."
+        "The Auditions section still displays \"February 7th – March 2nd, 2026\" as the audition dates.",
+        "The Auditions section still displays \"10:00 AM – 9:00 PM\" as the audition hours.",
+        "No other existing Auditions content (roles list, headings) is removed or broken by the layout change."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
+          "path": "frontend/src/components/sections/AuditionsSection.tsx",
           "operation": "modify",
-          "description": "After an initial autoplay failure, register best-effort first-user-gesture listeners (e.g., pointerdown/click/touchstart/keydown on window/document) that re-attempt starting the chainsaw loop first, then the clown-laugh fallback if needed; once playback starts successfully, remove the listeners and avoid repeated play attempts, while keeping the experience control-free."
+          "description": "Refactor only around the insertion point for the new block while preserving the exact date and hours strings currently rendered (\"February 7th – March 2nd, 2026\" and \"10:00 AM – 9:00 PM\") and keeping the roles list/headings intact."
         }
       ]
     }

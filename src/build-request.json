@@ -1,87 +1,61 @@
 {
   "kind": "build_request",
-  "title": "Force chainsaw autoplay at 60% volume, remove sound controls, and add clown-laugh autoplay fallback",
-  "priority": "high",
+  "title": "Add Food/Training/Scary Vibes layout to the homepage Auditions section",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-40",
-      "text": "Update the background audio behavior so the chainsaw loop is forced on by default: set the chainsaw loop volume to 60% (0.6 on the HTMLAudioElement volume scale), attempt to autoplay on page load, and remove the user-facing sound on/off control and any \"Enable sound\" prompt UI from the site.",
+      "id": "REQ-1",
+      "text": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-9"
+          "recent-msg-9",
+          "recent-msg-10",
+          "recent-msg-12"
         ],
         "quotes": [
-          "Add the sound should be 60 loud, audio should automatically plays, and if he doesn’t work add the new fallback is a clown laughing"
+          "The scare actor audition, keep the same date, add layout for food, training and vibes",
+          "Homepage",
+          "Ready to build now"
         ]
       },
       "acceptanceCriteria": [
-        "The chainsaw audio element uses the existing file path \"/assets/audio/chainsaw-loop.mp3\" and loops continuously.",
-        "The chainsaw audio volume is set to 0.6.",
-        "On page load, the app attempts to start playback automatically without requiring the user to click a sound button.",
-        "No sound on/off toggle button is rendered anywhere (including the fixed bottom-right icon button).",
-        "No \"Enable Sound\" prompt UI is shown (including the fixed top-right prompt card)."
+        "On the homepage, within the Auditions section content, a new block is visible that presents Food, Training, and Scary Vibes as three distinct items (e.g., three mini-cards, a 3-column grid on desktop / stacked on mobile, or equivalent).",
+        "The new block uses existing site typography/colors and matches the current horror theme (e.g., accent backgrounds, destructive border accents) without introducing a new unrelated theme.",
+        "All user-facing text in the new block is in English."
       ]
     },
     {
-      "id": "REQ-41",
-      "text": "Add an automatic clown-laugh fallback audio that the site attempts to play when the chainsaw autoplay attempt is blocked or fails; the clown-laugh fallback should loop and should be attempted automatically (no user-facing controls).",
+      "id": "REQ-2",
+      "text": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-9"
+          "recent-msg-9"
         ],
         "quotes": [
-          "add clown laugh if website tries to block it prevent website from blocking it"
+          "keep the same date"
         ]
       },
       "acceptanceCriteria": [
-        "A new static audio asset exists at \"/assets/audio/clown-laugh.mp3\" (or equivalent under frontend/public/assets/audio so it is reachable at that URL).",
-        "If the initial chainsaw autoplay attempt fails/throws, the app attempts to autoplay the clown-laugh audio automatically as a fallback.",
-        "The clown-laugh fallback loops continuously when it is the active audio.",
-        "The fallback logic does not introduce new UI controls/buttons for audio."
-      ]
-    },
-    {
-      "id": "REQ-42",
-      "text": "Implement best-effort mitigation for browser autoplay restrictions without adding audio UI controls: after a blocked autoplay attempt, re-attempt starting the chainsaw loop (and then the clown-laugh fallback if needed) on common first-user-gesture events (e.g., click/tap, keydown, or pointerdown anywhere on the page) while keeping the experience control-free.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "prevent website from blocking it"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When autoplay is blocked on initial load, the app registers first-user-gesture listeners and automatically re-attempts playback once a gesture occurs (without showing a dedicated audio prompt UI).",
-        "After playback successfully starts once, the gesture listeners are cleaned up to avoid repeated calls.",
-        "No additional audio-related UI is added as part of this mitigation."
+        "The Auditions section still displays \"February 7th – March 2nd, 2026\" as the audition dates.",
+        "The Auditions section still displays \"10:00 AM – 9:00 PM\" as the audition hours.",
+        "No other existing Auditions content (roles list, headings) is removed or broken by the layout change."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui or other paths listed in frontend.immutablePaths.",
-    "Backend changes are not required; keep all audio logic on the frontend and serve audio as static assets."
+    "Do not modify files under frontend/src/components/ui (read-only UI component sources must be composed, not edited).",
+    "Do not edit immutable hook/bootstrap files (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Keep the existing audition dates and hours unchanged in the Auditions section."
   ],
   "nonGoals": [
-    "Do not add third-party audio libraries or streaming services.",
-    "Do not implement backend audio serving or persistence for audio settings.",
-    "Do not add additional ambient tracks beyond the existing chainsaw loop and the new clown-laugh fallback."
+    "No backend changes (Motoko actor) are required for this update.",
+    "No new authentication, data persistence, or admin editing UI for audition details.",
+    "No new images are required for this change."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

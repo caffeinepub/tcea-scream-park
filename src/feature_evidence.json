@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-background-audio-behavior-so-the-chainsaw-loop-is-forced-on-by-default-set-the-chainsaw-loop-volume-to-60-0-6-on-the-htmlaudioelement-volume-scale-attempt-to-autoplay-on-page-load-and-remove-the-user-facing-sound-on-off-control-and-any-enable-sound-prompt-ui-from-the-site",
-      "featureTitle": "Update the background audio behavior so the chainsaw loop is forced on by default: set the chainsaw loop volume to 60% (0.6 on the HTMLAudioElement volume scale), attempt to autoplay on page load, and remove the user-facing sound on/off control and any \"Enable sound\" prompt UI from the site.",
+      "featureId": "feature-update-the-homepage-auditions-section-scare-actor-audition-area-to-include-a-new-clearly-separated-layout-block-that-highlights-three-items-food-training-and-scary-vibes-this-block-must-be-visually-consistent-with-the-existing-auditions-card-styling-badges-cards-accents-and-appear-within-the-auditions-section-content-on-the-homepage",
+      "featureTitle": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
       "files": [
-        "frontend/src/components/audio/BackgroundAudioManager.tsx"
+        "frontend/src/components/sections/AuditionsSection.tsx",
+        "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,15 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-40"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-an-automatic-clown-laugh-fallback-audio-that-the-site-attempts-to-play-when-the-chainsaw-autoplay-attempt-is-blocked-or-fails-the-clown-laugh-fallback-should-loop-and-should-be-attempted-automatically-no-user-facing-controls",
-      "featureTitle": "Add an automatic clown-laugh fallback audio that the site attempts to play when the chainsaw autoplay attempt is blocked or fails; the clown-laugh fallback should loop and should be attempted automatically (no user-facing controls).",
+      "featureId": "feature-preserve-the-existing-audition-date-range-and-audition-hours-currently-shown-in-the-auditions-section-do-not-change-the-displayed-dates-times-when-adding-the-new-layout-block",
+      "featureTitle": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
       "files": [
-        "frontend/src/components/audio/BackgroundAudioManager.tsx"
+        "frontend/src/components/sections/AuditionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -33,25 +34,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-41"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-best-effort-mitigation-for-browser-autoplay-restrictions-without-adding-audio-ui-controls-after-a-blocked-autoplay-attempt-re-attempt-starting-the-chainsaw-loop-and-then-the-clown-laugh-fallback-if-needed-on-common-first-user-gesture-events-e-g-click-tap-keydown-or-pointerdown-anywhere-on-the-page-while-keeping-the-experience-control-free",
-      "featureTitle": "Implement best-effort mitigation for browser autoplay restrictions without adding audio UI controls: after a blocked autoplay attempt, re-attempt starting the chainsaw loop (and then the clown-laugh fallback if needed) on common first-user-gesture events (e.g., click/tap, keydown, or pointerdown anywhere on the page) while keeping the experience control-free.",
-      "files": [
-        "frontend/src/components/audio/BackgroundAudioManager.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-42"
+        "REQ-2"
       ],
       "confidence": "high"
     }

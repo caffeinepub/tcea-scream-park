@@ -2,6 +2,8 @@ import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Users } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { AuditionPerksBlock } from './auditions/AuditionPerksBlock';
 
 interface Role {
   name: string;
@@ -60,6 +62,11 @@ export function AuditionsSection() {
                 </div>
               </div>
             </div>
+
+            {/* Perks Block */}
+            <Separator className="bg-destructive/20" />
+            <AuditionPerksBlock />
+            <Separator className="bg-destructive/20" />
 
             {/* Roles */}
             <div>

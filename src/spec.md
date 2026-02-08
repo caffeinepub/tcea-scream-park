@@ -1,12 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Force background chainsaw audio to autoplay at 60% volume with no sound controls, and add an automatic looping clown-laugh fallback when autoplay is blocked.
+**Goal:** Update the homepage Auditions (scare-actor audition) section to add a clearly separated, on-theme layout block highlighting Food, Training, and Scary Vibes, without changing existing audition dates/hours.
 
 **Planned changes:**
-- Set the existing chainsaw loop (`/assets/audio/chainsaw-loop.mp3`) to loop continuously, default volume 0.6, and attempt autoplay on page load.
-- Remove all user-facing sound UI, including any sound on/off toggle and any “Enable sound” prompt UI.
-- Add a new static fallback audio asset (`/assets/audio/clown-laugh.mp3`) and attempt to autoplay it (looping) if chainsaw autoplay fails/throws.
-- Add best-effort autoplay mitigation: when autoplay is blocked, register first-user-gesture listeners (e.g., click/tap, keydown, pointerdown) to re-attempt starting chainsaw (then fallback if needed) and clean up listeners after successful playback.
+- Add a new, visually distinct block within the homepage Auditions section that presents Food, Training, and Scary Vibes as three separate items (responsive: grid on desktop, stacked on mobile or equivalent).
+- Match the new block’s styling to the existing Auditions card look-and-feel (typography, colors, horror-themed accents) using existing UI components and site styles.
+- Preserve all current Auditions content, including the displayed date range (“February 7th – March 2nd, 2026”) and hours (“10:00 AM – 9:00 PM”).
 
-**User-visible outcome:** The site plays a looping chainsaw background sound automatically at 60% volume; if autoplay is blocked, it will start automatically after the first user interaction, falling back to a looping clown-laugh if the chainsaw cannot start—without any sound buttons or prompts.
+**User-visible outcome:** On the homepage Auditions section, visitors see an additional on-theme block calling out Food, Training, and Scary Vibes as three distinct items while the audition dates/hours remain unchanged.
