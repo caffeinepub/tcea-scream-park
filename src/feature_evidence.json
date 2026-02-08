@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-fix-the-website-background-audio-so-the-chainsaw-loop-is-reliably-audible-for-users-while-still-handling-browser-autoplay-restrictions-gracefully-the-site-must-provide-a-clear-user-gesture-path-that-starts-playback-successfully-when-autoplay-is-blocked-and-once-enabled-the-audio-must-continue-looping-across-the-session",
-      "featureTitle": "Fix the website background audio so the chainsaw loop is reliably audible for users, while still handling browser autoplay restrictions gracefully. The site must provide a clear user gesture path that starts playback successfully when autoplay is blocked, and once enabled the audio must continue looping across the session.",
+      "featureId": "feature-update-the-background-audio-behavior-so-the-chainsaw-loop-is-forced-on-by-default-set-the-chainsaw-loop-volume-to-60-0-6-on-the-htmlaudioelement-volume-scale-attempt-to-autoplay-on-page-load-and-remove-the-user-facing-sound-on-off-control-and-any-enable-sound-prompt-ui-from-the-site",
+      "featureTitle": "Update the background audio behavior so the chainsaw loop is forced on by default: set the chainsaw loop volume to 60% (0.6 on the HTMLAudioElement volume scale), attempt to autoplay on page load, and remove the user-facing sound on/off control and any \"Enable sound\" prompt UI from the site.",
       "files": [
         "frontend/src/components/audio/BackgroundAudioManager.tsx"
       ],
@@ -15,16 +15,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-34"
+        "REQ-40"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-strobe-flash-background-effects-on-the-home-page-only-the-home-hero-section-matching-the-existing-black-and-green-horror-style-without-reducing-text-readability",
-      "featureTitle": "Add strobe/flash background effects on the Home page only (the #home hero section), matching the existing black-and-green horror style without reducing text readability.",
+      "featureId": "feature-add-an-automatic-clown-laugh-fallback-audio-that-the-site-attempts-to-play-when-the-chainsaw-autoplay-attempt-is-blocked-or-fails-the-clown-laugh-fallback-should-loop-and-should-be-attempted-automatically-no-user-facing-controls",
+      "featureTitle": "Add an automatic clown-laugh fallback audio that the site attempts to play when the chainsaw autoplay attempt is blocked or fails; the clown-laugh fallback should loop and should be attempted automatically (no user-facing controls).",
       "files": [
-        "frontend/src/components/sections/HomeHeroSection.tsx",
-        "frontend/tailwind.config.js"
+        "frontend/src/components/audio/BackgroundAudioManager.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -34,15 +33,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-35"
+        "REQ-41"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-expand-the-auditions-section-to-include-the-new-audition-roles-costume-manager-and-masks-manager-each-with-a-short-scary-english-description-while-keeping-the-existing-audition-dates-hours-and-the-existing-roles-list-intact",
-      "featureTitle": "Expand the Auditions section to include the new audition roles “Costume Manager” and “Masks Manager”, each with a short scary English description, while keeping the existing audition dates/hours and the existing roles list intact.",
+      "featureId": "feature-implement-best-effort-mitigation-for-browser-autoplay-restrictions-without-adding-audio-ui-controls-after-a-blocked-autoplay-attempt-re-attempt-starting-the-chainsaw-loop-and-then-the-clown-laugh-fallback-if-needed-on-common-first-user-gesture-events-e-g-click-tap-keydown-or-pointerdown-anywhere-on-the-page-while-keeping-the-experience-control-free",
+      "featureTitle": "Implement best-effort mitigation for browser autoplay restrictions without adding audio UI controls: after a blocked autoplay attempt, re-attempt starting the chainsaw loop (and then the clown-laugh fallback if needed) on common first-user-gesture events (e.g., click/tap, keydown, or pointerdown anywhere on the page) while keeping the experience control-free.",
       "files": [
-        "frontend/src/components/sections/AuditionsSection.tsx"
+        "frontend/src/components/audio/BackgroundAudioManager.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -52,7 +51,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-36"
+        "REQ-42"
       ],
       "confidence": "high"
     }

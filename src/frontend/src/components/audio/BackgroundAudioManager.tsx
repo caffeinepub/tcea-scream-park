@@ -1,126 +1,116 @@
-import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useEffect, useRef } from 'react';
 
 export function BackgroundAudioManager() {
-  const ambientRef = useRef<HTMLAudioElement | null>(null);
   const chainsawRef = useRef<HTMLAudioElement | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showUnmutePrompt, setShowUnmutePrompt] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const clownLaughRef = useRef<HTMLAudioElement | null>(null);
+  const hasStartedRef = useRef(false);
+  const gestureListenersAttachedRef = useRef(false);
 
   useEffect(() => {
-    // Create audio elements
-    const ambient = new Audio('/assets/audio/ambient-eerie-loop.mp3');
+    // Create chainsaw audio element
     const chainsaw = new Audio('/assets/audio/chainsaw-loop.mp3');
-
-    ambient.loop = true;
     chainsaw.loop = true;
-    ambient.volume = 0.4;
-    chainsaw.volume = 0.5; // Increased from 0.2 to 0.5 for audibility
+    chainsaw.volume = 0.6; // 60% volume
 
-    ambientRef.current = ambient;
+    // Create clown laugh fallback audio element
+    const clownLaugh = new Audio('/assets/audio/clown-laugh.mp3');
+    clownLaugh.loop = true;
+    clownLaugh.volume = 0.6; // 60% volume
+
     chainsawRef.current = chainsaw;
+    clownLaughRef.current = clownLaugh;
 
-    // Attempt autoplay
-    const playAudio = async () => {
+    // Attempt to play chainsaw audio on mount
+    const attemptChainsawPlay = async () => {
       try {
-        await ambient.play();
         await chainsaw.play();
-        setIsPlaying(true);
-        setIsMuted(false);
+        hasStartedRef.current = true;
+        // Success - chainsaw is playing
       } catch (error) {
-        // Autoplay blocked - show unmute prompt
-        setShowUnmutePrompt(true);
-        setIsPlaying(false);
+        // Chainsaw autoplay failed, try clown laugh fallback
+        attemptClownLaughPlay();
       }
     };
 
-    playAudio();
+    // Attempt to play clown laugh fallback
+    const attemptClownLaughPlay = async () => {
+      try {
+        await clownLaugh.play();
+        hasStartedRef.current = true;
+        // Success - clown laugh is playing
+      } catch (error) {
+        // Both failed, attach gesture listeners for retry
+        attachGestureListeners();
+      }
+    };
+
+    // Attach user gesture listeners to retry playback
+    const attachGestureListeners = () => {
+      if (gestureListenersAttachedRef.current) return;
+      gestureListenersAttachedRef.current = true;
+
+      const retryPlayback = async () => {
+        if (hasStartedRef.current) return;
+
+        // Try chainsaw first
+        try {
+          await chainsaw.play();
+          hasStartedRef.current = true;
+          removeGestureListeners();
+          return;
+        } catch (error) {
+          // Chainsaw failed, try clown laugh
+          try {
+            await clownLaugh.play();
+            hasStartedRef.current = true;
+            removeGestureListeners();
+          } catch (fallbackError) {
+            // Both still failing, listeners will remain for next gesture
+          }
+        }
+      };
+
+      const events = ['pointerdown', 'click', 'touchstart', 'keydown'];
+      events.forEach(event => {
+        window.addEventListener(event, retryPlayback, { once: false });
+      });
+
+      // Store cleanup function
+      window.__audioGestureCleanup = () => {
+        events.forEach(event => {
+          window.removeEventListener(event, retryPlayback);
+        });
+      };
+    };
+
+    const removeGestureListeners = () => {
+      if (window.__audioGestureCleanup) {
+        window.__audioGestureCleanup();
+        delete window.__audioGestureCleanup;
+      }
+      gestureListenersAttachedRef.current = false;
+    };
+
+    // Start initial playback attempt
+    attemptChainsawPlay();
 
     // Cleanup
     return () => {
-      ambient.pause();
       chainsaw.pause();
-      ambient.src = '';
       chainsaw.src = '';
+      clownLaugh.pause();
+      clownLaugh.src = '';
+      removeGestureListeners();
     };
   }, []);
 
-  const toggleMute = async () => {
-    if (ambientRef.current && chainsawRef.current) {
-      if (isMuted || !isPlaying) {
-        // Unmute or start playing
-        try {
-          await ambientRef.current.play();
-          await chainsawRef.current.play();
-          setIsMuted(false);
-          setIsPlaying(true);
-          setShowUnmutePrompt(false);
-        } catch (error) {
-          // If play fails, show prompt
-          setShowUnmutePrompt(true);
-          setIsPlaying(false);
-        }
-      } else {
-        // Mute
-        ambientRef.current.pause();
-        chainsawRef.current.pause();
-        setIsMuted(true);
-        setIsPlaying(false);
-      }
-    }
-  };
+  // No UI rendered - audio plays automatically in background
+  return null;
+}
 
-  const handleEnableSound = async () => {
-    if (ambientRef.current && chainsawRef.current) {
-      try {
-        await ambientRef.current.play();
-        await chainsawRef.current.play();
-        setShowUnmutePrompt(false);
-        setIsMuted(false);
-        setIsPlaying(true);
-      } catch (error) {
-        // Keep showing prompt if it still fails
-        setShowUnmutePrompt(true);
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  return (
-    <>
-      {/* Enable Sound Prompt */}
-      {showUnmutePrompt && (
-        <div className="fixed top-24 right-4 z-50 bg-card/95 backdrop-blur-sm border border-destructive/50 rounded-lg p-4 shadow-glow-green max-w-xs">
-          <p className="text-sm text-muted-foreground mb-3">
-            Enable sound effects for the full horror experience
-          </p>
-          <Button
-            onClick={handleEnableSound}
-            size="sm"
-            className="w-full bg-destructive hover:bg-destructive/90"
-          >
-            <Volume2 className="h-4 w-4 mr-2" />
-            Enable Sound
-          </Button>
-        </div>
-      )}
-
-      {/* Mute/Unmute Control */}
-      <Button
-        onClick={toggleMute}
-        size="icon"
-        variant="outline"
-        className="fixed bottom-4 right-4 z-50 bg-card/80 backdrop-blur-sm border-destructive/50 hover:bg-card hover:border-destructive shadow-glow-green"
-        aria-label={isMuted || !isPlaying ? 'Unmute audio' : 'Mute audio'}
-      >
-        {isMuted || !isPlaying ? (
-          <VolumeX className="h-5 w-5 text-destructive" />
-        ) : (
-          <Volume2 className="h-5 w-5 text-destructive" />
-        )}
-      </Button>
-    </>
-  );
+// Extend Window interface for cleanup function
+declare global {
+  interface Window {
+    __audioGestureCleanup?: () => void;
+  }
 }

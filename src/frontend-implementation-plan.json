@@ -1,59 +1,61 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Audio autoplay reliability, Home strobe hero effect, and expanded Auditions roles",
+  "title": "Force autoplay background audio at 60% volume with clown-laugh fallback and no controls",
   "requirements": [
     {
-      "id": "REQ-34",
-      "summary": "Make the chainsaw background loop reliably audible with graceful autoplay-block handling and accurate mute/unmute state.",
+      "id": "REQ-40",
+      "summary": "Force chainsaw loop autoplay at 0.6 volume and remove all audio controls/prompts from the UI",
       "acceptanceCriteria": [
-        "On a fresh load where autoplay is blocked, the UI shows an “Enable Sound” prompt; clicking it successfully starts the looping audio.",
-        "When sound is enabled, the chainsaw loop is clearly audible at a reasonable volume (not near-silent).",
-        "The existing sound control (mute/unmute) continues to work and accurately reflects whether audio is currently playing.",
-        "No console errors are produced during normal playback, mute/unmute, and unmount cleanup."
+        "The chainsaw audio element uses the existing file path \"/assets/audio/chainsaw-loop.mp3\" and loops continuously.",
+        "The chainsaw audio volume is set to 0.6.",
+        "On page load, the app attempts to start playback automatically without requiring the user to click a sound button.",
+        "No sound on/off toggle button is rendered anywhere (including the fixed bottom-right icon button).",
+        "No \"Enable Sound\" prompt UI is shown (including the fixed top-right prompt card)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
           "operation": "modify",
-          "description": "Harden the background audio manager to handle autoplay restrictions via an explicit user-gesture flow (persistent “Enable Sound” prompt when needed), ensure the chainsaw loop is set to an audibly reasonable volume, and make mute/unmute reflect actual playback state (including blocked unmute attempts). Remove/avoid console errors during normal operation and ensure clean teardown on unmount. Use shadcn-ui Button for the prompt/control UI—verify the component's usage instructions before implementing."
+          "description": "Update background audio to always attempt autoplay of the chainsaw loop on mount, set chainsaw volume to 0.6 and loop=true, and remove all sound UI (including the fixed toggle button and any \"Enable sound\" prompt rendering/logic) while keeping the component mounted in the app."
         }
       ]
     },
     {
-      "id": "REQ-35",
-      "summary": "Add an accessibility-aware strobe/flash background effect limited to the Home (#home) hero section.",
+      "id": "REQ-41",
+      "summary": "Add an automatic looping clown-laugh audio fallback when chainsaw autoplay fails (no controls)",
       "acceptanceCriteria": [
-        "A visible strobe/flash lighting effect is present in the Home hero background area only; other sections are unaffected.",
-        "Home hero text and buttons remain readable during the effect (no prolonged full-white flashes covering content).",
-        "Respect accessibility: if the user prefers reduced motion, the strobe/flash effect is disabled or significantly reduced."
+        "A new static audio asset exists at \"/assets/audio/clown-laugh.mp3\" (or equivalent under frontend/public/assets/audio so it is reachable at that URL).",
+        "If the initial chainsaw autoplay attempt fails/throws, the app attempts to autoplay the clown-laugh audio automatically as a fallback.",
+        "The clown-laugh fallback loops continuously when it is the active audio.",
+        "The fallback logic does not introduce new UI controls/buttons for audio."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/HomeHeroSection.tsx",
-          "operation": "modify",
-          "description": "Add a hero-only, layered strobe/flash overlay behind the hero content (and above the background image/gradients) that matches the black/green horror theme and preserves readability (low opacity, short pulses, no full-coverage white). Gate the effect with reduced-motion handling (disable or significantly reduce when the user prefers reduced motion)."
+          "path": "frontend/public/assets/audio/clown-laugh.mp3",
+          "operation": "create",
+          "description": "Add the new static audio file so it is reachable at the URL \"/assets/audio/clown-laugh.mp3\"."
         },
         {
-          "path": "frontend/tailwind.config.js",
+          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
           "operation": "modify",
-          "description": "Add Tailwind keyframes/animation utilities for the Home hero strobe/flash effect (e.g., a subtle green-tinted pulse/flicker) so the effect can be applied via classes and controlled with motion-safe/motion-reduce variants."
+          "description": "Extend the autoplay logic: if chainsaw.play() fails/throws, automatically attempt to start a looping clown-laugh Audio instance (using \"/assets/audio/clown-laugh.mp3\") as a fallback, without rendering any user-facing audio controls."
         }
       ]
     },
     {
-      "id": "REQ-36",
-      "summary": "Add “Costume Manager” and “Masks Manager” to Auditions with short scary English descriptions, preserving existing dates/hours and roles.",
+      "id": "REQ-42",
+      "summary": "Mitigate browser autoplay restrictions by re-attempting playback on first-user-gesture events without adding audio UI",
       "acceptanceCriteria": [
-        "“Costume Manager” and “Masks Manager” appear in the Auditions section as roles.",
-        "Each of the two new roles includes a short scary description in English displayed in the Auditions UI.",
-        "Existing Auditions info remains unchanged: dates (February 7th – March 2nd, 2026), hours (10:00 AM – 9:00 PM), and the existing role entries (including “And Many More...”)."
+        "When autoplay is blocked on initial load, the app registers first-user-gesture listeners and automatically re-attempts playback once a gesture occurs (without showing a dedicated audio prompt UI).",
+        "After playback successfully starts once, the gesture listeners are cleaned up to avoid repeated calls.",
+        "No additional audio-related UI is added as part of this mitigation."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
           "operation": "modify",
-          "description": "Expand the roles data to include the two new roles with short scary English descriptions while keeping all existing roles and the “And Many More...” entry intact. Update the UI to display descriptions for the two new roles without altering the existing dates/hours content. Use shadcn-ui Card/Badge components as appropriate for consistent styling—verify the component's usage instructions before implementing."
+          "description": "After an initial autoplay failure, register best-effort first-user-gesture listeners (e.g., pointerdown/click/touchstart/keydown on window/document) that re-attempt starting the chainsaw loop first, then the clown-laugh fallback if needed; once playback starts successfully, remove the listeners and avoid repeated play attempts, while keeping the experience control-free."
         }
       ]
     }

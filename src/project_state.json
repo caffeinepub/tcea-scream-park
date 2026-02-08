@@ -1,17 +1,19 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 17,
   "summary": "Expand the TCEA Scream Park scary promotional website further with targeted bloody header/haunted-house-card effects, new sub-scenes for select haunted houses, new standalone home-page imagery sections (procession + Clown Town interior elevation) with descriptions, updated event info (hours, 6pm procession details, 11pm release/chase warning), ticket pricing and multiple pass types, new food booths with menus and scary descriptions, site rules (actors/procession/food/entry), and haunted-house wait times—while keeping the black-and-green horror theme and realistic AI-generated visuals plus looping audio.",
   "architectural_notes": [
     "Add additional AI-generated static images (beyond logo/hero) and store them under frontend/public/assets/generated; render them as static assets (no backend image serving).",
     "Autoplay looping background audio will be added (chainsaw + eerie ambience); ensure implementation includes a user control (mute/volume) and handles browser autoplay restrictions gracefully.",
     "Add new standalone Home page image sections (Procession + Clown Town interior elevation) as static assets under frontend/public/assets/generated with accompanying written descriptions; place the Procession section below the existing hero.",
     "Home page only: add strobe/flash background visual effects (avoid impacting readability and accessibility; keep effect scoped to Home).",
-    "Audio: ensure chainsaw SFX is actually audible by default via a clear user-initiated 'Sound On' control when autoplay is blocked; keep persistent mute/on state across navigation."
+    "Audio behavior update: set chainsaw loop default volume to 60% (0.6), remove the Sound On/Sound Off UI, and force autoplay on load wherever the browser permits.",
+    "Autoplay fallback: when browser autoplay is blocked, attempt to play a clown-laugh audio fallback automatically instead of showing the prior sound control/prompt."
   ],
   "known_issues": [
     "App creation/build process encountered an error during generation; user requested to retry ('Generate again').",
-    "Background audio (chainsaw + ambience) currently not audible for the user; needs a fix that works with browser autoplay restrictions."
+    "Background audio (chainsaw + ambience) currently not audible for the user; needs a fix that works with browser autoplay restrictions.",
+    "Browser autoplay restrictions cannot be fully bypassed ('prevent website from blocking it'); forced autoplay without a user gesture may still fail on some devices/browsers even with a fallback audio."
   ],
   "isFixRequest": true,
   "existing_features": [
@@ -302,6 +304,54 @@
         "REQ-36"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-background-audio-system-to-play-only-the-existing-chainsaw-loop-audio-no-ambient-eerie-tracks-while-keeping-the-current-sound-on-sound-off-control-available",
+      "title": "Update the background audio system to play ONLY the existing chainsaw loop audio (no ambient/eerie tracks), while keeping the current sound on/sound off control available.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-chainsaw-loop-attempts-to-start-automatically-on-page-load-and-when-autoplay-is-blocked-by-the-browser-provide-a-clear-user-gesture-path-that-starts-the-chainsaw-loop-successfully-without-removing-the-existing-control",
+      "title": "Ensure the chainsaw loop attempts to start automatically on page load, and when autoplay is blocked by the browser, provide a clear user-gesture path that starts the chainsaw loop successfully without removing the existing control.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-user-facing-audio-ui-text-in-english-and-align-it-with-the-requested-sound-on-sound-off-behavior-explicitly-representing-both-states",
+      "title": "Keep user-facing audio UI text in English and align it with the requested sound on/sound off behavior (explicitly representing both states).",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-background-audio-behavior-so-the-chainsaw-loop-is-forced-on-by-default-set-the-chainsaw-loop-volume-to-60-0-6-on-the-htmlaudioelement-volume-scale-attempt-to-autoplay-on-page-load-and-remove-the-user-facing-sound-on-off-control-and-any-enable-sound-prompt-ui-from-the-site",
+      "title": "Update the background audio behavior so the chainsaw loop is forced on by default: set the chainsaw loop volume to 60% (0.6 on the HTMLAudioElement volume scale), attempt to autoplay on page load, and remove the user-facing sound on/off control and any \"Enable sound\" prompt UI from the site.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-automatic-clown-laugh-fallback-audio-that-the-site-attempts-to-play-when-the-chainsaw-autoplay-attempt-is-blocked-or-fails-the-clown-laugh-fallback-should-loop-and-should-be-attempted-automatically-no-user-facing-controls",
+      "title": "Add an automatic clown-laugh fallback audio that the site attempts to play when the chainsaw autoplay attempt is blocked or fails; the clown-laugh fallback should loop and should be attempted automatically (no user-facing controls).",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-best-effort-mitigation-for-browser-autoplay-restrictions-without-adding-audio-ui-controls-after-a-blocked-autoplay-attempt-re-attempt-starting-the-chainsaw-loop-and-then-the-clown-laugh-fallback-if-needed-on-common-first-user-gesture-events-e-g-click-tap-keydown-or-pointerdown-anywhere-on-the-page-while-keeping-the-experience-control-free",
+      "title": "Implement best-effort mitigation for browser autoplay restrictions without adding audio UI controls: after a blocked autoplay attempt, re-attempt starting the chainsaw loop (and then the clown-laugh fallback if needed) on common first-user-gesture events (e.g., click/tap, keydown, or pointerdown anywhere on the page) while keeping the experience control-free.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -428,6 +478,12 @@
     {
       "id": "AR-21",
       "summary": "Expand Auditions roles by adding new roles (Costume Manager, Masks Manager) with scary role descriptions.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Update audio behavior: force autoplay chainsaw loop at 60% volume with no sound on/off control; if autoplay is blocked, automatically play a clown-laugh fallback audio instead (acknowledging browser autoplay restrictions).",
       "reqIds": [],
       "status": "pending"
     }

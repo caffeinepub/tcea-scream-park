@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T03:24:11.598Z",
+  "generatedAt": "2026-02-08T03:43:37.401Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,8 +11,8 @@
     "implemented": 3,
     "items": [
       {
-        "id": "REQ-34",
-        "summary": "Fix the website background audio so the chainsaw loop is reliably audible for users, while still handling browser autoplay restrictions gracefully. The site must provide a clear user gesture path that starts playback successfully when autoplay is blocked, and once enabled the audio must continue looping across the session.",
+        "id": "REQ-40",
+        "summary": "Update the background audio behavior so the chainsaw loop is forced on by default: set the chainsaw loop volume to 60% (0.6 on the HTMLAudioElement volume scale), attempt to autoplay on page load, and remove the user-facing sound on/off control and any \"Enable sound\" prompt UI from the site.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/audio/BackgroundAudioManager.tsx"
@@ -22,27 +22,26 @@
         ]
       },
       {
-        "id": "REQ-35",
-        "summary": "Add strobe/flash background effects on the Home page only (the #home hero section), matching the existing black-and-green horror style without reducing text readability.",
+        "id": "REQ-41",
+        "summary": "Add an automatic clown-laugh fallback audio that the site attempts to play when the chainsaw autoplay attempt is blocked or fails; the clown-laugh fallback should loop and should be attempted automatically (no user-facing controls).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/HomeHeroSection.tsx",
-          "frontend/tailwind.config.js"
+          "frontend/public/assets/audio/clown-laugh.mp3",
+          "frontend/src/components/audio/BackgroundAudioManager.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/HomeHeroSection.tsx",
-          "frontend/tailwind.config.js"
+          "frontend/src/components/audio/BackgroundAudioManager.tsx"
         ]
       },
       {
-        "id": "REQ-36",
-        "summary": "Expand the Auditions section to include the new audition roles “Costume Manager” and “Masks Manager”, each with a short scary English description, while keeping the existing audition dates/hours and the existing roles list intact.",
+        "id": "REQ-42",
+        "summary": "Implement best-effort mitigation for browser autoplay restrictions without adding audio UI controls: after a blocked autoplay attempt, re-attempt starting the chainsaw loop (and then the clown-laugh fallback if needed) on common first-user-gesture events (e.g., click/tap, keydown, or pointerdown anywhere on the page) while keeping the experience control-free.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/src/components/audio/BackgroundAudioManager.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/src/components/audio/BackgroundAudioManager.tsx"
         ]
       }
     ]
@@ -53,9 +52,6 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/audio/BackgroundAudioManager.tsx",
-    "frontend/src/components/sections/AuditionsSection.tsx",
-    "frontend/src/components/sections/HomeHeroSection.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
