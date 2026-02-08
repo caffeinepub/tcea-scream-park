@@ -1,11 +1,16 @@
 # Specification
 
 ## Summary
-**Goal:** Update the homepage Auditions (scare-actor audition) section to add a clearly separated, on-theme layout block highlighting Food, Training, and Scary Vibes, without changing existing audition dates/hours.
+**Goal:** Expand the site with a chainsaw-themed homepage background plus new sneak-peek, food booth, and scare zone content (each with dedicated pages and navigation).
 
 **Planned changes:**
-- Add a new, visually distinct block within the homepage Auditions section that presents Food, Training, and Scary Vibes as three separate items (responsive: grid on desktop, stacked on mobile or equivalent).
-- Match the new block’s styling to the existing Auditions card look-and-feel (typography, colors, horror-themed accents) using existing UI components and site styles.
-- Preserve all current Auditions content, including the displayed date range (“February 7th – March 2nd, 2026”) and hours (“10:00 AM – 9:00 PM”).
+- Add a new AI-generated chainsaw-themed image as the homepage/site-wide background layer, blended to preserve strong text contrast and readability.
+- Add a new “Schoolhouse Haunted House” sneak-peek section on the homepage with an AI-generated concept scenic elevation image, English description, and an on-page anchor id.
+- Create a dedicated page/route for the Schoolhouse sneak peek and link to it from the homepage section.
+- Add two new food booths to the homepage Food Booths section and create dedicated pages for each:
+  - “Slider Doom” (label: “Coming 2027”) with menu text exactly “Fries. Loaded sparks”, plus an English horror-themed description and AI-generated image.
+  - “Sharks Hell” (label: “Coming 2028”) with menu items exactly “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”, plus an English horror-themed description and AI-generated image.
+- Add a new scare zone “Laser Hell” to the homepage Scare Zones section with an English description, a clearly displayed AI-chosen location, an AI-generated image, and a dedicated page for it.
+- Update header navigation and internal links so the new dedicated pages are discoverable without breaking existing homepage smooth-scroll anchor navigation.
 
-**User-visible outcome:** On the homepage Auditions section, visitors see an additional on-theme block calling out Food, Training, and Scary Vibes as three distinct items while the audition dates/hours remain unchanged.
+**User-visible outcome:** Visitors see a new chainsaw-themed background and new homepage content (Schoolhouse sneak peek, Slider Doom, Sharks Hell, Laser Hell), and can click through to dedicated pages for each new item via working navigation and links.

@@ -10,6 +10,7 @@ export const generatedImages = {
   scareZones: {
     'Carnival Bros Circus': '/assets/generated/zone-carnival-bros-circus.dim_1400x900.jpg',
     "Playtime's Over": '/assets/generated/zone-playtimes-over.dim_1400x900.jpg',
+    'Laser Hell': '/assets/generated/zone-laser-hell.dim_1400x900.jpg',
   },
   foodBooths: {
     'Clown town Chicken': '/assets/generated/booth-clown-town-chicken.dim_1400x900.jpg',
@@ -20,5 +21,7 @@ export const generatedImages = {
     'Scary bears spicy eyes': '/assets/generated/booth-scary-bears-spicy-eyes.dim_1400x900.jpg',
     'Terror bite': '/assets/generated/booth-terror-bite.dim_1400x900.jpg',
     'chaos  carnival': '/assets/generated/booth-chaos-carnival.dim_1400x900.jpg',
+    'Slider Doom': '/assets/generated/booth-slider-doom.dim_1400x900.jpg',
+    'Sharks Hell': '/assets/generated/booth-sharks-hell.dim_1400x900.jpg',
   },
 };

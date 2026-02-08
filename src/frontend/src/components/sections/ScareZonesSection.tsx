@@ -1,10 +1,17 @@
 import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { scareZones } from '../../content/scareZones';
 import { generatedImages } from '../../content/generatedImages';
-import { Skull } from 'lucide-react';
+import { Skull, Eye, MapPin } from 'lucide-react';
 
 export function ScareZonesSection() {
+  const handleViewZone = (zoneName: string) => {
+    if (zoneName === 'Laser Hell') {
+      window.location.hash = '#/scare-zones/laser-hell';
+    }
+  };
+
   return (
     <Section
       id="scare-zones"
@@ -30,6 +37,12 @@ export function ScareZonesSection() {
 
             <CardHeader>
               <CardTitle className="text-2xl text-destructive">{zone.name}</CardTitle>
+              {zone.location && (
+                <CardDescription className="text-muted-foreground flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  {zone.location}
+                </CardDescription>
+              )}
               <CardDescription className="text-destructive/80 italic font-semibold">
                 {zone.tagline}
               </CardDescription>
@@ -38,6 +51,16 @@ export function ScareZonesSection() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {zone.description}
               </p>
+              {zone.name === 'Laser Hell' && (
+                <Button
+                  onClick={() => handleViewZone(zone.name)}
+                  variant="outline"
+                  className="w-full mt-4 border-destructive/40 text-destructive hover:bg-destructive/10"
+                >
+                  <Eye className="mr-2 h-4 w-4" />
+                  View Details
+                </Button>
+              )}
             </CardContent>
           </Card>
         ))}

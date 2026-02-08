@@ -1,6 +1,16 @@
 export function HorrorBackground() {
   return (
     <>
+      {/* Chainsaw-themed background image */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <img
+          src="/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg"
+          alt=""
+          className="w-full h-full object-cover opacity-[0.15]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" />
+      </div>
+
       {/* Deep black base with green glow vignette */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-black">
         <div 

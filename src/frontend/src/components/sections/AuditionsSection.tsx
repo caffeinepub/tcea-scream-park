@@ -49,7 +49,7 @@ export function AuditionsSection() {
                 <Calendar className="h-6 w-6 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Audition Dates</h3>
-                  <p className="text-muted-foreground">February 7th – March 2nd, 2026</p>
+                  <p className="text-muted-foreground">April 7th thru 17th</p>
                   <p className="text-sm text-muted-foreground mt-1">Every day</p>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export function AuditionsSection() {
                 <Clock className="h-6 w-6 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg mb-1">Audition Hours</h3>
-                  <p className="text-muted-foreground">10:00 AM – 9:00 PM</p>
+                  <p className="text-muted-foreground">4-9 pm</p>
                   <p className="text-sm text-muted-foreground mt-1">Daily schedule</p>
                 </div>
               </div>

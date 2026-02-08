@@ -1,24 +1,68 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "App update: add a new layout section on the homepage within the scare-actor audition area highlighting \"food, training, and scary vibes\" while keeping the existing audition date range unchanged.",
-  "architectural_notes": [],
+  "summary": "Homepage and dedicated pages for a haunted house attraction site: add a Schoolhouse Haunted House sneak-peek concept scenic elevation, new food booths (Slider Doom 2027, Sharks Hell 2028) with AI-written descriptions and menus, a new scare zone (Laser Hell) with description and location, and an AI-generated chainsaw-themed homepage background.",
+  "architectural_notes": [
+    "Homepage will include promos/sections linking to dedicated pages for Sneak Peek, each Food Booth, and the Scare Zone.",
+    "Use AI-generated imagery for the homepage background and the Schoolhouse Haunted House concept scenic elevation image."
+  ],
   "known_issues": [],
   "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Chainsaw-themed horror background image with gritty texture and subtle depth (chainsaw-home-bg.dim_2400x1350.jpg)\n- Concept scenic elevation of a haunted schoolhouse exterior, cinematic lighting, architectural elevation feel (schoolhouse-sneak-peek-elevation.dim_1600x900.jpg)\n- Horror food booth key art for “Slider Doom” (booth-slider-doom.dim_1400x900.jpg)\n- Horror food booth key art for “Sharks Hell” (booth-sharks-hell.dim_1400x900.jpg)\n- Scare zone key art for “Laser Hell” with laser-like lighting atmosphere (zone-laser-hell.dim_1400x900.jpg)",
   "existing_features": [
     {
-      "id": "feature-update-the-homepage-auditions-section-scare-actor-audition-area-to-include-a-new-clearly-separated-layout-block-that-highlights-three-items-food-training-and-scary-vibes-this-block-must-be-visually-consistent-with-the-existing-auditions-card-styling-badges-cards-accents-and-appear-within-the-auditions-section-content-on-the-homepage",
-      "title": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
+      "id": "feature-add-an-ai-generated-chainsaw-themed-background-to-the-homepage-site-wide-background-layer-keeping-the-existing-horror-aesthetic-and-ensuring-text-contrast-readability-remains-strong-across-all-sections",
+      "title": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-preserve-the-existing-audition-date-range-and-audition-hours-currently-shown-in-the-auditions-section-do-not-change-the-displayed-dates-times-when-adding-the-new-layout-block",
-      "title": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
+      "id": "feature-create-a-new-homepage-section-for-a-schoolhouse-haunted-house-sneak-peek-that-presents-an-ai-generated-concept-scenic-elevation-image-of-the-house-plus-an-ai-written-description-and-place-it-on-the-homepage",
+      "title": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
       "reqIds": [
         "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-dedicated-page-for-the-schoolhouse-haunted-house-sneak-peek-including-the-same-or-expanded-scenic-elevation-image-and-description-and-ensure-users-can-navigate-to-it-from-the-homepage-section",
+      "title": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-food-booth-named-slider-doom-labeled-as-coming-2027-with-menu-item-text-exactly-fries-loaded-sparks-and-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
+      "title": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-food-booth-named-sharks-hell-labeled-as-coming-2028-that-serves-the-following-menu-items-exactly-cookie-dough-sharks-cookie-stuffed-ice-cream-chocolate-white-chocolate-and-laser-beam-shake-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
+      "title": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-scare-zone-named-laser-hell-with-an-ai-written-english-description-and-an-ai-chosen-specific-location-expressed-in-english-and-show-it-on-the-homepage-scare-zones-section-with-an-ai-generated-image-also-create-a-dedicated-page-for-it-that-includes-the-description-and-location",
+      "title": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-navigation-header-and-internal-linking-so-users-can-discover-and-reach-the-new-dedicated-pages-for-schoolhouse-sneak-peek-slider-doom-sharks-hell-and-laser-hell-without-breaking-existing-smooth-scroll-anchor-navigation",
+      "title": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+      "reqIds": [
+        "REQ-7"
       ],
       "version": 1
     }
@@ -26,12 +70,37 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Homepage: add a layout section in the scare-actor audition area for Food, Training, and Scary Vibes details (keep existing audition dates unchanged)",
+      "summary": "Add AI-generated chainsaw-themed background image to the homepage",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add 'Schoolhouse Haunted House' sneak peek section on homepage with AI-generated concept scenic elevation image and create a dedicated page for it",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add new food booth 'Slider Doom' (Coming 2027) with menu item 'Fries. Loaded sparks', AI-written description, homepage promo, and a dedicated page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add new food booth 'Sharks Hell' (Coming 2028) serving 'Cookie dough sharks cookie', 'stuffed ice cream', 'chocolate white chocolate', and 'Laser beam Shake' with AI-written description, homepage promo, and a dedicated page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add new scare zone 'Laser Hell' with AI-written description and specified location, homepage promo, and a dedicated page",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Add Food/Training/Scary Vibes layout to the homepage Auditions section",
+  "gameProjectType": "none",
+  "projectName": "Add Schoolhouse Sneak Peek, new food booths (2027/2028), Laser Hell scare zone, and chainsaw homepage background",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

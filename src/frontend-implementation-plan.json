@@ -1,42 +1,236 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Homepage Auditions: add Food/Training/Scary Vibes block",
+  "title": "Homepage chainsaw background, Schoolhouse sneak peek, new booths (2027/2028), Laser Hell zone, and dedicated pages (hash routing)",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add a clearly separated Food/Training/Scary Vibes highlight block within the homepage Auditions section, styled consistently with existing Auditions card/badge accents.",
+      "summary": "Add a chainsaw-themed AI background image as a subtle site-wide background layer while preserving readability.",
       "acceptanceCriteria": [
-        "On the homepage, within the Auditions section content, a new block is visible that presents Food, Training, and Scary Vibes as three distinct items (e.g., three mini-cards, a 3-column grid on desktop / stacked on mobile, or equivalent).",
-        "The new block uses existing site typography/colors and matches the current horror theme (e.g., accent backgrounds, destructive border accents) without introducing a new unrelated theme.",
-        "All user-facing text in the new block is in English."
+        "A new chainsaw-themed background image is added as a static asset under frontend/public/assets/generated and is used in the homepage/global background layer.",
+        "Foreground content (hero text, cards, navigation) remains readable; background is subtly blended (e.g., via opacity/overlay) rather than overpowering.",
+        "No changes are made to any files under frontend/src/components/ui or other immutablePaths."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
+          "path": "frontend/public/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg",
           "operation": "create",
-          "description": "Create a reusable Auditions subcomponent that renders three distinct items (Food, Training, Scary Vibes) using the existing shadcn-ui Card/Badge styling patterns and the current horror theme classes (e.g., bg-accent, border-destructive variants). Verify the component's usage instructions before implementing."
+          "description": "Add the required AI-generated chainsaw-themed background static asset at this exact path/filename so it can be referenced by the global background layer."
         },
         {
-          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "path": "frontend/src/components/theme/HorrorBackground.tsx",
           "operation": "modify",
-          "description": "Compose the new AuditionPerksBlock into the existing Auditions card content (within the Auditions section), ensuring it is clearly separated (spacing/divider) and visually consistent with existing badges/cards/accents. Use existing shadcn-ui components already imported/used (e.g., Card, Badge) rather than modifying any files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
+          "description": "Add a fixed-position image layer referencing frontend/public/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg with conservative opacity and a dark/gradient overlay to maintain strong text contrast/readability across all sections."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Keep the existing audition date range and hours unchanged while integrating the new layout block, without breaking or removing current Auditions content.",
+      "summary": "Add a Schoolhouse Haunted House sneak-peek section on the homepage with an AI-generated scenic elevation image and English description, reachable via an anchor id.",
       "acceptanceCriteria": [
-        "The Auditions section still displays \"February 7th – March 2nd, 2026\" as the audition dates.",
-        "The Auditions section still displays \"10:00 AM – 9:00 PM\" as the audition hours.",
-        "No other existing Auditions content (roles list, headings) is removed or broken by the layout change."
+        "Homepage includes a clearly titled Schoolhouse sneak-peek section with an AI-generated concept scenic elevation image and an English description.",
+        "Section is reachable via an on-page anchor id and fits the existing styling patterns (uses the shared Section + Card layout where appropriate)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "path": "frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg",
+          "operation": "create",
+          "description": "Add the required AI-generated Schoolhouse concept scenic elevation static asset at this exact path/filename."
+        },
+        {
+          "path": "frontend/src/content/schoolhouseSneakPeek.ts",
+          "operation": "create",
+          "description": "Create content for the Schoolhouse sneak peek (English title, description text, and any small metadata needed by both the homepage section and the dedicated page)."
+        },
+        {
+          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "operation": "create",
+          "description": "Implement a new homepage section using the existing Section layout and Card styling patterns, including anchor id (e.g., \"schoolhouse-sneak-peek\"), rendering the image from frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg and the English description from content."
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Refactor only around the insertion point for the new block while preserving the exact date and hours strings currently rendered (\"February 7th – March 2nd, 2026\" and \"10:00 AM – 9:00 PM\") and keeping the roles list/headings intact."
+          "description": "Wire the new SchoolhouseSneakPeekSection into the homepage flow in a sensible position without creating orphan UI (ensure it renders as part of the homepage view)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Create a dedicated Schoolhouse sneak-peek page with a stable route and link to it from the homepage section.",
+      "acceptanceCriteria": [
+        "There is a dedicated Schoolhouse sneak-peek page with a stable URL/route within the frontend.",
+        "Homepage Schoolhouse sneak-peek section includes a working link/button to open the dedicated page.",
+        "The dedicated page renders correctly on refresh (direct navigation to the URL works)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SchoolhouseSneakPeekPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated page view that displays the Schoolhouse sneak peek image (frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg) and the same (or expanded) English description from content, with an obvious way to return to the homepage."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add hash-based routing (e.g., using window.location.hash parsing) to render either the homepage or the new SchoolhouseSneakPeekPage at a stable route (e.g., \"#/schoolhouse\"). Ensure direct navigation/refresh works because hash routes are client-only."
+        },
+        {
+          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "operation": "modify",
+          "description": "Add a clear CTA/link (e.g., \"View Sneak Peek\") that navigates to the dedicated hash route for the Schoolhouse page (e.g., \"#/schoolhouse\") while preserving the on-page anchor id behavior for the section."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add the Slider Doom food booth (Coming 2027) with exact menu text, AI description, homepage card image via generatedImages mapping, and a dedicated page.",
+      "acceptanceCriteria": [
+        "Food booth “Slider Doom” appears in the Food Booths grid on the homepage with label “Coming 2027”, an English description, and menu containing the exact text “Fries. Loaded sparks”.",
+        "A new AI-generated image is available for Slider Doom and is wired through the generatedImages mapping so the booth card displays an image.",
+        "A dedicated Slider Doom page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/booth-slider-doom.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the required AI-generated Slider Doom booth key art static asset at this exact path/filename."
+        },
+        {
+          "path": "frontend/src/content/foodBooths.ts",
+          "operation": "modify",
+          "description": "Append a new booth entry for “Slider Doom” with label exactly “Coming 2027”, an English horror-tone tagline/description, and menu containing the exact text item “Fries. Loaded sparks” (as a string item or an object name that renders exactly that text)."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Wire the Slider Doom image into the generatedImages.foodBooths mapping so the Food Booths card can resolve and display it (map “Slider Doom” to the path for frontend/public/assets/generated/booth-slider-doom.dim_1400x900.jpg)."
+        },
+        {
+          "path": "frontend/src/pages/SliderDoomPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated Slider Doom page view that renders the booth name, label/year, image, English description, and menu, matching the homepage content."
+        },
+        {
+          "path": "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "operation": "modify",
+          "description": "Add internal linking from the Slider Doom booth card (or a CTA within the card) to the dedicated hash route (e.g., \"#/food-booths/slider-doom\"). Ensure existing booth cards remain unchanged in behavior except for adding non-breaking link support."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the Slider Doom dedicated page in the hash-based routing table so direct navigation/refresh works for the stable route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add the Sharks Hell food booth (Coming 2028) with exact menu items, AI description, homepage card image via generatedImages mapping, and a dedicated page.",
+      "acceptanceCriteria": [
+        "Food booth “Sharks Hell” appears in the Food Booths grid on the homepage with label “Coming 2028”, an English description, and the menu items listed exactly as provided.",
+        "A new AI-generated image is available for Sharks Hell and is wired through the generatedImages mapping so the booth card displays an image.",
+        "A dedicated Sharks Hell page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/booth-sharks-hell.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the required AI-generated Sharks Hell booth key art static asset at this exact path/filename."
+        },
+        {
+          "path": "frontend/src/content/foodBooths.ts",
+          "operation": "modify",
+          "description": "Append a new booth entry for “Sharks Hell” with label exactly “Coming 2028”, an English horror-tone tagline/description, and menu items listed exactly as: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, “Laser beam Shake”."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Wire the Sharks Hell image into generatedImages.foodBooths mapping (map “Sharks Hell” to the path for frontend/public/assets/generated/booth-sharks-hell.dim_1400x900.jpg) so the homepage booth card displays the image."
+        },
+        {
+          "path": "frontend/src/pages/SharksHellPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated Sharks Hell page view that renders the booth name, label/year, image, English description, and exact menu list."
+        },
+        {
+          "path": "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "operation": "modify",
+          "description": "Add internal linking from the Sharks Hell booth card (or a CTA within the card) to the dedicated hash route (e.g., \"#/food-booths/sharks-hell\")."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the Sharks Hell dedicated page in the hash-based routing table so direct navigation/refresh works for the stable route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add the Laser Hell scare zone with AI-written English description, AI-chosen location, generated image mapping, homepage display, and a dedicated page.",
+      "acceptanceCriteria": [
+        "“Laser Hell” appears in the homepage Scare Zones grid with an English tagline/description and an AI-generated image wired via the generatedImages mapping.",
+        "The location for Laser Hell is clearly displayed (either as a dedicated field rendered in UI or included as a clearly labeled line in the content).",
+        "A dedicated Laser Hell page exists and includes the zone name, image, description, and location, with a working navigation link from the homepage zone card (or CTA)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/zone-laser-hell.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the required AI-generated Laser Hell scare zone key art static asset at this exact path/filename."
+        },
+        {
+          "path": "frontend/src/content/scareZones.ts",
+          "operation": "modify",
+          "description": "Add a new scare zone entry for “Laser Hell” including an English horror-tone tagline/description and an explicit English location field/value (AI-chosen)."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Wire the Laser Hell image into generatedImages.scareZones mapping (map “Laser Hell” to the path for frontend/public/assets/generated/zone-laser-hell.dim_1400x900.jpg) so the scare zone card displays an image."
+        },
+        {
+          "path": "frontend/src/components/sections/ScareZonesSection.tsx",
+          "operation": "modify",
+          "description": "Render the Laser Hell location clearly in the scare zone card UI (e.g., a labeled line), and add a non-breaking link/CTA from the zone card to the dedicated Laser Hell page route."
+        },
+        {
+          "path": "frontend/src/pages/LaserHellPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated Laser Hell page view including the zone name, image, English description, and clearly labeled location, plus a return-to-home link."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the Laser Hell dedicated page in the hash-based routing table so direct navigation/refresh works for the stable route."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Update header navigation and internal linking so new dedicated pages are discoverable without breaking existing smooth-scroll anchor navigation.",
+      "acceptanceCriteria": [
+        "Header navigation continues to work for existing homepage anchors (e.g., #auditions, #food-booths, #scare-zones).",
+        "Users can reach each new dedicated page from the homepage (via section CTAs/cards) and optionally via header navigation without confusing anchor-only behavior.",
+        "No console errors related to routing/navigation in normal browsing."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/SiteHeader.tsx",
+          "operation": "modify",
+          "description": "Update navigation handling to preserve smooth-scroll for homepage anchors while also supporting navigation when currently on a dedicated hash route (e.g., when clicking an anchor item, first navigate to the homepage hash and then scroll). Optionally add a small “Pages”/“Sneak Peek” link group that uses hash routes for Schoolhouse, Slider Doom, Sharks Hell, and Laser Hell without interfering with anchor-only items."
+        },
+        {
+          "path": "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure booth cards/CTAs link to the dedicated pages for Slider Doom and Sharks Hell while keeping the section anchor id (#food-booths) behavior intact."
+        },
+        {
+          "path": "frontend/src/components/sections/ScareZonesSection.tsx",
+          "operation": "modify",
+          "description": "Ensure the Laser Hell scare zone card/CTA links to its dedicated page while keeping the section anchor id (#scare-zones) behavior intact."
+        },
+        {
+          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "operation": "modify",
+          "description": "Ensure the Schoolhouse homepage section includes a clear link/CTA to its dedicated page and that the section remains reachable via its on-page anchor id."
         }
       ]
     }

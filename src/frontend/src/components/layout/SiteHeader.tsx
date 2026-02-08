@@ -26,11 +26,28 @@ export function SiteHeader() {
   ];
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsMobileMenuOpen(false);
+    // If we're on a dedicated page, navigate to home first
+    if (window.location.hash.startsWith('#/')) {
+      window.location.hash = '';
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
+    setIsMobileMenuOpen(false);
+  };
+
+  const navigateToHome = () => {
+    window.location.hash = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -51,7 +68,7 @@ export function SiteHeader() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-between h-20">
           <button
-            onClick={() => scrollToSection('#home')}
+            onClick={navigateToHome}
             className="flex items-center gap-3 group"
           >
             <img

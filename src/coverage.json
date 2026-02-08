@@ -1,37 +1,138 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T16:19:43.645Z",
+  "generatedAt": "2026-02-08T21:18:49.499Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 7,
+    "implemented": 7,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
+        "summary": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/public/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg",
+          "frontend/src/components/theme/HorrorBackground.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/public/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg",
+          "frontend/src/components/theme/HorrorBackground.tsx"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
+        "summary": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg",
+          "frontend/src/content/schoolhouseSneakPeek.ts",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg",
+          "frontend/src/content/schoolhouseSneakPeek.ts",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/SchoolhouseSneakPeekPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/SchoolhouseSneakPeekPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/booth-slider-doom.dim_1400x900.jpg",
+          "frontend/src/content/foodBooths.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/pages/SliderDoomPage.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/booth-slider-doom.dim_1400x900.jpg",
+          "frontend/src/content/foodBooths.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/pages/SliderDoomPage.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/booth-sharks-hell.dim_1400x900.jpg",
+          "frontend/src/content/foodBooths.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/pages/SharksHellPage.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/booth-sharks-hell.dim_1400x900.jpg",
+          "frontend/src/content/foodBooths.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/pages/SharksHellPage.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/zone-laser-hell.dim_1400x900.jpg",
+          "frontend/src/content/scareZones.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/ScareZonesSection.tsx",
+          "frontend/src/pages/LaserHellPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/zone-laser-hell.dim_1400x900.jpg",
+          "frontend/src/content/scareZones.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/ScareZonesSection.tsx",
+          "frontend/src/pages/LaserHellPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/components/sections/ScareZonesSection.tsx",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/layout/SiteHeader.tsx",
+          "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "frontend/src/components/sections/ScareZonesSection.tsx",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
         ]
       }
     ]
@@ -41,8 +142,25 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/sections/AuditionsSection.tsx",
-    "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
+    "frontend/public/assets/generated/booth-sharks-hell.dim_1400x900.jpg",
+    "frontend/public/assets/generated/booth-slider-doom.dim_1400x900.jpg",
+    "frontend/public/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg",
+    "frontend/public/assets/generated/schoolhouse-sneak-peek-elevation.dim_1600x900.jpg",
+    "frontend/public/assets/generated/zone-laser-hell.dim_1400x900.jpg",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/SiteHeader.tsx",
+    "frontend/src/components/sections/FoodBoothsSection.tsx",
+    "frontend/src/components/sections/ScareZonesSection.tsx",
+    "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+    "frontend/src/components/theme/HorrorBackground.tsx",
+    "frontend/src/content/foodBooths.ts",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/scareZones.ts",
+    "frontend/src/content/schoolhouseSneakPeek.ts",
+    "frontend/src/pages/LaserHellPage.tsx",
+    "frontend/src/pages/SchoolhouseSneakPeekPage.tsx",
+    "frontend/src/pages/SharksHellPage.tsx",
+    "frontend/src/pages/SliderDoomPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

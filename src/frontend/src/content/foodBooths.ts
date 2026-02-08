@@ -77,5 +77,26 @@ export const foodBooths = {
         { name: 'Jax\'s Burritos', description: 'Massive burritos packed with rice, beans, meat, and all the fixings—a meal fit for a monster' },
       ],
     },
+    {
+      name: 'Slider Doom',
+      tagline: 'Sliders that slide you into darkness',
+      description: 'At Slider Doom, every bite is a descent into delicious damnation. Our sliders are crafted with cursed beef patties, grilled to perfection and topped with ingredients that whisper forbidden flavors. The Loaded Sparks fries crackle with electric seasoning that will jolt your taste buds awake. This booth doesn\'t just serve food—it serves fate. One slider, and you\'ll be hooked. Two, and there\'s no turning back.',
+      label: 'Coming 2027',
+      menu: [
+        'Fries. Loaded sparks',
+      ],
+    },
+    {
+      name: 'Sharks Hell',
+      tagline: 'Dive into the depths of dessert terror',
+      description: 'Sharks Hell emerges from the abyss in 2028, bringing with it a menu of sweet nightmares. Our Cookie Dough Sharks Cookie is a monstrous treat, packed with chunks of raw dough that bite back. The Stuffed Ice Cream is a frozen surprise filled with sinister sweets. Choose between Chocolate or White Chocolate, each one a portal to frozen hell. And don\'t miss the Laser Beam Shake—a neon concoction that glows with otherworldly energy and tastes like the future of fear.',
+      label: 'Coming 2028',
+      menu: [
+        'Cookie dough sharks cookie',
+        'stuffed ice cream',
+        'chocolate white chocolate',
+        'Laser beam Shake',
+      ],
+    },
   ],
 };

@@ -1,23 +1,113 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T16:19:43.643Z",
-  "summary": "REQ-1 and REQ-2 appear implemented: a new AuditionPerksBlock renders three distinct items (Food, Training, Scary Vibes) within the homepage Auditions section, and the audition dates/hours strings remain unchanged. However, the diff also expands/changes the roles list with new roles and descriptions that were not requested.",
-  "missing_requirements": [],
-  "hallucinated_features": [
+  "generatedAt": "2026-02-08T21:18:49.496Z",
+  "summary": "Most requested frontend features appear implemented via new sections/pages, hash-based routing, content additions, and generatedImages wiring. However, the diff summary does not provide evidence that the required AI-generated image files were actually added under frontend/public/assets/generated. Several additional unrelated content/UX changes also appear to have been introduced.",
+  "missing_requirements": [
     {
-      "description": "Expanded/modified Auditions roles list by adding new roles (e.g., Costume Manager, Masks Manager) and long horror descriptions.",
-      "reason": "BuildRequest only asked to add a new Food/Training/Scary Vibes layout block while preserving existing audition dates/hours; it did not request changing or expanding the roles list content.",
+      "id": "REQ-1",
+      "requirement": "Add a chainsaw-themed homepage/site-wide background image as a static asset under frontend/public/assets/generated and use it in the global background layer.",
+      "reason": "Code references the chainsaw background path, but the diff summary does not show any new static asset files added under frontend/public/assets/generated.",
       "evidence": [
-        "frontend/src/components/sections/AuditionsSection.tsx"
+        "frontend/src/components/theme/HorrorBackground.tsx",
+        "frontend/src/content/generatedImages.ts"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Add the Schoolhouse sneak-peek scenic elevation image as a static asset under frontend/public/assets/generated.",
+      "reason": "The Schoolhouse content references the image path, but the diff summary does not show the actual image file being added to frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/content/schoolhouseSneakPeek.ts",
+        "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+        "frontend/src/pages/SchoolhouseSneakPeekPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Add the Slider Doom booth key art image as a static asset under frontend/public/assets/generated and ensure the booth card displays it via generatedImages mapping.",
+      "reason": "generatedImages is wired to '/assets/generated/booth-slider-doom.dim_1400x900.jpg', but the diff summary does not show that image asset being added under frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/SliderDoomPage.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Add the Sharks Hell booth key art image as a static asset under frontend/public/assets/generated and ensure the booth card displays it via generatedImages mapping.",
+      "reason": "generatedImages is wired to '/assets/generated/booth-sharks-hell.dim_1400x900.jpg', but the diff summary does not show that image asset being added under frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/SharksHellPage.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Add the Laser Hell scare zone key art image as a static asset under frontend/public/assets/generated and ensure the zone card displays it via generatedImages mapping.",
+      "reason": "generatedImages is wired to '/assets/generated/zone-laser-hell.dim_1400x900.jpg', but the diff summary does not show that image asset being added under frontend/public/assets/generated.",
+      "evidence": [
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/LaserHellPage.tsx",
+        "frontend/src/components/sections/ScareZonesSection.tsx"
       ]
     }
   ],
-  "confidence": 0.78,
+  "hallucinated_features": [
+    {
+      "description": "Added/changed HomeHeroSection behavior including a new 'accessibility-aware strobe/flash background effect layer'.",
+      "reason": "Not requested in any REQ; BuildRequest focuses on new background image + new Schoolhouse/booths/zone content and navigation.",
+      "evidence": [
+        "frontend-file-summaries.txt (HomeHeroSection summary)"
+      ]
+    },
+    {
+      "description": "Expanded/modified Auditions content including new roles (e.g., Costume Manager, Masks Manager) and expanded roles list.",
+      "reason": "Not requested; auditions changes are outside REQ-1..REQ-7 scope.",
+      "evidence": [
+        "frontend-file-summaries.txt (AuditionsSection summary)"
+      ]
+    },
+    {
+      "description": "Expanded/modified HauntedHousesSection content (new taglines/descriptions, sub-scenes, wait-time information, and location information).",
+      "reason": "Not requested; BuildRequest did not ask to rewrite haunted houses content.",
+      "evidence": [
+        "frontend-file-summaries.txt (HauntedHousesSection summary)"
+      ]
+    },
+    {
+      "description": "Expanded/modified InfoLocationSection (operating hours, ticket pricing, pass types, detailed rules subsections, 11pm nightly release warning).",
+      "reason": "Not requested; BuildRequest does not mention modifying the info/location section content.",
+      "evidence": [
+        "frontend-file-summaries.txt (InfoLocationSection summary)"
+      ]
+    },
+    {
+      "description": "Modified footer content to include an 'extreme haunt warning with liability disclaimer' and attribution link.",
+      "reason": "Not requested in REQ-1..REQ-7.",
+      "evidence": [
+        "frontend-file-summaries.txt (SiteFooter summary)"
+      ]
+    }
+  ],
+  "confidence": 0.64,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/sections/AuditionsSection.tsx",
-    "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/SiteHeader.tsx",
+    "frontend/src/components/sections/FoodBoothsSection.tsx",
+    "frontend/src/components/sections/ScareZonesSection.tsx",
+    "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+    "frontend/src/components/theme/HorrorBackground.tsx",
+    "frontend/src/content/foodBooths.ts",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/scareZones.ts",
+    "frontend/src/content/schoolhouseSneakPeek.ts",
+    "frontend/src/pages/LaserHellPage.tsx",
+    "frontend/src/pages/SchoolhouseSneakPeekPage.tsx",
+    "frontend/src/pages/SharksHellPage.tsx",
+    "frontend/src/pages/SliderDoomPage.tsx",
     "project_state.json"
   ]
 }

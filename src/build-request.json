@@ -1,61 +1,170 @@
 {
   "kind": "build_request",
-  "title": "Add Food/Training/Scary Vibes layout to the homepage Auditions section",
+  "title": "Add Schoolhouse Sneak Peek, new food booths (2027/2028), Laser Hell scare zone, and chainsaw homepage background",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
+      "text": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-msg-9",
-          "recent-msg-10",
-          "recent-msg-12"
+          "msg-10",
+          "msg-12"
         ],
         "quotes": [
-          "The scare actor audition, keep the same date, add layout for food, training and vibes",
-          "Homepage",
-          "Ready to build now"
+          "Yes AI generated homepage background",
+          "Build it now"
         ]
       },
       "acceptanceCriteria": [
-        "On the homepage, within the Auditions section content, a new block is visible that presents Food, Training, and Scary Vibes as three distinct items (e.g., three mini-cards, a 3-column grid on desktop / stacked on mobile, or equivalent).",
-        "The new block uses existing site typography/colors and matches the current horror theme (e.g., accent backgrounds, destructive border accents) without introducing a new unrelated theme.",
-        "All user-facing text in the new block is in English."
+        "A new chainsaw-themed background image is added as a static asset under frontend/public/assets/generated and is used in the homepage/global background layer.",
+        "Foreground content (hero text, cards, navigation) remains readable; background is subtly blended (e.g., via opacity/overlay) rather than overpowering.",
+        "No changes are made to any files under frontend/src/components/ui or other immutablePaths."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
+      "text": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-msg-9"
+          "msg-4",
+          "msg-6",
+          "msg-8"
         ],
         "quotes": [
-          "keep the same date"
+          "Add a sneak peek into Schoolhouse haunted house make it a concept scenic elevation of the house",
+          "Appear at homepage, AI generated image and add own dedicated pages",
+          "Create a description for each of them"
         ]
       },
       "acceptanceCriteria": [
-        "The Auditions section still displays \"February 7th – March 2nd, 2026\" as the audition dates.",
-        "The Auditions section still displays \"10:00 AM – 9:00 PM\" as the audition hours.",
-        "No other existing Auditions content (roles list, headings) is removed or broken by the layout change."
+        "Homepage includes a clearly titled Schoolhouse sneak-peek section with an AI-generated concept scenic elevation image and an English description.",
+        "Section is reachable via an on-page anchor id and fits the existing styling patterns (uses the shared Section + Card layout where appropriate)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Appear at homepage, AI generated image and add own dedicated pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is a dedicated Schoolhouse sneak-peek page with a stable URL/route within the frontend.",
+        "Homepage Schoolhouse sneak-peek section includes a working link/button to open the dedicated page.",
+        "The dedicated page renders correctly on refresh (direct navigation to the URL works)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "a new food booth coming 2027 called Slider Doom menu is Fries. Loaded sparks add description for it",
+          "Appear at homepage, AI generated image and add own dedicated pages",
+          "Create a description for each of them"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Food booth “Slider Doom” appears in the Food Booths grid on the homepage with label “Coming 2027”, an English description, and menu containing the exact text “Fries. Loaded sparks”.",
+        "A new AI-generated image is available for Slider Doom and is wired through the generatedImages mapping so the booth card displays an image.",
+        "A dedicated Slider Doom page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "a new food booth coming 2028 called Sharks Hell serves Cookie dough sharks cookie, stuffed ice cream, chocolate white chocolate to and Laser beam Shake.",
+          "Appear at homepage, AI generated image and add own dedicated pages",
+          "Create a description for each of them"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Food booth “Sharks Hell” appears in the Food Booths grid on the homepage with label “Coming 2028”, an English description, and the menu items listed exactly as provided.",
+        "A new AI-generated image is available for Sharks Hell and is wired through the generatedImages mapping so the booth card displays an image.",
+        "A dedicated Sharks Hell page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "New scare zone called Laser hell add description for jt and location",
+          "Appear at homepage, AI generated image and add own dedicated pages",
+          "Create a description for each of them"
+        ]
+      },
+      "acceptanceCriteria": [
+        "“Laser Hell” appears in the homepage Scare Zones grid with an English tagline/description and an AI-generated image wired via the generatedImages mapping.",
+        "The location for Laser Hell is clearly displayed (either as a dedicated field rendered in UI or included as a clearly labeled line in the content).",
+        "A dedicated Laser Hell page exists and includes the zone name, image, description, and location, with a working navigation link from the homepage zone card (or CTA)."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Appear at homepage, AI generated image and add own dedicated pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header navigation continues to work for existing homepage anchors (e.g., #auditions, #food-booths, #scare-zones).",
+        "Users can reach each new dedicated page from the homepage (via section CTAs/cards) and optionally via header navigation without confusing anchor-only behavior.",
+        "No console errors related to routing/navigation in normal browsing."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/components/ui (read-only UI component sources must be composed, not edited).",
-    "Do not edit immutable hook/bootstrap files (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
-    "Keep the existing audition dates and hours unchanged in the Auditions section."
+    "Use English for all user-facing text.",
+    "Do not edit any files under frontend/src/components/ui (read-only UI components) or any other paths listed in frontend.immutablePaths.",
+    "Keep backend as-is unless strictly necessary; no external databases or third-party services."
   ],
   "nonGoals": [
-    "No backend changes (Motoko actor) are required for this update.",
-    "No new authentication, data persistence, or admin editing UI for audition details.",
-    "No new images are required for this change."
+    "Do not implement real-time features (WebSockets/chat).",
+    "Do not add third-party authentication beyond Internet Identity.",
+    "Do not add payments, maps/geolocation, or external CMS integrations."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Chainsaw-themed horror background image with gritty texture and subtle depth (chainsaw-home-bg.dim_2400x1350.jpg)",
+      "Concept scenic elevation of a haunted schoolhouse exterior, cinematic lighting, architectural elevation feel (schoolhouse-sneak-peek-elevation.dim_1600x900.jpg)",
+      "Horror food booth key art for “Slider Doom” (booth-slider-doom.dim_1400x900.jpg)",
+      "Horror food booth key art for “Sharks Hell” (booth-sharks-hell.dim_1400x900.jpg)",
+      "Scare zone key art for “Laser Hell” with laser-like lighting atmosphere (zone-laser-hell.dim_1400x900.jpg)"
+    ],
     "edits": []
   }
 }

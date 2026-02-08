@@ -1,11 +1,20 @@
 import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { foodBooths } from '../../content/foodBooths';
 import { generatedImages } from '../../content/generatedImages';
-import { UtensilsCrossed, Gift } from 'lucide-react';
+import { UtensilsCrossed, Gift, Eye } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export function FoodBoothsSection() {
+  const handleViewBooth = (boothName: string) => {
+    if (boothName === 'Slider Doom') {
+      window.location.hash = '#/food-booths/slider-doom';
+    } else if (boothName === 'Sharks Hell') {
+      window.location.hash = '#/food-booths/sharks-hell';
+    }
+  };
+
   return (
     <Section
       id="food-booths"
@@ -87,6 +96,16 @@ export function FoodBoothsSection() {
                   ))}
                 </ul>
               </div>
+              {(booth.name === 'Slider Doom' || booth.name === 'Sharks Hell') && (
+                <Button
+                  onClick={() => handleViewBooth(booth.name)}
+                  variant="outline"
+                  className="w-full mt-4 border-destructive/40 text-destructive hover:bg-destructive/10"
+                >
+                  <Eye className="mr-2 h-4 w-4" />
+                  View Details
+                </Button>
+              )}
             </CardContent>
           </Card>
         ))}

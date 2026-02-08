@@ -2,11 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-homepage-auditions-section-scare-actor-audition-area-to-include-a-new-clearly-separated-layout-block-that-highlights-three-items-food-training-and-scary-vibes-this-block-must-be-visually-consistent-with-the-existing-auditions-card-styling-badges-cards-accents-and-appear-within-the-auditions-section-content-on-the-homepage",
-      "featureTitle": "Update the homepage Auditions section (scare-actor audition area) to include a new, clearly separated layout block that highlights three items: Food, Training, and Scary Vibes. This block must be visually consistent with the existing Auditions card styling (badges/cards/accents) and appear within the Auditions section content on the homepage.",
+      "featureId": "feature-add-an-ai-generated-chainsaw-themed-background-to-the-homepage-site-wide-background-layer-keeping-the-existing-horror-aesthetic-and-ensuring-text-contrast-readability-remains-strong-across-all-sections",
+      "featureTitle": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
       "files": [
-        "frontend/src/components/sections/AuditionsSection.tsx",
-        "frontend/src/components/sections/auditions/AuditionPerksBlock.tsx"
+        "frontend/src/components/theme/HorrorBackground.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,10 +20,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-preserve-the-existing-audition-date-range-and-audition-hours-currently-shown-in-the-auditions-section-do-not-change-the-displayed-dates-times-when-adding-the-new-layout-block",
-      "featureTitle": "Preserve the existing audition date range and audition hours currently shown in the Auditions section; do not change the displayed dates/times when adding the new layout block.",
+      "featureId": "feature-create-a-new-homepage-section-for-a-schoolhouse-haunted-house-sneak-peek-that-presents-an-ai-generated-concept-scenic-elevation-image-of-the-house-plus-an-ai-written-description-and-place-it-on-the-homepage",
+      "featureTitle": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
       "files": [
-        "frontend/src/components/sections/AuditionsSection.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+        "frontend/src/content/schoolhouseSneakPeek.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -35,6 +36,113 @@
       ],
       "testIds": [
         "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-dedicated-page-for-the-schoolhouse-haunted-house-sneak-peek-including-the-same-or-expanded-scenic-elevation-image-and-description-and-ensure-users-can-navigate-to-it-from-the-homepage-section",
+      "featureTitle": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+        "frontend/src/pages/SchoolhouseSneakPeekPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-new-food-booth-named-slider-doom-labeled-as-coming-2027-with-menu-item-text-exactly-fries-loaded-sparks-and-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
+      "featureTitle": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx",
+        "frontend/src/content/foodBooths.ts",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/SliderDoomPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-new-food-booth-named-sharks-hell-labeled-as-coming-2028-that-serves-the-following-menu-items-exactly-cookie-dough-sharks-cookie-stuffed-ice-cream-chocolate-white-chocolate-and-laser-beam-shake-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
+      "featureTitle": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx",
+        "frontend/src/content/foodBooths.ts",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/SharksHellPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-new-scare-zone-named-laser-hell-with-an-ai-written-english-description-and-an-ai-chosen-specific-location-expressed-in-english-and-show-it-on-the-homepage-scare-zones-section-with-an-ai-generated-image-also-create-a-dedicated-page-for-it-that-includes-the-description-and-location",
+      "featureTitle": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/ScareZonesSection.tsx",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/scareZones.ts",
+        "frontend/src/pages/LaserHellPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-site-navigation-header-and-internal-linking-so-users-can-discover-and-reach-the-new-dedicated-pages-for-schoolhouse-sneak-peek-slider-doom-sharks-hell-and-laser-hell-without-breaking-existing-smooth-scroll-anchor-navigation",
+      "featureTitle": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+      "files": [
+        "frontend/src/components/layout/SiteHeader.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx",
+        "frontend/src/components/sections/ScareZonesSection.tsx",
+        "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
       ],
       "confidence": "high"
     }
