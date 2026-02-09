@@ -10,7 +10,81 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface _SERVICE {}
+export type AgeRestriction = { 'teens' : null } |
+  { 'kids' : null } |
+  { 'none' : null } |
+  { 'adultsOnly' : null };
+export interface AttractionSpecificFields {
+  'yearIntroduced' : [] | [bigint],
+  'ageRestriction' : AgeRestriction,
+  'hasGuidedTour' : boolean,
+}
+export interface ContentItem {
+  'id' : bigint,
+  'useMainHauntSchedule' : boolean,
+  'name' : string,
+  'description' : string,
+  'customType' : ContentType,
+  'dates' : Array<EventDateRange>,
+}
+export type ContentType = { 'show' : ShowSpecificFields } |
+  { 'event' : EventSpecificFields } |
+  { 'scareZone' : ScareZoneSpecificFields } |
+  { 'attraction' : AttractionSpecificFields };
+export interface Date { 'day' : bigint, 'month' : bigint, 'year' : bigint }
+export interface EventDateRange { 'endDate' : Date, 'startDate' : Date }
+export interface EventSpecificFields { 'eventType' : EventType }
+export type EventType = { 'seasonal' : null } |
+  { 'convention' : null } |
+  { 'holiday' : null } |
+  { 'specialEvent' : null } |
+  { 'special' : null };
+export type PerformanceType = { 'interactive' : null } |
+  { 'theatrical' : null } |
+  { 'stunt' : null } |
+  { 'dance' : null } |
+  { 'musical' : null };
+export type ScareLevel = { 'mild' : null } |
+  { 'extreme' : null } |
+  { 'moderate' : null };
+export interface ScareZoneSpecificFields {
+  'yearIntroduced' : [] | [bigint],
+  'indoorOutdoor' : ZoneLocation,
+  'scareLevel' : ScareLevel,
+}
+export interface ShowSpecificFields {
+  'yearIntroduced' : [] | [bigint],
+  'performanceType' : PerformanceType,
+}
+export interface UserProfile { 'name' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
+export type ZoneLocation = { 'both' : null } |
+  { 'indoor' : null } |
+  { 'outdoor' : null };
+export interface _SERVICE {
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'createContentItem' : ActorMethod<[ContentItem], bigint>,
+  'deleteContentItem' : ActorMethod<[bigint], undefined>,
+  'getAllContentItems' : ActorMethod<[], Array<ContentItem>>,
+  'getAttractions' : ActorMethod<[], Array<ContentItem>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getContentItem' : ActorMethod<[bigint], [] | [ContentItem]>,
+  'getEvents' : ActorMethod<[], Array<ContentItem>>,
+  'getMainHauntSchedule' : ActorMethod<[], Array<EventDateRange>>,
+  'getScareZones' : ActorMethod<[], Array<ContentItem>>,
+  'getShows' : ActorMethod<[], Array<ContentItem>>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'now' : ActorMethod<[], bigint>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'seedInitialContent' : ActorMethod<[], undefined>,
+  'updateContentItem' : ActorMethod<[bigint, ContentItem], undefined>,
+  'updateMainHauntSchedule' : ActorMethod<[Array<EventDateRange>], undefined>,
+}
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
 export declare const idlFactory: IDL.InterfaceFactory;

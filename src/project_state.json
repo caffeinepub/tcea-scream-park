@@ -1,66 +1,42 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Homepage and dedicated pages for a haunted house attraction site: add a Schoolhouse Haunted House sneak-peek concept scenic elevation, new food booths (Slider Doom 2027, Sharks Hell 2028) with AI-written descriptions and menus, a new scare zone (Laser Hell) with description and location, and an AI-generated chainsaw-themed homepage background.",
+  "summary": "Build a calendar-based event/attraction listing system backed by a CMS-style content system for haunt-related items (events, scare zones, shows, hayrides/attractions) with descriptions, custom fields per content type, and shared operating dates based on the main haunt schedule.",
   "architectural_notes": [
-    "Homepage will include promos/sections linking to dedicated pages for Sneak Peek, each Food Booth, and the Scare Zone.",
-    "Use AI-generated imagery for the homepage background and the Schoolhouse Haunted House concept scenic elevation image."
+    "Calendar is backed by a CMS/content model rather than static hard-coded entries.",
+    "Content types (events, scare zones, shows, hayrides/attractions) require type-specific fields; not all items share the same schema.",
+    "Items can inherit/sync operating dates from a single 'main haunt' schedule source of truth."
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Chainsaw-themed horror background image with gritty texture and subtle depth (chainsaw-home-bg.dim_2400x1350.jpg)\n- Concept scenic elevation of a haunted schoolhouse exterior, cinematic lighting, architectural elevation feel (schoolhouse-sneak-peek-elevation.dim_1600x900.jpg)\n- Horror food booth key art for “Slider Doom” (booth-slider-doom.dim_1400x900.jpg)\n- Horror food booth key art for “Sharks Hell” (booth-sharks-hell.dim_1400x900.jpg)\n- Scare zone key art for “Laser Hell” with laser-like lighting atmosphere (zone-laser-hell.dim_1400x900.jpg)",
   "existing_features": [
     {
-      "id": "feature-add-an-ai-generated-chainsaw-themed-background-to-the-homepage-site-wide-background-layer-keeping-the-existing-horror-aesthetic-and-ensuring-text-contrast-readability-remains-strong-across-all-sections",
-      "title": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-a-new-homepage-section-for-a-schoolhouse-haunted-house-sneak-peek-that-presents-an-ai-generated-concept-scenic-elevation-image-of-the-house-plus-an-ai-written-description-and-place-it-on-the-homepage",
-      "title": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-dedicated-page-for-the-schoolhouse-haunted-house-sneak-peek-including-the-same-or-expanded-scenic-elevation-image-and-description-and-ensure-users-can-navigate-to-it-from-the-homepage-section",
-      "title": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-new-food-booth-named-slider-doom-labeled-as-coming-2027-with-menu-item-text-exactly-fries-loaded-sparks-and-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
-      "title": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "id": "feature-seed-the-cms-with-the-following-initial-items-names-exactly-as-specified-and-ensure-they-are-editable-from-the-cms-ui-events-scream-break-april-purge-may-east-coast-2027-transworld-2027-attraction-hayride-farwell-haunted-hayride-scare-zone-grave-hell-show-lost-spirits-coming-2027",
+      "title": "Seed the CMS with the following initial items (names exactly as specified) and ensure they are editable from the CMS UI: Events: “Scream break” (April), “Purge” (May), “east coast” (2027), “Transworld” (2027); Attraction/Hayride: “Farwell haunted hayride”; Scare Zone: “Grave Hell”; Show: “Lost spirits” (coming 2027).",
       "reqIds": [
         "REQ-4"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-new-food-booth-named-sharks-hell-labeled-as-coming-2028-that-serves-the-following-menu-items-exactly-cookie-dough-sharks-cookie-stuffed-ice-cream-chocolate-white-chocolate-and-laser-beam-shake-generate-an-english-booth-description-and-tagline-if-needed-consistent-with-the-site-s-horror-tone-show-it-in-the-homepage-food-booths-section-and-provide-a-dedicated-page-for-it",
-      "title": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "id": "feature-add-a-frontend-admin-editor-experience-cms-ui-that-allows-authenticated-users-to-add-edit-and-delete-events-scare-zones-shows-and-attractions-including-editing-descriptions-type-specific-custom-fields-and-the-inherit-override-schedule-setting",
+      "title": "Add a frontend admin/editor experience (CMS UI) that allows authenticated users to add, edit, and delete Events, Scare Zones, Shows, and Attractions, including editing descriptions, type-specific custom fields, and the inherit/override schedule setting.",
       "reqIds": [
         "REQ-5"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-new-scare-zone-named-laser-hell-with-an-ai-written-english-description-and-an-ai-chosen-specific-location-expressed-in-english-and-show-it-on-the-homepage-scare-zones-section-with-an-ai-generated-image-also-create-a-dedicated-page-for-it-that-includes-the-description-and-location",
-      "title": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+      "id": "feature-add-a-calendar-view-in-the-frontend-that-displays-scheduled-items-with-dates-include-events-and-also-include-other-item-types-scare-zones-shows-attractions-when-they-have-effective-dates-inherited-or-overridden",
+      "title": "Add a calendar view in the frontend that displays scheduled items with dates. Include Events and also include other item types (Scare Zones, Shows, Attractions) when they have effective dates (inherited or overridden).",
       "reqIds": [
         "REQ-6"
       ],
       "version": 1
     },
     {
-      "id": "feature-update-the-site-navigation-header-and-internal-linking-so-users-can-discover-and-reach-the-new-dedicated-pages-for-schoolhouse-sneak-peek-slider-doom-sharks-hell-and-laser-hell-without-breaking-existing-smooth-scroll-anchor-navigation",
-      "title": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+      "id": "feature-wire-the-frontend-to-the-backend-using-react-query-via-the-existing-actor-hook-so-that-cms-lists-detail-views-and-calendar-data-are-loaded-from-the-canister-not-hard-coded",
+      "title": "Wire the frontend to the backend using React Query via the existing actor hook so that CMS lists, detail views, and calendar data are loaded from the canister (not hard-coded).",
       "reqIds": [
         "REQ-7"
       ],
@@ -70,37 +46,60 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add AI-generated chainsaw-themed background image to the homepage",
+      "summary": "Calendar feature to display scheduled haunt content (events and other item types with dates)",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Add 'Schoolhouse Haunted House' sneak peek section on homepage with AI-generated concept scenic elevation image and create a dedicated page for it",
+      "summary": "CMS-style content system to manage events, scare zones, shows, and hayrides/attractions with add/edit capability",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Add new food booth 'Slider Doom' (Coming 2027) with menu item 'Fries. Loaded sparks', AI-written description, homepage promo, and a dedicated page",
+      "summary": "Support custom fields per content type (events/zones/shows/hayrides) rather than a single shared schema",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Add new food booth 'Sharks Hell' (Coming 2028) serving 'Cookie dough sharks cookie', 'stuffed ice cream', 'chocolate white chocolate', and 'Laser beam Shake' with AI-written description, homepage promo, and a dedicated page",
+      "summary": "Add description field for all content items",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-5",
-      "summary": "Add new scare zone 'Laser Hell' with AI-written description and specified location, homepage promo, and a dedicated page",
+      "summary": "Allow all items to share the same operating dates as the main haunt (inherit/sync from haunt schedule)",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create a backend CMS-style content system that supports creating, reading, updating, and deleting (CRUD) four content types: Events, Scare Zones, Shows, and Attractions (for hayrides). Each item must include a name and an English description field.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Support custom fields per content type (do not force one shared schema). Implement distinct, type-specific fields for Events, Scare Zones, Shows, and Attractions, in addition to the shared fields (name, description, dates).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement a ‘main haunt operating schedule’ in the backend and allow all content items to inherit/sync their dates from this schedule by default (“same operation as haunt”). Provide a way to override dates per item when needed.",
+      "reqIds": [
+        "REQ-3"
+      ],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Add Schoolhouse Sneak Peek, new food booths (2027/2028), Laser Hell scare zone, and chainsaw homepage background",
+  "projectName": "Add CMS-style content system and calendar for haunt events, zones, shows, and hayrides with shared operating dates",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

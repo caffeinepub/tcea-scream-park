@@ -8,10 +8,209 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const PerformanceType = IDL.Variant({
+  'interactive' : IDL.Null,
+  'theatrical' : IDL.Null,
+  'stunt' : IDL.Null,
+  'dance' : IDL.Null,
+  'musical' : IDL.Null,
+});
+export const ShowSpecificFields = IDL.Record({
+  'yearIntroduced' : IDL.Opt(IDL.Nat),
+  'performanceType' : PerformanceType,
+});
+export const EventType = IDL.Variant({
+  'seasonal' : IDL.Null,
+  'convention' : IDL.Null,
+  'holiday' : IDL.Null,
+  'specialEvent' : IDL.Null,
+  'special' : IDL.Null,
+});
+export const EventSpecificFields = IDL.Record({ 'eventType' : EventType });
+export const ZoneLocation = IDL.Variant({
+  'both' : IDL.Null,
+  'indoor' : IDL.Null,
+  'outdoor' : IDL.Null,
+});
+export const ScareLevel = IDL.Variant({
+  'mild' : IDL.Null,
+  'extreme' : IDL.Null,
+  'moderate' : IDL.Null,
+});
+export const ScareZoneSpecificFields = IDL.Record({
+  'yearIntroduced' : IDL.Opt(IDL.Nat),
+  'indoorOutdoor' : ZoneLocation,
+  'scareLevel' : ScareLevel,
+});
+export const AgeRestriction = IDL.Variant({
+  'teens' : IDL.Null,
+  'kids' : IDL.Null,
+  'none' : IDL.Null,
+  'adultsOnly' : IDL.Null,
+});
+export const AttractionSpecificFields = IDL.Record({
+  'yearIntroduced' : IDL.Opt(IDL.Nat),
+  'ageRestriction' : AgeRestriction,
+  'hasGuidedTour' : IDL.Bool,
+});
+export const ContentType = IDL.Variant({
+  'show' : ShowSpecificFields,
+  'event' : EventSpecificFields,
+  'scareZone' : ScareZoneSpecificFields,
+  'attraction' : AttractionSpecificFields,
+});
+export const Date = IDL.Record({
+  'day' : IDL.Nat,
+  'month' : IDL.Nat,
+  'year' : IDL.Nat,
+});
+export const EventDateRange = IDL.Record({
+  'endDate' : Date,
+  'startDate' : Date,
+});
+export const ContentItem = IDL.Record({
+  'id' : IDL.Nat,
+  'useMainHauntSchedule' : IDL.Bool,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'customType' : ContentType,
+  'dates' : IDL.Vec(EventDateRange),
+});
+export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+
+export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
+  'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+  'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),
+  'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+  'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'now' : IDL.Func([], [IDL.Nat], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'seedInitialContent' : IDL.Func([], [], []),
+  'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
+  'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const PerformanceType = IDL.Variant({
+    'interactive' : IDL.Null,
+    'theatrical' : IDL.Null,
+    'stunt' : IDL.Null,
+    'dance' : IDL.Null,
+    'musical' : IDL.Null,
+  });
+  const ShowSpecificFields = IDL.Record({
+    'yearIntroduced' : IDL.Opt(IDL.Nat),
+    'performanceType' : PerformanceType,
+  });
+  const EventType = IDL.Variant({
+    'seasonal' : IDL.Null,
+    'convention' : IDL.Null,
+    'holiday' : IDL.Null,
+    'specialEvent' : IDL.Null,
+    'special' : IDL.Null,
+  });
+  const EventSpecificFields = IDL.Record({ 'eventType' : EventType });
+  const ZoneLocation = IDL.Variant({
+    'both' : IDL.Null,
+    'indoor' : IDL.Null,
+    'outdoor' : IDL.Null,
+  });
+  const ScareLevel = IDL.Variant({
+    'mild' : IDL.Null,
+    'extreme' : IDL.Null,
+    'moderate' : IDL.Null,
+  });
+  const ScareZoneSpecificFields = IDL.Record({
+    'yearIntroduced' : IDL.Opt(IDL.Nat),
+    'indoorOutdoor' : ZoneLocation,
+    'scareLevel' : ScareLevel,
+  });
+  const AgeRestriction = IDL.Variant({
+    'teens' : IDL.Null,
+    'kids' : IDL.Null,
+    'none' : IDL.Null,
+    'adultsOnly' : IDL.Null,
+  });
+  const AttractionSpecificFields = IDL.Record({
+    'yearIntroduced' : IDL.Opt(IDL.Nat),
+    'ageRestriction' : AgeRestriction,
+    'hasGuidedTour' : IDL.Bool,
+  });
+  const ContentType = IDL.Variant({
+    'show' : ShowSpecificFields,
+    'event' : EventSpecificFields,
+    'scareZone' : ScareZoneSpecificFields,
+    'attraction' : AttractionSpecificFields,
+  });
+  const Date = IDL.Record({
+    'day' : IDL.Nat,
+    'month' : IDL.Nat,
+    'year' : IDL.Nat,
+  });
+  const EventDateRange = IDL.Record({ 'endDate' : Date, 'startDate' : Date });
+  const ContentItem = IDL.Record({
+    'id' : IDL.Nat,
+    'useMainHauntSchedule' : IDL.Bool,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'customType' : ContentType,
+    'dates' : IDL.Vec(EventDateRange),
+  });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  
+  return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
+    'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+    'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),
+    'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+    'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'now' : IDL.Func([], [IDL.Nat], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'seedInitialContent' : IDL.Func([], [], []),
+    'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
+    'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

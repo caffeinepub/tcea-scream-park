@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HomeHeroSection } from './components/sections/HomeHeroSection';
 import { HomeProcessionSection } from './components/sections/HomeProcessionSection';
 import { AuditionsSection } from './components/sections/AuditionsSection';
@@ -16,11 +17,26 @@ import { SiteFooter } from './components/layout/SiteFooter';
 import { HorrorBackground } from './components/theme/HorrorBackground';
 import { BackgroundAudioManager } from './components/audio/BackgroundAudioManager';
 import { SchoolhouseSneakPeekPage } from './pages/SchoolhouseSneakPeekPage';
+import { ClownTownSneakPeekPage } from './pages/ClownTownSneakPeekPage';
+import { HellHoleSneakPeekPage } from './pages/HellHoleSneakPeekPage';
 import { SliderDoomPage } from './pages/SliderDoomPage';
 import { SharksHellPage } from './pages/SharksHellPage';
 import { LaserHellPage } from './pages/LaserHellPage';
+import { CmsPage } from './pages/CmsPage';
+import { CalendarPage } from './pages/CalendarPage';
+import { ProfileSetupModal } from './components/auth/ProfileSetupModal';
+import { Toaster } from '@/components/ui/sonner';
 
-function App() {
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+function AppContent() {
   const [currentRoute, setCurrentRoute] = useState('');
 
   useEffect(() => {
@@ -38,6 +54,12 @@ function App() {
     if (currentRoute === '#/schoolhouse') {
       return <SchoolhouseSneakPeekPage />;
     }
+    if (currentRoute === '#/clown-town') {
+      return <ClownTownSneakPeekPage />;
+    }
+    if (currentRoute === '#/hell-hole') {
+      return <HellHoleSneakPeekPage />;
+    }
     if (currentRoute === '#/food-booths/slider-doom') {
       return <SliderDoomPage />;
     }
@@ -46,6 +68,12 @@ function App() {
     }
     if (currentRoute === '#/scare-zones/laser-hell') {
       return <LaserHellPage />;
+    }
+    if (currentRoute === '#/cms') {
+      return <CmsPage />;
+    }
+    if (currentRoute === '#/calendar') {
+      return <CalendarPage />;
     }
 
     return (
@@ -75,7 +103,17 @@ function App() {
         {renderPage()}
       </main>
       <SiteFooter />
+      <ProfileSetupModal />
+      <Toaster />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppContent />
+    </QueryClientProvider>
   );
 }
 

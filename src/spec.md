@@ -1,16 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Expand the site with a chainsaw-themed homepage background plus new sneak-peek, food booth, and scare zone content (each with dedicated pages and navigation).
+**Goal:** Add a CMS-style content system and a calendar so admins can manage haunt-related items (events, scare zones, shows, hayrides) with shared operating dates and per-item overrides.
 
 **Planned changes:**
-- Add a new AI-generated chainsaw-themed image as the homepage/site-wide background layer, blended to preserve strong text contrast and readability.
-- Add a new “Schoolhouse Haunted House” sneak-peek section on the homepage with an AI-generated concept scenic elevation image, English description, and an on-page anchor id.
-- Create a dedicated page/route for the Schoolhouse sneak peek and link to it from the homepage section.
-- Add two new food booths to the homepage Food Booths section and create dedicated pages for each:
-  - “Slider Doom” (label: “Coming 2027”) with menu text exactly “Fries. Loaded sparks”, plus an English horror-themed description and AI-generated image.
-  - “Sharks Hell” (label: “Coming 2028”) with menu items exactly “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”, plus an English horror-themed description and AI-generated image.
-- Add a new scare zone “Laser Hell” to the homepage Scare Zones section with an English description, a clearly displayed AI-chosen location, an AI-generated image, and a dedicated page for it.
-- Update header navigation and internal links so the new dedicated pages are discoverable without breaking existing homepage smooth-scroll anchor navigation.
+- Backend: Add CRUD support with stable storage for four content types: Events, Scare Zones, Shows, and Attractions (hayrides), each with at least id, name, and English description.
+- Backend: Implement distinct, type-specific custom fields per content type with validation so only applicable fields can be set.
+- Backend: Add a single “main haunt operating schedule” (start/end dates) that content items inherit by default, with a per-item override option.
+- Backend + Frontend: Seed initial CMS items (editable in the UI): Events “Scream break” (April), “Purge” (May), “east coast” (2027), “Transworld” (2027); Attraction “Farwell haunted hayride”; Scare Zone “Grave Hell”; Show “Lost spirits” (coming 2027), each with an editable English description and editable date representation.
+- Frontend: Add authenticated admin/editor CMS screens (hash-routed) to list/create/edit/delete all four types, including description, type-specific fields, and inherit/override date controls.
+- Frontend: Add a hash-routed calendar view that shows items on their effective dates, supports filtering by type, and shows item details on selection.
+- Frontend: Wire CMS + calendar data loading and mutations to the backend using the existing actor hook and React Query, including refetch/invalidation and English error states.
 
-**User-visible outcome:** Visitors see a new chainsaw-themed background and new homepage content (Schoolhouse sneak peek, Slider Doom, Sharks Hell, Laser Hell), and can click through to dedicated pages for each new item via working navigation and links.
+**User-visible outcome:** Authenticated users can manage Events, Scare Zones, Shows, and Attractions in a CMS UI, control whether items follow the main haunt schedule or use custom dates, and view all scheduled items in a filterable calendar with detail views.

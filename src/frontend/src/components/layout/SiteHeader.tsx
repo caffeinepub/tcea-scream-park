@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
+import { LoginButton } from '@/components/auth/LoginButton';
 
 export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,18 +16,30 @@ export function SiteHeader() {
   }, []);
 
   const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'Auditions', href: '#auditions' },
-    { label: 'Haunted Houses', href: '#haunted-houses' },
-    { label: 'Food Booths', href: '#food-booths' },
-    { label: 'Merch Shops', href: '#merch-shops' },
-    { label: 'Scare Zones', href: '#scare-zones' },
-    { label: 'Info & Location', href: '#info-location' },
-    { label: 'Coming 2027', href: '#coming-2027' },
+    { label: 'Home', href: '#home', type: 'scroll' },
+    { label: 'Auditions', href: '#auditions', type: 'scroll' },
+    { label: 'Haunted Houses', href: '#haunted-houses', type: 'scroll' },
+    { label: 'Sneak Peek', href: '#sneak-peek', type: 'scroll' },
+    { label: 'Food Booths', href: '#food-booths', type: 'scroll' },
+    { label: 'Merch Shops', href: '#merch-shops', type: 'scroll' },
+    { label: 'Scare Zones', href: '#scare-zones', type: 'scroll' },
+    { label: 'Info & Location', href: '#info-location', type: 'scroll' },
+    { label: 'Coming 2027', href: '#coming-2027', type: 'scroll' },
+    { label: 'Calendar', href: '#/calendar', type: 'route' },
+    { label: 'CMS', href: '#/cms', type: 'route' },
   ];
 
+  const handleNavClick = (item: typeof navItems[0]) => {
+    if (item.type === 'route') {
+      window.location.hash = item.href;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollToSection(item.href);
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   const scrollToSection = (href: string) => {
-    // If we're on a dedicated page, navigate to home first
     if (window.location.hash.startsWith('#/')) {
       window.location.hash = '';
       setTimeout(() => {
@@ -41,7 +54,6 @@ export function SiteHeader() {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-    setIsMobileMenuOpen(false);
   };
 
   const navigateToHome = () => {
@@ -56,7 +68,6 @@ export function SiteHeader() {
         isScrolled ? 'bg-background/95 backdrop-blur-md border-b border-destructive/30 shadow-glow-green' : 'bg-transparent'
       }`}
     >
-      {/* Blood overlay */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
           src="/assets/generated/header-blood-overlay.dim_2400x400.png"
@@ -81,21 +92,22 @@ export function SiteHeader() {
             </span>
           </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Button
-                key={item.href}
-                variant="ghost"
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-              >
-                {item.label}
-              </Button>
-            ))}
-          </nav>
+          <div className="hidden lg:flex items-center gap-2">
+            <nav className="flex items-center gap-1">
+              {navItems.map((item) => (
+                <Button
+                  key={item.href}
+                  variant="ghost"
+                  onClick={() => handleNavClick(item)}
+                  className="text-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </nav>
+            <LoginButton />
+          </div>
 
-          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -106,7 +118,6 @@ export function SiteHeader() {
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="lg:hidden pb-4 border-t border-destructive/30 mt-2">
             <div className="flex flex-col gap-2 pt-4">
@@ -114,12 +125,15 @@ export function SiteHeader() {
                 <Button
                   key={item.href}
                   variant="ghost"
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavClick(item)}
                   className="justify-start text-foreground hover:text-destructive hover:bg-destructive/10"
                 >
                   {item.label}
                 </Button>
               ))}
+              <div className="pt-2 border-t border-destructive/30">
+                <LoginButton />
+              </div>
             </div>
           </nav>
         )}

@@ -91,3 +91,13 @@
         filter: drop-shadow(0 0 8px rgba(0, 255, 100, 0.3));
     }
 }
+
+/* Reduced motion support for horror background animations */
+@media (prefers-reduced-motion: reduce) {
+    .animate-horror-drift-slow,
+    .animate-horror-drift-medium,
+    .animate-horror-drift-fast,
+    .animate-horror-drift-reverse {
+        animation: none !important;
+    }
+}

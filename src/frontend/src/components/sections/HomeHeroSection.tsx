@@ -14,12 +14,22 @@ export function HomeHeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Hero Background Image */}
+      {/* Hero Background Video with Fallback Image */}
       <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          poster="/assets/generated/tcea-scream-park-hero-bg.dim_1920x1080.jpg"
+        >
+          <source src="/assets/video/chainsaw-loop.mp4" type="video/mp4" />
+        </video>
         <img
           src="/assets/generated/tcea-scream-park-hero-bg.dim_1920x1080.jpg"
           alt="TCEA Scream Park"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover -z-10"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-background" />
         <div 
@@ -30,7 +40,7 @@ export function HomeHeroSection() {
         />
       </div>
 
-      {/* Strobe/Flash Effect Layer */}
+      {/* Intense Strobe/Flash Effect Layer */}
       <div 
         className="absolute inset-0 z-[1] pointer-events-none motion-reduce:hidden animate-strobe-flash"
         aria-hidden="true"

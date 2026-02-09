@@ -11,6 +11,45 @@ export function HorrorBackground() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" />
       </div>
 
+      {/* Animated horror layers - fire, smoke, chainsaws, blood */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Fire layer */}
+        <div className="absolute inset-0 animate-horror-drift-slow opacity-20">
+          <img
+            src="/assets/generated/bg-fire-loop.dim_2400x1350.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Smoke layer */}
+        <div className="absolute inset-0 animate-horror-drift-medium opacity-25">
+          <img
+            src="/assets/generated/bg-smoke-loop.dim_2400x1350.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Chainsaws layer */}
+        <div className="absolute inset-0 animate-horror-drift-fast opacity-15">
+          <img
+            src="/assets/generated/bg-chainsaws-loop.dim_2400x1350.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        {/* Blood layer */}
+        <div className="absolute inset-0 animate-horror-drift-reverse opacity-30">
+          <img
+            src="/assets/generated/bg-blood-loop.dim_2400x1350.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
       {/* Deep black base with green glow vignette */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-black">
         <div 

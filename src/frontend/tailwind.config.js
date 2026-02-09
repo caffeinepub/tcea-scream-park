@@ -100,23 +100,79 @@ export default {
                     '0%, 100%': { 
                         backgroundColor: 'transparent'
                     },
-                    '10%': { 
-                        backgroundColor: 'rgba(0, 255, 100, 0.15)'
+                    '5%': { 
+                        backgroundColor: 'rgba(255, 255, 255, 0.4)'
                     },
-                    '11%': { 
+                    '6%': { 
                         backgroundColor: 'transparent'
                     },
-                    '30%': { 
-                        backgroundColor: 'rgba(0, 255, 100, 0.08)'
+                    '12%': { 
+                        backgroundColor: 'rgba(0, 255, 100, 0.35)'
                     },
-                    '31%': { 
+                    '13%': { 
                         backgroundColor: 'transparent'
                     },
-                    '65%': { 
-                        backgroundColor: 'rgba(0, 255, 100, 0.12)'
+                    '25%': { 
+                        backgroundColor: 'rgba(255, 255, 255, 0.45)'
                     },
-                    '66%': { 
+                    '26%': { 
                         backgroundColor: 'transparent'
+                    },
+                    '38%': { 
+                        backgroundColor: 'rgba(0, 255, 100, 0.3)'
+                    },
+                    '39%': { 
+                        backgroundColor: 'transparent'
+                    },
+                    '52%': { 
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                    },
+                    '53%': { 
+                        backgroundColor: 'transparent'
+                    },
+                    '68%': { 
+                        backgroundColor: 'rgba(0, 255, 100, 0.4)'
+                    },
+                    '69%': { 
+                        backgroundColor: 'transparent'
+                    },
+                    '85%': { 
+                        backgroundColor: 'rgba(255, 255, 255, 0.35)'
+                    },
+                    '86%': { 
+                        backgroundColor: 'transparent'
+                    }
+                },
+                'horror-drift-slow': {
+                    '0%': { 
+                        transform: 'translate(0, 0) scale(1.1)'
+                    },
+                    '100%': { 
+                        transform: 'translate(-5%, -5%) scale(1.1)'
+                    }
+                },
+                'horror-drift-medium': {
+                    '0%': { 
+                        transform: 'translate(0, 0) scale(1.15)'
+                    },
+                    '100%': { 
+                        transform: 'translate(3%, -4%) scale(1.15)'
+                    }
+                },
+                'horror-drift-fast': {
+                    '0%': { 
+                        transform: 'translate(0, 0) scale(1.2)'
+                    },
+                    '100%': { 
+                        transform: 'translate(-4%, 3%) scale(1.2)'
+                    }
+                },
+                'horror-drift-reverse': {
+                    '0%': { 
+                        transform: 'translate(0, 0) scale(1.1)'
+                    },
+                    '100%': { 
+                        transform: 'translate(2%, 4%) scale(1.1)'
                     }
                 }
             },
@@ -124,7 +180,11 @@ export default {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
-                'strobe-flash': 'strobe-flash 4s ease-in-out infinite'
+                'strobe-flash': 'strobe-flash 2.5s ease-in-out infinite',
+                'horror-drift-slow': 'horror-drift-slow 60s linear infinite',
+                'horror-drift-medium': 'horror-drift-medium 45s linear infinite',
+                'horror-drift-fast': 'horror-drift-fast 35s linear infinite',
+                'horror-drift-reverse': 'horror-drift-reverse 50s linear infinite'
             },
             fontFamily: {
                 sans: ['Creepster', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],

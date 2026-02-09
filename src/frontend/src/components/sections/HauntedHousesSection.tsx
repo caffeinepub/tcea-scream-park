@@ -29,21 +29,13 @@ export function HauntedHousesSection() {
             key={index}
             className="bg-card/80 backdrop-blur-sm border-destructive/30 hover:border-destructive/60 transition-all hover:shadow-glow-green hover:scale-105 overflow-hidden"
           >
-            {/* House Image with Blood Drip Overlay */}
+            {/* House Image without blood drip overlay */}
             <div className="relative h-48 overflow-hidden">
               <img
                 src={generatedImages.hauntedHouses[house.name as keyof typeof generatedImages.hauntedHouses]}
                 alt={house.name}
                 className="w-full h-full object-cover transition-transform hover:scale-110"
               />
-              {/* Blood drip overlay at top */}
-              <div className="absolute top-0 left-0 right-0 h-24 pointer-events-none">
-                <img
-                  src="/assets/generated/card-top-blood-drip.dim_1600x240.png"
-                  alt=""
-                  className="w-full h-full object-cover opacity-80"
-                />
-              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
             </div>
             

@@ -89,10 +89,870 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface backendInterface {
+export type ContentType = {
+    __kind__: "show";
+    show: ShowSpecificFields;
+} | {
+    __kind__: "event";
+    event: EventSpecificFields;
+} | {
+    __kind__: "scareZone";
+    scareZone: ScareZoneSpecificFields;
+} | {
+    __kind__: "attraction";
+    attraction: AttractionSpecificFields;
+};
+export interface Date_ {
+    day: bigint;
+    month: bigint;
+    year: bigint;
 }
+export interface ShowSpecificFields {
+    yearIntroduced?: bigint;
+    performanceType: PerformanceType;
+}
+export interface ContentItem {
+    id: bigint;
+    useMainHauntSchedule: boolean;
+    name: string;
+    description: string;
+    customType: ContentType;
+    dates: Array<EventDateRange>;
+}
+export interface EventSpecificFields {
+    eventType: EventType;
+}
+export interface ScareZoneSpecificFields {
+    yearIntroduced?: bigint;
+    indoorOutdoor: ZoneLocation;
+    scareLevel: ScareLevel;
+}
+export interface EventDateRange {
+    endDate: Date_;
+    startDate: Date_;
+}
+export interface AttractionSpecificFields {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
+}
+export interface UserProfile {
+    name: string;
+}
+export enum AgeRestriction {
+    teens = "teens",
+    kids = "kids",
+    none = "none",
+    adultsOnly = "adultsOnly"
+}
+export enum EventType {
+    seasonal = "seasonal",
+    convention = "convention",
+    holiday = "holiday",
+    specialEvent = "specialEvent",
+    special = "special"
+}
+export enum PerformanceType {
+    interactive = "interactive",
+    theatrical = "theatrical",
+    stunt = "stunt",
+    dance = "dance",
+    musical = "musical"
+}
+export enum ScareLevel {
+    mild = "mild",
+    extreme = "extreme",
+    moderate = "moderate"
+}
+export enum UserRole {
+    admin = "admin",
+    user = "user",
+    guest = "guest"
+}
+export enum ZoneLocation {
+    both = "both",
+    indoor = "indoor",
+    outdoor = "outdoor"
+}
+export interface backendInterface {
+    _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
+    assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    createContentItem(item: ContentItem): Promise<bigint>;
+    deleteContentItem(id: bigint): Promise<void>;
+    getAllContentItems(): Promise<Array<ContentItem>>;
+    getAttractions(): Promise<Array<ContentItem>>;
+    getCallerUserProfile(): Promise<UserProfile | null>;
+    getCallerUserRole(): Promise<UserRole>;
+    getContentItem(id: bigint): Promise<ContentItem | null>;
+    getEvents(): Promise<Array<ContentItem>>;
+    getMainHauntSchedule(): Promise<Array<EventDateRange>>;
+    getScareZones(): Promise<Array<ContentItem>>;
+    getShows(): Promise<Array<ContentItem>>;
+    getUserProfile(user: Principal): Promise<UserProfile | null>;
+    isCallerAdmin(): Promise<boolean>;
+    now(): Promise<bigint>;
+    saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    seedInitialContent(): Promise<void>;
+    updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
+    updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
+}
+import type { AgeRestriction as _AgeRestriction, AttractionSpecificFields as _AttractionSpecificFields, ContentItem as _ContentItem, ContentType as _ContentType, EventDateRange as _EventDateRange, EventSpecificFields as _EventSpecificFields, EventType as _EventType, PerformanceType as _PerformanceType, ScareLevel as _ScareLevel, ScareZoneSpecificFields as _ScareZoneSpecificFields, ShowSpecificFields as _ShowSpecificFields, UserProfile as _UserProfile, UserRole as _UserRole, ZoneLocation as _ZoneLocation } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._initializeAccessControlWithSecret(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._initializeAccessControlWithSecret(arg0);
+            return result;
+        }
+    }
+    async assignCallerUserRole(arg0: Principal, arg1: UserRole): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n1(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async createContentItem(arg0: ContentItem): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createContentItem(to_candid_ContentItem_n3(this._uploadFile, this._downloadFile, arg0));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createContentItem(to_candid_ContentItem_n3(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async deleteContentItem(arg0: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteContentItem(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteContentItem(arg0);
+            return result;
+        }
+    }
+    async getAllContentItems(): Promise<Array<ContentItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllContentItems();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllContentItems();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAttractions(): Promise<Array<ContentItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAttractions();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAttractions();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCallerUserProfile(): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserProfile();
+                return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserProfile();
+            return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCallerUserRole(): Promise<UserRole> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCallerUserRole();
+                return from_candid_UserRole_n50(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCallerUserRole();
+            return from_candid_UserRole_n50(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getContentItem(arg0: bigint): Promise<ContentItem | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getContentItem(arg0);
+                return from_candid_opt_n52(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getContentItem(arg0);
+            return from_candid_opt_n52(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getEvents(): Promise<Array<ContentItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getEvents();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getEvents();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getMainHauntSchedule(): Promise<Array<EventDateRange>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMainHauntSchedule();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMainHauntSchedule();
+            return result;
+        }
+    }
+    async getScareZones(): Promise<Array<ContentItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getScareZones();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getScareZones();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getShows(): Promise<Array<ContentItem>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getShows();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getShows();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getUserProfile(arg0);
+                return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getUserProfile(arg0);
+            return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async isCallerAdmin(): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isCallerAdmin();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async now(): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.now();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.now();
+            return result;
+        }
+    }
+    async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveCallerUserProfile(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveCallerUserProfile(arg0);
+            return result;
+        }
+    }
+    async seedInitialContent(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.seedInitialContent();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.seedInitialContent();
+            return result;
+        }
+    }
+    async updateContentItem(arg0: bigint, arg1: ContentItem): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateContentItem(arg0, to_candid_ContentItem_n3(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateContentItem(arg0, to_candid_ContentItem_n3(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async updateMainHauntSchedule(arg0: Array<EventDateRange>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateMainHauntSchedule(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateMainHauntSchedule(arg0);
+            return result;
+        }
+    }
+}
+function from_candid_AgeRestriction_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AgeRestriction): AgeRestriction {
+    return from_candid_variant_n48(_uploadFile, _downloadFile, value);
+}
+function from_candid_AttractionSpecificFields_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AttractionSpecificFields): AttractionSpecificFields {
+    return from_candid_record_n46(_uploadFile, _downloadFile, value);
+}
+function from_candid_ContentItem_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentItem): ContentItem {
+    return from_candid_record_n27(_uploadFile, _downloadFile, value);
+}
+function from_candid_ContentType_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentType): ContentType {
+    return from_candid_variant_n29(_uploadFile, _downloadFile, value);
+}
+function from_candid_EventSpecificFields_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventSpecificFields): EventSpecificFields {
+    return from_candid_record_n36(_uploadFile, _downloadFile, value);
+}
+function from_candid_EventType_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventType): EventType {
+    return from_candid_variant_n38(_uploadFile, _downloadFile, value);
+}
+function from_candid_PerformanceType_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _PerformanceType): PerformanceType {
+    return from_candid_variant_n34(_uploadFile, _downloadFile, value);
+}
+function from_candid_ScareLevel_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareLevel): ScareLevel {
+    return from_candid_variant_n44(_uploadFile, _downloadFile, value);
+}
+function from_candid_ScareZoneSpecificFields_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareZoneSpecificFields): ScareZoneSpecificFields {
+    return from_candid_record_n40(_uploadFile, _downloadFile, value);
+}
+function from_candid_ShowSpecificFields_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ShowSpecificFields): ShowSpecificFields {
+    return from_candid_record_n31(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n51(_uploadFile, _downloadFile, value);
+}
+function from_candid_ZoneLocation_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ZoneLocation): ZoneLocation {
+    return from_candid_variant_n42(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n52(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ContentItem]): ContentItem | null {
+    return value.length === 0 ? null : from_candid_ContentItem_n26(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_record_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: bigint;
+    useMainHauntSchedule: boolean;
+    name: string;
+    description: string;
+    customType: _ContentType;
+    dates: Array<_EventDateRange>;
+}): {
+    id: bigint;
+    useMainHauntSchedule: boolean;
+    name: string;
+    description: string;
+    customType: ContentType;
+    dates: Array<EventDateRange>;
+} {
+    return {
+        id: value.id,
+        useMainHauntSchedule: value.useMainHauntSchedule,
+        name: value.name,
+        description: value.description,
+        customType: from_candid_ContentType_n28(_uploadFile, _downloadFile, value.customType),
+        dates: value.dates
+    };
+}
+function from_candid_record_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced: [] | [bigint];
+    performanceType: _PerformanceType;
+}): {
+    yearIntroduced?: bigint;
+    performanceType: PerformanceType;
+} {
+    return {
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
+        performanceType: from_candid_PerformanceType_n33(_uploadFile, _downloadFile, value.performanceType)
+    };
+}
+function from_candid_record_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    eventType: _EventType;
+}): {
+    eventType: EventType;
+} {
+    return {
+        eventType: from_candid_EventType_n37(_uploadFile, _downloadFile, value.eventType)
+    };
+}
+function from_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced: [] | [bigint];
+    indoorOutdoor: _ZoneLocation;
+    scareLevel: _ScareLevel;
+}): {
+    yearIntroduced?: bigint;
+    indoorOutdoor: ZoneLocation;
+    scareLevel: ScareLevel;
+} {
+    return {
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
+        indoorOutdoor: from_candid_ZoneLocation_n41(_uploadFile, _downloadFile, value.indoorOutdoor),
+        scareLevel: from_candid_ScareLevel_n43(_uploadFile, _downloadFile, value.scareLevel)
+    };
+}
+function from_candid_record_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced: [] | [bigint];
+    ageRestriction: _AgeRestriction;
+    hasGuidedTour: boolean;
+}): {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
+} {
+    return {
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
+        ageRestriction: from_candid_AgeRestriction_n47(_uploadFile, _downloadFile, value.ageRestriction),
+        hasGuidedTour: value.hasGuidedTour
+    };
+}
+function from_candid_variant_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    show: _ShowSpecificFields;
+} | {
+    event: _EventSpecificFields;
+} | {
+    scareZone: _ScareZoneSpecificFields;
+} | {
+    attraction: _AttractionSpecificFields;
+}): {
+    __kind__: "show";
+    show: ShowSpecificFields;
+} | {
+    __kind__: "event";
+    event: EventSpecificFields;
+} | {
+    __kind__: "scareZone";
+    scareZone: ScareZoneSpecificFields;
+} | {
+    __kind__: "attraction";
+    attraction: AttractionSpecificFields;
+} {
+    return "show" in value ? {
+        __kind__: "show",
+        show: from_candid_ShowSpecificFields_n30(_uploadFile, _downloadFile, value.show)
+    } : "event" in value ? {
+        __kind__: "event",
+        event: from_candid_EventSpecificFields_n35(_uploadFile, _downloadFile, value.event)
+    } : "scareZone" in value ? {
+        __kind__: "scareZone",
+        scareZone: from_candid_ScareZoneSpecificFields_n39(_uploadFile, _downloadFile, value.scareZone)
+    } : "attraction" in value ? {
+        __kind__: "attraction",
+        attraction: from_candid_AttractionSpecificFields_n45(_uploadFile, _downloadFile, value.attraction)
+    } : value;
+}
+function from_candid_variant_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    interactive: null;
+} | {
+    theatrical: null;
+} | {
+    stunt: null;
+} | {
+    dance: null;
+} | {
+    musical: null;
+}): PerformanceType {
+    return "interactive" in value ? PerformanceType.interactive : "theatrical" in value ? PerformanceType.theatrical : "stunt" in value ? PerformanceType.stunt : "dance" in value ? PerformanceType.dance : "musical" in value ? PerformanceType.musical : value;
+}
+function from_candid_variant_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    seasonal: null;
+} | {
+    convention: null;
+} | {
+    holiday: null;
+} | {
+    specialEvent: null;
+} | {
+    special: null;
+}): EventType {
+    return "seasonal" in value ? EventType.seasonal : "convention" in value ? EventType.convention : "holiday" in value ? EventType.holiday : "specialEvent" in value ? EventType.specialEvent : "special" in value ? EventType.special : value;
+}
+function from_candid_variant_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    both: null;
+} | {
+    indoor: null;
+} | {
+    outdoor: null;
+}): ZoneLocation {
+    return "both" in value ? ZoneLocation.both : "indoor" in value ? ZoneLocation.indoor : "outdoor" in value ? ZoneLocation.outdoor : value;
+}
+function from_candid_variant_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    mild: null;
+} | {
+    extreme: null;
+} | {
+    moderate: null;
+}): ScareLevel {
+    return "mild" in value ? ScareLevel.mild : "extreme" in value ? ScareLevel.extreme : "moderate" in value ? ScareLevel.moderate : value;
+}
+function from_candid_variant_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    teens: null;
+} | {
+    kids: null;
+} | {
+    none: null;
+} | {
+    adultsOnly: null;
+}): AgeRestriction {
+    return "teens" in value ? AgeRestriction.teens : "kids" in value ? AgeRestriction.kids : "none" in value ? AgeRestriction.none : "adultsOnly" in value ? AgeRestriction.adultsOnly : value;
+}
+function from_candid_variant_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+}): UserRole {
+    return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
+}
+function from_candid_vec_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ContentItem>): Array<ContentItem> {
+    return value.map((x)=>from_candid_ContentItem_n26(_uploadFile, _downloadFile, x));
+}
+function to_candid_AgeRestriction_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AgeRestriction): _AgeRestriction {
+    return to_candid_variant_n10(_uploadFile, _downloadFile, value);
+}
+function to_candid_AttractionSpecificFields_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AttractionSpecificFields): _AttractionSpecificFields {
+    return to_candid_record_n8(_uploadFile, _downloadFile, value);
+}
+function to_candid_ContentItem_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ContentItem): _ContentItem {
+    return to_candid_record_n4(_uploadFile, _downloadFile, value);
+}
+function to_candid_ContentType_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ContentType): _ContentType {
+    return to_candid_variant_n6(_uploadFile, _downloadFile, value);
+}
+function to_candid_EventSpecificFields_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EventSpecificFields): _EventSpecificFields {
+    return to_candid_record_n18(_uploadFile, _downloadFile, value);
+}
+function to_candid_EventType_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EventType): _EventType {
+    return to_candid_variant_n20(_uploadFile, _downloadFile, value);
+}
+function to_candid_PerformanceType_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: PerformanceType): _PerformanceType {
+    return to_candid_variant_n24(_uploadFile, _downloadFile, value);
+}
+function to_candid_ScareLevel_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ScareLevel): _ScareLevel {
+    return to_candid_variant_n16(_uploadFile, _downloadFile, value);
+}
+function to_candid_ScareZoneSpecificFields_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ScareZoneSpecificFields): _ScareZoneSpecificFields {
+    return to_candid_record_n12(_uploadFile, _downloadFile, value);
+}
+function to_candid_ShowSpecificFields_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ShowSpecificFields): _ShowSpecificFields {
+    return to_candid_record_n22(_uploadFile, _downloadFile, value);
+}
+function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
+    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function to_candid_ZoneLocation_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ZoneLocation): _ZoneLocation {
+    return to_candid_variant_n14(_uploadFile, _downloadFile, value);
+}
+function to_candid_record_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced?: bigint;
+    indoorOutdoor: ZoneLocation;
+    scareLevel: ScareLevel;
+}): {
+    yearIntroduced: [] | [bigint];
+    indoorOutdoor: _ZoneLocation;
+    scareLevel: _ScareLevel;
+} {
+    return {
+        yearIntroduced: value.yearIntroduced ? candid_some(value.yearIntroduced) : candid_none(),
+        indoorOutdoor: to_candid_ZoneLocation_n13(_uploadFile, _downloadFile, value.indoorOutdoor),
+        scareLevel: to_candid_ScareLevel_n15(_uploadFile, _downloadFile, value.scareLevel)
+    };
+}
+function to_candid_record_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    eventType: EventType;
+}): {
+    eventType: _EventType;
+} {
+    return {
+        eventType: to_candid_EventType_n19(_uploadFile, _downloadFile, value.eventType)
+    };
+}
+function to_candid_record_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced?: bigint;
+    performanceType: PerformanceType;
+}): {
+    yearIntroduced: [] | [bigint];
+    performanceType: _PerformanceType;
+} {
+    return {
+        yearIntroduced: value.yearIntroduced ? candid_some(value.yearIntroduced) : candid_none(),
+        performanceType: to_candid_PerformanceType_n23(_uploadFile, _downloadFile, value.performanceType)
+    };
+}
+function to_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    id: bigint;
+    useMainHauntSchedule: boolean;
+    name: string;
+    description: string;
+    customType: ContentType;
+    dates: Array<EventDateRange>;
+}): {
+    id: bigint;
+    useMainHauntSchedule: boolean;
+    name: string;
+    description: string;
+    customType: _ContentType;
+    dates: Array<_EventDateRange>;
+} {
+    return {
+        id: value.id,
+        useMainHauntSchedule: value.useMainHauntSchedule,
+        name: value.name,
+        description: value.description,
+        customType: to_candid_ContentType_n5(_uploadFile, _downloadFile, value.customType),
+        dates: value.dates
+    };
+}
+function to_candid_record_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
+}): {
+    yearIntroduced: [] | [bigint];
+    ageRestriction: _AgeRestriction;
+    hasGuidedTour: boolean;
+} {
+    return {
+        yearIntroduced: value.yearIntroduced ? candid_some(value.yearIntroduced) : candid_none(),
+        ageRestriction: to_candid_AgeRestriction_n9(_uploadFile, _downloadFile, value.ageRestriction),
+        hasGuidedTour: value.hasGuidedTour
+    };
+}
+function to_candid_variant_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AgeRestriction): {
+    teens: null;
+} | {
+    kids: null;
+} | {
+    none: null;
+} | {
+    adultsOnly: null;
+} {
+    return value == AgeRestriction.teens ? {
+        teens: null
+    } : value == AgeRestriction.kids ? {
+        kids: null
+    } : value == AgeRestriction.none ? {
+        none: null
+    } : value == AgeRestriction.adultsOnly ? {
+        adultsOnly: null
+    } : value;
+}
+function to_candid_variant_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ZoneLocation): {
+    both: null;
+} | {
+    indoor: null;
+} | {
+    outdoor: null;
+} {
+    return value == ZoneLocation.both ? {
+        both: null
+    } : value == ZoneLocation.indoor ? {
+        indoor: null
+    } : value == ZoneLocation.outdoor ? {
+        outdoor: null
+    } : value;
+}
+function to_candid_variant_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ScareLevel): {
+    mild: null;
+} | {
+    extreme: null;
+} | {
+    moderate: null;
+} {
+    return value == ScareLevel.mild ? {
+        mild: null
+    } : value == ScareLevel.extreme ? {
+        extreme: null
+    } : value == ScareLevel.moderate ? {
+        moderate: null
+    } : value;
+}
+function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
+    admin: null;
+} | {
+    user: null;
+} | {
+    guest: null;
+} {
+    return value == UserRole.admin ? {
+        admin: null
+    } : value == UserRole.user ? {
+        user: null
+    } : value == UserRole.guest ? {
+        guest: null
+    } : value;
+}
+function to_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EventType): {
+    seasonal: null;
+} | {
+    convention: null;
+} | {
+    holiday: null;
+} | {
+    specialEvent: null;
+} | {
+    special: null;
+} {
+    return value == EventType.seasonal ? {
+        seasonal: null
+    } : value == EventType.convention ? {
+        convention: null
+    } : value == EventType.holiday ? {
+        holiday: null
+    } : value == EventType.specialEvent ? {
+        specialEvent: null
+    } : value == EventType.special ? {
+        special: null
+    } : value;
+}
+function to_candid_variant_n24(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: PerformanceType): {
+    interactive: null;
+} | {
+    theatrical: null;
+} | {
+    stunt: null;
+} | {
+    dance: null;
+} | {
+    musical: null;
+} {
+    return value == PerformanceType.interactive ? {
+        interactive: null
+    } : value == PerformanceType.theatrical ? {
+        theatrical: null
+    } : value == PerformanceType.stunt ? {
+        stunt: null
+    } : value == PerformanceType.dance ? {
+        dance: null
+    } : value == PerformanceType.musical ? {
+        musical: null
+    } : value;
+}
+function to_candid_variant_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    __kind__: "show";
+    show: ShowSpecificFields;
+} | {
+    __kind__: "event";
+    event: EventSpecificFields;
+} | {
+    __kind__: "scareZone";
+    scareZone: ScareZoneSpecificFields;
+} | {
+    __kind__: "attraction";
+    attraction: AttractionSpecificFields;
+}): {
+    show: _ShowSpecificFields;
+} | {
+    event: _EventSpecificFields;
+} | {
+    scareZone: _ScareZoneSpecificFields;
+} | {
+    attraction: _AttractionSpecificFields;
+} {
+    return value.__kind__ === "show" ? {
+        show: to_candid_ShowSpecificFields_n21(_uploadFile, _downloadFile, value.show)
+    } : value.__kind__ === "event" ? {
+        event: to_candid_EventSpecificFields_n17(_uploadFile, _downloadFile, value.event)
+    } : value.__kind__ === "scareZone" ? {
+        scareZone: to_candid_ScareZoneSpecificFields_n11(_uploadFile, _downloadFile, value.scareZone)
+    } : value.__kind__ === "attraction" ? {
+        attraction: to_candid_AttractionSpecificFields_n7(_uploadFile, _downloadFile, value.attraction)
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

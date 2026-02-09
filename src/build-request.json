@@ -1,170 +1,167 @@
 {
   "kind": "build_request",
-  "title": "Add Schoolhouse Sneak Peek, new food booths (2027/2028), Laser Hell scare zone, and chainsaw homepage background",
+  "title": "Add CMS-style content system and calendar for haunt events, zones, shows, and hayrides with shared operating dates",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add an AI-generated chainsaw-themed background to the homepage (site-wide background layer), keeping the existing horror aesthetic and ensuring text contrast/readability remains strong across all sections.",
-      "target": "frontend",
+      "text": "Create a backend CMS-style content system that supports creating, reading, updating, and deleting (CRUD) four content types: Events, Scare Zones, Shows, and Attractions (for hayrides). Each item must include a name and an English description field.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-10",
-          "msg-12"
+          "msg-1"
         ],
         "quotes": [
-          "Yes AI generated homepage background",
-          "Build it now"
+          "Yes like a calendar, add details for each zone and Add larger content system",
+          "Own special fields, yes same operation as haunt, add description"
         ]
       },
       "acceptanceCriteria": [
-        "A new chainsaw-themed background image is added as a static asset under frontend/public/assets/generated and is used in the homepage/global background layer.",
-        "Foreground content (hero text, cards, navigation) remains readable; background is subtly blended (e.g., via opacity/overlay) rather than overpowering.",
-        "No changes are made to any files under frontend/src/components/ui or other immutablePaths."
+        "Backend canister exposes CRUD methods for each content type (Events, Scare Zones, Shows, Attractions).",
+        "Each content item persists across reloads/upgrades using stable storage.",
+        "Each content item includes at minimum: id, name, description."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Create a new homepage section for a “Schoolhouse Haunted House” sneak peek that presents an AI-generated concept scenic elevation image of the house plus an AI-written description, and place it on the homepage.",
-      "target": "frontend",
+      "text": "Support custom fields per content type (do not force one shared schema). Implement distinct, type-specific fields for Events, Scare Zones, Shows, and Attractions, in addition to the shared fields (name, description, dates).",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-6",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "Add a sneak peek into Schoolhouse haunted house make it a concept scenic elevation of the house",
-          "Appear at homepage, AI generated image and add own dedicated pages",
-          "Create a description for each of them"
+          "custom fields",
+          "Own special fields"
         ]
       },
       "acceptanceCriteria": [
-        "Homepage includes a clearly titled Schoolhouse sneak-peek section with an AI-generated concept scenic elevation image and an English description.",
-        "Section is reachable via an on-page anchor id and fits the existing styling patterns (uses the shared Section + Card layout where appropriate)."
+        "Each content type has at least one field that is not present on the other types (e.g., Scare Zone location, Show runtime, Attraction ride length, Event organizer).",
+        "Backend validation rejects updates that attempt to set fields not applicable to the item’s type.",
+        "Frontend forms display and submit the type-specific fields correctly."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add a dedicated page for the Schoolhouse Haunted House sneak peek, including the same (or expanded) scenic elevation image and description, and ensure users can navigate to it from the homepage section.",
-      "target": "frontend",
+      "text": "Implement a ‘main haunt operating schedule’ in the backend and allow all content items to inherit/sync their dates from this schedule by default (“same operation as haunt”). Provide a way to override dates per item when needed.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-1"
         ],
         "quotes": [
-          "Appear at homepage, AI generated image and add own dedicated pages"
+          "Date same time as haunt",
+          "yes same operation as haunt"
         ]
       },
       "acceptanceCriteria": [
-        "There is a dedicated Schoolhouse sneak-peek page with a stable URL/route within the frontend.",
-        "Homepage Schoolhouse sneak-peek section includes a working link/button to open the dedicated page.",
-        "The dedicated page renders correctly on refresh (direct navigation to the URL works)."
+        "Backend stores a single main haunt operating schedule record (including at minimum a start date and end date).",
+        "Newly created content items default to inheriting the main haunt schedule dates.",
+        "If an item is set to inherit schedule dates, changing the main haunt schedule updates the item’s effective dates.",
+        "If an item is set to override, its dates remain unchanged when the main haunt schedule changes."
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Add a new food booth named “Slider Doom” labeled as “Coming 2027” with menu item text exactly “Fries. Loaded sparks”, and generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
-      "target": "frontend",
+      "text": "Seed the CMS with the following initial items (names exactly as specified) and ensure they are editable from the CMS UI: Events: “Scream break” (April), “Purge” (May), “east coast” (2027), “Transworld” (2027); Attraction/Hayride: “Farwell haunted hayride”; Scare Zone: “Grave Hell”; Show: “Lost spirits” (coming 2027).",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-6",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "a new food booth coming 2027 called Slider Doom menu is Fries. Loaded sparks add description for it",
-          "Appear at homepage, AI generated image and add own dedicated pages",
-          "Create a description for each of them"
+          "Make me a event called Scream break in April, and Purge in may, and east coast in 2027, and Transworld in 2027 and a hayride called Farwell haunted hayride, and a new scare zone called Grave Hell, a new show called Lost spirits coming 2027"
         ]
       },
       "acceptanceCriteria": [
-        "Food booth “Slider Doom” appears in the Food Booths grid on the homepage with label “Coming 2027”, an English description, and menu containing the exact text “Fries. Loaded sparks”.",
-        "A new AI-generated image is available for Slider Doom and is wired through the generatedImages mapping so the booth card displays an image.",
-        "A dedicated Slider Doom page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+        "After deploy, all listed items exist in storage and appear in the CMS UI.",
+        "Each seeded item has an English description value (can be placeholder text but must be editable).",
+        "Items that only specify month/year still have dates represented in the system (e.g., as a date range within that month/year) and are editable."
       ]
     },
     {
       "id": "REQ-5",
-      "text": "Add a new food booth named “Sharks Hell” labeled as “Coming 2028” that serves the following menu items exactly: “Cookie dough sharks cookie”, “stuffed ice cream”, “chocolate white chocolate”, and “Laser beam Shake”. Generate an English booth description (and tagline if needed) consistent with the site’s horror tone. Show it in the homepage Food Booths section and provide a dedicated page for it.",
+      "text": "Add a frontend admin/editor experience (CMS UI) that allows authenticated users to add, edit, and delete Events, Scare Zones, Shows, and Attractions, including editing descriptions, type-specific custom fields, and the inherit/override schedule setting.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-6",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "a new food booth coming 2028 called Sharks Hell serves Cookie dough sharks cookie, stuffed ice cream, chocolate white chocolate to and Laser beam Shake.",
-          "Appear at homepage, AI generated image and add own dedicated pages",
-          "Create a description for each of them"
+          "Add larger content system",
+          "Own special fields, yes same operation as haunt, add description"
         ]
       },
       "acceptanceCriteria": [
-        "Food booth “Sharks Hell” appears in the Food Booths grid on the homepage with label “Coming 2028”, an English description, and the menu items listed exactly as provided.",
-        "A new AI-generated image is available for Sharks Hell and is wired through the generatedImages mapping so the booth card displays an image.",
-        "A dedicated Sharks Hell page exists with the booth’s name, label/year, image, description, and menu, and the booth card (or a CTA) links to that page."
+        "There is a CMS screen reachable via the existing hash-based routing (same routing style as current pages).",
+        "CMS UI supports list + create + edit + delete for all four types.",
+        "CMS UI includes controls for: name, description, type-specific fields, and inherit/override dates.",
+        "Unauthenticated users cannot perform write operations (UI blocks and backend rejects)."
       ]
     },
     {
       "id": "REQ-6",
-      "text": "Add a new scare zone named “Laser Hell” with an AI-written English description and an AI-chosen specific location (expressed in English) and show it on the homepage Scare Zones section with an AI-generated image; also create a dedicated page for it that includes the description and location.",
+      "text": "Add a calendar view in the frontend that displays scheduled items with dates. Include Events and also include other item types (Scare Zones, Shows, Attractions) when they have effective dates (inherited or overridden).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4",
-          "msg-6",
-          "msg-8"
+          "msg-1"
         ],
         "quotes": [
-          "New scare zone called Laser hell add description for jt and location",
-          "Appear at homepage, AI generated image and add own dedicated pages",
-          "Create a description for each of them"
+          "Yes like a calendar",
+          "add dates"
         ]
       },
       "acceptanceCriteria": [
-        "“Laser Hell” appears in the homepage Scare Zones grid with an English tagline/description and an AI-generated image wired via the generatedImages mapping.",
-        "The location for Laser Hell is clearly displayed (either as a dedicated field rendered in UI or included as a clearly labeled line in the content).",
-        "A dedicated Laser Hell page exists and includes the zone name, image, description, and location, with a working navigation link from the homepage zone card (or CTA)."
+        "A calendar screen exists and can be navigated to via hash route.",
+        "Calendar shows items on their effective dates (inherited from haunt schedule or overridden per item).",
+        "User can filter the calendar by content type (Events / Scare Zones / Shows / Attractions).",
+        "Selecting an entry shows its details (name, description, and its type-specific fields)."
       ]
     },
     {
       "id": "REQ-7",
-      "text": "Update the site navigation (header) and internal linking so users can discover and reach the new dedicated pages for: Schoolhouse sneak peek, Slider Doom, Sharks Hell, and Laser Hell, without breaking existing smooth-scroll anchor navigation.",
+      "text": "Wire the frontend to the backend using React Query via the existing actor hook so that CMS lists, detail views, and calendar data are loaded from the canister (not hard-coded).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-1"
         ],
         "quotes": [
-          "Appear at homepage, AI generated image and add own dedicated pages"
+          "Build now"
         ]
       },
       "acceptanceCriteria": [
-        "Header navigation continues to work for existing homepage anchors (e.g., #auditions, #food-booths, #scare-zones).",
-        "Users can reach each new dedicated page from the homepage (via section CTAs/cards) and optionally via header navigation without confusing anchor-only behavior.",
-        "No console errors related to routing/navigation in normal browsing."
+        "Frontend uses the existing actor pattern (useActor) and React Query to fetch CMS and calendar data.",
+        "Mutations (create/update/delete) invalidate/refetch relevant queries so UI updates without manual refresh.",
+        "If the backend is unavailable or returns an error, UI shows an English error state and does not crash."
       ]
     }
   ],
   "constraints": [
-    "Use English for all user-facing text.",
-    "Do not edit any files under frontend/src/components/ui (read-only UI components) or any other paths listed in frontend.immutablePaths.",
-    "Keep backend as-is unless strictly necessary; no external databases or third-party services."
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not modify any files under frontend/src/components/ui (compose existing shadcn components instead).",
+    "Do not edit frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, or frontend/src/main.tsx (they are immutable).",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "Do not implement real-time features (WebSockets/chat).",
-    "Do not add third-party authentication beyond Internet Identity.",
-    "Do not add payments, maps/geolocation, or external CMS integrations."
+    "No third-party authentication providers (only Internet Identity if authentication is needed).",
+    "No external databases or off-chain storage integrations.",
+    "No real-time updates (no websockets/live collaboration).",
+    "No requirement to generate or modify images for these new CMS items unless separately requested."
   ],
   "imageRequirements": {
-    "required": [
-      "Chainsaw-themed horror background image with gritty texture and subtle depth (chainsaw-home-bg.dim_2400x1350.jpg)",
-      "Concept scenic elevation of a haunted schoolhouse exterior, cinematic lighting, architectural elevation feel (schoolhouse-sneak-peek-elevation.dim_1600x900.jpg)",
-      "Horror food booth key art for “Slider Doom” (booth-slider-doom.dim_1400x900.jpg)",
-      "Horror food booth key art for “Sharks Hell” (booth-sharks-hell.dim_1400x900.jpg)",
-      "Scare zone key art for “Laser Hell” with laser-like lighting atmosphere (zone-laser-hell.dim_1400x900.jpg)"
-    ],
+    "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }
