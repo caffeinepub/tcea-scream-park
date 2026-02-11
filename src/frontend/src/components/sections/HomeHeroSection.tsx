@@ -35,7 +35,7 @@ export function HomeHeroSection() {
         <div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(0, 255, 100, 0.1) 50%, transparent 100%)',
+            background: 'radial-gradient(ellipse at center, rgba(255, 100, 0, 0.15) 0%, rgba(0, 255, 100, 0.1) 50%, transparent 100%)',
           }}
         />
       </div>
@@ -53,12 +53,12 @@ export function HomeHeroSection() {
           alt="TCEA Scream Park Logo"
           className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-8 animate-pulse-glow"
           style={{
-            filter: 'drop-shadow(0 0 30px rgba(0, 255, 100, 0.6))',
+            filter: 'drop-shadow(0 0 30px rgba(255, 100, 0, 0.6)) drop-shadow(0 0 20px rgba(0, 255, 100, 0.4))',
           }}
         />
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider mb-6 text-destructive"
           style={{
-            textShadow: '0 0 20px rgba(0, 255, 100, 0.5), 0 0 40px rgba(0, 255, 100, 0.3)',
+            textShadow: '0 0 20px rgba(255, 100, 0, 0.5), 0 0 40px rgba(0, 255, 100, 0.3)',
           }}
         >
           TCEA SCREAM PARK
@@ -69,6 +69,17 @@ export function HomeHeroSection() {
         <p className="text-xl md:text-3xl text-foreground/90 mb-4 font-semibold tracking-wide">
           The Only Extreme Haunted Attraction
         </p>
+        
+        {/* Fire Remix Energetic Description */}
+        <div className="max-w-3xl mx-auto mb-6 px-4">
+          <p className="text-lg md:text-xl text-destructive/90 font-semibold mb-2">
+            🔥 NEW FOR 2028: FIRE REMIX 🔥
+          </p>
+          <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
+            Experience the most electrifying show of the year! High-energy dancers, mind-blowing lasers, and explosive performances that will leave you breathless. Showtimes at 1, 4, 7, and 9—exclusively at Remix Arena!
+          </p>
+        </div>
+
         <p className="text-lg md:text-2xl text-muted-foreground mb-12">
           Waterford, Virginia
         </p>
@@ -87,7 +98,7 @@ export function HomeHeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce"
         aria-label="Scroll down"
       >
-        <ChevronDown className="h-8 w-8 text-destructive drop-shadow-[0_0_10px_rgba(0,255,100,0.5)]" />
+        <ChevronDown className="h-8 w-8 text-destructive drop-shadow-[0_0_10px_rgba(255,100,0,0.5)]" />
       </button>
     </section>
   );

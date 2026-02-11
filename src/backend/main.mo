@@ -250,12 +250,79 @@ actor {
           ];
           useMainHauntSchedule = false;
         },
+        // New Shows
+        {
+          id = 8;
+          name = "lost sprits";
+          description = "Experience a haunting tale of restless souls trapped in a twisted world. This horror show will leave you breathless with its chilling performances, disturbing effects, and heart-pounding scares. Premiering in 2028 at the FarwellHaunt main theatrical facility. This show is a must-see for fans of extreme horror and immersive storytelling.";
+          customType = #show({
+            performanceType = #theatrical;
+            yearIntroduced = ?2028;
+          });
+          dates = [
+            {
+              startDate = { year = 2028; month = 8; day = 30 };
+              endDate = { year = 2028; month = 8; day = 30 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        {
+          id = 9;
+          name = "Hell grave";
+          description = "Prepare for a terrifying journey through the depths of hell. This English horror-style show will feature intense scares, dark themes, and an immersive atmosphere. Premiering in 2027.";
+          customType = #show({
+            performanceType = #theatrical;
+            yearIntroduced = ?2027;
+          });
+          dates = [
+            {
+              startDate = { year = 2027; month = 1; day = 1 };
+              endDate = { year = 2027; month = 12; day = 31 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        // New Scare Zone
+        {
+          id = 10;
+          name = "zombie hell";
+          description = "Venture into the depths of the undead world. This English horror-style scare zone will challenge your senses with intense scares, realistic zombies, and a truly haunting ambiance. Coming in 2027.";
+          customType = #scareZone({
+            scareLevel = #extreme;
+            indoorOutdoor = #outdoor;
+            yearIntroduced = ?2027;
+          });
+          dates = [
+            {
+              startDate = { year = 2027; month = 1; day = 1 };
+              endDate = { year = 2027; month = 12; day = 31 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        // New 2028 Procession Event
+        {
+          id = 11;
+          name = "2028 Procession";
+          description = "Prepare for a spine-tingling journey through our annual procession. This English horror-style event features detailed costumes, eerie floats, and a frightful parade. Scary Rules: All participants must be aware of sudden scares, loud noises, and strictly follow the procession path. Participation is at your own risk!";
+          customType = #event({
+            eventType = #specialEvent;
+          });
+          dates = [
+            {
+              startDate = { year = 2028; month = 10; day = 31 };
+              endDate = { year = 2028; month = 10; day = 31 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
       ];
 
       for (item in initialContent.values()) {
         contentItems.add(item.id, item);
       };
-      nextContentId := 8;
+      nextContentId := 12; // Update to the next available id
     };
   };
 

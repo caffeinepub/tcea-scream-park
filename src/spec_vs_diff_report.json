@@ -1,108 +1,96 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-09T19:15:07.721Z",
-  "summary": "Diff adds a new CMS/Calendar frontend flow (CmsPage, CalendarPage) with React Query hooks and new backend content types, type-specific fields, a main schedule variable, and a seed method. However, key backend requirements are not evidenced (full CRUD API, stable persistence across upgrades, type-field validation, and effective-date inheritance/sync behavior). Several unrelated/auth features (user profiles, profile setup modal, URL secret param utilities) were added/modified without being requested, and an immutable hook (useActor.ts) was modified contrary to constraints.",
+  "generatedAt": "2026-02-11T18:23:42.914Z",
+  "summary": "Implemented homepage audio autoplay attempt with non-blocking fallback controls, added the \"Camp Riley\" show and updated generatedImages mappings for Camp Riley and the \"Grave danger dace\" scare zone. However, required new image asset files are not present in the diff, and \"Camp Riley\" is not explicitly marked as a kid show via a dedicated field (only implied by description). Diff summary also indicates several unrelated homepage/sections visual/content changes not requested.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Backend exposes CRUD methods for each content type (Events, Scare Zones, Shows, Attractions) and persists items across reloads/upgrades using stable storage.",
-      "reason": "The diff shows type definitions and in-memory Maps, plus a seeding method, but does not show stable storage (stable vars + preupgrade/postupgrade) nor clear per-type CRUD methods; only frontend hooks reference expected methods.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useContentItems.ts"
-      ]
-    },
-    {
       "id": "REQ-2",
-      "requirement": "Support distinct, type-specific fields per content type and reject updates that set fields not applicable to the item’s type; frontend forms must display/submit those fields.",
-      "reason": "Backend defines distinct variant payloads, but there is no evidence of validation logic rejecting non-applicable fields, and CmsPage is truncated before showing type-specific form controls and submission mapping.",
+      "requirement": "Add a new show entry named \"Camp Riley\" ... marked as a kid show \"Coming 2027\"",
+      "reason": "The show entry includes a kid-friendly description and \"Coming 2027\" text, but there is no explicit field indicating it is a kid show (the object only shows name/description/hauntSeasonOnly). If the app expects an explicit kid-show marker, this is not implemented.",
       "evidence": [
-        "backend/main.mo",
-        "frontend/src/pages/CmsPage.tsx"
+        "frontend/src/content/shows.ts"
       ]
     },
     {
       "id": "REQ-3",
-      "requirement": "Implement main haunt operating schedule with default inheritance for new items and effective-date syncing when the schedule changes, with per-item override.",
-      "reason": "Backend includes a mainHauntSchedule variable and a useMainHauntSchedule flag, and frontend has hooks to update schedule, but there is no evidence of logic that computes effective dates from the main schedule for inheriting items, nor that changing the main schedule updates inheriting items’ effective dates while leaving overridden items unchanged. CalendarPage renders item.dates directly.",
+      "requirement": "A new image file exists under frontend/public/assets/generated with filename show-camp-riley.dim_1400x900.jpg",
+      "reason": "The generatedImages mapping points to the asset path, but the diff shows no added files (Added: 0), so the required image file is not evidenced as added.",
       "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useMainHauntSchedule.ts",
-        "frontend/src/pages/CalendarPage.tsx"
+        "frontend/src/content/generatedImages.ts",
+        "<file-diff>: Added: 0"
       ]
     },
     {
       "id": "REQ-4",
-      "requirement": "Seed the CMS with all specified initial items (names exactly) with editable English descriptions and represent month/year-only items as editable date ranges.",
-      "reason": "A seedInitialContent method exists and begins seeding “Scream break” with an English description and explicit date range, but the diff is truncated before confirming all required seeded items (Purge, east coast, Transworld, Farwell haunted hayride, Grave Hell, Lost spirits) and their date representations.",
+      "requirement": "A new image file exists under frontend/public/assets/generated with filename zone-undead-dance-party.dim_1400x900.jpg",
+      "reason": "The scareZones mapping was updated to point to the new asset path, but the diff shows no added files (Added: 0), so the required image file is not evidenced as added.",
       "evidence": [
-        "backend/main.mo",
-        "frontend/src/pages/CmsPage.tsx"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "requirement": "Calendar shows items on their effective dates (inherited from haunt schedule or overridden per item).",
-      "reason": "CalendarPage groups items by item.dates and does not show any use of main haunt schedule inheritance/override to derive effective dates.",
-      "evidence": [
-        "frontend/src/pages/CalendarPage.tsx"
+        "frontend/src/content/generatedImages.ts",
+        "<file-diff>: Added: 0"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile system (get/save caller user profile) and mandatory profile setup modal.",
-      "reason": "BuildRequest did not ask for user profiles or a profile setup flow; only authentication gating for CMS writes was required.",
+      "description": "Major visual/theme changes to HorrorBackground (new chainsaw-themed layers, overlays, scanlines, etc.)",
+      "reason": "Not requested by any requirement; BuildRequest is limited to autoplay audio + show/scare-zone image updates.",
       "evidence": [
-        "backend/main.mo",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useAuthz.ts"
+        "frontend-file-summaries.txt (frontend/src/components/theme/HorrorBackground.tsx summary)"
       ]
     },
     {
-      "description": "Secret URL/session parameter utilities implying admin token handling.",
-      "reason": "BuildRequest did not request URL parameter/sessionStorage utilities or secret-token based initialization logic.",
+      "description": "Home hero section content updated with new \"Fire Remix\" energetic description and showtime details",
+      "reason": "Not requested; requirements only mention autoplay audio and adding Camp Riley + image mapping changes.",
       "evidence": [
-        "frontend/src/utils/urlParams.ts",
-        "frontend/src/hooks/useActor.ts"
+        "frontend-file-summaries.txt (frontend/src/components/sections/HomeHeroSection.tsx summary)"
       ]
     },
     {
-      "description": "Modification of immutable hook useActor.ts to initialize access control with a secret token.",
-      "reason": "Constraints explicitly say not to edit frontend/src/hooks/useActor.ts; this change is unrequested and violates constraints.",
+      "description": "Auditions section adds a new \"Show Host Auditions (coming 2029)\" card",
+      "reason": "Not requested by BuildRequest.",
       "evidence": [
-        "frontend/src/hooks/useActor.ts"
+        "frontend-file-summaries.txt (frontend/src/components/sections/AuditionsSection.tsx summary)"
       ]
     },
     {
-      "description": "AccessDeniedScreen and new LoginButton UI components for CMS authorization handling.",
-      "reason": "While CMS write protection was required, these specific new screens/components are additional UI beyond the stated requirements (not explicitly requested).",
+      "description": "Haunted houses section/content changed (exactly four houses, updated subtitle; hauntedHouses.ts now exports five including new \"Toys Come to Play\")",
+      "reason": "Not requested by BuildRequest.",
       "evidence": [
-        "frontend/src/components/auth/AccessDeniedScreen.tsx",
-        "frontend/src/components/auth/LoginButton.tsx",
-        "frontend/src/pages/CmsPage.tsx"
+        "frontend-file-summaries.txt (frontend/src/components/sections/HauntedHousesSection.tsx summary)",
+        "frontend-file-summaries.txt (frontend/src/content/hauntedHouses.ts summary)"
+      ]
+    },
+    {
+      "description": "Food booths content changed (exports eleven booths including new \"Steampunk Eats\"; pricing/menu updates; new detail page links)",
+      "reason": "Not requested by BuildRequest.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/components/sections/FoodBoothsSection.tsx summary)",
+        "frontend-file-summaries.txt (frontend/src/content/foodBooths.ts summary)"
+      ]
+    },
+    {
+      "description": "Scare zones section behavior/content changed to display exactly four scare zones",
+      "reason": "Not requested; only the image mapping for an existing scare zone was requested.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/components/sections/ScareZonesSection.tsx summary)"
+      ]
+    },
+    {
+      "description": "Info/Location section content heavily updated (hours, tickets, pass types, rules, warnings, etc.)",
+      "reason": "Not requested by BuildRequest.",
+      "evidence": [
+        "frontend-file-summaries.txt (frontend/src/components/sections/InfoLocationSection.tsx summary)"
       ]
     }
   ],
-  "confidence": 0.62,
+  "confidence": 0.74,
   "changed_files": [
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/auth/AccessDeniedScreen.tsx",
-    "frontend/src/components/auth/LoginButton.tsx",
-    "frontend/src/components/auth/ProfileSetupModal.tsx",
-    "frontend/src/components/layout/SiteHeader.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useAuthz.ts",
-    "frontend/src/hooks/useContentItems.ts",
-    "frontend/src/hooks/useMainHauntSchedule.ts",
-    "frontend/src/lib/contentFormatting.ts",
-    "frontend/src/pages/CalendarPage.tsx",
-    "frontend/src/pages/CmsPage.tsx",
-    "frontend/src/utils/urlParams.ts",
+    "frontend/src/components/audio/BackgroundAudioManager.tsx",
+    "frontend/src/components/audio/SoundControls.tsx",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/shows.ts",
     "project_state.json"
   ]
 }

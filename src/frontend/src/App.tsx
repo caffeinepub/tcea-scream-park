@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HomeHeroSection } from './components/sections/HomeHeroSection';
 import { HomeProcessionSection } from './components/sections/HomeProcessionSection';
@@ -6,6 +6,8 @@ import { AuditionsSection } from './components/sections/AuditionsSection';
 import { HauntedHousesSection } from './components/sections/HauntedHousesSection';
 import { ClownTownInteriorElevationSection } from './components/sections/ClownTownInteriorElevationSection';
 import { SchoolhouseSneakPeekSection } from './components/sections/SchoolhouseSneakPeekSection';
+import { ShowsSection } from './components/sections/ShowsSection';
+import { UpcomingEventsSection } from './components/sections/UpcomingEventsSection';
 import { FoodBoothsSection } from './components/sections/FoodBoothsSection';
 import { MerchShopsSection } from './components/sections/MerchShopsSection';
 import { ScareZonesSection } from './components/sections/ScareZonesSection';
@@ -38,6 +40,8 @@ const queryClient = new QueryClient({
 
 function AppContent() {
   const [currentRoute, setCurrentRoute] = useState('');
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [requestStartCallback, setRequestStartCallback] = useState<(() => void) | null>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -49,6 +53,20 @@ function AppContent() {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  const handleAutoplayBlockedChange = useCallback((blocked: boolean) => {
+    setAutoplayBlocked(blocked);
+  }, []);
+
+  const handleRequestStart = useCallback((callback: () => void) => {
+    setRequestStartCallback(() => callback);
+  }, []);
+
+  const handleEnableSound = useCallback(() => {
+    if (requestStartCallback) {
+      requestStartCallback();
+    }
+  }, [requestStartCallback]);
 
   const renderPage = () => {
     if (currentRoute === '#/schoolhouse') {
@@ -84,6 +102,8 @@ function AppContent() {
         <HauntedHousesSection />
         <ClownTownInteriorElevationSection />
         <SchoolhouseSneakPeekSection />
+        <ShowsSection />
+        <UpcomingEventsSection />
         <FoodBoothsSection />
         <MerchShopsSection />
         <ScareZonesSection />
@@ -97,8 +117,14 @@ function AppContent() {
   return (
     <div className="relative min-h-screen dark">
       <HorrorBackground />
-      <BackgroundAudioManager />
-      <SiteHeader />
+      <BackgroundAudioManager 
+        onAutoplayBlockedChange={handleAutoplayBlockedChange}
+        onRequestStart={handleRequestStart}
+      />
+      <SiteHeader 
+        autoplayBlocked={autoplayBlocked}
+        onEnableSound={handleEnableSound}
+      />
       <main className="relative z-10">
         {renderPage()}
       </main>

@@ -1,7 +1,7 @@
 export function HorrorBackground() {
   return (
     <>
-      {/* Chainsaw-themed background image */}
+      {/* Chainsaw-themed background image with orange tint */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <img
           src="/assets/generated/chainsaw-home-bg.dim_2400x1350.jpg"
@@ -9,16 +9,24 @@ export function HorrorBackground() {
           className="w-full h-full object-cover opacity-[0.15]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" />
+        {/* Orange tint overlay */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(255, 100, 0, 0.15) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 100, 0, 0.1) 100%)',
+          }}
+        />
       </div>
 
       {/* Animated horror layers - fire, smoke, chainsaws, blood */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Fire layer */}
-        <div className="absolute inset-0 animate-horror-drift-slow opacity-20">
+        {/* Fire layer with orange emphasis */}
+        <div className="absolute inset-0 animate-horror-drift-slow opacity-30">
           <img
             src="/assets/generated/bg-fire-loop.dim_2400x1350.png"
             alt=""
             className="w-full h-full object-cover"
+            style={{ filter: 'hue-rotate(-10deg) saturate(1.3)' }}
           />
         </div>
         
@@ -50,21 +58,21 @@ export function HorrorBackground() {
         </div>
       </div>
 
-      {/* Deep black base with green glow vignette */}
+      {/* Deep black base with orange and green glow vignette */}
       <div className="fixed inset-0 pointer-events-none z-0 bg-black">
         <div 
-          className="absolute inset-0 bg-gradient-radial from-transparent via-background/70 to-background"
+          className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at center, transparent 0%, rgba(0, 20, 10, 0.7) 50%, rgba(0, 0, 0, 0.95) 100%)'
+            background: 'radial-gradient(circle at center, transparent 0%, rgba(20, 10, 0, 0.7) 40%, rgba(0, 0, 0, 0.95) 100%)'
           }}
         />
       </div>
       
-      {/* Toxic green glow overlay */}
+      {/* Orange and green glow overlay */}
       <div 
-        className="fixed inset-0 pointer-events-none z-0 opacity-[0.08]"
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.12]"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(0, 255, 100, 0.3) 0%, transparent 50%)',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(255, 100, 0, 0.3) 0%, rgba(0, 255, 100, 0.2) 40%, transparent 70%)',
         }}
       />
       
@@ -81,7 +89,7 @@ export function HorrorBackground() {
       <div 
         className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]"
         style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 100, 0.03) 2px, rgba(0, 255, 100, 0.03) 4px)',
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 100, 0, 0.03) 2px, rgba(255, 100, 0, 0.03) 4px)',
         }}
       />
     </>

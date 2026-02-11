@@ -1,116 +1,117 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { useSoundPreferences } from '@/hooks/useSoundPreferences';
 
-export function BackgroundAudioManager() {
+interface BackgroundAudioManagerProps {
+  onAutoplayBlockedChange?: (blocked: boolean) => void;
+  onRequestStart?: (callback: () => void) => void;
+}
+
+export function BackgroundAudioManager({ onAutoplayBlockedChange, onRequestStart }: BackgroundAudioManagerProps) {
+  const { preferences } = useSoundPreferences();
   const chainsawRef = useRef<HTMLAudioElement | null>(null);
   const clownLaughRef = useRef<HTMLAudioElement | null>(null);
-  const hasStartedRef = useRef(false);
-  const gestureListenersAttachedRef = useRef(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [currentAudio, setCurrentAudio] = useState<'chainsaw' | 'clown' | null>(null);
+  const playAttemptedRef = useRef(false);
+  const initialLoadRef = useRef(true);
 
+  // Notify parent of autoplay blocked state
   useEffect(() => {
-    // Create chainsaw audio element
+    onAutoplayBlockedChange?.(autoplayBlocked);
+  }, [autoplayBlocked, onAutoplayBlockedChange]);
+
+  // Initialize audio elements
+  useEffect(() => {
     const chainsaw = new Audio('/assets/audio/chainsaw-loop.mp3');
     chainsaw.loop = true;
-    chainsaw.volume = 0.6; // 60% volume
 
-    // Create clown laugh fallback audio element
-    const clownLaugh = new Audio('/assets/audio/clown-laugh.mp3');
+    const clownLaugh = new Audio('/assets/audio/ambient-eerie-loop.mp3');
     clownLaugh.loop = true;
-    clownLaugh.volume = 0.6; // 60% volume
 
     chainsawRef.current = chainsaw;
     clownLaughRef.current = clownLaugh;
 
-    // Attempt to play chainsaw audio on mount
-    const attemptChainsawPlay = async () => {
-      try {
-        await chainsaw.play();
-        hasStartedRef.current = true;
-        // Success - chainsaw is playing
-      } catch (error) {
-        // Chainsaw autoplay failed, try clown laugh fallback
-        attemptClownLaughPlay();
-      }
-    };
-
-    // Attempt to play clown laugh fallback
-    const attemptClownLaughPlay = async () => {
-      try {
-        await clownLaugh.play();
-        hasStartedRef.current = true;
-        // Success - clown laugh is playing
-      } catch (error) {
-        // Both failed, attach gesture listeners for retry
-        attachGestureListeners();
-      }
-    };
-
-    // Attach user gesture listeners to retry playback
-    const attachGestureListeners = () => {
-      if (gestureListenersAttachedRef.current) return;
-      gestureListenersAttachedRef.current = true;
-
-      const retryPlayback = async () => {
-        if (hasStartedRef.current) return;
-
-        // Try chainsaw first
-        try {
-          await chainsaw.play();
-          hasStartedRef.current = true;
-          removeGestureListeners();
-          return;
-        } catch (error) {
-          // Chainsaw failed, try clown laugh
-          try {
-            await clownLaugh.play();
-            hasStartedRef.current = true;
-            removeGestureListeners();
-          } catch (fallbackError) {
-            // Both still failing, listeners will remain for next gesture
-          }
-        }
-      };
-
-      const events = ['pointerdown', 'click', 'touchstart', 'keydown'];
-      events.forEach(event => {
-        window.addEventListener(event, retryPlayback, { once: false });
-      });
-
-      // Store cleanup function
-      window.__audioGestureCleanup = () => {
-        events.forEach(event => {
-          window.removeEventListener(event, retryPlayback);
-        });
-      };
-    };
-
-    const removeGestureListeners = () => {
-      if (window.__audioGestureCleanup) {
-        window.__audioGestureCleanup();
-        delete window.__audioGestureCleanup;
-      }
-      gestureListenersAttachedRef.current = false;
-    };
-
-    // Start initial playback attempt
-    attemptChainsawPlay();
-
-    // Cleanup
     return () => {
       chainsaw.pause();
       chainsaw.src = '';
       clownLaugh.pause();
       clownLaugh.src = '';
-      removeGestureListeners();
     };
   }, []);
 
-  // No UI rendered - audio plays automatically in background
-  return null;
-}
+  // Update volume when preferences change
+  useEffect(() => {
+    if (chainsawRef.current) {
+      chainsawRef.current.volume = preferences.volume;
+    }
+    if (clownLaughRef.current) {
+      clownLaughRef.current.volume = preferences.volume;
+    }
+  }, [preferences.volume]);
 
-// Extend Window interface for cleanup function
-declare global {
-  interface Window {
-    __audioGestureCleanup?: () => void;
-  }
+  // Attempt to start playback
+  const attemptPlayback = useCallback(async () => {
+    if (!chainsawRef.current || !clownLaughRef.current) return;
+
+    // Stop any currently playing audio
+    chainsawRef.current.pause();
+    clownLaughRef.current.pause();
+    setCurrentAudio(null);
+
+    // Try chainsaw first
+    try {
+      chainsawRef.current.currentTime = 0;
+      await chainsawRef.current.play();
+      setCurrentAudio('chainsaw');
+      setAutoplayBlocked(false);
+      playAttemptedRef.current = true;
+      return;
+    } catch (error) {
+      // Chainsaw failed, try clown laugh fallback
+      try {
+        clownLaughRef.current.currentTime = 0;
+        await clownLaughRef.current.play();
+        setCurrentAudio('clown');
+        setAutoplayBlocked(false);
+        playAttemptedRef.current = true;
+        return;
+      } catch (fallbackError) {
+        // Both failed - autoplay is blocked
+        setAutoplayBlocked(true);
+        playAttemptedRef.current = true;
+      }
+    }
+  }, []);
+
+  // Handle enabled/disabled state
+  useEffect(() => {
+    if (preferences.enabled) {
+      // Attempt playback on initial load or when re-enabling
+      if (!playAttemptedRef.current || initialLoadRef.current) {
+        initialLoadRef.current = false;
+        attemptPlayback();
+      } else if (currentAudio === null) {
+        // Was disabled, now re-enabling - always attempt playback
+        attemptPlayback();
+      }
+    } else {
+      // Pause all audio when disabled
+      if (chainsawRef.current) {
+        chainsawRef.current.pause();
+      }
+      if (clownLaughRef.current) {
+        clownLaughRef.current.pause();
+      }
+      setCurrentAudio(null);
+    }
+  }, [preferences.enabled, attemptPlayback, currentAudio]);
+
+  // Expose requestStart callback to parent
+  useEffect(() => {
+    if (onRequestStart) {
+      onRequestStart(attemptPlayback);
+    }
+  }, [onRequestStart, attemptPlayback]);
+
+  return null;
 }

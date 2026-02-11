@@ -1,69 +1,56 @@
 import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { scareZones } from '../../content/scareZones';
-import { generatedImages } from '../../content/generatedImages';
-import { Skull, Eye, MapPin } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skull } from 'lucide-react';
+import { scareZones } from '@/content/scareZones';
+import { generatedImages } from '@/content/generatedImages';
 
 export function ScareZonesSection() {
-  const handleViewZone = (zoneName: string) => {
-    if (zoneName === 'Laser Hell') {
-      window.location.hash = '#/scare-zones/laser-hell';
-    }
-  };
-
   return (
     <Section
       id="scare-zones"
       title="Scare Zones"
-      subtitle="Roaming terror throughout the park"
+      subtitle="Open-air terror zones throughout the park"
       icon={<Skull className="h-10 w-10 text-destructive" />}
     >
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        {scareZones.zones.map((zone, index) => (
-          <Card
-            key={index}
-            className="bg-card/80 backdrop-blur-sm border-destructive/30 hover:border-destructive/60 transition-all hover:shadow-glow-green hover:scale-105 overflow-hidden"
-          >
-            {/* Zone Image */}
-            <div className="relative h-56 overflow-hidden">
-              <img
-                src={generatedImages.scareZones[zone.name as keyof typeof generatedImages.scareZones]}
-                alt={zone.name}
-                className="w-full h-full object-cover transition-transform hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-            </div>
-
-            <CardHeader>
-              <CardTitle className="text-2xl text-destructive">{zone.name}</CardTitle>
-              {zone.location && (
-                <CardDescription className="text-muted-foreground flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
-                  {zone.location}
-                </CardDescription>
-              )}
-              <CardDescription className="text-destructive/80 italic font-semibold">
-                {zone.tagline}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {zone.description}
-              </p>
-              {zone.name === 'Laser Hell' && (
-                <Button
-                  onClick={() => handleViewZone(zone.name)}
-                  variant="outline"
-                  className="w-full mt-4 border-destructive/40 text-destructive hover:bg-destructive/10"
-                >
-                  <Eye className="mr-2 h-4 w-4" />
-                  View Details
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+      <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        {scareZones.map((zone) => {
+          const imagePath = generatedImages.scareZones[zone.name as keyof typeof generatedImages.scareZones];
+          
+          return (
+            <Card
+              key={zone.name}
+              className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden group hover:border-destructive/50 transition-all hover:shadow-glow-green"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={imagePath}
+                  alt={zone.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: 'radial-gradient(circle at center, rgba(0, 255, 100, 0.2) 0%, transparent 70%)',
+                  }}
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-2xl text-destructive bloody-text">
+                  {zone.name}
+                </CardTitle>
+                <p className="text-lg font-semibold text-muted-foreground italic">
+                  {zone.tagline}
+                </p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm leading-relaxed text-foreground/90">
+                  {zone.description}
+                </p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </Section>
   );

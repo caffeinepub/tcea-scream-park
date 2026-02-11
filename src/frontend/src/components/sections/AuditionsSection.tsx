@@ -1,9 +1,11 @@
 import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Users } from 'lucide-react';
+import { Calendar, Clock, Users, Mic } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { AuditionPerksBlock } from './auditions/AuditionPerksBlock';
+import { generatedImages } from '@/content/generatedImages';
+import { useState } from 'react';
 
 interface Role {
   name: string;
@@ -13,34 +15,35 @@ interface Role {
 export function AuditionsSection() {
   const roles: Role[] = [
     { name: 'Sliders' },
-    { name: 'Stilt Walkers' },
-    { name: 'Chainsaw Actors' },
-    { name: 'Scare Actors' },
-    { name: 'Makeup Artists' },
-    { 
-      name: 'Costume Manager',
-      description: 'Oversee the wardrobe of nightmares—every torn fabric and bloodstained garment must terrify on sight.'
-    },
-    { 
-      name: 'Masks Manager',
-      description: 'Curate our collection of grotesque faces—each mask must hide humanity and reveal pure horror.'
-    },
-    { name: 'And Many More...' },
+    { name: 'Stilts' },
+    { name: 'Dancers' },
+    { name: 'Chainsaws' },
+    { name: 'Fire Dancers' },
   ];
+
+  const auditionsImageUrl = generatedImages.auditions['The Scream Team Auditions'];
+  const showHostImageUrl = generatedImages.auditions['Show Host Auditions'];
 
   return (
     <Section
       id="auditions"
-      title="Auditions"
-      subtitle="Join the most terrifying team in Virginia"
+      title="Join The Scream Team"
+      subtitle="We're hiring fearless performers for the most terrifying show on earth"
       icon={<Users className="h-10 w-10 text-destructive" />}
     >
-      <div className="max-w-4xl mx-auto">
-        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 shadow-xl">
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* The Scream Team Auditions */}
+        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 shadow-xl overflow-hidden">
+          {auditionsImageUrl && (
+            <AuditionsHeroImage src={auditionsImageUrl} alt="The Scream Team Auditions" />
+          )}
           <CardHeader>
             <CardTitle className="text-3xl text-center text-destructive">
-              We're Looking For Fearless Performers
+              The Scream Team Auditions
             </CardTitle>
+            <p className="text-center text-lg text-muted-foreground mt-2">
+              Be part of the elite team that brings nightmares to life
+            </p>
           </CardHeader>
           <CardContent className="space-y-8">
             {/* Date and Time Info */}
@@ -70,47 +73,86 @@ export function AuditionsSection() {
 
             {/* Roles */}
             <div>
-              <h3 className="font-semibold text-xl mb-4 text-center">Roles We're Casting</h3>
-              <div className="space-y-4">
-                {/* Roles without descriptions */}
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {roles.filter(role => !role.description).map((role) => (
-                    <Badge
-                      key={role.name}
-                      variant="outline"
-                      className="text-base px-4 py-2 border-destructive/30 hover:bg-destructive/10 transition-colors"
-                    >
-                      {role.name}
-                    </Badge>
-                  ))}
-                </div>
+              <h3 className="font-semibold text-xl mb-4 text-center">Roles We're Hiring</h3>
+              <div className="flex flex-wrap gap-3 justify-center">
+                {roles.map((role) => (
+                  <Badge
+                    key={role.name}
+                    variant="outline"
+                    className="text-base px-4 py-2 border-destructive/30 hover:bg-destructive/10 transition-colors"
+                  >
+                    {role.name}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-                {/* Roles with descriptions */}
-                <div className="space-y-3 mt-6">
-                  {roles.filter(role => role.description).map((role) => (
-                    <div 
-                      key={role.name}
-                      className="p-4 rounded-lg bg-accent/30 border border-destructive/20 hover:border-destructive/40 transition-colors"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge
-                          variant="outline"
-                          className="text-base px-3 py-1 border-destructive/40 bg-destructive/10"
-                        >
-                          {role.name}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {role.description}
-                      </p>
-                    </div>
-                  ))}
+        {/* Show Host Auditions */}
+        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 shadow-xl overflow-hidden">
+          {showHostImageUrl && (
+            <AuditionsHeroImage src={showHostImageUrl} alt="Show Host Auditions" />
+          )}
+          <CardHeader>
+            <CardTitle className="text-3xl text-center text-destructive">
+              Show Host Auditions
+            </CardTitle>
+            <p className="text-center text-lg text-muted-foreground mt-2">
+              Coming 2029 - Be the voice of the shows
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-start gap-4 p-6 rounded-lg bg-accent/50 border border-destructive/20">
+              <Mic className="h-8 w-8 text-destructive flex-shrink-0 mt-1" />
+              <div className="space-y-3">
+                <h3 className="font-semibold text-xl text-destructive">Come Be the Voice of the Shows!</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  We're looking for energetic and enthusiastic individuals to become the voice that brings our shows to life. 
+                  No experience required—just bring your energy, happiness, and passion for entertainment!
+                </p>
+                <div className="pt-2">
+                  <Badge variant="outline" className="text-base px-4 py-2 border-destructive/30 bg-destructive/5">
+                    No Qualifications Needed
+                  </Badge>
+                  <Badge variant="outline" className="text-base px-4 py-2 border-destructive/30 bg-destructive/5 ml-2">
+                    Just Be Happy & Energetic!
+                  </Badge>
                 </div>
               </div>
+            </div>
+
+            <div className="text-center p-4 bg-destructive/10 rounded-lg border border-destructive/20">
+              <p className="text-lg font-semibold text-destructive">
+                Auditions Opening in 2029
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                Stay tuned for more details!
+              </p>
             </div>
           </CardContent>
         </Card>
       </div>
     </Section>
+  );
+}
+
+function AuditionsHeroImage({ src, alt }: { src: string; alt: string }) {
+  const [imageError, setImageError] = useState(false);
+
+  if (imageError) {
+    return null;
+  }
+
+  return (
+    <div className="relative w-full h-64 overflow-hidden">
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover"
+        onError={() => setImageError(true)}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
+    </div>
   );
 }

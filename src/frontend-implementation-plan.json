@@ -1,156 +1,85 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Frontend CMS admin UI + calendar view wired to canister content and schedule",
+  "title": "Homepage chainsaw autoplay improvements + Camp Riley show + generated image mapping updates",
   "requirements": [
     {
+      "id": "REQ-1",
+      "summary": "Attempt to autoplay looping chainsaw background audio on initial load while keeping the site fully usable when autoplay is blocked, and ensure user-gesture controls can start playback.",
+      "acceptanceCriteria": [
+        "On a fresh load with default sound preferences, the app attempts to start /assets/audio/chainsaw-loop.mp3 automatically.",
+        "If autoplay is blocked by the browser, the page still renders and navigation/scrolling works normally (no blocking modal or full-screen gate).",
+        "When the user clicks the existing \"Enable sound\" control, playback starts successfully (chainsaw preferred; fallback allowed if needed).",
+        "Audio loops continuously once started and respects the saved volume preference."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/audio/BackgroundAudioManager.tsx",
+          "operation": "modify",
+          "description": "Ensure the initial page load triggers a non-blocking autoplay attempt for the looping chainsaw audio when sound preferences are enabled, and that the gesture-based retry callback reliably re-attempts playback (chainsaw-first with fallback) while keeping volume/loop behavior consistent with saved preferences."
+        },
+        {
+          "path": "frontend/src/components/audio/SoundControls.tsx",
+          "operation": "modify",
+          "description": "Verify the existing non-blocking \"Enable sound\" control properly triggers the gesture-based start callback when autoplay is blocked (including when re-enabling sound), without preventing normal navigation or requiring a blocking UI."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add the \"Camp Riley\" show (kid show, Coming 2027) to the Live Shows list with an original English description.",
+      "acceptanceCriteria": [
+        "\"Camp Riley\" appears in the Live Shows section alongside existing shows.",
+        "The description is in English, reads as a kid-friendly spooky/fun teaser, and clearly indicates it is Coming 2027.",
+        "No TypeScript errors occur from the added show entry (e.g., required fields match existing show objects)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/shows.ts",
+          "operation": "modify",
+          "description": "Add a new show object for \"Camp Riley\" with a kid-friendly spooky/fun teaser description that clearly states it is Coming 2027, matching the existing shows array shape so it renders in the Live Shows section without TypeScript issues."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add and wire an AI-generated image for \"Camp Riley\" so it renders on the show card via the generatedImages mapping.",
+      "acceptanceCriteria": [
+        "A new image file exists under frontend/public/assets/generated with the specified filename.",
+        "frontend/src/content/generatedImages.ts includes a shows mapping entry for \"Camp Riley\" that points to the new asset path.",
+        "The Camp Riley show card displays the image without runtime errors (image loads successfully)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/show-camp-riley.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the required AI-generated asset: frontend/public/assets/generated/show-camp-riley.dim_1400x900.jpg."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add a generatedImages.shows mapping entry for \"Camp Riley\" pointing to the static asset path for frontend/public/assets/generated/show-camp-riley.dim_1400x900.jpg so ShowsSection renders the image."
+        }
+      ]
+    },
+    {
       "id": "REQ-4",
-      "summary": "Ensure seeded CMS items are visible and editable in the CMS UI and represented with editable dates/description fields",
+      "summary": "Replace the \"Grave danger dace\" scare zone image mapping with an AI-generated \"Undead Dance Party\" image.",
       "acceptanceCriteria": [
-        "After deploy, all listed items exist in storage and appear in the CMS UI.",
-        "Each seeded item has an English description value (can be placeholder text but must be editable).",
-        "Items that only specify month/year still have dates represented in the system (e.g., as a date range within that month/year) and are editable."
+        "A new image file exists under frontend/public/assets/generated with the specified filename.",
+        "frontend/src/content/generatedImages.ts is updated so the scareZones entry for \"Grave danger dace\" points to the new undead dance party asset path.",
+        "The Scare Zones section renders the \"Grave danger dace\" card using the new image (no broken image)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/CmsPage.tsx",
+          "path": "frontend/public/assets/generated/zone-undead-dance-party.dim_1400x900.jpg",
           "operation": "create",
-          "description": "Create a CMS page that fetches and displays all content items (including seeded items) from the canister, and provides edit flows for seeded items so their name/description/dates can be updated. Use shadcn-ui components (tables/cards/dialogs/forms) to present and edit items; verify the component's usage instructions before implementing."
+          "description": "Add the required AI-generated asset: frontend/public/assets/generated/zone-undead-dance-party.dim_1400x900.jpg."
         },
         {
-          "path": "frontend/src/hooks/useContentItems.ts",
-          "operation": "create",
-          "description": "Add React Query hooks for loading all content items and performing create/update/delete mutations, including cache invalidation so seeded items show immediately after any changes. Use the existing useActor hook to access the canister actor. (React Query usage aligns with core-infrastructure + authorization patterns); verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/CalendarPage.tsx",
-          "operation": "create",
-          "description": "Create a calendar screen that uses fetched content items and renders seeded items (and all other items) on their effective dates, ensuring month/year-only items still render as a date range entry that can be selected for details. Use shadcn-ui components for layout, filters, and details UI; verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add an authenticated admin/editor CMS UI (CRUD for Events, Scare Zones, Shows, Attractions) including descriptions, type-specific fields, and inherit/override schedule controls",
-      "acceptanceCriteria": [
-        "There is a CMS screen reachable via the existing hash-based routing (same routing style as current pages).",
-        "CMS UI supports list + create + edit + delete for all four types.",
-        "CMS UI includes controls for: name, description, type-specific fields, and inherit/override dates.",
-        "Unauthenticated users cannot perform write operations (UI blocks and backend rejects)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/content/generatedImages.ts",
           "operation": "modify",
-          "description": "Wire new hash routes into the existing hash-based routing: add routes for a CMS screen (e.g., #/cms) and ensure it renders instead of the homepage sections when active. Also ensure navigation back to home continues to work with existing behavior."
-        },
-        {
-          "path": "frontend/src/components/layout/SiteHeader.tsx",
-          "operation": "modify",
-          "description": "Add navigation entries for Calendar and CMS using the existing header pattern. For CMS, route via hash navigation (e.g., #/cms) rather than scroll-to-section. Use shadcn-ui Button for nav items; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/CmsPage.tsx",
-          "operation": "modify",
-          "description": "Implement CMS UI tabs/sections per content type (Events / Scare Zones / Shows / Attractions) with list + create + edit + delete. Include editable fields: name, English description, useMainHauntSchedule toggle, and date range editor when override is enabled. Include type-specific fields UI matching backend.d.ts (e.g., EventType, ZoneLocation/ScareLevel, PerformanceType, Attraction settings). Use shadcn-ui components (tabs, dialog, form controls, select, switch); verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useMainHauntSchedule.ts",
-          "operation": "create",
-          "description": "Add React Query hooks to fetch and update the main haunt operating schedule and to invalidate relevant queries after updates so inherited items reflect schedule changes. Use the existing useActor hook and React Query; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "create",
-          "description": "Add a login/logout button using the existing useInternetIdentity hook; clear React Query cache on logout as recommended by the authorization component docs. Use shadcn-ui Button for styling; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "operation": "create",
-          "description": "Implement a first-login profile setup modal (asks for user name) using getCallerUserProfile/saveCallerUserProfile. Show it only after authentication and once profile query is fetched to avoid flashing (per authorization component guidance). Use shadcn-ui Dialog/Input/Button; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/AccessDeniedScreen.tsx",
-          "operation": "create",
-          "description": "Create an access denied state component for users who are authenticated but lack permission to edit CMS content (e.g., not admin). Provide English guidance to request access. Use shadcn-ui Card/Alert/Button; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAuthz.ts",
-          "operation": "create",
-          "description": "Add React Query hooks to fetch caller role/admin status (getCallerUserRole/isCallerAdmin) and expose convenient booleans for guarding CMS write UI. Use the existing useActor hook + React Query; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/CmsPage.tsx",
-          "operation": "modify",
-          "description": "Guard CMS write operations: if not authenticated, show a login prompt (using LoginButton) and disable/hide create/edit/delete actions; if authenticated but unauthorized, show AccessDeniedScreen and keep the page non-destructive. Ensure UI also handles backend authorization errors gracefully (show English error text, do not crash). Use shadcn-ui Alert for errors; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/CmsPage.tsx",
-          "operation": "modify",
-          "description": "Add a small 'Main Haunt Schedule' editor section within the CMS page to edit the shared operating date ranges and explain inheritance vs override. Use shadcn-ui components for date range rows and action buttons; verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add a calendar view that displays scheduled items across all content types with filtering and detail viewing",
-      "acceptanceCriteria": [
-        "A calendar screen exists and can be navigated to via hash route.",
-        "Calendar shows items on their effective dates (inherited from haunt schedule or overridden per item).",
-        "User can filter the calendar by content type (Events / Scare Zones / Shows / Attractions).",
-        "Selecting an entry shows its details (name, description, and its type-specific fields)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a route handler for the calendar screen (e.g., #/calendar) using the existing hash-based routing style and render the CalendarPage when active."
-        },
-        {
-          "path": "frontend/src/pages/CalendarPage.tsx",
-          "operation": "modify",
-          "description": "Implement calendar UI that (1) fetches content items, (2) computes effective dates (use the item.dates as returned; if the UI needs to show inheritance explicitly, also fetch main schedule), (3) renders items grouped by day/week/month with a type filter, and (4) shows a details panel/dialog on selection including name, English description, and type-specific fields. Use shadcn-ui components for filters, list/calendar layout, and details dialog; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/contentFormatting.ts",
-          "operation": "create",
-          "description": "Add shared helpers to format dates, labels, and type-specific field summaries for display in calendar and CMS detail panels (English text only)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Wire CMS lists, details, and calendar to the backend using useActor + React Query with robust error states and cache invalidation",
-      "acceptanceCriteria": [
-        "Frontend uses the existing actor pattern (useActor) and React Query to fetch CMS and calendar data.",
-        "Mutations (create/update/delete) invalidate/refetch relevant queries so UI updates without manual refresh.",
-        "If the backend is unavailable or returns an error, UI shows an English error state and does not crash."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useContentItems.ts",
-          "operation": "modify",
-          "description": "Ensure all queries/mutations are implemented with React Query, useActor gating (enabled only when actor is available), and consistent query keys per content type. Mutations must invalidate/refetch the appropriate list/detail queries after create/update/delete."
-        },
-        {
-          "path": "frontend/src/hooks/useMainHauntSchedule.ts",
-          "operation": "modify",
-          "description": "Implement schedule query/mutation with proper enabled conditions (actor present) and invalidation of any queries that depend on effective dates (calendar + CMS lists)."
-        },
-        {
-          "path": "frontend/src/pages/CmsPage.tsx",
-          "operation": "modify",
-          "description": "Replace any hard-coded content with fetched canister data. Implement mutation flows (create/update/delete/update schedule) using React Query mutations, with loading states, success confirmations, and English error states when the canister returns errors."
-        },
-        {
-          "path": "frontend/src/pages/CalendarPage.tsx",
-          "operation": "modify",
-          "description": "Load calendar data exclusively from canister queries (content items + schedule as needed) via React Query. Add resilient empty/loading/error states (English) and ensure the screen does not crash on failures."
-        },
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "modify",
-          "description": "On logout, clear React Query cached data (queryClient.clear()) so CMS/calendar data does not persist across sessions, following the authorization component guidance; verify the component's usage instructions before implementing."
+          "description": "Update generatedImages.scareZones so the \"Grave danger dace\" entry points to the static asset path for frontend/public/assets/generated/zone-undead-dance-party.dim_1400x900.jpg, replacing the prior image mapping used by ScareZonesSection."
         }
       ]
     }

@@ -98,5 +98,16 @@ export const foodBooths = {
         'Laser beam Shake',
       ],
     },
+    {
+      name: 'Steampunk Eats',
+      tagline: 'Fuel for the industrial nightmare',
+      description: 'Steampunk Eats serves up hearty fare to power you through the mechanical hellscape. Our menu features bold flavors forged in the fires of innovation and terror. From savory chicken dishes to breakfast classics and refreshing smoothies, every item is crafted with industrial precision. All food items are just $5—fuel up before the gears grind you down.',
+      menu: [
+        { name: 'Orange Chicken', description: 'Crispy chicken tossed in a tangy orange glaze with a hint of steam-powered spice' },
+        { name: 'Hot Honey Teriyaki Chicken', description: 'Tender chicken glazed with sweet teriyaki and drizzled with fiery hot honey' },
+        { name: 'Breakfast Sandwiches', description: 'Hearty sandwiches packed with eggs, cheese, and your choice of meat to start your day' },
+        { name: 'Smoothies', description: 'Cool, refreshing fruit smoothies to wash down the heat' },
+      ],
+    },
   ],
 };

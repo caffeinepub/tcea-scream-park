@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useGetAllContentItems } from '@/hooks/useContentItems';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +8,8 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Calendar as CalendarIcon, AlertCircle, ArrowLeft } from 'lucide-react';
 import { formatDate, formatDateRange, formatContentType, getTypeSpecificFieldsSummary } from '@/lib/contentFormatting';
-import type { ContentItem, EventDateRange } from '../backend';
+import { expandItemDateRanges } from '@/utils/dateRange';
+import type { ContentItem } from '../backend';
 
 type FilterType = 'all' | 'event' | 'scareZone' | 'show' | 'attraction';
 
@@ -16,15 +17,17 @@ export function CalendarPage() {
   const { data: contentItems = [], isLoading, error } = useGetAllContentItems();
   const [filter, setFilter] = useState<FilterType>('all');
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
+  const dateRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   const filteredItems = filter === 'all'
     ? contentItems
     : contentItems.filter(item => filter in item.customType);
 
+  // Group items by date, expanding date ranges to include all days
   const itemsByDate = new Map<string, ContentItem[]>();
   filteredItems.forEach(item => {
-    item.dates.forEach(range => {
-      const key = `${range.startDate.year}-${range.startDate.month}-${range.startDate.day}`;
+    const dateKeys = expandItemDateRanges(item.dates);
+    dateKeys.forEach(key => {
       if (!itemsByDate.has(key)) {
         itemsByDate.set(key, []);
       }
@@ -39,6 +42,28 @@ export function CalendarPage() {
     if (aMonth !== bMonth) return aMonth - bMonth;
     return aDay - bDay;
   });
+
+  // Handle URL hash navigation to specific dates
+  useEffect(() => {
+    if (isLoading || sortedDates.length === 0) return;
+
+    const hash = window.location.hash;
+    if (hash.startsWith('#date=')) {
+      const dateParam = hash.substring(6); // Remove '#date='
+      // Support both formats: 2028-8-30 and 2028-08-30
+      const normalizedDate = dateParam.split('-').map((part, idx) => {
+        if (idx === 0) return part; // year as-is
+        return part.padStart(2, '0'); // pad month and day
+      }).join('-');
+
+      const targetRef = dateRefs.current.get(normalizedDate);
+      if (targetRef) {
+        setTimeout(() => {
+          targetRef.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [isLoading, sortedDates]);
 
   const handleBack = () => {
     window.location.hash = '';
@@ -103,7 +128,18 @@ export function CalendarPage() {
               const dateObj = { year: BigInt(year), month: BigInt(month), day: BigInt(day) };
 
               return (
-                <Card key={dateKey} className="border-destructive/30">
+                <Card 
+                  key={dateKey} 
+                  className="border-destructive/30"
+                  ref={(el) => {
+                    if (el) {
+                      dateRefs.current.set(dateKey, el);
+                    } else {
+                      dateRefs.current.delete(dateKey);
+                    }
+                  }}
+                  id={`date-${dateKey}`}
+                >
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-destructive">
                       <CalendarIcon className="h-5 w-5" />
@@ -151,7 +187,7 @@ export function CalendarPage() {
                     {formatContentType(selectedItem.customType)}
                   </Badge>
                 </div>
-                <DialogDescription className="text-base">
+                <DialogDescription className="text-base whitespace-pre-wrap">
                   {selectedItem.description}
                 </DialogDescription>
               </DialogHeader>

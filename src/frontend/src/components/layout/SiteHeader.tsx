@@ -2,8 +2,14 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { LoginButton } from '@/components/auth/LoginButton';
+import { SoundControls } from '@/components/audio/SoundControls';
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  autoplayBlocked?: boolean;
+  onEnableSound?: () => void;
+}
+
+export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -20,6 +26,8 @@ export function SiteHeader() {
     { label: 'Auditions', href: '#auditions', type: 'scroll' },
     { label: 'Haunted Houses', href: '#haunted-houses', type: 'scroll' },
     { label: 'Sneak Peek', href: '#sneak-peek', type: 'scroll' },
+    { label: 'Shows', href: '#shows', type: 'scroll' },
+    { label: 'Upcoming Events', href: '#upcoming-events', type: 'scroll' },
     { label: 'Food Booths', href: '#food-booths', type: 'scroll' },
     { label: 'Merch Shops', href: '#merch-shops', type: 'scroll' },
     { label: 'Scare Zones', href: '#scare-zones', type: 'scroll' },
@@ -85,14 +93,14 @@ export function SiteHeader() {
             <img
               src="/assets/generated/tcea-scream-park-logo.dim_512x512.png"
               alt="TCEA Scream Park Logo"
-              className="h-12 w-12 transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_rgba(0,255,100,0.5)]"
+              className="h-12 w-12 transition-transform group-hover:scale-110 drop-shadow-[0_0_10px_rgba(255,100,0,0.5)]"
             />
-            <span className="text-2xl font-bold tracking-tight text-destructive group-hover:text-destructive/80 transition-colors drop-shadow-[0_0_8px_rgba(0,255,100,0.3)]">
+            <span className="text-2xl font-bold tracking-tight text-destructive group-hover:text-destructive/80 transition-colors drop-shadow-[0_0_8px_rgba(255,100,0,0.3)]">
               TCEA SCREAM PARK
             </span>
           </button>
 
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-4">
             <nav className="flex items-center gap-1">
               {navItems.map((item) => (
                 <Button
@@ -105,6 +113,7 @@ export function SiteHeader() {
                 </Button>
               ))}
             </nav>
+            <SoundControls autoplayBlocked={autoplayBlocked} onEnableSound={onEnableSound} />
             <LoginButton />
           </div>
 
@@ -131,7 +140,8 @@ export function SiteHeader() {
                   {item.label}
                 </Button>
               ))}
-              <div className="pt-2 border-t border-destructive/30">
+              <div className="pt-2 border-t border-destructive/30 space-y-2">
+                <SoundControls autoplayBlocked={autoplayBlocked} onEnableSound={onEnableSound} />
                 <LoginButton />
               </div>
             </div>

@@ -1,0 +1,27 @@
+export const shows = [
+  {
+    name: 'Circus town',
+    description: 'Step into the twisted big top where acrobats defy death and clowns perform acts of pure terror. This live show features death-defying stunts, fire performances, and spine-chilling theatrical horror that will leave you breathless. Watch as our performers blend circus artistry with nightmare fuel in a spectacle unlike anything you\'ve ever witnessed.',
+    hauntSeasonOnly: true,
+  },
+  {
+    name: 'Dead man\'s revenge',
+    description: 'Witness the tale of a vengeful spirit who returns from the grave to settle old scores. This immersive theatrical experience combines live actors, special effects, and interactive elements to tell a story of betrayal, murder, and supernatural retribution. The dead don\'t forget, and they never forgive. Will you survive Dead Man\'s Revenge?',
+    hauntSeasonOnly: false,
+  },
+  {
+    name: 'Lost spirits',
+    description: 'Enter a realm where tormented souls wander endlessly through the darkness, searching for peace they will never find. This haunting theatrical experience weaves together ghostly apparitions, ethereal performances, and spine-tingling encounters with the restless dead. Witness the tragic tales of spirits trapped between worlds in this unforgettable journey into the supernatural.',
+    hauntSeasonOnly: false,
+  },
+  {
+    name: 'Fire Remix',
+    description: 'Get ready for the most electrifying show experience of 2028! Fire Remix is a high-octane explosion of energy featuring world-class dancers, cutting-edge laser displays, pyrotechnic spectacles, and pulse-pounding beats that will shake you to your core. This is not just a show—it\'s a full sensory assault of lights, fire, and pure adrenaline. Showtimes at 1pm, 4pm, 7pm, and 9pm exclusively at the Remix Arena. Many more surprises await—see you there!',
+    hauntSeasonOnly: false,
+  },
+  {
+    name: 'Camp Riley',
+    description: 'Join us for a spooky-fun adventure at Camp Riley! This kid-friendly show brings together silly monsters, friendly ghosts, and magical creatures for an unforgettable experience. Perfect for young thrill-seekers who love a good scare with plenty of laughs. Featuring interactive games, surprise appearances, and a campfire story circle that will delight kids of all ages. Coming 2027—get ready for the most fun-scary show of the season!',
+    hauntSeasonOnly: false,
+  },
+];
