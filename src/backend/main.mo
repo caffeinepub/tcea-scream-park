@@ -1,7 +1,6 @@
 import Map "mo:core/Map";
 import List "mo:core/List";
 import Nat "mo:core/Nat";
-import Text "mo:core/Text";
 import Array "mo:core/Array";
 import Runtime "mo:core/Runtime";
 import Iter "mo:core/Iter";
@@ -12,20 +11,20 @@ import MixinAuthorization "authorization/MixinAuthorization";
 
 actor {
   // ----------- General Types -----------
-  type Date = {
+  public type Date = {
     year : Nat;
     month : Nat; // 1-12
     day : Nat; // 1-31
   };
 
-  type EventDateRange = {
+  public type EventDateRange = {
     startDate : Date;
     endDate : Date;
   };
 
   // Shared CMS Content Type
 
-  type ContentItem = {
+  public type ContentItem = {
     id : Nat;
     name : Text;
     description : Text;
@@ -35,7 +34,7 @@ actor {
   };
 
   // ContentType Enumeration
-  type ContentType = {
+  public type ContentType = {
     #event : EventSpecificFields;
     #scareZone : ScareZoneSpecificFields;
     #show : ShowSpecificFields;
@@ -43,29 +42,29 @@ actor {
   };
 
   // Additional Fields for Each Type
-  type EventSpecificFields = {
+  public type EventSpecificFields = {
     eventType : EventType;
   };
 
-  type ScareZoneSpecificFields = {
+  public type ScareZoneSpecificFields = {
     scareLevel : ScareLevel;
     indoorOutdoor : ZoneLocation;
     yearIntroduced : ?Nat;
   };
 
-  type ShowSpecificFields = {
+  public type ShowSpecificFields = {
     performanceType : PerformanceType;
     yearIntroduced : ?Nat;
   };
 
-  type AttractionSpecificFields = {
+  public type AttractionSpecificFields = {
     ageRestriction : AgeRestriction;
     hasGuidedTour : Bool;
     yearIntroduced : ?Nat;
   };
 
   // Enums for Type-Specific Fields
-  type EventType = {
+  public type EventType = {
     #seasonal;
     #special;
     #holiday;
@@ -73,31 +72,87 @@ actor {
     #convention;
   };
 
-  type ScareLevel = {
+  public type ScareLevel = {
     #mild;
     #moderate;
     #extreme;
   };
 
-  type ZoneLocation = {
+  public type ZoneLocation = {
     #indoor;
     #outdoor;
     #both;
   };
 
-  type AgeRestriction = {
+  public type AgeRestriction = {
     #none;
     #kids;
     #teens;
     #adultsOnly;
   };
 
-  type PerformanceType = {
+  public type PerformanceType = {
     #musical;
     #theatrical;
     #dance;
     #interactive;
     #stunt;
+  };
+
+  // ----------- New Audition Types -----------
+  public type ScareActorAuditionForm = {
+    name : Text;
+    age : ?Nat;
+    phone : Text;
+    email : Text;
+    experience : Text;
+    specialSkills : Text;
+    availability : Text;
+    previousWork : Text;
+    referredBy : Text;
+    whyScaryRole : Text;
+    physicalLimitations : Text;
+    favoriteCharacterType : Text;
+    preferredScareType : Text;
+    preferenceOutfitType : Text;
+    conflictSchedule : Text;
+    preferedWorkingCondition : Text;
+    operationAgreeStatus : Text;
+  };
+
+  public type DanceAuditionForm = {
+    name : Text;
+    age : ?Nat;
+    phone : Text;
+    email : Text;
+    experience : Text;
+    danceStyles : Text;
+    availability : Text;
+    previousWork : Text;
+    referredBy : Text;
+    whyDancing : Text;
+    physicalLimitations : Text;
+    favoriteDanceType : Text;
+    performanceExperience : Text;
+    costumePreferences : Text;
+    scheduleConflicts : Text;
+    workingConditions : Text;
+    operationAgreeStatus : Text;
+  };
+
+  public type AuditionType = {
+    #scareActor;
+    #danceActor;
+  };
+
+  public type AuditionSubmission = {
+    submitter : Principal;
+    auditionType : AuditionType;
+    formData : {
+      #scareActor : ScareActorAuditionForm;
+      #danceActor : DanceAuditionForm;
+    };
+    submissionTime : Time.Time;
   };
 
   // ----------- State Management -----------
@@ -116,7 +171,9 @@ actor {
 
   type SystemId = Nat;
   let accessControlState = AccessControl.initState();
+
   let userProfiles = Map.empty<Principal, UserProfile>();
+  let auditions = List.empty<AuditionSubmission>();
 
   include MixinAuthorization(accessControlState);
 
@@ -140,6 +197,42 @@ actor {
       Runtime.trap("Unauthorized: Only users can save profiles");
     };
     userProfiles.add(caller, profile);
+  };
+
+  // ----------- Audition Submission Functions -----------
+  public shared ({ caller }) func submitScareActorAudition(form : ScareActorAuditionForm) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can submit auditions");
+    };
+    let submission : AuditionSubmission = {
+      submitter = caller;
+      auditionType = #scareActor;
+      formData = #scareActor(form);
+      submissionTime = Time.now();
+    };
+    auditions.add(submission);
+    true;
+  };
+
+  public shared ({ caller }) func submitDanceAudition(form : DanceAuditionForm) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can submit auditions");
+    };
+    let submission : AuditionSubmission = {
+      submitter = caller;
+      auditionType = #danceActor;
+      formData = #danceActor(form);
+      submissionTime = Time.now();
+    };
+    auditions.add(submission);
+    true;
+  };
+
+  public shared ({ caller }) func getAllAuditions() : async [AuditionSubmission] {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can view auditions");
+    };
+    auditions.toArray();
   };
 
   // ----------- Seeding Initial Content -----------

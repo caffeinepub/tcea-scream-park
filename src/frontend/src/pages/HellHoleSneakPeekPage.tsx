@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ArrowLeft } from 'lucide-react';
 import { hauntedHouses } from '../content/hauntedHouses';
 import { generatedImages } from '../content/generatedImages';
+import { Separator } from '@/components/ui/separator';
 
 export function HellHoleSneakPeekPage() {
   const handleBackToHome = () => {
@@ -26,7 +27,8 @@ export function HellHoleSneakPeekPage() {
         Back to Home
       </Button>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Main Hell Hole Card */}
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
           <div className="relative h-[600px] overflow-hidden">
             <img
@@ -48,6 +50,40 @@ export function HellHoleSneakPeekPage() {
           <CardContent>
             <p className="text-lg text-muted-foreground leading-relaxed">
               {hellHole.description}
+            </p>
+          </CardContent>
+        </Card>
+
+        <Separator className="bg-destructive/20" />
+
+        {/* Vicky's Saw Scenic Elevation */}
+        <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
+          <div className="relative h-[500px] overflow-hidden">
+            <img
+              src="/assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg"
+              alt="Vicky's Saw Scenic Elevation"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+          </div>
+
+          <CardHeader>
+            <CardTitle className="text-3xl md:text-4xl text-destructive bloody-text">
+              Vicky's Saw
+            </CardTitle>
+            <CardDescription className="text-destructive/80 italic font-semibold text-lg">
+              Where screams are carved into eternity
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Deep within the Terror Hell Hole lies Vicky's workshop—a chamber of unspeakable horrors where rusted blades 
+              and grinding gears create a symphony of terror. The air is thick with the metallic scent of fear as massive 
+              saw blades spin endlessly, their teeth stained with the memories of those who dared enter. Vicky, the twisted 
+              architect of this nightmare, has perfected the art of psychological torment, using her mechanical monstrosities 
+              to push victims to the edge of sanity. The walls echo with the screams of the damned, and the machinery never 
+              stops—always hungry, always waiting. In Vicky's domain, escape is an illusion, and survival is merely a 
+              temporary reprieve from the inevitable.
             </p>
           </CardContent>
         </Card>

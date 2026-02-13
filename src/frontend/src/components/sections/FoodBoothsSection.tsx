@@ -15,6 +15,25 @@ export function FoodBoothsSection() {
     }
   };
 
+  const getBoothImage = (boothName: string): string => {
+    // Try exact match first
+    const exactMatch = generatedImages.foodBooths[boothName as keyof typeof generatedImages.foodBooths];
+    if (exactMatch) return exactMatch;
+
+    // Fallback: try case-insensitive match
+    const normalizedName = boothName.toLowerCase().trim();
+    const matchingKey = Object.keys(generatedImages.foodBooths).find(
+      key => key.toLowerCase().trim() === normalizedName
+    );
+    
+    if (matchingKey) {
+      return generatedImages.foodBooths[matchingKey as keyof typeof generatedImages.foodBooths];
+    }
+
+    // Final fallback: return a placeholder or empty string
+    return '';
+  };
+
   return (
     <Section
       id="food-booths"
@@ -46,69 +65,75 @@ export function FoodBoothsSection() {
 
       {/* Food Booths Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {foodBooths.booths.map((booth, index) => (
-          <Card
-            key={index}
-            className="bg-card/80 backdrop-blur-sm border-destructive/30 hover:border-destructive/60 transition-all hover:shadow-glow-green overflow-hidden"
-          >
-            {/* Booth Image */}
-            <div className="relative h-40 overflow-hidden">
-              <img
-                src={generatedImages.foodBooths[booth.name as keyof typeof generatedImages.foodBooths]}
-                alt={booth.name}
-                className="w-full h-full object-cover transition-transform hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-            </div>
+        {foodBooths.booths.map((booth, index) => {
+          const boothImage = getBoothImage(booth.name);
+          
+          return (
+            <Card
+              key={index}
+              className="bg-card/80 backdrop-blur-sm border-destructive/30 hover:border-destructive/60 transition-all hover:shadow-glow-green overflow-hidden"
+            >
+              {/* Booth Image */}
+              {boothImage && (
+                <div className="relative h-40 overflow-hidden">
+                  <img
+                    src={boothImage}
+                    alt={booth.name}
+                    className="w-full h-full object-cover transition-transform hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                </div>
+              )}
 
-            <CardHeader>
-              <CardTitle className="text-xl text-destructive">{booth.name}</CardTitle>
-              {booth.label && (
-                <CardDescription className="text-muted-foreground italic">
-                  {booth.label}
+              <CardHeader>
+                <CardTitle className="text-xl text-destructive">{booth.name}</CardTitle>
+                {booth.label && (
+                  <CardDescription className="text-muted-foreground italic">
+                    {booth.label}
+                  </CardDescription>
+                )}
+                <CardDescription className="text-destructive/80 italic font-semibold">
+                  {booth.tagline}
                 </CardDescription>
-              )}
-              <CardDescription className="text-destructive/80 italic font-semibold">
-                {booth.tagline}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                {booth.description}
-              </p>
-              <div className="border-t border-destructive/20 pt-3 mt-3">
-                <p className="text-xs font-semibold text-foreground mb-2">Menu:</p>
-                <ul className="space-y-2">
-                  {booth.menu.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <span className="text-destructive mt-1">•</span>
-                      <div className="flex-1">
-                        <span className="text-sm text-muted-foreground font-semibold block">
-                          {typeof item === 'string' ? item : item.name}
-                        </span>
-                        {typeof item === 'object' && item.description && (
-                          <span className="text-xs text-muted-foreground/70 italic block mt-0.5">
-                            {item.description}
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  {booth.description}
+                </p>
+                <div className="border-t border-destructive/20 pt-3 mt-3">
+                  <p className="text-xs font-semibold text-foreground mb-2">Menu:</p>
+                  <ul className="space-y-2">
+                    {booth.menu.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-destructive mt-1">•</span>
+                        <div className="flex-1">
+                          <span className="text-sm text-muted-foreground font-semibold block">
+                            {typeof item === 'string' ? item : item.name}
                           </span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {(booth.name === 'Slider Doom' || booth.name === 'Sharks Hell') && (
-                <Button
-                  onClick={() => handleViewBooth(booth.name)}
-                  variant="outline"
-                  className="w-full mt-4 border-destructive/40 text-destructive hover:bg-destructive/10"
-                >
-                  <Eye className="mr-2 h-4 w-4" />
-                  View Details
-                </Button>
-              )}
-            </CardContent>
-          </Card>
-        ))}
+                          {typeof item === 'object' && item.description && (
+                            <span className="text-xs text-muted-foreground/70 italic block mt-0.5">
+                              {item.description}
+                            </span>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {(booth.name === 'Slider Doom' || booth.name === 'Sharks Hell') && (
+                  <Button
+                    onClick={() => handleViewBooth(booth.name)}
+                    variant="outline"
+                    className="w-full mt-4 border-destructive/40 text-destructive hover:bg-destructive/10"
+                  >
+                    <Eye className="mr-2 h-4 w-4" />
+                    View Details
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
     </Section>
   );

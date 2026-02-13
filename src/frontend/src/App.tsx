@@ -1,33 +1,36 @@
-import { useState, useEffect, useCallback } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SiteHeader } from './components/layout/SiteHeader';
+import { SiteFooter } from './components/layout/SiteFooter';
+import { HorrorBackground } from './components/theme/HorrorBackground';
 import { HomeHeroSection } from './components/sections/HomeHeroSection';
-import { HomeProcessionSection } from './components/sections/HomeProcessionSection';
 import { AuditionsSection } from './components/sections/AuditionsSection';
 import { HauntedHousesSection } from './components/sections/HauntedHousesSection';
-import { ClownTownInteriorElevationSection } from './components/sections/ClownTownInteriorElevationSection';
-import { SchoolhouseSneakPeekSection } from './components/sections/SchoolhouseSneakPeekSection';
-import { ShowsSection } from './components/sections/ShowsSection';
-import { UpcomingEventsSection } from './components/sections/UpcomingEventsSection';
 import { FoodBoothsSection } from './components/sections/FoodBoothsSection';
 import { MerchShopsSection } from './components/sections/MerchShopsSection';
 import { ScareZonesSection } from './components/sections/ScareZonesSection';
 import { InfoLocationSection } from './components/sections/InfoLocationSection';
 import { TeaserSection } from './components/sections/TeaserSection';
-import { Teaser2027Section } from './components/sections/Teaser2027Section';
-import { SiteHeader } from './components/layout/SiteHeader';
-import { SiteFooter } from './components/layout/SiteFooter';
-import { HorrorBackground } from './components/theme/HorrorBackground';
+import { Toaster } from '@/components/ui/sonner';
 import { BackgroundAudioManager } from './components/audio/BackgroundAudioManager';
+import { useSoundPreferences } from './hooks/useSoundPreferences';
+import { useState, useEffect, useCallback } from 'react';
+import { Teaser2027Section } from './components/sections/Teaser2027Section';
+import { HomeProcessionSection } from './components/sections/HomeProcessionSection';
+import { ClownTownInteriorElevationSection } from './components/sections/ClownTownInteriorElevationSection';
+import { SchoolhouseSneakPeekSection } from './components/sections/SchoolhouseSneakPeekSection';
 import { SchoolhouseSneakPeekPage } from './pages/SchoolhouseSneakPeekPage';
-import { ClownTownSneakPeekPage } from './pages/ClownTownSneakPeekPage';
-import { HellHoleSneakPeekPage } from './pages/HellHoleSneakPeekPage';
 import { SliderDoomPage } from './pages/SliderDoomPage';
 import { SharksHellPage } from './pages/SharksHellPage';
 import { LaserHellPage } from './pages/LaserHellPage';
+import { ClownTownSneakPeekPage } from './pages/ClownTownSneakPeekPage';
+import { HellHoleSneakPeekPage } from './pages/HellHoleSneakPeekPage';
+import { ToysComeToPlaySneakPeekPage } from './pages/ToysComeToPlaySneakPeekPage';
 import { CmsPage } from './pages/CmsPage';
 import { CalendarPage } from './pages/CalendarPage';
-import { ProfileSetupModal } from './components/auth/ProfileSetupModal';
-import { Toaster } from '@/components/ui/sonner';
+import { ShowsSection } from './components/sections/ShowsSection';
+import { UpcomingEventsSection } from './components/sections/UpcomingEventsSection';
+import { SlidersOfDecadeSection } from './components/sections/SlidersOfDecadeSection';
+import { HomeIntroVideoSection } from './components/sections/HomeIntroVideoSection';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,15 +41,38 @@ const queryClient = new QueryClient({
   },
 });
 
-function AppContent() {
-  const [currentRoute, setCurrentRoute] = useState('');
+function App() {
+  const { preferences } = useSoundPreferences();
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [requestStartCallback, setRequestStartCallback] = useState<(() => void) | null>(null);
+  const [currentRoute, setCurrentRoute] = useState('home');
 
   useEffect(() => {
     const handleHashChange = () => {
-      const hash = window.location.hash;
-      setCurrentRoute(hash);
+      const hash = window.location.hash.slice(1);
+      if (!hash) {
+        setCurrentRoute('home');
+      } else if (hash === 'cms') {
+        setCurrentRoute('cms');
+      } else if (hash === 'calendar') {
+        setCurrentRoute('calendar');
+      } else if (hash === 'sneak-peek/schoolhouse') {
+        setCurrentRoute('sneak-peek-schoolhouse');
+      } else if (hash === 'food-booth/slider-doom') {
+        setCurrentRoute('slider-doom');
+      } else if (hash === 'food-booth/sharks-hell') {
+        setCurrentRoute('sharks-hell');
+      } else if (hash === 'scare-zone/laser-hell') {
+        setCurrentRoute('laser-hell');
+      } else if (hash === 'sneak-peek/clown-town') {
+        setCurrentRoute('sneak-peek-clown-town');
+      } else if (hash === 'sneak-peek/hell-hole') {
+        setCurrentRoute('sneak-peek-hell-hole');
+      } else if (hash === 'sneak-peek/toys-come-to-play') {
+        setCurrentRoute('sneak-peek-toys-come-to-play');
+      } else {
+        setCurrentRoute('home');
+      }
     };
 
     handleHashChange();
@@ -68,77 +94,68 @@ function AppContent() {
     }
   }, [requestStartCallback]);
 
-  const renderPage = () => {
-    if (currentRoute === '#/schoolhouse') {
-      return <SchoolhouseSneakPeekPage />;
+  const renderRoute = () => {
+    switch (currentRoute) {
+      case 'cms':
+        return <CmsPage />;
+      case 'calendar':
+        return <CalendarPage />;
+      case 'sneak-peek-schoolhouse':
+        return <SchoolhouseSneakPeekPage />;
+      case 'slider-doom':
+        return <SliderDoomPage />;
+      case 'sharks-hell':
+        return <SharksHellPage />;
+      case 'laser-hell':
+        return <LaserHellPage />;
+      case 'sneak-peek-clown-town':
+        return <ClownTownSneakPeekPage />;
+      case 'sneak-peek-hell-hole':
+        return <HellHoleSneakPeekPage />;
+      case 'sneak-peek-toys-come-to-play':
+        return <ToysComeToPlaySneakPeekPage />;
+      case 'home':
+      default:
+        return (
+          <>
+            <HomeHeroSection />
+            <HomeIntroVideoSection />
+            <AuditionsSection />
+            <HauntedHousesSection />
+            <FoodBoothsSection />
+            <MerchShopsSection />
+            <ScareZonesSection />
+            <ShowsSection />
+            <UpcomingEventsSection />
+            <Teaser2027Section />
+            <HomeProcessionSection />
+            <ClownTownInteriorElevationSection />
+            <SchoolhouseSneakPeekSection />
+            <InfoLocationSection />
+            <TeaserSection />
+            <SlidersOfDecadeSection />
+          </>
+        );
     }
-    if (currentRoute === '#/clown-town') {
-      return <ClownTownSneakPeekPage />;
-    }
-    if (currentRoute === '#/hell-hole') {
-      return <HellHoleSneakPeekPage />;
-    }
-    if (currentRoute === '#/food-booths/slider-doom') {
-      return <SliderDoomPage />;
-    }
-    if (currentRoute === '#/food-booths/sharks-hell') {
-      return <SharksHellPage />;
-    }
-    if (currentRoute === '#/scare-zones/laser-hell') {
-      return <LaserHellPage />;
-    }
-    if (currentRoute === '#/cms') {
-      return <CmsPage />;
-    }
-    if (currentRoute === '#/calendar') {
-      return <CalendarPage />;
-    }
-
-    return (
-      <>
-        <HomeHeroSection />
-        <HomeProcessionSection />
-        <AuditionsSection />
-        <HauntedHousesSection />
-        <ClownTownInteriorElevationSection />
-        <SchoolhouseSneakPeekSection />
-        <ShowsSection />
-        <UpcomingEventsSection />
-        <FoodBoothsSection />
-        <MerchShopsSection />
-        <ScareZonesSection />
-        <InfoLocationSection />
-        <TeaserSection />
-        <Teaser2027Section />
-      </>
-    );
   };
 
   return (
-    <div className="relative min-h-screen dark">
-      <HorrorBackground />
-      <BackgroundAudioManager 
-        onAutoplayBlockedChange={handleAutoplayBlockedChange}
-        onRequestStart={handleRequestStart}
-      />
-      <SiteHeader 
-        autoplayBlocked={autoplayBlocked}
-        onEnableSound={handleEnableSound}
-      />
-      <main className="relative z-10">
-        {renderPage()}
-      </main>
-      <SiteFooter />
-      <ProfileSetupModal />
-      <Toaster />
-    </div>
-  );
-}
-
-function App() {
-  return (
     <QueryClientProvider client={queryClient}>
-      <AppContent />
+      <div className="min-h-screen bg-background text-foreground relative">
+        <HorrorBackground />
+        <SiteHeader autoplayBlocked={autoplayBlocked} onEnableSound={handleEnableSound} />
+        <main className="relative z-10">
+          {renderRoute()}
+        </main>
+        <SiteFooter />
+        <Toaster />
+        {preferences.enabled && (
+          <BackgroundAudioManager 
+            onAutoplayBlockedChange={handleAutoplayBlockedChange}
+            onRequestStart={handleRequestStart}
+          />
+        )}
+      </div>
     </QueryClientProvider>
   );
 }

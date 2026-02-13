@@ -19,6 +19,15 @@ export interface AttractionSpecificFields {
   'ageRestriction' : AgeRestriction,
   'hasGuidedTour' : boolean,
 }
+export interface AuditionSubmission {
+  'submitter' : Principal,
+  'formData' : { 'scareActor' : ScareActorAuditionForm } |
+    { 'danceActor' : DanceAuditionForm },
+  'auditionType' : AuditionType,
+  'submissionTime' : Time,
+}
+export type AuditionType = { 'scareActor' : null } |
+  { 'danceActor' : null };
 export interface ContentItem {
   'id' : bigint,
   'useMainHauntSchedule' : boolean,
@@ -31,6 +40,25 @@ export type ContentType = { 'show' : ShowSpecificFields } |
   { 'event' : EventSpecificFields } |
   { 'scareZone' : ScareZoneSpecificFields } |
   { 'attraction' : AttractionSpecificFields };
+export interface DanceAuditionForm {
+  'age' : [] | [bigint],
+  'performanceExperience' : string,
+  'name' : string,
+  'workingConditions' : string,
+  'email' : string,
+  'experience' : string,
+  'availability' : string,
+  'referredBy' : string,
+  'whyDancing' : string,
+  'favoriteDanceType' : string,
+  'danceStyles' : string,
+  'physicalLimitations' : string,
+  'operationAgreeStatus' : string,
+  'phone' : string,
+  'scheduleConflicts' : string,
+  'costumePreferences' : string,
+  'previousWork' : string,
+}
 export interface Date { 'day' : bigint, 'month' : bigint, 'year' : bigint }
 export interface EventDateRange { 'endDate' : Date, 'startDate' : Date }
 export interface EventSpecificFields { 'eventType' : EventType }
@@ -44,6 +72,25 @@ export type PerformanceType = { 'interactive' : null } |
   { 'stunt' : null } |
   { 'dance' : null } |
   { 'musical' : null };
+export interface ScareActorAuditionForm {
+  'age' : [] | [bigint],
+  'specialSkills' : string,
+  'conflictSchedule' : string,
+  'name' : string,
+  'email' : string,
+  'experience' : string,
+  'availability' : string,
+  'referredBy' : string,
+  'whyScaryRole' : string,
+  'preferredScareType' : string,
+  'preferenceOutfitType' : string,
+  'preferedWorkingCondition' : string,
+  'physicalLimitations' : string,
+  'operationAgreeStatus' : string,
+  'phone' : string,
+  'favoriteCharacterType' : string,
+  'previousWork' : string,
+}
 export type ScareLevel = { 'mild' : null } |
   { 'extreme' : null } |
   { 'moderate' : null };
@@ -56,6 +103,7 @@ export interface ShowSpecificFields {
   'yearIntroduced' : [] | [bigint],
   'performanceType' : PerformanceType,
 }
+export type Time = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
@@ -68,6 +116,7 @@ export interface _SERVICE {
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createContentItem' : ActorMethod<[ContentItem], bigint>,
   'deleteContentItem' : ActorMethod<[bigint], undefined>,
+  'getAllAuditions' : ActorMethod<[], Array<AuditionSubmission>>,
   'getAllContentItems' : ActorMethod<[], Array<ContentItem>>,
   'getAttractions' : ActorMethod<[], Array<ContentItem>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
@@ -82,6 +131,8 @@ export interface _SERVICE {
   'now' : ActorMethod<[], bigint>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'seedInitialContent' : ActorMethod<[], undefined>,
+  'submitDanceAudition' : ActorMethod<[DanceAuditionForm], boolean>,
+  'submitScareActorAudition' : ActorMethod<[ScareActorAuditionForm], boolean>,
   'updateContentItem' : ActorMethod<[bigint, ContentItem], undefined>,
   'updateMainHauntSchedule' : ActorMethod<[Array<EventDateRange>], undefined>,
 }

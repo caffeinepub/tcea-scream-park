@@ -102,6 +102,12 @@ export type ContentType = {
     __kind__: "attraction";
     attraction: AttractionSpecificFields;
 };
+export interface AttractionSpecificFields {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
+}
+export type Time = bigint;
 export interface Date_ {
     day: bigint;
     month: bigint;
@@ -119,6 +125,18 @@ export interface ContentItem {
     customType: ContentType;
     dates: Array<EventDateRange>;
 }
+export interface AuditionSubmission {
+    submitter: Principal;
+    formData: {
+        __kind__: "scareActor";
+        scareActor: ScareActorAuditionForm;
+    } | {
+        __kind__: "danceActor";
+        danceActor: DanceAuditionForm;
+    };
+    auditionType: AuditionType;
+    submissionTime: Time;
+}
 export interface EventSpecificFields {
     eventType: EventType;
 }
@@ -131,10 +149,43 @@ export interface EventDateRange {
     endDate: Date_;
     startDate: Date_;
 }
-export interface AttractionSpecificFields {
-    yearIntroduced?: bigint;
-    ageRestriction: AgeRestriction;
-    hasGuidedTour: boolean;
+export interface ScareActorAuditionForm {
+    age?: bigint;
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+}
+export interface DanceAuditionForm {
+    age?: bigint;
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
 }
 export interface UserProfile {
     name: string;
@@ -144,6 +195,10 @@ export enum AgeRestriction {
     kids = "kids",
     none = "none",
     adultsOnly = "adultsOnly"
+}
+export enum AuditionType {
+    scareActor = "scareActor",
+    danceActor = "danceActor"
 }
 export enum EventType {
     seasonal = "seasonal",
@@ -179,6 +234,7 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
+    getAllAuditions(): Promise<Array<AuditionSubmission>>;
     getAllContentItems(): Promise<Array<ContentItem>>;
     getAttractions(): Promise<Array<ContentItem>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
@@ -193,10 +249,12 @@ export interface backendInterface {
     now(): Promise<bigint>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     seedInitialContent(): Promise<void>;
+    submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
+    submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
 }
-import type { AgeRestriction as _AgeRestriction, AttractionSpecificFields as _AttractionSpecificFields, ContentItem as _ContentItem, ContentType as _ContentType, EventDateRange as _EventDateRange, EventSpecificFields as _EventSpecificFields, EventType as _EventType, PerformanceType as _PerformanceType, ScareLevel as _ScareLevel, ScareZoneSpecificFields as _ScareZoneSpecificFields, ShowSpecificFields as _ShowSpecificFields, UserProfile as _UserProfile, UserRole as _UserRole, ZoneLocation as _ZoneLocation } from "./declarations/backend.did.d.ts";
+import type { AgeRestriction as _AgeRestriction, AttractionSpecificFields as _AttractionSpecificFields, AuditionSubmission as _AuditionSubmission, AuditionType as _AuditionType, ContentItem as _ContentItem, ContentType as _ContentType, DanceAuditionForm as _DanceAuditionForm, EventDateRange as _EventDateRange, EventSpecificFields as _EventSpecificFields, EventType as _EventType, PerformanceType as _PerformanceType, ScareActorAuditionForm as _ScareActorAuditionForm, ScareLevel as _ScareLevel, ScareZoneSpecificFields as _ScareZoneSpecificFields, ShowSpecificFields as _ShowSpecificFields, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole, ZoneLocation as _ZoneLocation } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -255,88 +313,102 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getAllAuditions(): Promise<Array<AuditionSubmission>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllAuditions();
+                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllAuditions();
+            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getAllContentItems(): Promise<Array<ContentItem>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getAllContentItems();
-                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getAllContentItems();
-            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getAttractions(): Promise<Array<ContentItem>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getAttractions();
-                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getAttractions();
-            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCallerUserProfile(): Promise<UserProfile | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserProfile();
-                return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n59(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserProfile();
-            return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n59(this._uploadFile, this._downloadFile, result);
         }
     }
     async getCallerUserRole(): Promise<UserRole> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCallerUserRole();
-                return from_candid_UserRole_n50(this._uploadFile, this._downloadFile, result);
+                return from_candid_UserRole_n60(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getCallerUserRole();
-            return from_candid_UserRole_n50(this._uploadFile, this._downloadFile, result);
+            return from_candid_UserRole_n60(this._uploadFile, this._downloadFile, result);
         }
     }
     async getContentItem(arg0: bigint): Promise<ContentItem | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getContentItem(arg0);
-                return from_candid_opt_n52(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n62(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getContentItem(arg0);
-            return from_candid_opt_n52(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n62(this._uploadFile, this._downloadFile, result);
         }
     }
     async getEvents(): Promise<Array<ContentItem>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getEvents();
-                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getEvents();
-            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getMainHauntSchedule(): Promise<Array<EventDateRange>> {
@@ -357,42 +429,42 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getScareZones();
-                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getScareZones();
-            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getShows(): Promise<Array<ContentItem>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getShows();
-                return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getShows();
-            return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n36(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getUserProfile(arg0);
-                return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n59(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getUserProfile(arg0);
-            return from_candid_opt_n49(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n59(this._uploadFile, this._downloadFile, result);
         }
     }
     async isCallerAdmin(): Promise<boolean> {
@@ -451,6 +523,34 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async submitDanceAudition(arg0: DanceAuditionForm): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitDanceAudition(to_candid_DanceAuditionForm_n63(this._uploadFile, this._downloadFile, arg0));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitDanceAudition(to_candid_DanceAuditionForm_n63(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async submitScareActorAudition(arg0: ScareActorAuditionForm): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitScareActorAudition(to_candid_ScareActorAuditionForm_n65(this._uploadFile, this._downloadFile, arg0));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitScareActorAudition(to_candid_ScareActorAuditionForm_n65(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
     async updateContentItem(arg0: bigint, arg1: ContentItem): Promise<void> {
         if (this.processError) {
             try {
@@ -480,52 +580,206 @@ export class Backend implements backendInterface {
         }
     }
 }
-function from_candid_AgeRestriction_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AgeRestriction): AgeRestriction {
-    return from_candid_variant_n48(_uploadFile, _downloadFile, value);
+function from_candid_AgeRestriction_n57(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AgeRestriction): AgeRestriction {
+    return from_candid_variant_n58(_uploadFile, _downloadFile, value);
 }
-function from_candid_AttractionSpecificFields_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AttractionSpecificFields): AttractionSpecificFields {
-    return from_candid_record_n46(_uploadFile, _downloadFile, value);
+function from_candid_AttractionSpecificFields_n55(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AttractionSpecificFields): AttractionSpecificFields {
+    return from_candid_record_n56(_uploadFile, _downloadFile, value);
 }
-function from_candid_ContentItem_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentItem): ContentItem {
+function from_candid_AuditionSubmission_n26(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AuditionSubmission): AuditionSubmission {
     return from_candid_record_n27(_uploadFile, _downloadFile, value);
 }
-function from_candid_ContentType_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentType): ContentType {
-    return from_candid_variant_n29(_uploadFile, _downloadFile, value);
+function from_candid_AuditionType_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AuditionType): AuditionType {
+    return from_candid_variant_n35(_uploadFile, _downloadFile, value);
 }
-function from_candid_EventSpecificFields_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventSpecificFields): EventSpecificFields {
-    return from_candid_record_n36(_uploadFile, _downloadFile, value);
+function from_candid_ContentItem_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentItem): ContentItem {
+    return from_candid_record_n38(_uploadFile, _downloadFile, value);
 }
-function from_candid_EventType_n37(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventType): EventType {
-    return from_candid_variant_n38(_uploadFile, _downloadFile, value);
+function from_candid_ContentType_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ContentType): ContentType {
+    return from_candid_variant_n40(_uploadFile, _downloadFile, value);
 }
-function from_candid_PerformanceType_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _PerformanceType): PerformanceType {
-    return from_candid_variant_n34(_uploadFile, _downloadFile, value);
+function from_candid_DanceAuditionForm_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _DanceAuditionForm): DanceAuditionForm {
+    return from_candid_record_n33(_uploadFile, _downloadFile, value);
 }
-function from_candid_ScareLevel_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareLevel): ScareLevel {
+function from_candid_EventSpecificFields_n45(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventSpecificFields): EventSpecificFields {
+    return from_candid_record_n46(_uploadFile, _downloadFile, value);
+}
+function from_candid_EventType_n47(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _EventType): EventType {
+    return from_candid_variant_n48(_uploadFile, _downloadFile, value);
+}
+function from_candid_PerformanceType_n43(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _PerformanceType): PerformanceType {
     return from_candid_variant_n44(_uploadFile, _downloadFile, value);
 }
-function from_candid_ScareZoneSpecificFields_n39(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareZoneSpecificFields): ScareZoneSpecificFields {
-    return from_candid_record_n40(_uploadFile, _downloadFile, value);
+function from_candid_ScareActorAuditionForm_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareActorAuditionForm): ScareActorAuditionForm {
+    return from_candid_record_n30(_uploadFile, _downloadFile, value);
 }
-function from_candid_ShowSpecificFields_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ShowSpecificFields): ShowSpecificFields {
-    return from_candid_record_n31(_uploadFile, _downloadFile, value);
+function from_candid_ScareLevel_n53(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareLevel): ScareLevel {
+    return from_candid_variant_n54(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserRole_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
-    return from_candid_variant_n51(_uploadFile, _downloadFile, value);
+function from_candid_ScareZoneSpecificFields_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ScareZoneSpecificFields): ScareZoneSpecificFields {
+    return from_candid_record_n50(_uploadFile, _downloadFile, value);
 }
-function from_candid_ZoneLocation_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ZoneLocation): ZoneLocation {
-    return from_candid_variant_n42(_uploadFile, _downloadFile, value);
+function from_candid_ShowSpecificFields_n41(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ShowSpecificFields): ShowSpecificFields {
+    return from_candid_record_n42(_uploadFile, _downloadFile, value);
 }
-function from_candid_opt_n32(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+function from_candid_UserRole_n60(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
+    return from_candid_variant_n61(_uploadFile, _downloadFile, value);
+}
+function from_candid_ZoneLocation_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ZoneLocation): ZoneLocation {
+    return from_candid_variant_n52(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n49(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
+function from_candid_opt_n59(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n52(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ContentItem]): ContentItem | null {
-    return value.length === 0 ? null : from_candid_ContentItem_n26(_uploadFile, _downloadFile, value[0]);
+function from_candid_opt_n62(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_ContentItem]): ContentItem | null {
+    return value.length === 0 ? null : from_candid_ContentItem_n37(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_record_n27(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    submitter: Principal;
+    formData: {
+        scareActor: _ScareActorAuditionForm;
+    } | {
+        danceActor: _DanceAuditionForm;
+    };
+    auditionType: _AuditionType;
+    submissionTime: _Time;
+}): {
+    submitter: Principal;
+    formData: {
+        __kind__: "scareActor";
+        scareActor: ScareActorAuditionForm;
+    } | {
+        __kind__: "danceActor";
+        danceActor: DanceAuditionForm;
+    };
+    auditionType: AuditionType;
+    submissionTime: Time;
+} {
+    return {
+        submitter: value.submitter,
+        formData: from_candid_variant_n28(_uploadFile, _downloadFile, value.formData),
+        auditionType: from_candid_AuditionType_n34(_uploadFile, _downloadFile, value.auditionType),
+        submissionTime: value.submissionTime
+    };
+}
+function from_candid_record_n30(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    age: [] | [bigint];
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+}): {
+    age?: bigint;
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+} {
+    return {
+        age: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.age)),
+        specialSkills: value.specialSkills,
+        conflictSchedule: value.conflictSchedule,
+        name: value.name,
+        email: value.email,
+        experience: value.experience,
+        availability: value.availability,
+        referredBy: value.referredBy,
+        whyScaryRole: value.whyScaryRole,
+        preferredScareType: value.preferredScareType,
+        preferenceOutfitType: value.preferenceOutfitType,
+        preferedWorkingCondition: value.preferedWorkingCondition,
+        physicalLimitations: value.physicalLimitations,
+        operationAgreeStatus: value.operationAgreeStatus,
+        phone: value.phone,
+        favoriteCharacterType: value.favoriteCharacterType,
+        previousWork: value.previousWork
+    };
+}
+function from_candid_record_n33(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    age: [] | [bigint];
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
+}): {
+    age?: bigint;
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
+} {
+    return {
+        age: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.age)),
+        performanceExperience: value.performanceExperience,
+        name: value.name,
+        workingConditions: value.workingConditions,
+        email: value.email,
+        experience: value.experience,
+        availability: value.availability,
+        referredBy: value.referredBy,
+        whyDancing: value.whyDancing,
+        favoriteDanceType: value.favoriteDanceType,
+        danceStyles: value.danceStyles,
+        physicalLimitations: value.physicalLimitations,
+        operationAgreeStatus: value.operationAgreeStatus,
+        phone: value.phone,
+        scheduleConflicts: value.scheduleConflicts,
+        costumePreferences: value.costumePreferences,
+        previousWork: value.previousWork
+    };
+}
+function from_candid_record_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: bigint;
     useMainHauntSchedule: boolean;
     name: string;
@@ -545,11 +799,11 @@ function from_candid_record_n27(_uploadFile: (file: ExternalBlob) => Promise<Uin
         useMainHauntSchedule: value.useMainHauntSchedule,
         name: value.name,
         description: value.description,
-        customType: from_candid_ContentType_n28(_uploadFile, _downloadFile, value.customType),
+        customType: from_candid_ContentType_n39(_uploadFile, _downloadFile, value.customType),
         dates: value.dates
     };
 }
-function from_candid_record_n31(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     yearIntroduced: [] | [bigint];
     performanceType: _PerformanceType;
 }): {
@@ -557,20 +811,20 @@ function from_candid_record_n31(_uploadFile: (file: ExternalBlob) => Promise<Uin
     performanceType: PerformanceType;
 } {
     return {
-        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
-        performanceType: from_candid_PerformanceType_n33(_uploadFile, _downloadFile, value.performanceType)
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.yearIntroduced)),
+        performanceType: from_candid_PerformanceType_n43(_uploadFile, _downloadFile, value.performanceType)
     };
 }
-function from_candid_record_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     eventType: _EventType;
 }): {
     eventType: EventType;
 } {
     return {
-        eventType: from_candid_EventType_n37(_uploadFile, _downloadFile, value.eventType)
+        eventType: from_candid_EventType_n47(_uploadFile, _downloadFile, value.eventType)
     };
 }
-function from_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n50(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     yearIntroduced: [] | [bigint];
     indoorOutdoor: _ZoneLocation;
     scareLevel: _ScareLevel;
@@ -580,12 +834,12 @@ function from_candid_record_n40(_uploadFile: (file: ExternalBlob) => Promise<Uin
     scareLevel: ScareLevel;
 } {
     return {
-        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
-        indoorOutdoor: from_candid_ZoneLocation_n41(_uploadFile, _downloadFile, value.indoorOutdoor),
-        scareLevel: from_candid_ScareLevel_n43(_uploadFile, _downloadFile, value.scareLevel)
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.yearIntroduced)),
+        indoorOutdoor: from_candid_ZoneLocation_n51(_uploadFile, _downloadFile, value.indoorOutdoor),
+        scareLevel: from_candid_ScareLevel_n53(_uploadFile, _downloadFile, value.scareLevel)
     };
 }
-function from_candid_record_n46(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_record_n56(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     yearIntroduced: [] | [bigint];
     ageRestriction: _AgeRestriction;
     hasGuidedTour: boolean;
@@ -595,12 +849,38 @@ function from_candid_record_n46(_uploadFile: (file: ExternalBlob) => Promise<Uin
     hasGuidedTour: boolean;
 } {
     return {
-        yearIntroduced: record_opt_to_undefined(from_candid_opt_n32(_uploadFile, _downloadFile, value.yearIntroduced)),
-        ageRestriction: from_candid_AgeRestriction_n47(_uploadFile, _downloadFile, value.ageRestriction),
+        yearIntroduced: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.yearIntroduced)),
+        ageRestriction: from_candid_AgeRestriction_n57(_uploadFile, _downloadFile, value.ageRestriction),
         hasGuidedTour: value.hasGuidedTour
     };
 }
-function from_candid_variant_n29(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n28(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    scareActor: _ScareActorAuditionForm;
+} | {
+    danceActor: _DanceAuditionForm;
+}): {
+    __kind__: "scareActor";
+    scareActor: ScareActorAuditionForm;
+} | {
+    __kind__: "danceActor";
+    danceActor: DanceAuditionForm;
+} {
+    return "scareActor" in value ? {
+        __kind__: "scareActor",
+        scareActor: from_candid_ScareActorAuditionForm_n29(_uploadFile, _downloadFile, value.scareActor)
+    } : "danceActor" in value ? {
+        __kind__: "danceActor",
+        danceActor: from_candid_DanceAuditionForm_n32(_uploadFile, _downloadFile, value.danceActor)
+    } : value;
+}
+function from_candid_variant_n35(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    scareActor: null;
+} | {
+    danceActor: null;
+}): AuditionType {
+    return "scareActor" in value ? AuditionType.scareActor : "danceActor" in value ? AuditionType.danceActor : value;
+}
+function from_candid_variant_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     show: _ShowSpecificFields;
 } | {
     event: _EventSpecificFields;
@@ -623,19 +903,19 @@ function from_candid_variant_n29(_uploadFile: (file: ExternalBlob) => Promise<Ui
 } {
     return "show" in value ? {
         __kind__: "show",
-        show: from_candid_ShowSpecificFields_n30(_uploadFile, _downloadFile, value.show)
+        show: from_candid_ShowSpecificFields_n41(_uploadFile, _downloadFile, value.show)
     } : "event" in value ? {
         __kind__: "event",
-        event: from_candid_EventSpecificFields_n35(_uploadFile, _downloadFile, value.event)
+        event: from_candid_EventSpecificFields_n45(_uploadFile, _downloadFile, value.event)
     } : "scareZone" in value ? {
         __kind__: "scareZone",
-        scareZone: from_candid_ScareZoneSpecificFields_n39(_uploadFile, _downloadFile, value.scareZone)
+        scareZone: from_candid_ScareZoneSpecificFields_n49(_uploadFile, _downloadFile, value.scareZone)
     } : "attraction" in value ? {
         __kind__: "attraction",
-        attraction: from_candid_AttractionSpecificFields_n45(_uploadFile, _downloadFile, value.attraction)
+        attraction: from_candid_AttractionSpecificFields_n55(_uploadFile, _downloadFile, value.attraction)
     } : value;
 }
-function from_candid_variant_n34(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     interactive: null;
 } | {
     theatrical: null;
@@ -648,7 +928,7 @@ function from_candid_variant_n34(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): PerformanceType {
     return "interactive" in value ? PerformanceType.interactive : "theatrical" in value ? PerformanceType.theatrical : "stunt" in value ? PerformanceType.stunt : "dance" in value ? PerformanceType.dance : "musical" in value ? PerformanceType.musical : value;
 }
-function from_candid_variant_n38(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     seasonal: null;
 } | {
     convention: null;
@@ -661,7 +941,7 @@ function from_candid_variant_n38(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): EventType {
     return "seasonal" in value ? EventType.seasonal : "convention" in value ? EventType.convention : "holiday" in value ? EventType.holiday : "specialEvent" in value ? EventType.specialEvent : "special" in value ? EventType.special : value;
 }
-function from_candid_variant_n42(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n52(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     both: null;
 } | {
     indoor: null;
@@ -670,7 +950,7 @@ function from_candid_variant_n42(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): ZoneLocation {
     return "both" in value ? ZoneLocation.both : "indoor" in value ? ZoneLocation.indoor : "outdoor" in value ? ZoneLocation.outdoor : value;
 }
-function from_candid_variant_n44(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n54(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     mild: null;
 } | {
     extreme: null;
@@ -679,7 +959,7 @@ function from_candid_variant_n44(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): ScareLevel {
     return "mild" in value ? ScareLevel.mild : "extreme" in value ? ScareLevel.extreme : "moderate" in value ? ScareLevel.moderate : value;
 }
-function from_candid_variant_n48(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n58(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     teens: null;
 } | {
     kids: null;
@@ -690,7 +970,7 @@ function from_candid_variant_n48(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): AgeRestriction {
     return "teens" in value ? AgeRestriction.teens : "kids" in value ? AgeRestriction.kids : "none" in value ? AgeRestriction.none : "adultsOnly" in value ? AgeRestriction.adultsOnly : value;
 }
-function from_candid_variant_n51(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n61(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
 } | {
     user: null;
@@ -699,8 +979,11 @@ function from_candid_variant_n51(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
-function from_candid_vec_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ContentItem>): Array<ContentItem> {
-    return value.map((x)=>from_candid_ContentItem_n26(_uploadFile, _downloadFile, x));
+function from_candid_vec_n25(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_AuditionSubmission>): Array<AuditionSubmission> {
+    return value.map((x)=>from_candid_AuditionSubmission_n26(_uploadFile, _downloadFile, x));
+}
+function from_candid_vec_n36(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ContentItem>): Array<ContentItem> {
+    return value.map((x)=>from_candid_ContentItem_n37(_uploadFile, _downloadFile, x));
 }
 function to_candid_AgeRestriction_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AgeRestriction): _AgeRestriction {
     return to_candid_variant_n10(_uploadFile, _downloadFile, value);
@@ -714,6 +997,9 @@ function to_candid_ContentItem_n3(_uploadFile: (file: ExternalBlob) => Promise<U
 function to_candid_ContentType_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ContentType): _ContentType {
     return to_candid_variant_n6(_uploadFile, _downloadFile, value);
 }
+function to_candid_DanceAuditionForm_n63(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: DanceAuditionForm): _DanceAuditionForm {
+    return to_candid_record_n64(_uploadFile, _downloadFile, value);
+}
 function to_candid_EventSpecificFields_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: EventSpecificFields): _EventSpecificFields {
     return to_candid_record_n18(_uploadFile, _downloadFile, value);
 }
@@ -722,6 +1008,9 @@ function to_candid_EventType_n19(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }
 function to_candid_PerformanceType_n23(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: PerformanceType): _PerformanceType {
     return to_candid_variant_n24(_uploadFile, _downloadFile, value);
+}
+function to_candid_ScareActorAuditionForm_n65(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ScareActorAuditionForm): _ScareActorAuditionForm {
+    return to_candid_record_n66(_uploadFile, _downloadFile, value);
 }
 function to_candid_ScareLevel_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ScareLevel): _ScareLevel {
     return to_candid_variant_n16(_uploadFile, _downloadFile, value);
@@ -796,6 +1085,120 @@ function to_candid_record_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
         description: value.description,
         customType: to_candid_ContentType_n5(_uploadFile, _downloadFile, value.customType),
         dates: value.dates
+    };
+}
+function to_candid_record_n64(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    age?: bigint;
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
+}): {
+    age: [] | [bigint];
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
+} {
+    return {
+        age: value.age ? candid_some(value.age) : candid_none(),
+        performanceExperience: value.performanceExperience,
+        name: value.name,
+        workingConditions: value.workingConditions,
+        email: value.email,
+        experience: value.experience,
+        availability: value.availability,
+        referredBy: value.referredBy,
+        whyDancing: value.whyDancing,
+        favoriteDanceType: value.favoriteDanceType,
+        danceStyles: value.danceStyles,
+        physicalLimitations: value.physicalLimitations,
+        operationAgreeStatus: value.operationAgreeStatus,
+        phone: value.phone,
+        scheduleConflicts: value.scheduleConflicts,
+        costumePreferences: value.costumePreferences,
+        previousWork: value.previousWork
+    };
+}
+function to_candid_record_n66(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    age?: bigint;
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+}): {
+    age: [] | [bigint];
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+} {
+    return {
+        age: value.age ? candid_some(value.age) : candid_none(),
+        specialSkills: value.specialSkills,
+        conflictSchedule: value.conflictSchedule,
+        name: value.name,
+        email: value.email,
+        experience: value.experience,
+        availability: value.availability,
+        referredBy: value.referredBy,
+        whyScaryRole: value.whyScaryRole,
+        preferredScareType: value.preferredScareType,
+        preferenceOutfitType: value.preferenceOutfitType,
+        preferedWorkingCondition: value.preferedWorkingCondition,
+        physicalLimitations: value.physicalLimitations,
+        operationAgreeStatus: value.operationAgreeStatus,
+        phone: value.phone,
+        favoriteCharacterType: value.favoriteCharacterType,
+        previousWork: value.previousWork
     };
 }
 function to_candid_record_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {

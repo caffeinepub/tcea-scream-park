@@ -1,42 +1,38 @@
 import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Eye } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tent } from 'lucide-react';
 
 export function ClownTownInteriorElevationSection() {
   return (
     <Section
       id="clown-town-interior"
       title="Inside Clown Town"
-      subtitle="A sneak peek into madness"
-      icon={<Eye className="h-10 w-10 text-destructive" />}
+      subtitle="A scenic elevation of the twisted circus within"
+      icon={<Tent className="h-10 w-10 text-destructive" />}
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
-          {/* Interior Elevation Image */}
-          <div className="relative h-96 overflow-hidden">
+          <div className="relative h-[500px] overflow-hidden">
             <img
-              src="/assets/generated/clown-town-interior-elevation.dim_1600x900.jpg"
+              src="/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg"
               alt="Clown Town Interior Elevation"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
           </div>
 
           <CardHeader>
             <CardTitle className="text-3xl text-destructive bloody-text">
-              Step Inside the Big Top
+              The Big Top of Nightmares
             </CardTitle>
-            <CardDescription className="text-destructive/80 italic font-semibold text-lg">
-              Where laughter turns to screams
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Peer into the twisted corridors of Clown Town, where the funhouse mirrors distort reality and 
-              every corner hides a new terror. The deranged jesters have transformed this once-joyful circus 
-              into a labyrinth of nightmares, complete with blood-stained carnival games and props that seem 
-              to move on their own. This scenic elevation reveals just a glimpse of the horrors that await 
-              inside—the full experience is far more terrifying than any preview can capture.
+              Step inside the twisted carnival where demented clowns perform their macabre acts under blood-stained canvas. 
+              The funhouse mirrors distort reality itself, reflecting your deepest fears back at you. Rusted carnival games 
+              line the walls, their prizes long forgotten, replaced by instruments of terror. The calliope music echoes 
+              endlessly through the corridors, a haunting melody that follows you deeper into the madness. In Clown Town, 
+              the show never ends, and you're always part of the performance.
             </p>
           </CardContent>
         </Card>

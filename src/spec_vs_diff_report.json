@@ -1,96 +1,71 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T18:23:42.914Z",
-  "summary": "Implemented homepage audio autoplay attempt with non-blocking fallback controls, added the \"Camp Riley\" show and updated generatedImages mappings for Camp Riley and the \"Grave danger dace\" scare zone. However, required new image asset files are not present in the diff, and \"Camp Riley\" is not explicitly marked as a kid show via a dedicated field (only implied by description). Diff summary also indicates several unrelated homepage/sections visual/content changes not requested.",
+  "generatedAt": "2026-02-13T00:44:26.088Z",
+  "summary": "REQ-1 and REQ-4 appear implemented (new external auditions link with scarier presentation; Toys sneak peek card + dedicated hash route/page). REQ-2 and REQ-3 update the UI to reference the requested generated image paths, and Hell Hole sneak peek adds the Vicky’s Saw block. However, the diff summary does not show the required image assets being added under frontend/public/assets/generated. Several unrequested UI/theme changes also appear to have been made (background effects, hero/footer copy, and section behavior changes).",
   "missing_requirements": [
     {
       "id": "REQ-2",
-      "requirement": "Add a new show entry named \"Camp Riley\" ... marked as a kid show \"Coming 2027\"",
-      "reason": "The show entry includes a kid-friendly description and \"Coming 2027\" text, but there is no explicit field indicating it is a kid show (the object only shows name/description/hauntSeasonOnly). If the app expects an explicit kid-show marker, this is not implemented.",
+      "requirement": "Add the new AI-generated Clown Town interior elevation image as a static asset under frontend/public/assets/generated and reference it from the UI.",
+      "reason": "The UI was updated to reference /assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg, but the diff summary does not show any new file added under frontend/public/assets/generated, so the asset itself cannot be verified as present.",
       "evidence": [
-        "frontend/src/content/shows.ts"
+        "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx (references /assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg)",
+        "File diff summary shows only one added file (a TSX page) and does not list any additions under frontend/public/assets/generated"
       ]
     },
     {
       "id": "REQ-3",
-      "requirement": "A new image file exists under frontend/public/assets/generated with filename show-camp-riley.dim_1400x900.jpg",
-      "reason": "The generatedImages mapping points to the asset path, but the diff shows no added files (Added: 0), so the required image file is not evidenced as added.",
+      "requirement": "Add the AI-generated Vicky’s Saw scenic elevation image as a static asset under frontend/public/assets/generated and surface it in the Hell Hole sneak peek with title + professional-but-scary description.",
+      "reason": "The Hell Hole sneak peek page references /assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg and includes title/description, but the diff summary does not show the image file being added under frontend/public/assets/generated, so the asset presence cannot be verified.",
       "evidence": [
-        "frontend/src/content/generatedImages.ts",
-        "<file-diff>: Added: 0"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "A new image file exists under frontend/public/assets/generated with filename zone-undead-dance-party.dim_1400x900.jpg",
-      "reason": "The scareZones mapping was updated to point to the new asset path, but the diff shows no added files (Added: 0), so the required image file is not evidenced as added.",
-      "evidence": [
-        "frontend/src/content/generatedImages.ts",
-        "<file-diff>: Added: 0"
+        "frontend/src/pages/HellHoleSneakPeekPage.tsx (references /assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg)",
+        "File diff summary does not list any added static asset files under frontend/public/assets/generated"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Major visual/theme changes to HorrorBackground (new chainsaw-themed layers, overlays, scanlines, etc.)",
-      "reason": "Not requested by any requirement; BuildRequest is limited to autoplay audio + show/scare-zone image updates.",
+      "description": "Major HorrorBackground visual overhaul (chainsaw-themed background image layer, multiple animated layers, scanlines/noise/vignette effects).",
+      "reason": "Not requested by any REQ (requirements focus on auditions link/copy, specific generated images, Toys sneak peek, and content copy rewrites).",
       "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/theme/HorrorBackground.tsx summary)"
+        "frontend-file-summaries.txt (\"frontend/src/components/theme/HorrorBackground.tsx\": enhanced fixed background with chainsaw-themed AI-generated image layer, animated layers, scanline effects)"
       ]
     },
     {
-      "description": "Home hero section content updated with new \"Fire Remix\" energetic description and showtime details",
-      "reason": "Not requested; requirements only mention autoplay audio and adding Camp Riley + image mapping changes.",
+      "description": "Home hero section updated with new \"Fire Remix\" description paragraph highlighting 2028 show content.",
+      "reason": "Not requested by any REQ; changes go beyond the specified content updates (auditions, sneak peeks, specific scenic images, and static module copy rewrites).",
       "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/HomeHeroSection.tsx summary)"
+        "frontend-file-summaries.txt (\"frontend/src/components/sections/HomeHeroSection.tsx\": new Fire Remix energetic description paragraph)"
       ]
     },
     {
-      "description": "Auditions section adds a new \"Show Host Auditions (coming 2029)\" card",
-      "reason": "Not requested by BuildRequest.",
+      "description": "Footer updated with an \"extreme haunt\" warning/liability disclaimer and attribution link changes.",
+      "reason": "Not requested by any REQ.",
       "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/AuditionsSection.tsx summary)"
+        "frontend-file-summaries.txt (\"frontend/src/components/layout/SiteFooter.tsx\": scary extreme haunt warning with liability disclaimer, attribution link)"
       ]
     },
     {
-      "description": "Haunted houses section/content changed (exactly four houses, updated subtitle; hauntedHouses.ts now exports five including new \"Toys Come to Play\")",
-      "reason": "Not requested by BuildRequest.",
+      "description": "HauntedHousesSection/ScareZonesSection behavior changes (e.g., \"exactly four\" displayed) and additional UI effects (green glow hover effects).",
+      "reason": "REQ-5 asks for copy rewrites in content modules, not changes to how many items are rendered or new presentation effects.",
       "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/HauntedHousesSection.tsx summary)",
-        "frontend-file-summaries.txt (frontend/src/content/hauntedHouses.ts summary)"
-      ]
-    },
-    {
-      "description": "Food booths content changed (exports eleven booths including new \"Steampunk Eats\"; pricing/menu updates; new detail page links)",
-      "reason": "Not requested by BuildRequest.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/FoodBoothsSection.tsx summary)",
-        "frontend-file-summaries.txt (frontend/src/content/foodBooths.ts summary)"
-      ]
-    },
-    {
-      "description": "Scare zones section behavior/content changed to display exactly four scare zones",
-      "reason": "Not requested; only the image mapping for an existing scare zone was requested.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/ScareZonesSection.tsx summary)"
-      ]
-    },
-    {
-      "description": "Info/Location section content heavily updated (hours, tickets, pass types, rules, warnings, etc.)",
-      "reason": "Not requested by BuildRequest.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/InfoLocationSection.tsx summary)"
+        "frontend-file-summaries.txt (\"frontend/src/components/sections/HauntedHousesSection.tsx\": \"listing exactly four haunted houses\" + hover effects)",
+        "frontend-file-summaries.txt (\"frontend/src/components/sections/ScareZonesSection.tsx\": \"exactly four scare zones\" + hover effects)"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.72,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/audio/BackgroundAudioManager.tsx",
-    "frontend/src/components/audio/SoundControls.tsx",
-    "frontend/src/content/generatedImages.ts",
-    "frontend/src/content/shows.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/components/sections/AuditionsSection.tsx",
+    "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx",
+    "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+    "frontend/src/content/foodBooths.ts",
+    "frontend/src/content/hauntedHouses.ts",
+    "frontend/src/content/scareZones.ts",
+    "frontend/src/pages/HellHoleSneakPeekPage.tsx",
+    "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx",
     "project_state.json"
   ]
 }

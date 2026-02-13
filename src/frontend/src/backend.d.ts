@@ -20,6 +20,12 @@ export type ContentType = {
     __kind__: "attraction";
     attraction: AttractionSpecificFields;
 };
+export interface AttractionSpecificFields {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
+}
+export type Time = bigint;
 export interface Date_ {
     day: bigint;
     month: bigint;
@@ -37,6 +43,18 @@ export interface ContentItem {
     customType: ContentType;
     dates: Array<EventDateRange>;
 }
+export interface AuditionSubmission {
+    submitter: Principal;
+    formData: {
+        __kind__: "scareActor";
+        scareActor: ScareActorAuditionForm;
+    } | {
+        __kind__: "danceActor";
+        danceActor: DanceAuditionForm;
+    };
+    auditionType: AuditionType;
+    submissionTime: Time;
+}
 export interface EventSpecificFields {
     eventType: EventType;
 }
@@ -49,10 +67,43 @@ export interface EventDateRange {
     endDate: Date_;
     startDate: Date_;
 }
-export interface AttractionSpecificFields {
-    yearIntroduced?: bigint;
-    ageRestriction: AgeRestriction;
-    hasGuidedTour: boolean;
+export interface ScareActorAuditionForm {
+    age?: bigint;
+    specialSkills: string;
+    conflictSchedule: string;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyScaryRole: string;
+    preferredScareType: string;
+    preferenceOutfitType: string;
+    preferedWorkingCondition: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    favoriteCharacterType: string;
+    previousWork: string;
+}
+export interface DanceAuditionForm {
+    age?: bigint;
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
 }
 export interface UserProfile {
     name: string;
@@ -62,6 +113,10 @@ export enum AgeRestriction {
     kids = "kids",
     none = "none",
     adultsOnly = "adultsOnly"
+}
+export enum AuditionType {
+    scareActor = "scareActor",
+    danceActor = "danceActor"
 }
 export enum EventType {
     seasonal = "seasonal",
@@ -96,6 +151,7 @@ export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
+    getAllAuditions(): Promise<Array<AuditionSubmission>>;
     getAllContentItems(): Promise<Array<ContentItem>>;
     getAttractions(): Promise<Array<ContentItem>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
@@ -110,6 +166,8 @@ export interface backendInterface {
     now(): Promise<bigint>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     seedInitialContent(): Promise<void>;
+    submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
+    submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
 }

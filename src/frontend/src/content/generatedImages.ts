@@ -14,6 +14,7 @@ export const generatedImages = {
     'Steampunk Hell': '/assets/generated/zone-steampunk-hell.dim_1400x900.jpg',
   },
   foodBooths: {
+    // Original keys (preserved for backward compatibility)
     'Hell Hole BBQ': '/assets/generated/booth-hell-hole-bbq.dim_1400x900.jpg',
     'Clown Town Chicken': '/assets/generated/booth-clown-town-chicken.dim_1400x900.jpg',
     'Schoolhouse Fish': '/assets/generated/booth-schoolhouse-fish.dim_1400x900.jpg',
@@ -25,6 +26,14 @@ export const generatedImages = {
     'Slider Doom': '/assets/generated/booth-slider-doom.dim_1400x900.jpg',
     'Sharks Hell': '/assets/generated/booth-sharks-hell.dim_1400x900.jpg',
     'Steampunk Eats': '/assets/generated/booth-steampunk-eats.dim_1400x900.jpg',
+    // Alias keys matching exact booth names from foodBooths.ts
+    'Clown town Chicken': '/assets/generated/booth-clown-town-chicken.dim_1400x900.jpg',
+    'Hell hole bbq': '/assets/generated/booth-hell-hole-bbq.dim_1400x900.jpg',
+    'Asylum Seekers': '/assets/generated/booth-asylum-seekers-chain-pizza.dim_1400x900.jpg',
+    "Felix's Yum": '/assets/generated/booth-felixs-yum.dim_1400x900.jpg',
+    'Scary bears spicy eyes': '/assets/generated/booth-scary-bears-spicy-eyes.dim_1400x900.jpg',
+    'chaos  carnival': '/assets/generated/booth-chaos-carnival.dim_1400x900.jpg',
+    'Terror bite': '/assets/generated/booth-terror-bite.dim_1400x900.jpg',
   },
   shows: {
     'Dead man\'s revenge': '/assets/generated/show-dead-mans-revenge.dim_1400x900.jpg',

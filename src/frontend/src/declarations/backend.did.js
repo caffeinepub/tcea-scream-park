@@ -81,6 +81,58 @@ export const ContentItem = IDL.Record({
   'customType' : ContentType,
   'dates' : IDL.Vec(EventDateRange),
 });
+export const ScareActorAuditionForm = IDL.Record({
+  'age' : IDL.Opt(IDL.Nat),
+  'specialSkills' : IDL.Text,
+  'conflictSchedule' : IDL.Text,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'experience' : IDL.Text,
+  'availability' : IDL.Text,
+  'referredBy' : IDL.Text,
+  'whyScaryRole' : IDL.Text,
+  'preferredScareType' : IDL.Text,
+  'preferenceOutfitType' : IDL.Text,
+  'preferedWorkingCondition' : IDL.Text,
+  'physicalLimitations' : IDL.Text,
+  'operationAgreeStatus' : IDL.Text,
+  'phone' : IDL.Text,
+  'favoriteCharacterType' : IDL.Text,
+  'previousWork' : IDL.Text,
+});
+export const DanceAuditionForm = IDL.Record({
+  'age' : IDL.Opt(IDL.Nat),
+  'performanceExperience' : IDL.Text,
+  'name' : IDL.Text,
+  'workingConditions' : IDL.Text,
+  'email' : IDL.Text,
+  'experience' : IDL.Text,
+  'availability' : IDL.Text,
+  'referredBy' : IDL.Text,
+  'whyDancing' : IDL.Text,
+  'favoriteDanceType' : IDL.Text,
+  'danceStyles' : IDL.Text,
+  'physicalLimitations' : IDL.Text,
+  'operationAgreeStatus' : IDL.Text,
+  'phone' : IDL.Text,
+  'scheduleConflicts' : IDL.Text,
+  'costumePreferences' : IDL.Text,
+  'previousWork' : IDL.Text,
+});
+export const AuditionType = IDL.Variant({
+  'scareActor' : IDL.Null,
+  'danceActor' : IDL.Null,
+});
+export const Time = IDL.Int;
+export const AuditionSubmission = IDL.Record({
+  'submitter' : IDL.Principal,
+  'formData' : IDL.Variant({
+    'scareActor' : ScareActorAuditionForm,
+    'danceActor' : DanceAuditionForm,
+  }),
+  'auditionType' : AuditionType,
+  'submissionTime' : Time,
+});
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
@@ -88,6 +140,7 @@ export const idlService = IDL.Service({
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
   'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+  'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
   'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
@@ -106,6 +159,12 @@ export const idlService = IDL.Service({
   'now' : IDL.Func([], [IDL.Nat], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'seedInitialContent' : IDL.Func([], [], []),
+  'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
+  'submitScareActorAudition' : IDL.Func(
+      [ScareActorAuditionForm],
+      [IDL.Bool],
+      [],
+    ),
   'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
   'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
 });
@@ -183,6 +242,58 @@ export const idlFactory = ({ IDL }) => {
     'customType' : ContentType,
     'dates' : IDL.Vec(EventDateRange),
   });
+  const ScareActorAuditionForm = IDL.Record({
+    'age' : IDL.Opt(IDL.Nat),
+    'specialSkills' : IDL.Text,
+    'conflictSchedule' : IDL.Text,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'experience' : IDL.Text,
+    'availability' : IDL.Text,
+    'referredBy' : IDL.Text,
+    'whyScaryRole' : IDL.Text,
+    'preferredScareType' : IDL.Text,
+    'preferenceOutfitType' : IDL.Text,
+    'preferedWorkingCondition' : IDL.Text,
+    'physicalLimitations' : IDL.Text,
+    'operationAgreeStatus' : IDL.Text,
+    'phone' : IDL.Text,
+    'favoriteCharacterType' : IDL.Text,
+    'previousWork' : IDL.Text,
+  });
+  const DanceAuditionForm = IDL.Record({
+    'age' : IDL.Opt(IDL.Nat),
+    'performanceExperience' : IDL.Text,
+    'name' : IDL.Text,
+    'workingConditions' : IDL.Text,
+    'email' : IDL.Text,
+    'experience' : IDL.Text,
+    'availability' : IDL.Text,
+    'referredBy' : IDL.Text,
+    'whyDancing' : IDL.Text,
+    'favoriteDanceType' : IDL.Text,
+    'danceStyles' : IDL.Text,
+    'physicalLimitations' : IDL.Text,
+    'operationAgreeStatus' : IDL.Text,
+    'phone' : IDL.Text,
+    'scheduleConflicts' : IDL.Text,
+    'costumePreferences' : IDL.Text,
+    'previousWork' : IDL.Text,
+  });
+  const AuditionType = IDL.Variant({
+    'scareActor' : IDL.Null,
+    'danceActor' : IDL.Null,
+  });
+  const Time = IDL.Int;
+  const AuditionSubmission = IDL.Record({
+    'submitter' : IDL.Principal,
+    'formData' : IDL.Variant({
+      'scareActor' : ScareActorAuditionForm,
+      'danceActor' : DanceAuditionForm,
+    }),
+    'auditionType' : AuditionType,
+    'submissionTime' : Time,
+  });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   
   return IDL.Service({
@@ -190,6 +301,7 @@ export const idlFactory = ({ IDL }) => {
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
     'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+    'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
     'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
@@ -208,6 +320,12 @@ export const idlFactory = ({ IDL }) => {
     'now' : IDL.Func([], [IDL.Nat], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'seedInitialContent' : IDL.Func([], [], []),
+    'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
+    'submitScareActorAudition' : IDL.Func(
+        [ScareActorAuditionForm],
+        [IDL.Bool],
+        [],
+      ),
     'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
     'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
   });
