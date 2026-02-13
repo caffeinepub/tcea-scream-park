@@ -33,6 +33,7 @@ export function AuditionsSection() {
 
   const auditionsImageUrl = generatedImages.auditions['The Scream Team Auditions'];
   const showHostImageUrl = generatedImages.auditions['Show Host Auditions'];
+  const costumeCharacterImageUrl = generatedImages.auditions['Costume Character Auditions'];
 
   return (
     <Section
@@ -50,6 +51,90 @@ export function AuditionsSection() {
             These auditions are not for the faint of heart. You will be pushed to your limits, tested beyond your comfort zone, and expected to embrace the darkness. Only those who can truly embody terror should apply.
           </AlertDescription>
         </Alert>
+
+        {/* Costume Character Auditions - NEW */}
+        <Card className="bg-card/80 backdrop-blur-sm border-primary/30 shadow-xl overflow-hidden poster-spotlight">
+          {costumeCharacterImageUrl && (
+            <AuditionsHeroImage 
+              src={costumeCharacterImageUrl} 
+              alt="Costume Character Auditions - Riley the bear, Ace, Kevin, and Rocky" 
+            />
+          )}
+          <CardHeader>
+            <CardTitle className="text-3xl text-center text-primary">
+              Costume Character Auditions
+            </CardTitle>
+            <p className="text-center text-lg text-muted-foreground mt-2 font-semibold">
+              Bring joy and wonder as one of our beloved costume characters!
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Promotional Description */}
+            <div className="prose prose-invert max-w-none text-center">
+              <p className="text-base leading-relaxed text-foreground">
+                We're searching for energetic, expressive performers to bring our beloved costume characters to life! 
+                Join our talented cast and become part of the magic as <strong>Riley the bear</strong>, or one of our 
+                playful minion-style characters: <strong>Ace</strong>, <strong>Kevin</strong>, or <strong>Rocky</strong>. 
+                These roles require physical stamina, enthusiasm, and a passion for entertaining guests of all ages. 
+                Whether you're hugging fans, posing for photos, or dancing through the park, you'll create unforgettable 
+                memories every single day. No prior costume character experience required—just bring your energy and love for performance!
+              </p>
+            </div>
+
+            <Separator className="bg-primary/20" />
+
+            {/* Date and Time Info */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex items-start gap-4 p-4 rounded-lg bg-primary/10 border border-primary/30 poster-spotlight">
+                <Calendar className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-lg mb-1 text-primary">Audition Date</h3>
+                  <p className="text-foreground font-medium">March 9th</p>
+                  <p className="text-sm text-muted-foreground mt-1">Mark your calendar!</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 p-4 rounded-lg bg-primary/10 border border-primary/30 poster-spotlight">
+                <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-lg mb-1 text-primary">Audition Time</h3>
+                  <p className="text-foreground font-medium">4-6 pm</p>
+                  <p className="text-sm text-muted-foreground mt-1">Two hours of fun auditions!</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Character Roster */}
+            <div>
+              <h3 className="font-semibold text-xl mb-4 text-center text-primary">Meet Our Characters</h3>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-amber-500/50 bg-amber-500/10 hover:bg-amber-500/20 transition-colors font-semibold"
+                >
+                  Riley the Bear
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-blue-500/50 bg-blue-500/10 hover:bg-blue-500/20 transition-colors font-semibold"
+                >
+                  Ace (Minion-style)
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-green-500/50 bg-green-500/10 hover:bg-green-500/20 transition-colors font-semibold"
+                >
+                  Kevin (Minion-style)
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-red-500/50 bg-red-500/10 hover:bg-red-500/20 transition-colors font-semibold"
+                >
+                  Rocky (Minion-style)
+                </Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* The Scream Team Auditions */}
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 shadow-xl overflow-hidden">

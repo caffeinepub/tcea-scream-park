@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-new-external-scream-team-auditions-link-use-a-placeholder-url-created-in-code-to-the-auditions-section-ui-and-make-the-auditions-section-feel-noticeably-scarier-through-copy-and-presentation-updates-without-breaking-the-existing-audition-signup-dialogs",
-      "featureTitle": "Add a new external “Scream Team Auditions” link (use a placeholder URL created in code) to the Auditions section UI and make the Auditions section feel noticeably scarier through copy and presentation updates (without breaking the existing audition signup dialogs).",
+      "featureId": "feature-update-the-frontend-styling-so-that-all-visible-text-across-the-entire-website-renders-in-white-including-but-not-limited-to-the-food-booths-section-pages-haunted-houses-section-pages-auditions-section-and-dedicated-auditions-page-and-scare-zones-section-pages",
+      "featureTitle": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
       "files": [
-        "frontend/src/components/sections/AuditionsSection.tsx"
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,10 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-generate-and-add-a-new-ai-generated-image-for-the-clown-town-scenic-interior-elevation-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-update-the-clown-town-interior-elevation-section-to-use-the-new-generated-image",
-      "featureTitle": "Generate and add a new AI-generated image for the “Clown Town” scenic/interior elevation, store it as a static asset under frontend/public/assets/generated, and update the Clown Town interior elevation section to use the new generated image.",
+      "featureId": "feature-do-not-change-any-background-colors-or-background-media-images-videos-gradients-as-part-of-the-white-text-update-only-adjust-text-color-styling",
+      "featureTitle": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
       "files": [
-        "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx"
+        "frontend/src/index.css"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -36,67 +36,6 @@
       ],
       "testIds": [
         "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-generate-and-add-an-ai-generated-scenic-elevation-image-for-the-terror-hell-hole-scene-named-vicky-s-saw-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-surface-it-in-the-hell-hole-sneak-peek-experience-with-an-appropriate-title-and-professional-but-scary-english-description",
-      "featureTitle": "Generate and add an AI-generated “scenic elevation” image for the Terror Hell Hole scene named “Vicky’s Saw”, store it as a static asset under frontend/public/assets/generated, and surface it in the Hell Hole sneak peek experience with an appropriate title and professional-but-scary English description.",
-      "files": [
-        "frontend/src/pages/HellHoleSneakPeekPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-sneak-peek-experience-for-the-haunted-house-toys-come-to-play-include-it-as-an-additional-card-in-the-sneak-peek-section-and-add-a-dedicated-full-sneak-peek-page-route-consistent-with-existing-sneak-peek-pages",
-      "featureTitle": "Add a “Sneak Peek” experience for the haunted house “Toys Come to Play”: include it as an additional card in the Sneak Peek section and add a dedicated full sneak peek page/route consistent with existing sneak peek pages.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-        "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-rewrite-the-tagline-and-description-text-to-be-more-professional-while-still-scary-for-every-haunted-house-scare-zone-and-food-booth-defined-in-the-site-s-static-content-modules-keeping-all-user-facing-text-in-english",
-      "featureTitle": "Rewrite the tagline and description text to be more professional while still scary for every haunted house, scare zone, and food booth defined in the site’s static content modules, keeping all user-facing text in English.",
-      "files": [
-        "frontend/src/content/foodBooths.ts",
-        "frontend/src/content/hauntedHouses.ts",
-        "frontend/src/content/scareZones.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
       ],
       "confidence": "high"
     }

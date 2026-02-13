@@ -1,80 +1,35 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T00:44:26.091Z",
+  "generatedAt": "2026-02-13T01:34:51.339Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Add a new external “Scream Team Auditions” link (use a placeholder URL created in code) to the Auditions section UI and make the Auditions section feel noticeably scarier through copy and presentation updates (without breaking the existing audition signup dialogs).",
+        "summary": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/AuditionsSection.tsx"
+          "frontend/src/index.css"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Generate and add a new AI-generated image for the “Clown Town” scenic/interior elevation, store it as a static asset under frontend/public/assets/generated, and update the Clown Town interior elevation section to use the new generated image.",
+        "summary": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg",
-          "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx"
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg",
-          "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Generate and add an AI-generated “scenic elevation” image for the Terror Hell Hole scene named “Vicky’s Saw”, store it as a static asset under frontend/public/assets/generated, and surface it in the Hell Hole sneak peek experience with an appropriate title and professional-but-scary English description.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/public/assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg",
-          "frontend/src/pages/HellHoleSneakPeekPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/public/assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg",
-          "frontend/src/pages/HellHoleSneakPeekPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Add a “Sneak Peek” experience for the haunted house “Toys Come to Play”: include it as an additional card in the Sneak Peek section and add a dedicated full sneak peek page/route consistent with existing sneak peek pages.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-          "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-          "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Rewrite the tagline and description text to be more professional while still scary for every haunted house, scare zone, and food booth defined in the site’s static content modules, keeping all user-facing text in English.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/content/hauntedHouses.ts",
-          "frontend/src/content/scareZones.ts",
-          "frontend/src/content/foodBooths.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/content/hauntedHouses.ts",
-          "frontend/src/content/scareZones.ts",
-          "frontend/src/content/foodBooths.ts"
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -84,17 +39,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg",
-    "frontend/public/assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg",
-    "frontend/src/App.tsx",
-    "frontend/src/components/sections/AuditionsSection.tsx",
-    "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx",
-    "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-    "frontend/src/content/foodBooths.ts",
-    "frontend/src/content/hauntedHouses.ts",
-    "frontend/src/content/scareZones.ts",
-    "frontend/src/pages/HellHoleSneakPeekPage.tsx",
-    "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx",
+    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

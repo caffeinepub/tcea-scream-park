@@ -8,6 +8,16 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const AuditionType = IDL.Variant({
+  'scareActor' : IDL.Null,
+  'danceActor' : IDL.Null,
+});
+export const AuditionLink = IDL.Record({
+  'url' : IDL.Text,
+  'title' : IDL.Text,
+  'auditionType' : AuditionType,
+  'description' : IDL.Text,
+});
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
@@ -119,10 +129,6 @@ export const DanceAuditionForm = IDL.Record({
   'costumePreferences' : IDL.Text,
   'previousWork' : IDL.Text,
 });
-export const AuditionType = IDL.Variant({
-  'scareActor' : IDL.Null,
-  'danceActor' : IDL.Null,
-});
 export const Time = IDL.Int;
 export const AuditionSubmission = IDL.Record({
   'submitter' : IDL.Principal,
@@ -137,12 +143,14 @@ export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addAuditionLink' : IDL.Func([AuditionLink], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
   'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
   'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
   'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getAuditionLinks' : IDL.Func([], [IDL.Vec(AuditionLink)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),
@@ -172,6 +180,16 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const AuditionType = IDL.Variant({
+    'scareActor' : IDL.Null,
+    'danceActor' : IDL.Null,
+  });
+  const AuditionLink = IDL.Record({
+    'url' : IDL.Text,
+    'title' : IDL.Text,
+    'auditionType' : AuditionType,
+    'description' : IDL.Text,
+  });
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
@@ -280,10 +298,6 @@ export const idlFactory = ({ IDL }) => {
     'costumePreferences' : IDL.Text,
     'previousWork' : IDL.Text,
   });
-  const AuditionType = IDL.Variant({
-    'scareActor' : IDL.Null,
-    'danceActor' : IDL.Null,
-  });
   const Time = IDL.Int;
   const AuditionSubmission = IDL.Record({
     'submitter' : IDL.Principal,
@@ -298,12 +312,14 @@ export const idlFactory = ({ IDL }) => {
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addAuditionLink' : IDL.Func([AuditionLink], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
     'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
     'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
     'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getAuditionLinks' : IDL.Func([], [IDL.Vec(AuditionLink)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),

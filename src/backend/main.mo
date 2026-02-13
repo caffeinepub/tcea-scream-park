@@ -9,6 +9,8 @@ import Principal "mo:core/Principal";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 
+
+
 actor {
   // ----------- General Types -----------
   public type Date = {
@@ -23,7 +25,6 @@ actor {
   };
 
   // Shared CMS Content Type
-
   public type ContentItem = {
     id : Nat;
     name : Text;
@@ -155,6 +156,14 @@ actor {
     submissionTime : Time.Time;
   };
 
+  // ----------- AuditionLinks Type -----------
+  public type AuditionLink = {
+    title : Text;
+    url : Text;
+    description : Text;
+    auditionType : AuditionType;
+  };
+
   // ----------- State Management -----------
   let contentItems = Map.empty<Nat, ContentItem>();
   var nextContentId = 1;
@@ -176,6 +185,9 @@ actor {
   let auditions = List.empty<AuditionSubmission>();
 
   include MixinAuthorization(accessControlState);
+
+  // Persisted Audition links
+  let auditionLinks = List.empty<AuditionLink>();
 
   // ----------- User Profile Functions -----------
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
@@ -569,5 +581,17 @@ actor {
   public query ({ caller }) func now() : async Nat {
     // Public utility function - no authorization check needed
     Time.now().toNat();
+  };
+
+  // ----------- Audition Links Management -----------
+  public query ({ caller }) func getAuditionLinks() : async [AuditionLink] {
+    auditionLinks.toArray();
+  };
+
+  public shared ({ caller }) func addAuditionLink(link : AuditionLink) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admin can add audition links.");
+    };
+    auditionLinks.add(link);
   };
 };

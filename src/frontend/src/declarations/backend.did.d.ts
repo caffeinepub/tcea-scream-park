@@ -19,6 +19,12 @@ export interface AttractionSpecificFields {
   'ageRestriction' : AgeRestriction,
   'hasGuidedTour' : boolean,
 }
+export interface AuditionLink {
+  'url' : string,
+  'title' : string,
+  'auditionType' : AuditionType,
+  'description' : string,
+}
 export interface AuditionSubmission {
   'submitter' : Principal,
   'formData' : { 'scareActor' : ScareActorAuditionForm } |
@@ -113,12 +119,14 @@ export type ZoneLocation = { 'both' : null } |
   { 'outdoor' : null };
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'addAuditionLink' : ActorMethod<[AuditionLink], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createContentItem' : ActorMethod<[ContentItem], bigint>,
   'deleteContentItem' : ActorMethod<[bigint], undefined>,
   'getAllAuditions' : ActorMethod<[], Array<AuditionSubmission>>,
   'getAllContentItems' : ActorMethod<[], Array<ContentItem>>,
   'getAttractions' : ActorMethod<[], Array<ContentItem>>,
+  'getAuditionLinks' : ActorMethod<[], Array<AuditionLink>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getContentItem' : ActorMethod<[bigint], [] | [ContentItem]>,

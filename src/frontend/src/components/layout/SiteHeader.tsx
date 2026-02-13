@@ -23,7 +23,8 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
 
   const navItems = [
     { label: 'Home', href: '#home', type: 'scroll' },
-    { label: 'Auditions', href: '#auditions', type: 'scroll' },
+    { label: 'Auditions (Home)', href: '#auditions', type: 'scroll' },
+    { label: 'Auditions Page', href: '#/auditions', type: 'route' },
     { label: 'Haunted Houses', href: '#haunted-houses', type: 'scroll' },
     { label: 'Sneak Peek', href: '#sneak-peek', type: 'scroll' },
     { label: 'Shows', href: '#shows', type: 'scroll' },

@@ -27,6 +27,7 @@ import { HellHoleSneakPeekPage } from './pages/HellHoleSneakPeekPage';
 import { ToysComeToPlaySneakPeekPage } from './pages/ToysComeToPlaySneakPeekPage';
 import { CmsPage } from './pages/CmsPage';
 import { CalendarPage } from './pages/CalendarPage';
+import { AuditionsPage } from './pages/AuditionsPage';
 import { ShowsSection } from './components/sections/ShowsSection';
 import { UpcomingEventsSection } from './components/sections/UpcomingEventsSection';
 import { SlidersOfDecadeSection } from './components/sections/SlidersOfDecadeSection';
@@ -50,25 +51,30 @@ function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      if (!hash) {
+      // Normalize hash to handle both #/route and #route formats
+      const normalizedHash = hash.startsWith('/') ? hash.slice(1) : hash;
+      
+      if (!normalizedHash) {
         setCurrentRoute('home');
-      } else if (hash === 'cms') {
+      } else if (normalizedHash === 'cms') {
         setCurrentRoute('cms');
-      } else if (hash === 'calendar') {
+      } else if (normalizedHash === 'calendar') {
         setCurrentRoute('calendar');
-      } else if (hash === 'sneak-peek/schoolhouse') {
+      } else if (normalizedHash === 'auditions') {
+        setCurrentRoute('auditions');
+      } else if (normalizedHash === 'sneak-peek/schoolhouse') {
         setCurrentRoute('sneak-peek-schoolhouse');
-      } else if (hash === 'food-booth/slider-doom') {
+      } else if (normalizedHash === 'food-booth/slider-doom') {
         setCurrentRoute('slider-doom');
-      } else if (hash === 'food-booth/sharks-hell') {
+      } else if (normalizedHash === 'food-booth/sharks-hell') {
         setCurrentRoute('sharks-hell');
-      } else if (hash === 'scare-zone/laser-hell') {
+      } else if (normalizedHash === 'scare-zone/laser-hell') {
         setCurrentRoute('laser-hell');
-      } else if (hash === 'sneak-peek/clown-town') {
+      } else if (normalizedHash === 'sneak-peek/clown-town') {
         setCurrentRoute('sneak-peek-clown-town');
-      } else if (hash === 'sneak-peek/hell-hole') {
+      } else if (normalizedHash === 'sneak-peek/hell-hole') {
         setCurrentRoute('sneak-peek-hell-hole');
-      } else if (hash === 'sneak-peek/toys-come-to-play') {
+      } else if (normalizedHash === 'sneak-peek/toys-come-to-play') {
         setCurrentRoute('sneak-peek-toys-come-to-play');
       } else {
         setCurrentRoute('home');
@@ -100,6 +106,8 @@ function App() {
         return <CmsPage />;
       case 'calendar':
         return <CalendarPage />;
+      case 'auditions':
+        return <AuditionsPage />;
       case 'sneak-peek-schoolhouse':
         return <SchoolhouseSneakPeekPage />;
       case 'slider-doom':

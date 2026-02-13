@@ -1,114 +1,38 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Haunted attraction content enhancements: scarier auditions link, new scenic images, Toys sneak peek, and rewritten descriptions",
+  "title": "Global white text styling across all pages/sections",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add an external “Scream Team Auditions” link to the Auditions UI and intensify the Auditions section copy/presentation without breaking existing signup dialogs.",
+      "summary": "Force all visible website text to render in white across all home sections and routed pages (including Auditions, Food Booth details, Haunted Houses, and Scare Zones).",
       "acceptanceCriteria": [
-        "The Auditions section displays a clearly labeled “Scream Team Auditions” link using a placeholder URL defined in the frontend code.",
-        "Clicking the link opens the URL in a new tab/window and does not interfere with the existing Scare Actor / Dancer signup flows.",
-        "The Auditions section copy/presentation is updated to be more intense/scary while keeping user-facing text in English."
+        "All headings, paragraphs, labels, and body copy on the home sections and all routed pages display as white text.",
+        "Auditions page banner text and fetched audition link text render in white.",
+        "Food booth detail pages (e.g., Slider Doom / Sharks Hell) render their titles, descriptions, menu text, and navigation text in white.",
+        "Scare zone and haunted house content text renders in white.",
+        "No backend changes are required for this styling update."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add a frontend-defined placeholder constant URL for “Scream Team Auditions”, render a clearly labeled external link (open in new tab with safe rel attributes), and update headings/subtitle/body copy plus visual emphasis (e.g., warning callout styling) to feel noticeably scarier while preserving the existing dialog open/close state and callbacks. Use existing shadcn-ui components already present (Card, Badge, Separator, etc.) to maintain visual consistency; verify the component's usage instructions before implementing."
+          "description": "Add a global base-layer text color override so all rendered text (including elements styled via Tailwind text-* utility classes like text-foreground, text-muted-foreground, text-destructive, etc.) displays white site-wide; include coverage for common text elements (headings/paragraphs/labels/links/list items) and form text/placeholder text. Ensure this is implemented as a text-color-only override (use CSS specificity/!important where needed) without changing any backgrounds. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add a new AI-generated Clown Town interior elevation image as a static asset and update the Clown Town interior elevation section to use it.",
+      "summary": "Ensure the white-text update does not alter any backgrounds, overlays, or background media; only text color is adjusted.",
       "acceptanceCriteria": [
-        "A new Clown Town image file exists at frontend/public/assets/generated and is referenced by the UI (not served through the backend).",
-        "The “Inside Clown Town” / interior elevation section renders the new image without broken links."
+        "Background colors, overlays, and media remain visually the same as before the update (no intentional darkening/lightening or palette shifts).",
+        "Only text color is changed/overridden to white."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg",
-          "operation": "create",
-          "description": "Add the required AI-generated static image asset for the Clown Town interior elevation (file name must match exactly)."
-        },
-        {
-          "path": "frontend/src/components/sections/ClownTownInteriorElevationSection.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Update the section to reference the new static asset at frontend/public/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg and ensure the interior elevation image renders correctly without broken links. Keep layout consistent with existing shadcn-ui Card usage; verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Add a new AI-generated “Vicky’s Saw” scenic elevation image as a static asset and display it in the Hell Hole sneak peek page with a professional-but-scary title and description.",
-      "acceptanceCriteria": [
-        "A new Vicky’s Saw scenic elevation image file exists at frontend/public/assets/generated and is referenced by the UI (not served through the backend).",
-        "The Hell Hole sneak peek page displays the Vicky’s Saw scenic elevation content (image + title + text) without breaking the existing Hell Hole hero image and description."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/vickys-saw-scenic-elevation.dim_1600x900.jpg",
-          "operation": "create",
-          "description": "Add the required AI-generated static image asset for the Vicky’s Saw scenic elevation (file name must match exactly)."
-        },
-        {
-          "path": "frontend/src/pages/HellHoleSneakPeekPage.tsx",
-          "operation": "modify",
-          "description": "Extend the Hell Hole sneak peek page to include an additional “Vicky’s Saw” scenic elevation block (image + title + professional-but-scary English description) while keeping the existing hero image and existing Hell Hole description intact. Use existing shadcn-ui components already used on the page (Card, CardHeader, CardContent, etc.) for consistent styling; verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add a “Toys Come to Play” Sneak Peek card and a dedicated sneak peek page/route consistent with existing sneak peek pages and hash navigation.",
-      "acceptanceCriteria": [
-        "The Sneak Peek section includes a new card for “Toys Come to Play” with image and text pulled from existing content structures.",
-        "Clicking “View Full Sneak Peek” for “Toys Come to Play” navigates to a new dedicated sneak peek page, consistent in layout and back-navigation behavior with existing sneak peek pages (e.g., Clown Town / Hell Hole).",
-        "The new Toys sneak peek route is registered in the app router and is reachable via hash navigation."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-          "operation": "modify",
-          "description": "Add “Toys Come to Play” as an additional Sneak Peek card using existing content structures (pull title/tagline/description from haunted houses content and image from generatedImages), and wire the card button to navigate via hash to the new Toys sneak peek route. Keep styling consistent with existing shadcn-ui Card/Button usage; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/ToysComeToPlaySneakPeekPage.tsx",
-          "operation": "create",
-          "description": "Create a dedicated Toys Come to Play sneak peek page matching the layout and back-navigation behavior used by existing sneak peek pages (e.g., ClownTownSneakPeekPage / HellHoleSneakPeekPage), reading its text from the existing hauntedHouses content and its hero image from generatedImages. Use existing shadcn-ui components (Button, Card) for consistency; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Register the new Toys Come to Play sneak peek route in the existing hash-based routing logic so it is reachable via hash navigation and rendered similarly to other sneak peek pages."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Rewrite taglines and descriptions across static haunted houses, scare zones, and food booths to be more professional while still scary (English only).",
-      "acceptanceCriteria": [
-        "All entries in frontend/src/content/hauntedHouses.ts have updated tagline/description copy in a professional-but-scary tone.",
-        "All entries in frontend/src/content/scareZones.ts have updated tagline/description copy in a professional-but-scary tone.",
-        "All entries in frontend/src/content/foodBooths.ts have updated tagline/description copy in a professional-but-scary tone (menu item names/prices/structure preserved unless only descriptive text is being refined).",
-        "No UI renders placeholder/missing text as a result of the rewrites."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/content/hauntedHouses.ts",
-          "operation": "modify",
-          "description": "Rewrite every haunted house tagline and description in a more professional-but-scary English tone while keeping the existing structure and names intact."
-        },
-        {
-          "path": "frontend/src/content/scareZones.ts",
-          "operation": "modify",
-          "description": "Rewrite every scare zone tagline and description in a more professional-but-scary English tone while keeping the existing structure and names intact."
-        },
-        {
-          "path": "frontend/src/content/foodBooths.ts",
-          "operation": "modify",
-          "description": "Rewrite every food booth tagline and description in a more professional-but-scary English tone, preserving menu item names and overall menu structure (only refine descriptive text where applicable)."
+          "description": "Implement the global white text rules in a way that does not touch background-related styles (no bg-* utilities, no --background variable changes, no overlay/gradient/background-image edits); limit changes strictly to color/fill/stroke where applicable for text rendering. Verify the component's usage instructions before implementing."
         }
       ]
     }

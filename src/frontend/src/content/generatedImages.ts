@@ -47,5 +47,9 @@ export const generatedImages = {
   auditions: {
     'The Scream Team Auditions': '/assets/generated/auditions-scream-team.dim_1400x900.jpg',
     'Show Host Auditions': '/assets/generated/auditions-show-host-auditions.dim_1400x900.jpg',
+    'Costume Character Auditions': '/assets/generated/costume-character-audition-cast-group.dim_1600x900.jpg',
+  },
+  merch: {
+    'Felix Merch Booth': '/assets/generated/felix-merch-booth-sneak-peek.dim_1600x900.jpg',
   },
 };

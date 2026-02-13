@@ -35,6 +35,12 @@ export interface ShowSpecificFields {
     yearIntroduced?: bigint;
     performanceType: PerformanceType;
 }
+export interface AuditionLink {
+    url: string;
+    title: string;
+    auditionType: AuditionType;
+    description: string;
+}
 export interface ContentItem {
     id: bigint;
     useMainHauntSchedule: boolean;
@@ -148,12 +154,14 @@ export enum ZoneLocation {
     outdoor = "outdoor"
 }
 export interface backendInterface {
+    addAuditionLink(link: AuditionLink): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
     getAllAuditions(): Promise<Array<AuditionSubmission>>;
     getAllContentItems(): Promise<Array<ContentItem>>;
     getAttractions(): Promise<Array<ContentItem>>;
+    getAuditionLinks(): Promise<Array<AuditionLink>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getContentItem(id: bigint): Promise<ContentItem | null>;

@@ -1,49 +1,24 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "App updates for a haunted attraction experience: add a Scream Team auditions link, make the section scarier, generate new AI images (Clown Town and Vicky’s Saw scenic elevation), add a sneak peek for the \"Toys Come to Play\" haunted house, and rewrite all food booth/zone/house descriptions to be professional but scary.",
+  "summary": "Website for a haunted event with separate pages/sections (food booths, haunted houses, auditions, scare zones).",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Haunted clown-circus interior scenic elevation with distorted funhouse architecture, ominous lighting, and unsettling carnival props (clown-town-interior-elevation-v2.dim_1600x900.jpg)\n- Dark scenic elevation of an infernal saw-themed chamber with industrial blades, scorched wood/metal textures, dramatic theatrical lighting, and a foreboding altar-like focal point (vickys-saw-scenic-elevation.dim_1600x900.jpg)",
   "existing_features": [
     {
-      "id": "feature-add-a-new-external-scream-team-auditions-link-use-a-placeholder-url-created-in-code-to-the-auditions-section-ui-and-make-the-auditions-section-feel-noticeably-scarier-through-copy-and-presentation-updates-without-breaking-the-existing-audition-signup-dialogs",
-      "title": "Add a new external “Scream Team Auditions” link (use a placeholder URL created in code) to the Auditions section UI and make the Auditions section feel noticeably scarier through copy and presentation updates (without breaking the existing audition signup dialogs).",
+      "id": "feature-update-the-frontend-styling-so-that-all-visible-text-across-the-entire-website-renders-in-white-including-but-not-limited-to-the-food-booths-section-pages-haunted-houses-section-pages-auditions-section-and-dedicated-auditions-page-and-scare-zones-section-pages",
+      "title": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-generate-and-add-a-new-ai-generated-image-for-the-clown-town-scenic-interior-elevation-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-update-the-clown-town-interior-elevation-section-to-use-the-new-generated-image",
-      "title": "Generate and add a new AI-generated image for the “Clown Town” scenic/interior elevation, store it as a static asset under frontend/public/assets/generated, and update the Clown Town interior elevation section to use the new generated image.",
+      "id": "feature-do-not-change-any-background-colors-or-background-media-images-videos-gradients-as-part-of-the-white-text-update-only-adjust-text-color-styling",
+      "title": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-and-add-an-ai-generated-scenic-elevation-image-for-the-terror-hell-hole-scene-named-vicky-s-saw-store-it-as-a-static-asset-under-frontend-public-assets-generated-and-surface-it-in-the-hell-hole-sneak-peek-experience-with-an-appropriate-title-and-professional-but-scary-english-description",
-      "title": "Generate and add an AI-generated “scenic elevation” image for the Terror Hell Hole scene named “Vicky’s Saw”, store it as a static asset under frontend/public/assets/generated, and surface it in the Hell Hole sneak peek experience with an appropriate title and professional-but-scary English description.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-sneak-peek-experience-for-the-haunted-house-toys-come-to-play-include-it-as-an-additional-card-in-the-sneak-peek-section-and-add-a-dedicated-full-sneak-peek-page-route-consistent-with-existing-sneak-peek-pages",
-      "title": "Add a “Sneak Peek” experience for the haunted house “Toys Come to Play”: include it as an additional card in the Sneak Peek section and add a dedicated full sneak peek page/route consistent with existing sneak peek pages.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-rewrite-the-tagline-and-description-text-to-be-more-professional-while-still-scary-for-every-haunted-house-scare-zone-and-food-booth-defined-in-the-site-s-static-content-modules-keeping-all-user-facing-text-in-english",
-      "title": "Rewrite the tagline and description text to be more professional while still scary for every haunted house, scare zone, and food booth defined in the site’s static content modules, keeping all user-facing text in English.",
-      "reqIds": [
-        "REQ-5"
       ],
       "version": 1
     }
@@ -51,36 +26,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add a Scream Team auditions link (create placeholder URL) and make the auditions section scarier",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Generate an AI image for the Clown Town area (at-generation image)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Add a sneak peek section/content inside the \"Toys Come to Play\" haunted house",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Rewrite descriptions for every food booth, zone, and haunted house to be more professional but still scary",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Generate an AI scenic elevation image for the Terror Hell Hole haunted scene called \"Vicky’s Saw\"",
+      "summary": "Set all website text color to white (including food booths, haunted houses, auditions, and scare zones pages/sections) without changing backgrounds",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Enhance haunted attraction content: scarier auditions link, new scenic images, Toys sneak peek, and rewritten descriptions",
+  "projectName": "Make all website text white across all pages/sections",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }
