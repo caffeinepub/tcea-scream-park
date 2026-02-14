@@ -1,35 +1,50 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T01:34:51.339Z",
+  "generatedAt": "2026-02-14T01:01:32.807Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
+        "summary": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css"
+          "frontend/src/content/hauntedHouses.ts"
         ],
         "matchedFiles": [
-          "frontend/src/index.css"
+          "frontend/src/content/hauntedHouses.ts"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
+        "summary": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css"
+          "frontend/src/content/hauntedHouses.ts"
         ],
         "matchedFiles": [
-          "frontend/src/index.css"
+          "frontend/src/content/hauntedHouses.ts"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/content/generatedImages.ts",
+          "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
+          "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg"
+        ],
+        "matchedFiles": [
+          "frontend/src/content/generatedImages.ts",
+          "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
+          "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg"
         ]
       }
     ]
@@ -39,7 +54,10 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/index.css",
+    "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
+    "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/hauntedHouses.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

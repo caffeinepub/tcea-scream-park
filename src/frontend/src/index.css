@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -101,6 +101,19 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  }
+
+  /* Apply horror display font to headings and major CTAs */
+  h1, h2, h3,
+  .section-title,
+  .card-title,
+  button.text-lg,
+  button.text-xl,
+  a.text-lg,
+  a.text-xl {
+    font-family: 'Creepster', cursive !important;
+    letter-spacing: 0.05em;
   }
 
   /* Global white text override - applies to all text elements site-wide */

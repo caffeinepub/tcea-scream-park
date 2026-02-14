@@ -1,38 +1,61 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Global white text styling across all pages/sections",
+  "title": "Add Diner Hell and Toxic Trails Science haunted houses with sub-scene and generated logos",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Force all visible website text to render in white across all home sections and routed pages (including Auditions, Food Booth details, Haunted Houses, and Scare Zones).",
+      "summary": "Add \"Diner Hell\" haunted house entry with English scary tagline/description and a \"Kitchen Nightmares\" sub-scene stored in the haunted house catalog.",
       "acceptanceCriteria": [
-        "All headings, paragraphs, labels, and body copy on the home sections and all routed pages display as white text.",
-        "Auditions page banner text and fetched audition link text render in white.",
-        "Food booth detail pages (e.g., Slider Doom / Sharks Hell) render their titles, descriptions, menu text, and navigation text in white.",
-        "Scare zone and haunted house content text renders in white.",
-        "No backend changes are required for this styling update."
+        "\"Diner Hell\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
+        "The Diner Hell entry includes a non-empty tagline and description in English.",
+        "The Diner Hell entry includes a sub-scene list containing an entry titled \"Kitchen Nightmares\"."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/content/hauntedHouses.ts",
           "operation": "modify",
-          "description": "Add a global base-layer text color override so all rendered text (including elements styled via Tailwind text-* utility classes like text-foreground, text-muted-foreground, text-destructive, etc.) displays white site-wide; include coverage for common text elements (headings/paragraphs/labels/links/list items) and form text/placeholder text. Ensure this is implemented as a text-color-only override (use CSS specificity/!important where needed) without changing any backgrounds. Verify the component's usage instructions before implementing."
+          "description": "Add a new haunted house object for \"Diner Hell\" with an English scary tagline and description, and include a non-empty subScenes array containing a sub-scene entry titled \"Kitchen Nightmares\" (stored directly in the catalog data)."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Ensure the white-text update does not alter any backgrounds, overlays, or background media; only text color is adjusted.",
+      "summary": "Add \"Toxic Trails Science\" haunted house entry with English scary tagline and description in the haunted house catalog.",
       "acceptanceCriteria": [
-        "Background colors, overlays, and media remain visually the same as before the update (no intentional darkening/lightening or palette shifts).",
-        "Only text color is changed/overridden to white."
+        "\"Toxic Trails Science\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
+        "The Toxic Trails Science entry includes a non-empty tagline and description in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/index.css",
+          "path": "frontend/src/content/hauntedHouses.ts",
           "operation": "modify",
-          "description": "Implement the global white text rules in a way that does not touch background-related styles (no bg-* utilities, no --background variable changes, no overlay/gradient/background-image edits); limit changes strictly to color/fill/stroke where applicable for text rendering. Verify the component's usage instructions before implementing."
+          "description": "Add a new haunted house object for \"Toxic Trails Science\" with an English scary tagline and description, matching the existing catalog structure so it renders in HauntedHousesSection."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Wire generated logo images for the new haunted houses by adding mappings and static assets so the haunted house grid renders non-broken images.",
+      "acceptanceCriteria": [
+        "generatedImages.hauntedHouses contains entries for \"Diner Hell\" and \"Toxic Trails Science\".",
+        "The haunted houses grid displays images (non-broken <img> sources) for both new haunted houses."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add generatedImages.hauntedHouses mappings for keys \"Diner Hell\" and \"Toxic Trails Science\" pointing to their corresponding static assets so HauntedHousesSection resolves imagePath correctly."
+        },
+        {
+          "path": "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the generated static image asset for the \"Diner Hell\" haunted house logo (rusted, bloody diner sign with broken/flickering lights) at frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg."
+        },
+        {
+          "path": "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg",
+          "operation": "create",
+          "description": "Add the generated static image asset for the \"Toxic Trails Science\" haunted house logo (vivid toxic green palette with blood splatter and corrupted science/hazard vibe) at frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg."
         }
       ]
     }

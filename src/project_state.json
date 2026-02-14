@@ -1,24 +1,33 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Website for a haunted event with separate pages/sections (food booths, haunted houses, auditions, scare zones).",
+  "summary": "Haunted house app update: add two haunted houses (Diner Hell, Toxic Trails Science) with logos and scary descriptions, plus a new scene (Kitchen Nightmares) inside Diner Hell.",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Haunted house logo image of a rusted, bloody diner sign with broken/flickering lights (house-diner-hell-logo.dim_1400x900.jpg)\n- Haunted house logo image in a vivid toxic green palette with blood splatter and a corrupted science/hazard vibe (house-toxic-trails-science-logo.dim_1400x900.jpg)",
   "existing_features": [
     {
-      "id": "feature-update-the-frontend-styling-so-that-all-visible-text-across-the-entire-website-renders-in-white-including-but-not-limited-to-the-food-booths-section-pages-haunted-houses-section-pages-auditions-section-and-dedicated-auditions-page-and-scare-zones-section-pages",
-      "title": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
+      "id": "feature-add-a-new-haunted-house-entry-named-diner-hell-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description-the-haunted-house-must-include-a-sub-scene-named-kitchen-nightmares-inside-the-diner-hell-haunted-house-stored-in-the-haunted-house-data-as-a-sub-scene-entry",
+      "title": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-do-not-change-any-background-colors-or-background-media-images-videos-gradients-as-part-of-the-white-text-update-only-adjust-text-color-styling",
-      "title": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
+      "id": "feature-add-a-new-haunted-house-entry-named-toxic-trails-science-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description",
+      "title": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
       "reqIds": [
         "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-generated-image-asset-mappings-for-the-new-haunted-houses-so-they-render-with-images-in-the-haunted-house-grid-update-the-generated-images-mapping-to-include-keys-for-diner-hell-and-toxic-trails-science-that-point-to-the-newly-generated-static-assets-in-frontend-public-assets-generated",
+      "title": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-3"
       ],
       "version": 1
     }
@@ -26,12 +35,37 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Set all website text color to white (including food booths, haunted houses, auditions, and scare zones pages/sections) without changing backgrounds",
+      "summary": "Add new haunted house: Diner Hell (with scary description)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Create/logo asset for Diner Hell: rusted, bloody, broken lights (rusted diner sign vibe)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add new haunted house: Toxic Trails Science (with scary description)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Create/logo asset for Toxic Trails Science: green but bloody",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add new scene 'Kitchen Nightmares' inside Diner Hell haunted house",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Make all website text white across all pages/sections",
+  "gameProjectType": "none",
+  "projectName": "Add Diner Hell and Toxic Trails Science haunted houses + Kitchen Nightmares scene + generated logos",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

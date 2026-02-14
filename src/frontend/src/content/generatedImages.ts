@@ -5,6 +5,8 @@ export const generatedImages = {
     'Asylum hell': '/assets/generated/house-asylum-hell.dim_1400x900.jpg',
     'Schoolhouse break and blackout': '/assets/generated/house-schoolhouse-break.dim_1400x900.jpg',
     'Toys Come to Play': '/assets/generated/house-toys-come-to-play.dim_1400x900.jpg',
+    'Diner Hell': '/assets/generated/house-diner-hell-logo.dim_1400x900.jpg',
+    'Toxic Trails Science': '/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg',
   },
   scareZones: {
     'Carnival Bros Circus': '/assets/generated/zone-carnival-bros-circus.dim_1400x900.jpg',

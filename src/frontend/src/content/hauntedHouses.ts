@@ -35,5 +35,24 @@ export const hauntedHouses = {
       subScenes: [],
       location: null,
     },
+    {
+      name: 'Diner Hell',
+      tagline: 'Last meal served. Forever.',
+      description: 'Welcome to the most cursed diner in existence, where the menu is written in blood and the service is eternally damned. This rusted nightmare features flickering neon signs casting sickly shadows across cracked vinyl booths, a kitchen where unspeakable horrors are prepared by deranged cooks, and waitstaff who died serving their final customers. Professional scare actors embody the twisted souls trapped in this greasy purgatory, delivering relentless scares through blood-splattered dining rooms and a kitchen that reeks of decay. The jukebox plays distorted melodies as broken lights strobe overhead, revealing glimpses of the carnage that unfolded here. In Diner Hell, you are always on the menu, and checkout time never comes.',
+      subScenes: [
+        {
+          name: 'Kitchen Nightmares',
+          description: 'Step behind the blood-soaked counter into the heart of culinary horror. This backstage nightmare reveals the twisted kitchen where demonic chefs prepare meals from ingredients best left unspoken. Rusted appliances spark and hiss, meat hooks dangle from the ceiling, and the walk-in freezer holds secrets frozen in time. The head chef—a maniacal butcher with a cleaver and a taste for terror—oversees this hellish operation where every dish is a death sentence. The ovens burn with unholy fire, the grills sizzle with unspeakable cuts, and the screams of the kitchen staff echo through the ventilation. Kitchen Nightmares is where food service meets pure horror, and the special of the day is always you.',
+        },
+      ],
+      location: null,
+    },
+    {
+      name: 'Toxic Trails Science',
+      tagline: 'Where experiments go wrong. Fatally wrong.',
+      description: 'Enter the abandoned research facility where science crossed the line into madness and toxic horrors were unleashed. This professionally designed haunted attraction features corroded laboratories dripping with radioactive sludge, containment chambers holding mutated abominations, and corridors filled with noxious green fog that burns your lungs. Our expert scare actors portray contaminated scientists and failed experiments, their bodies twisted by chemical exposure and their minds shattered by forbidden knowledge. Hazmat suits hang torn and bloody, warning sirens wail endlessly, and the stench of decay mixes with acrid chemical fumes. Toxic Trails Science is a journey through biological nightmares and chemical catastrophes where every breath could be your last, and the experiments are far from over.',
+      subScenes: [],
+      location: null,
+    },
   ],
 };

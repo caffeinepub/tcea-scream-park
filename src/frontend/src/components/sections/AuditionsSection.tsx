@@ -1,7 +1,8 @@
 import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Users, Mic, ExternalLink, Skull } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Calendar, Clock, Users, Mic, ExternalLink, Skull, Ruler, Weight, User } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { AuditionPerksBlock } from './auditions/AuditionPerksBlock';
 import { AuditionSignupEntryPoints } from './auditions/AuditionSignupEntryPoints';
@@ -10,18 +11,30 @@ import { DancerAuditionSignupDialog } from './auditions/DancerAuditionSignupDial
 import { generatedImages } from '@/content/generatedImages';
 import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useGetAuditionLinks } from '@/hooks/useAuditionLinks';
 
 interface Role {
   name: string;
   description?: string;
 }
 
-// Placeholder URL for Scream Team Auditions external link
-const SCREAM_TEAM_AUDITIONS_URL = 'https://example.com/scream-team-auditions';
+function AuditionsHeroImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="relative w-full h-64 overflow-hidden">
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
+    </div>
+  );
+}
 
 export function AuditionsSection() {
   const [scareActorDialogOpen, setScareActorDialogOpen] = useState(false);
   const [dancerDialogOpen, setDancerDialogOpen] = useState(false);
+  const { data: auditionLinks } = useGetAuditionLinks();
 
   const roles: Role[] = [
     { name: 'Sliders' },
@@ -34,6 +47,16 @@ export function AuditionsSection() {
   const auditionsImageUrl = generatedImages.auditions['The Scream Team Auditions'];
   const showHostImageUrl = generatedImages.auditions['Show Host Auditions'];
   const costumeCharacterImageUrl = generatedImages.auditions['Costume Character Auditions'];
+
+  // Helper to find costume character audition URL
+  const costumeCharacterLink = auditionLinks?.find(
+    link => link.auditionType === 'scareActor' && link.title.toLowerCase().includes('costume')
+  );
+
+  const handleViewAllAuditions = () => {
+    window.location.hash = '#/auditions';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <Section
@@ -51,6 +74,20 @@ export function AuditionsSection() {
             These auditions are not for the faint of heart. You will be pushed to your limits, tested beyond your comfort zone, and expected to embrace the darkness. Only those who can truly embody terror should apply.
           </AlertDescription>
         </Alert>
+
+        {/* View All Auditions Button */}
+        <div className="flex justify-center">
+          <Button
+            onClick={handleViewAllAuditions}
+            size="lg"
+            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+          >
+            <ExternalLink className="mr-2 h-5 w-5" />
+            View All Auditions & Apply
+          </Button>
+        </div>
+
+        <Separator className="bg-destructive/20" />
 
         {/* Costume Character Auditions - NEW */}
         <Card className="bg-card/80 backdrop-blur-sm border-primary/30 shadow-xl overflow-hidden poster-spotlight">
@@ -73,8 +110,7 @@ export function AuditionsSection() {
             <div className="prose prose-invert max-w-none text-center">
               <p className="text-base leading-relaxed text-foreground">
                 We're searching for energetic, expressive performers to bring our beloved costume characters to life! 
-                Join our talented cast and become part of the magic as <strong>Riley the bear</strong>, or one of our 
-                playful minion-style characters: <strong>Ace</strong>, <strong>Kevin</strong>, or <strong>Rocky</strong>. 
+                Join our talented cast and become part of the magic as one of our 7 amazing characters. 
                 These roles require physical stamina, enthusiasm, and a passion for entertaining guests of all ages. 
                 Whether you're hugging fans, posing for photos, or dancing through the park, you'll create unforgettable 
                 memories every single day. No prior costume character experience required—just bring your energy and love for performance!
@@ -103,7 +139,7 @@ export function AuditionsSection() {
               </div>
             </div>
 
-            {/* Character Roster */}
+            {/* Character Roster - 7 Characters */}
             <div>
               <h3 className="font-semibold text-xl mb-4 text-center text-primary">Meet Our Characters</h3>
               <div className="flex flex-wrap gap-3 justify-center">
@@ -117,22 +153,82 @@ export function AuditionsSection() {
                   variant="outline"
                   className="text-base px-4 py-2 border-blue-500/50 bg-blue-500/10 hover:bg-blue-500/20 transition-colors font-semibold"
                 >
-                  Ace (Minion-style)
+                  Ace
                 </Badge>
                 <Badge
                   variant="outline"
                   className="text-base px-4 py-2 border-green-500/50 bg-green-500/10 hover:bg-green-500/20 transition-colors font-semibold"
                 >
-                  Kevin (Minion-style)
+                  Kevin
                 </Badge>
                 <Badge
                   variant="outline"
                   className="text-base px-4 py-2 border-red-500/50 bg-red-500/10 hover:bg-red-500/20 transition-colors font-semibold"
                 >
-                  Rocky (Minion-style)
+                  Rocky
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-purple-500/50 bg-purple-500/10 hover:bg-purple-500/20 transition-colors font-semibold"
+                >
+                  Character 5
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-pink-500/50 bg-pink-500/10 hover:bg-pink-500/20 transition-colors font-semibold"
+                >
+                  Character 6
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="text-base px-4 py-2 border-orange-500/50 bg-orange-500/10 hover:bg-orange-500/20 transition-colors font-semibold"
+                >
+                  Character 7
                 </Badge>
               </div>
             </div>
+
+            <Separator className="bg-primary/20" />
+
+            {/* Minimum Qualifications */}
+            <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 poster-spotlight">
+              <h3 className="font-semibold text-xl mb-4 text-center text-primary">Minimum Qualifications</h3>
+              <p className="text-center text-muted-foreground mb-4">
+                All applicants must meet the following minimum requirements:
+              </p>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="flex flex-col items-center gap-2 p-4 bg-primary/5 rounded-lg">
+                  <Ruler className="h-8 w-8 text-primary" />
+                  <span className="font-semibold text-primary">Height</span>
+                  <span className="text-sm text-muted-foreground">Required</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 p-4 bg-primary/5 rounded-lg">
+                  <Weight className="h-8 w-8 text-primary" />
+                  <span className="font-semibold text-primary">Weight</span>
+                  <span className="text-sm text-muted-foreground">Required</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 p-4 bg-primary/5 rounded-lg">
+                  <User className="h-8 w-8 text-primary" />
+                  <span className="font-semibold text-primary">Age</span>
+                  <span className="text-sm text-muted-foreground">Required</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Apply Now Button */}
+            {costumeCharacterLink && (
+              <div className="flex justify-center pt-4">
+                <a
+                  href={costumeCharacterLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-bold text-lg hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Apply Now
+                  <ExternalLink className="h-5 w-5" />
+                </a>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -150,22 +246,6 @@ export function AuditionsSection() {
             </p>
           </CardHeader>
           <CardContent className="space-y-8">
-            {/* External Auditions Link */}
-            <div className="flex justify-center">
-              <a
-                href={SCREAM_TEAM_AUDITIONS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-destructive text-destructive-foreground rounded-lg font-semibold text-lg hover:bg-destructive/90 transition-colors shadow-lg hover:shadow-xl"
-              >
-                <Skull className="h-5 w-5" />
-                Official Scream Team Auditions Portal
-                <ExternalLink className="h-5 w-5" />
-              </a>
-            </div>
-
-            <Separator className="bg-destructive/20" />
-
             {/* Date and Time Info */}
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex items-start gap-4 p-4 rounded-lg bg-destructive/10 border border-destructive/30">
@@ -244,25 +324,16 @@ export function AuditionsSection() {
                     No Qualifications Needed
                   </Badge>
                   <Badge variant="outline" className="text-base px-4 py-2 border-destructive/40 bg-destructive/10 ml-2 font-semibold">
-                    Just Fearless Energy!
+                    Just Bring Your Voice
                   </Badge>
                 </div>
               </div>
-            </div>
-
-            <div className="text-center p-4 bg-destructive/10 rounded-lg border border-destructive/20">
-              <p className="text-lg font-semibold text-destructive">
-                Auditions Opening in 2029
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                The wait will be worth it. Prepare yourself.
-              </p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Audition Dialogs */}
+      {/* Dialogs */}
       <ScareActorAuditionSignupDialog
         open={scareActorDialogOpen}
         onOpenChange={setScareActorDialogOpen}
@@ -272,25 +343,5 @@ export function AuditionsSection() {
         onOpenChange={setDancerDialogOpen}
       />
     </Section>
-  );
-}
-
-function AuditionsHeroImage({ src, alt }: { src: string; alt: string }) {
-  const [imageError, setImageError] = useState(false);
-
-  if (imageError) {
-    return null;
-  }
-
-  return (
-    <div className="relative w-full h-64 overflow-hidden">
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover"
-        onError={() => setImageError(true)}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
-    </div>
   );
 }

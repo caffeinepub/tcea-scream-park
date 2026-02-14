@@ -10,6 +10,7 @@ import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 
 
+// Use migration module to preserve data across upgrades
 
 actor {
   // ----------- General Types -----------
@@ -186,8 +187,8 @@ actor {
 
   include MixinAuthorization(accessControlState);
 
-  // Persisted Audition links
-  let auditionLinks = List.empty<AuditionLink>();
+  // Persisted Audition links as [AuditionLink]
+  var auditionLinks : [AuditionLink] = [];
 
   // ----------- User Profile Functions -----------
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
@@ -585,13 +586,72 @@ actor {
 
   // ----------- Audition Links Management -----------
   public query ({ caller }) func getAuditionLinks() : async [AuditionLink] {
-    auditionLinks.toArray();
+    auditionLinks;
   };
 
   public shared ({ caller }) func addAuditionLink(link : AuditionLink) : async () {
     if (not (AccessControl.isAdmin(accessControlState, caller))) {
       Runtime.trap("Unauthorized: Only admin can add audition links.");
     };
-    auditionLinks.add(link);
+
+    let linksList = List.fromArray<AuditionLink>(auditionLinks);
+    linksList.add(link);
+    auditionLinks := linksList.toArray();
+  };
+
+  public shared ({ caller }) func updateAuditionLink(index : Nat, updatedLink : AuditionLink) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admin can update audition links.");
+    };
+
+    let length = auditionLinks.size();
+    if (index >= length) {
+      Runtime.trap("Invalid index");
+    };
+
+    let linksList = List.fromArray<AuditionLink>(auditionLinks);
+    let elements = linksList.enumerate();
+    let newList = List.empty<AuditionLink>();
+
+    for ((currentIndex, item) in elements) {
+      let itemToAdd = if (currentIndex == index) {
+        updatedLink; // Replace the element at the correct index
+      } else {
+        item; // Keep the original element
+      };
+      newList.add(itemToAdd);
+    };
+
+    auditionLinks := newList.toArray();
+  };
+
+  public shared ({ caller }) func removeAuditionLink(index : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admin can remove audition links.");
+    };
+
+    let length = auditionLinks.size();
+    if (index >= length) {
+      Runtime.trap("Invalid index");
+    };
+
+    let linksList = List.fromArray<AuditionLink>(auditionLinks);
+    let elements = linksList.enumerate();
+    let newList = List.empty<AuditionLink>();
+
+    for ((currentIndex, item) in elements) {
+      if (currentIndex != index) {
+        newList.add(item); // Add elements except the one to remove
+      };
+    };
+
+    auditionLinks := newList.toArray();
+  };
+
+  public shared ({ caller }) func clearAuditionLinks() : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admin can clear audition links.");
+    };
+    auditionLinks := [];
   };
 };

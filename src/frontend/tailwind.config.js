@@ -187,7 +187,8 @@ export default {
                 'horror-drift-reverse': 'horror-drift-reverse 50s linear infinite'
             },
             fontFamily: {
-                sans: ['Creepster', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+                sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+                display: ['Creepster', 'cursive'],
             }
         }
     },

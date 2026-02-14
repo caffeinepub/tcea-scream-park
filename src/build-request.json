@@ -1,63 +1,80 @@
 {
   "kind": "build_request",
-  "title": "Make all website text white across all pages/sections",
+  "title": "Add Diner Hell and Toxic Trails Science haunted houses + Kitchen Nightmares scene + generated logos",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
+      "text": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-3",
-          "recent-4",
-          "recent-8"
+          "msg-5",
+          "msg-13"
         ],
         "quotes": [
-          "Make all the words for the food booths, haunted houses and auditions and scare zones and all words make color white",
-          "1.Yes. 2.Separate. 3.White ensure text is readable",
-          "Text white"
+          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science, and scene called Kitchen Nightmares inside Diner hell haunted house",
+          "1. Yes logo and description. And diner hell logo rusted and bloody and broken lights."
         ]
       },
       "acceptanceCriteria": [
-        "All headings, paragraphs, labels, and body copy on the home sections and all routed pages display as white text.",
-        "Auditions page banner text and fetched audition link text render in white.",
-        "Food booth detail pages (e.g., Slider Doom / Sharks Hell) render their titles, descriptions, menu text, and navigation text in white.",
-        "Scare zone and haunted house content text renders in white.",
-        "No backend changes are required for this styling update."
+        "\"Diner Hell\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
+        "The Diner Hell entry includes a non-empty tagline and description in English.",
+        "The Diner Hell entry includes a sub-scene list containing an entry titled \"Kitchen Nightmares\"."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
+      "text": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-4",
-          "recent-5"
+          "msg-5",
+          "msg-15"
         ],
         "quotes": [
-          "3.White ensure text is readable",
-          "Text white"
+          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science, and scene called Kitchen Nightmares inside Diner hell haunted house",
+          "Toxic trials logo should like Green but bloody. Only rusted logo for diner hell"
         ]
       },
       "acceptanceCriteria": [
-        "Background colors, overlays, and media remain visually the same as before the update (no intentional darkening/lightening or palette shifts).",
-        "Only text color is changed/overridden to white."
+        "\"Toxic Trails Science\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
+        "The Toxic Trails Science entry includes a non-empty tagline and description in English."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5",
+          "msg-15"
+        ],
+        "quotes": [
+          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science",
+          "Toxic trials logo should like Green but bloody. Only rusted logo for diner hell"
+        ]
+      },
+      "acceptanceCriteria": [
+        "generatedImages.hauntedHouses contains entries for \"Diner Hell\" and \"Toxic Trails Science\".",
+        "The haunted houses grid displays images (non-broken <img> sources) for both new haunted houses."
       ]
     }
   ],
   "constraints": [
-    "Frontend files under frontend/src/components/ui and the immutable hook/entry files listed in SYSTEM_CONTEXT must not be edited.",
-    "Backend must remain single-actor; no backend work is needed for this request."
+    "Do not edit files under frontend/src/components/ui (compose existing UI components only).",
+    "Do not edit immutable frontend hook/bootstrap files listed in SYSTEM_CONTEXT.frontend.immutablePaths."
   ],
   "nonGoals": [
-    "Adding new pages, routes, or content.",
-    "Changing theme colors beyond text color (e.g., changing buttons, cards, or backgrounds).",
-    "Improving contrast or accessibility beyond making text white, since the user explicitly requested text-only changes."
+    "Do not add new backend/Motoko data models or persistence for haunted houses (keep these additions in the existing frontend content catalogs).",
+    "Do not add new CMS capabilities or admin editing flows for haunted house entries or sub-scenes."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Haunted house logo image of a rusted, bloody diner sign with broken/flickering lights (house-diner-hell-logo.dim_1400x900.jpg)",
+      "Haunted house logo image in a vivid toxic green palette with blood splatter and a corrupted science/hazard vibe (house-toxic-trails-science-logo.dim_1400x900.jpg)"
+    ],
     "edits": []
   }
 }

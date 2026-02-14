@@ -239,6 +239,7 @@ export interface backendInterface {
     _initializeAccessControlWithSecret(userSecret: string): Promise<void>;
     addAuditionLink(link: AuditionLink): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    clearAuditionLinks(): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
     getAllAuditions(): Promise<Array<AuditionSubmission>>;
@@ -255,10 +256,12 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     now(): Promise<bigint>;
+    removeAuditionLink(index: bigint): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     seedInitialContent(): Promise<void>;
     submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
     submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
+    updateAuditionLink(index: bigint, updatedLink: AuditionLink): Promise<void>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
 }
@@ -304,6 +307,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n5(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async clearAuditionLinks(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.clearAuditionLinks();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.clearAuditionLinks();
             return result;
         }
     }
@@ -531,6 +548,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async removeAuditionLink(arg0: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.removeAuditionLink(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.removeAuditionLink(arg0);
+            return result;
+        }
+    }
     async saveCallerUserProfile(arg0: UserProfile): Promise<void> {
         if (this.processError) {
             try {
@@ -584,6 +615,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.submitScareActorAudition(to_candid_ScareActorAuditionForm_n72(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async updateAuditionLink(arg0: bigint, arg1: AuditionLink): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateAuditionLink(arg0, to_candid_AuditionLink_n1(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateAuditionLink(arg0, to_candid_AuditionLink_n1(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }

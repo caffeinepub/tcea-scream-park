@@ -1,11 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Make all visible website text render in white across all sections and routed pages without changing any backgrounds or media.
+**Goal:** Add two new haunted houses (Diner Hell and Toxic Trails Science) to the existing haunted house catalog, including a Kitchen Nightmares sub-scene for Diner Hell and image mappings so both render correctly in the haunted houses grid.
 
 **Planned changes:**
-- Update global/frontend text color styling so headings, paragraphs, labels, and body copy render in white across the home sections and all routed pages (Food Booths, Haunted Houses, Auditions, Scare Zones, and related detail pages).
-- Ensure the Auditions page banner text and fetched audition link text render in white.
-- Verify no background colors, overlays, images, videos, or gradients are changed as part of the update.
+- Add a new haunted house entry named "Diner Hell" with an English scary tagline and description, including a sub-scene entry titled "Kitchen Nightmares".
+- Add a new haunted house entry named "Toxic Trails Science" with an English scary tagline and description.
+- Add generated image asset mappings for "Diner Hell" and "Toxic Trails Science" so their images render in the haunted house grid using static assets under `frontend/public/assets/generated`.
 
-**User-visible outcome:** All text throughout the website appears white (including section pages and detail pages), while all existing backgrounds and media remain unchanged.
+**User-visible outcome:** The haunted houses list shows two new entries—Diner Hell (with a Kitchen Nightmares sub-scene) and Toxic Trails Science—each displaying a scary tagline/description and a working image in the grid.

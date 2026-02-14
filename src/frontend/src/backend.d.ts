@@ -156,6 +156,7 @@ export enum ZoneLocation {
 export interface backendInterface {
     addAuditionLink(link: AuditionLink): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    clearAuditionLinks(): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
     getAllAuditions(): Promise<Array<AuditionSubmission>>;
@@ -172,10 +173,12 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     now(): Promise<bigint>;
+    removeAuditionLink(index: bigint): Promise<void>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     seedInitialContent(): Promise<void>;
     submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
     submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
+    updateAuditionLink(index: bigint, updatedLink: AuditionLink): Promise<void>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
 }

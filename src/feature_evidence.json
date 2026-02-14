@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-frontend-styling-so-that-all-visible-text-across-the-entire-website-renders-in-white-including-but-not-limited-to-the-food-booths-section-pages-haunted-houses-section-pages-auditions-section-and-dedicated-auditions-page-and-scare-zones-section-pages",
-      "featureTitle": "Update the frontend styling so that all visible text across the entire website renders in white, including (but not limited to) the Food Booths section/pages, Haunted Houses section/pages, Auditions section and dedicated Auditions page, and Scare Zones section/pages.",
+      "featureId": "feature-add-a-new-haunted-house-entry-named-diner-hell-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description-the-haunted-house-must-include-a-sub-scene-named-kitchen-nightmares-inside-the-diner-hell-haunted-house-stored-in-the-haunted-house-data-as-a-sub-scene-entry",
+      "featureTitle": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/content/hauntedHouses.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -21,10 +21,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-do-not-change-any-background-colors-or-background-media-images-videos-gradients-as-part-of-the-white-text-update-only-adjust-text-color-styling",
-      "featureTitle": "Do not change any background colors or background media (images/videos/gradients) as part of the white-text update; only adjust text color styling.",
+      "featureId": "feature-add-a-new-haunted-house-entry-named-toxic-trails-science-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description",
+      "featureTitle": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
       "files": [
-        "frontend/src/index.css"
+        "frontend/src/content/hauntedHouses.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -36,6 +36,25 @@
       ],
       "testIds": [
         "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-image-asset-mappings-for-the-new-haunted-houses-so-they-render-with-images-in-the-haunted-house-grid-update-the-generated-images-mapping-to-include-keys-for-diner-hell-and-toxic-trails-science-that-point-to-the-newly-generated-static-assets-in-frontend-public-assets-generated",
+      "featureTitle": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
+      "files": [
+        "frontend/src/content/generatedImages.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
       ],
       "confidence": "high"
     }

@@ -13,6 +13,11 @@ export function AuditionsPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Filter out entries with placeholder URLs
+  const validAuditionLinks = auditionLinks?.filter(
+    link => link.url && !link.url.includes('example.com')
+  ) || [];
+
   return (
     <div className="min-h-screen pt-32 pb-20">
       <div className="container mx-auto px-4">
@@ -30,7 +35,7 @@ export function AuditionsPage() {
           {/* Page Title */}
           <div className="text-center space-y-4">
             <h1 className="text-5xl md:text-6xl font-bold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              Auditions
+              All Auditions
             </h1>
             <p className="text-xl text-white/90">
               Join our team and become part of the terror
@@ -72,13 +77,13 @@ export function AuditionsPage() {
           )}
 
           {/* Audition Links */}
-          {!isLoading && !isError && auditionLinks && auditionLinks.length > 0 && (
+          {!isLoading && !isError && validAuditionLinks.length > 0 && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white text-center">
                 Available Auditions
               </h2>
               <div className="grid gap-6">
-                {auditionLinks.map((link, index) => (
+                {validAuditionLinks.map((link, index) => (
                   <Card
                     key={index}
                     className="bg-card/80 backdrop-blur-sm border-white/30 hover:border-white/50 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
@@ -97,7 +102,7 @@ export function AuditionsPage() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-white underline hover:text-white/80 transition-colors text-lg font-medium"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-destructive text-destructive-foreground rounded-lg font-semibold text-lg hover:bg-destructive/90 transition-colors shadow-lg hover:shadow-xl"
                       >
                         Apply Now
                         <ExternalLink className="h-4 w-4" />
@@ -110,7 +115,7 @@ export function AuditionsPage() {
           )}
 
           {/* Empty State */}
-          {!isLoading && !isError && auditionLinks && auditionLinks.length === 0 && (
+          {!isLoading && !isError && validAuditionLinks.length === 0 && (
             <Card className="bg-card/80 backdrop-blur-sm border-white/30">
               <CardContent className="py-12 text-center">
                 <p className="text-xl text-white">
