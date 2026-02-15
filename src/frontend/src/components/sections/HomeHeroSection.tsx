@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
+import { Skull, Ghost } from 'lucide-react';
 
 export function HomeHeroSection() {
   const scrollToAuditions = () => {
@@ -9,97 +9,79 @@ export function HomeHeroSection() {
     }
   };
 
+  const navigateToScareActorAudition = () => {
+    window.location.hash = '#/auditions/scare-actor';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navigateToDancerAudition = () => {
+    window.location.hash = '#/auditions/dancer';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Hero Background Video with Fallback Image */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          poster="/assets/generated/tcea-scream-park-hero-bg.dim_1920x1080.jpg"
-        >
-          <source src="/assets/video/chainsaw-loop.mp4" type="video/mp4" />
-        </video>
-        <img
-          src="/assets/generated/tcea-scream-park-hero-bg.dim_1920x1080.jpg"
-          alt="TCEA Scream Park"
-          className="absolute inset-0 w-full h-full object-cover -z-10"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-background" />
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(255, 100, 0, 0.15) 0%, rgba(0, 255, 100, 0.1) 50%, transparent 100%)',
-          }}
-        />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        poster="/assets/generated/tcea-scream-park-hero-bg.dim_1920x1080.jpg"
+      >
+        <source src="/assets/video/tcea-scream-intro-placeholder.mp4" type="video/mp4" />
+      </video>
 
-      {/* Intense Strobe/Flash Effect Layer */}
-      <div 
-        className="absolute inset-0 z-[1] pointer-events-none motion-reduce:hidden animate-strobe-flash"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background" />
 
-      {/* Hero Content */}
-      <div className="relative z-10 text-center px-4 py-20">
-        <img
-          src="/assets/generated/tcea-scream-park-logo.dim_512x512.png"
-          alt="TCEA Scream Park Logo"
-          className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-8 animate-pulse-glow"
-          style={{
-            filter: 'drop-shadow(0 0 30px rgba(255, 100, 0, 0.6)) drop-shadow(0 0 20px rgba(0, 255, 100, 0.4))',
-          }}
-        />
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider mb-6 text-destructive"
-          style={{
-            textShadow: '0 0 20px rgba(255, 100, 0, 0.5), 0 0 40px rgba(0, 255, 100, 0.3)',
-          }}
-        >
-          TCEA SCREAM PARK
-        </h1>
-        <p className="text-2xl md:text-4xl text-destructive mb-4 font-bold tracking-wide bloody-text">
-          Where Your Nightmares Come Alive
-        </p>
-        <p className="text-xl md:text-3xl text-foreground/90 mb-4 font-semibold tracking-wide">
-          The Only Extreme Haunted Attraction
-        </p>
-        
-        {/* Fire Remix Energetic Description */}
-        <div className="max-w-3xl mx-auto mb-6 px-4">
-          <p className="text-lg md:text-xl text-destructive/90 font-semibold mb-2">
-            🔥 NEW FOR 2028: FIRE REMIX 🔥
-          </p>
-          <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
-            Experience the most electrifying show of the year! High-energy dancers, mind-blowing lasers, and explosive performances that will leave you breathless. Showtimes at 1, 4, 7, and 9—exclusively at Remix Arena!
-          </p>
+      <div className="relative z-10 text-center px-4 space-y-8 max-w-4xl mx-auto">
+        <div className="animate-pulse-glow">
+          <img
+            src="/assets/generated/tcea-scream-park-logo.dim_512x512.png"
+            alt="TCEA Scream Park Logo"
+            className="w-48 h-48 mx-auto drop-shadow-[0_0_30px_rgba(255,100,0,0.8)]"
+          />
         </div>
 
-        <p className="text-lg md:text-2xl text-muted-foreground mb-12">
-          Waterford, Virginia
-        </p>
-        <Button
-          size="lg"
-          onClick={scrollToAuditions}
-          className="bg-destructive hover:bg-destructive/90 text-destructive-foreground text-lg px-8 py-6 shadow-glow-green hover:shadow-glow-green-lg transition-all"
-        >
-          Join Our Team - Auditions Open
-        </Button>
-      </div>
+        <h1 className="text-6xl md:text-8xl font-bold text-destructive drop-shadow-[0_0_20px_rgba(255,100,0,0.5)] bloody-text">
+          TCEA SCREAM PARK
+        </h1>
 
-      {/* Scroll Indicator */}
-      <button
-        onClick={scrollToAuditions}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce"
-        aria-label="Scroll down"
-      >
-        <ChevronDown className="h-8 w-8 text-destructive drop-shadow-[0_0_10px_rgba(255,100,0,0.5)]" />
-      </button>
+        <p className="text-xl md:text-2xl text-foreground/90 max-w-3xl mx-auto leading-relaxed font-medium">
+          Welcome to the 2028 Fire Remix show—an explosive spectacle of dancers, lasers, and pure adrenaline! 
+          Catch the electrifying performances at the Remix Arena with showtimes at 7 PM, 9 PM, and 11 PM. 
+          This is not just a show—it's a sensory overload of rhythm, fire, and fearless energy that will leave you breathless!
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <Button
+            size="lg"
+            onClick={scrollToAuditions}
+            className="bg-destructive hover:bg-destructive/90 text-white text-lg px-8 py-6 shadow-glow-green"
+          >
+            <Skull className="mr-2 h-6 w-6" />
+            Join The Scream Team
+          </Button>
+          <Button
+            size="lg"
+            onClick={navigateToScareActorAudition}
+            variant="outline"
+            className="border-destructive/40 text-destructive hover:bg-destructive/10 text-lg px-8 py-6"
+          >
+            <Ghost className="mr-2 h-6 w-6" />
+            Scare Actor Audition
+          </Button>
+          <Button
+            size="lg"
+            onClick={navigateToDancerAudition}
+            variant="outline"
+            className="border-destructive/40 text-destructive hover:bg-destructive/10 text-lg px-8 py-6"
+          >
+            <Ghost className="mr-2 h-6 w-6" />
+            Dancer Audition
+          </Button>
+        </div>
+      </div>
     </section>
   );
 }

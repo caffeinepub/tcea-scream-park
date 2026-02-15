@@ -1,80 +1,74 @@
 {
   "kind": "build_request",
-  "title": "Add Diner Hell and Toxic Trails Science haunted houses + Kitchen Nightmares scene + generated logos",
+  "title": "Add five new selectable passes to homepage Tickets & Passes section",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
+      "id": "REQ-4",
+      "text": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5",
-          "msg-13"
+          "msg-user-add-passes",
+          "msg-user-pass-details"
         ],
         "quotes": [
-          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science, and scene called Kitchen Nightmares inside Diner hell haunted house",
-          "1. Yes logo and description. And diner hell logo rusted and bloody and broken lights."
+          "Add 5 new passes the content creator pass, the Touch pass, the Skip the line pass $34, the Blackout pass and the kid pass $8",
+          "Passes appear on homepage... Include price and name descriptions... Passes are meant to selectable to secure ur pass",
+          "Content creator pass is $4, Touch pass is included with regular pass just ask to upgrade and blackout pass is included with ticket but be warned if u are afraid of dark"
         ]
       },
       "acceptanceCriteria": [
-        "\"Diner Hell\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
-        "The Diner Hell entry includes a non-empty tagline and description in English.",
-        "The Diner Hell entry includes a sub-scene list containing an entry titled \"Kitchen Nightmares\"."
+        "On the homepage, the Tickets & Passes card lists the five new passes in addition to the existing passes.",
+        "Each of the five new passes displays: (a) pass name, (b) price or inclusion label exactly as provided, and (c) the provided/generated description text.",
+        "Skip the Line Pass shows $34 and Kid Pass shows $8.",
+        "Content Creator Pass shows $4.",
+        "Touch Pass displays that it is included with Regular Pass and requires asking to upgrade.",
+        "Blackout Pass displays that it is included with ticket and includes a clear darkness-related warning."
       ]
     },
     {
-      "id": "REQ-2",
-      "text": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
+      "id": "REQ-5",
+      "text": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-5",
-          "msg-15"
+          "msg-user-selection"
         ],
         "quotes": [
-          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science, and scene called Kitchen Nightmares inside Diner hell haunted house",
-          "Toxic trials logo should like Green but bloody. Only rusted logo for diner hell"
+          "Passes are meant to selectable to secure ur pass"
         ]
       },
       "acceptanceCriteria": [
-        "\"Toxic Trails Science\" appears in the haunted houses list rendered by the existing HauntedHousesSection.",
-        "The Toxic Trails Science entry includes a non-empty tagline and description in English."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-5",
-          "msg-15"
-        ],
-        "quotes": [
-          "Add a new haunted house called Diner Hell add logo for it and add scary description for it, and a new haunted house called Toxic Trails science",
-          "Toxic trials logo should like Green but bloody. Only rusted logo for diner hell"
-        ]
-      },
-      "acceptanceCriteria": [
-        "generatedImages.hauntedHouses contains entries for \"Diner Hell\" and \"Toxic Trails Science\".",
-        "The haunted houses grid displays images (non-broken <img> sources) for both new haunted houses."
+        "Users can select exactly one pass option in the Tickets & Passes section (e.g., radio-group style selection).",
+        "A \"Secure your pass\" call-to-action is present and is disabled until a pass is selected.",
+        "Triggering the CTA provides immediate UI feedback that includes the selected pass name (e.g., a toast/alert/inline confirmation).",
+        "No payment processing, checkout flow, or third-party integrations are added."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (compose existing UI components only).",
-    "Do not edit immutable frontend hook/bootstrap files listed in SYSTEM_CONTEXT.frontend.immutablePaths."
+    "Do not modify any files under `frontend/src/components/ui` (read-only UI components must be composed, not edited).",
+    "Do not edit immutable frontend hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
+    "Keep backend as a single Motoko actor; do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Do not add new backend/Motoko data models or persistence for haunted houses (keep these additions in the existing frontend content catalogs).",
-    "Do not add new CMS capabilities or admin editing flows for haunted house entries or sub-scenes."
+    "Implementing real payment processing or checkout for passes.",
+    "Adding third-party authentication (anything other than Internet Identity).",
+    "Persisting pass selections to backend storage unless explicitly requested later."
   ],
   "imageRequirements": {
-    "required": [
-      "Haunted house logo image of a rusted, bloody diner sign with broken/flickering lights (house-diner-hell-logo.dim_1400x900.jpg)",
-      "Haunted house logo image in a vivid toxic green palette with blood splatter and a corrupted science/hazard vibe (house-toxic-trails-science-logo.dim_1400x900.jpg)"
-    ],
+    "required": [],
     "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

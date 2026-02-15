@@ -140,6 +140,13 @@ export const AuditionSubmission = IDL.Record({
   'submissionTime' : Time,
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const StaffingCounts = IDL.Record({
+  'hauntedHouseSupervisors' : IDL.Nat,
+  'zoneSupervisors' : IDL.Nat,
+  'zoneActors' : IDL.Nat,
+  'dancerSupervisors' : IDL.Nat,
+  'hauntedHouseActors' : IDL.Nat,
+});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -159,6 +166,7 @@ export const idlService = IDL.Service({
   'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
   'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -312,6 +320,13 @@ export const idlFactory = ({ IDL }) => {
     'submissionTime' : Time,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const StaffingCounts = IDL.Record({
+    'hauntedHouseSupervisors' : IDL.Nat,
+    'zoneSupervisors' : IDL.Nat,
+    'zoneActors' : IDL.Nat,
+    'dancerSupervisors' : IDL.Nat,
+    'hauntedHouseActors' : IDL.Nat,
+  });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -331,6 +346,7 @@ export const idlFactory = ({ IDL }) => {
     'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
     'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],

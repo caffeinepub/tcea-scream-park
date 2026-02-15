@@ -9,7 +9,6 @@ import Principal "mo:core/Principal";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 
-
 // Use migration module to preserve data across upgrades
 
 actor {
@@ -163,6 +162,15 @@ actor {
     url : Text;
     description : Text;
     auditionType : AuditionType;
+  };
+
+  // ----------- Staffing Types -----------
+  public type StaffingCounts = {
+    hauntedHouseActors : Nat;
+    hauntedHouseSupervisors : Nat;
+    zoneActors : Nat;
+    zoneSupervisors : Nat;
+    dancerSupervisors : Nat;
   };
 
   // ----------- State Management -----------
@@ -456,7 +464,6 @@ actor {
   };
 
   public query ({ caller }) func getContentItem(id : Nat) : async ?ContentItem {
-    // Public read access - no authorization check needed
     contentItems.get(id);
   };
 
@@ -485,7 +492,6 @@ actor {
   };
 
   public query ({ caller }) func getAllContentItems() : async [ContentItem] {
-    // Public read access - no authorization check needed
     contentItems.values().toArray();
   };
 
@@ -514,7 +520,6 @@ actor {
   };
 
   public query ({ caller }) func getMainHauntSchedule() : async [EventDateRange] {
-    // Public read access - no authorization check needed
     mainHauntSchedule;
   };
 
@@ -530,22 +535,18 @@ actor {
   };
 
   public query ({ caller }) func getEvents() : async [ContentItem] {
-    // Public read access - no authorization check needed
     getFilteredContentItems(func(item) { isEvent(item.customType) });
   };
 
   public query ({ caller }) func getScareZones() : async [ContentItem] {
-    // Public read access - no authorization check needed
     getFilteredContentItems(func(item) { isScareZone(item.customType) });
   };
 
   public query ({ caller }) func getShows() : async [ContentItem] {
-    // Public read access - no authorization check needed
     getFilteredContentItems(func(item) { isShow(item.customType) });
   };
 
   public query ({ caller }) func getAttractions() : async [ContentItem] {
-    // Public read access - no authorization check needed
     getFilteredContentItems(func(item) { isAttraction(item.customType) });
   };
 
@@ -580,7 +581,6 @@ actor {
 
   // ----------- Helper Functions for Date Conversion -----------
   public query ({ caller }) func now() : async Nat {
-    // Public utility function - no authorization check needed
     Time.now().toNat();
   };
 
@@ -653,5 +653,21 @@ actor {
       Runtime.trap("Unauthorized: Only admin can clear audition links.");
     };
     auditionLinks := [];
+  };
+
+  // ----------- Audition Utility -----------
+  public query ({ caller }) func getStaffingCounts() : async StaffingCounts {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can view staffing counts");
+    };
+
+    // Return the updated staffing counts based on the correction
+    {
+      hauntedHouseActors = 14;
+      hauntedHouseSupervisors = 3;
+      zoneActors = 16;
+      zoneSupervisors = 5;
+      dancerSupervisors = 3;
+    };
   };
 };

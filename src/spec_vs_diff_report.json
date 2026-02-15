@@ -1,91 +1,25 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T01:01:32.804Z",
-  "summary": "Generated image mappings for the two new haunted houses were added, but the diff does not provide evidence that the haunted house catalog entries (including the required sub-scene) were added, nor that the required static image assets were created. Additionally, multiple unrelated frontend features appear to have been added per the frontend file summaries.",
+  "generatedAt": "2026-02-15T21:49:00.090Z",
+  "summary": "The diff implements a selectable pass list on the homepage Tickets & Passes section via a new PassSelector component and centralized passOptions data, including the five requested new passes with the specified prices/inclusion labels and appropriate descriptions. One potential mismatch is the CTA label casing compared to the acceptance criteria wording.",
   "missing_requirements": [
     {
-      "id": "REQ-1",
-      "requirement": "Add a new haunted house entry named \"Diner Hell\" with an English scary tagline and description, including a sub-scene titled \"Kitchen Nightmares\" stored in the haunted house data.",
-      "reason": "The diff snippet of the haunted house catalog does not show an entry for \"Diner Hell\" or any sub-scene titled \"Kitchen Nightmares\"; only existing houses are visible in the provided truncated content.",
+      "id": "REQ-5",
+      "requirement": "A \"Secure your pass\" call-to-action is present (as stated in the AC).",
+      "reason": "The implemented button text is \"Secure Your Pass\" (different casing) rather than exactly \"Secure your pass\" as written in the acceptance criteria. If exact text matching is required, this is not met.",
       "evidence": [
-        "frontend/src/content/hauntedHouses.ts (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "Add a new haunted house entry named \"Toxic Trails Science\" with an English scary tagline and description.",
-      "reason": "The diff snippet of the haunted house catalog does not show an entry for \"Toxic Trails Science\" in the provided truncated content.",
-      "evidence": [
-        "frontend/src/content/hauntedHouses.ts (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "Add generated image asset mappings that point to newly generated static assets in frontend/public/assets/generated for \"Diner Hell\" and \"Toxic Trails Science\".",
-      "reason": "While mappings were added in generatedImages.ts, the diff shows no new files added under frontend/public/assets/generated (Added files: none), so the required static assets are not evidenced as present.",
-      "evidence": [
-        "frontend/src/content/generatedImages.ts",
-        "file-diff summary: ADDED FILES: none"
+        "frontend/src/components/sections/passes/PassSelector.tsx"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "Added/changed routing and a dedicated Auditions page, plus hash normalization and audio autoplay state management in App.",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/App.tsx)"
-      ]
-    },
-    {
-      "description": "Updated SiteHeader navigation to include a single \"All Auditions\" link and integrated SoundControls in desktop/mobile header layouts.",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/layout/SiteHeader.tsx)"
-      ]
-    },
-    {
-      "description": "Footer updated with an extreme-haunt warning/liability disclaimer and attribution changes.",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/layout/SiteFooter.tsx)"
-      ]
-    },
-    {
-      "description": "Major HorrorBackground visual overhaul (chainsaw image layer, animated fire/smoke/chainsaws/blood layers, scanlines/noise).",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/theme/HorrorBackground.tsx)"
-      ]
-    },
-    {
-      "description": "Home hero content updated with new Fire Remix description paragraph and chainsaw video background/animated logo changes.",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/HomeHeroSection.tsx)"
-      ]
-    },
-    {
-      "description": "AuditionsSection added/expanded with multiple audition blocks, apply links, and signup dialogs.",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt (frontend/src/components/sections/AuditionsSection.tsx)"
-      ]
-    },
-    {
-      "description": "Multiple other section/content changes (FoodBoothsSection robust fallback image resolution and detail links, MerchShopsSection storefront, ScareZonesSection fixed to exactly four zones, InfoLocationSection rewrites).",
-      "reason": "Not requested in the BuildRequest; appears as additional scope per the summaries.",
-      "evidence": [
-        "frontend-file-summaries.txt"
-      ]
-    }
-  ],
-  "confidence": 0.62,
+  "hallucinated_features": [],
+  "confidence": 0.68,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/content/generatedImages.ts",
-    "frontend/src/content/hauntedHouses.ts",
+    "frontend/src/components/sections/InfoLocationSection.tsx",
+    "frontend/src/components/sections/passes/PassSelector.tsx",
+    "frontend/src/components/sections/passes/passOptions.ts",
     "project_state.json"
   ]
 }

@@ -7,6 +7,25 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
+export interface DanceAuditionForm {
+    age?: bigint;
+    performanceExperience: string;
+    name: string;
+    workingConditions: string;
+    email: string;
+    experience: string;
+    availability: string;
+    referredBy: string;
+    whyDancing: string;
+    favoriteDanceType: string;
+    danceStyles: string;
+    physicalLimitations: string;
+    operationAgreeStatus: string;
+    phone: string;
+    scheduleConflicts: string;
+    costumePreferences: string;
+    previousWork: string;
+}
 export type ContentType = {
     __kind__: "show";
     show: ShowSpecificFields;
@@ -49,6 +68,13 @@ export interface ContentItem {
     customType: ContentType;
     dates: Array<EventDateRange>;
 }
+export interface StaffingCounts {
+    hauntedHouseSupervisors: bigint;
+    zoneSupervisors: bigint;
+    zoneActors: bigint;
+    dancerSupervisors: bigint;
+    hauntedHouseActors: bigint;
+}
 export interface AuditionSubmission {
     submitter: Principal;
     formData: {
@@ -90,25 +116,6 @@ export interface ScareActorAuditionForm {
     operationAgreeStatus: string;
     phone: string;
     favoriteCharacterType: string;
-    previousWork: string;
-}
-export interface DanceAuditionForm {
-    age?: bigint;
-    performanceExperience: string;
-    name: string;
-    workingConditions: string;
-    email: string;
-    experience: string;
-    availability: string;
-    referredBy: string;
-    whyDancing: string;
-    favoriteDanceType: string;
-    danceStyles: string;
-    physicalLimitations: string;
-    operationAgreeStatus: string;
-    phone: string;
-    scheduleConflicts: string;
-    costumePreferences: string;
     previousWork: string;
 }
 export interface UserProfile {
@@ -170,6 +177,7 @@ export interface backendInterface {
     getMainHauntSchedule(): Promise<Array<EventDateRange>>;
     getScareZones(): Promise<Array<ContentItem>>;
     getShows(): Promise<Array<ContentItem>>;
+    getStaffingCounts(): Promise<StaffingCounts>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     now(): Promise<bigint>;

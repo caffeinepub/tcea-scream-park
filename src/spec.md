@@ -1,11 +1,16 @@
 # Specification
 
 ## Summary
-**Goal:** Add two new haunted houses (Diner Hell and Toxic Trails Science) to the existing haunted house catalog, including a Kitchen Nightmares sub-scene for Diner Hell and image mappings so both render correctly in the haunted houses grid.
+**Goal:** Expand the homepage “Tickets & Passes” section with five new pass options and make all pass options selectable with a UI-only “secure” call-to-action.
 
 **Planned changes:**
-- Add a new haunted house entry named "Diner Hell" with an English scary tagline and description, including a sub-scene entry titled "Kitchen Nightmares".
-- Add a new haunted house entry named "Toxic Trails Science" with an English scary tagline and description.
-- Add generated image asset mappings for "Diner Hell" and "Toxic Trails Science" so their images render in the haunted house grid using static assets under `frontend/public/assets/generated`.
+- Update `frontend/src/components/sections/InfoLocationSection.tsx` to add five additional pass options to the existing Tickets & Passes list:
+  - Content Creator Pass ($4) with a creator/influencer-focused description
+  - Touch Pass (Included with Regular Pass; ask to upgrade) with an interactive/touch-allowed description
+  - Skip the Line Pass ($34) with a priority entry description
+  - Blackout Pass (Included with ticket) with a darkness-related warning description
+  - Kid Pass ($8) with a younger guests/family-friendly description
+- Add single-select (radio-group style) pass selection behavior with accessible, obvious selection states (keyboard navigable).
+- Add a “Secure your pass” call-to-action that is disabled until a pass is selected, and on activation shows immediate UI feedback that includes the selected pass name (UI-only; no payments).
 
-**User-visible outcome:** The haunted houses list shows two new entries—Diner Hell (with a Kitchen Nightmares sub-scene) and Toxic Trails Science—each displaying a scary tagline/description and a working image in the grid.
+**User-visible outcome:** On the homepage, users can view the five new passes alongside existing ones, select exactly one pass, and click “Secure your pass” to get immediate confirmation of the selected pass without any checkout or payment flow.

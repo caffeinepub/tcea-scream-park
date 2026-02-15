@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { LoginButton } from '@/components/auth/LoginButton';
 import { SoundControls } from '@/components/audio/SoundControls';
+import { useInternetIdentity } from '@/hooks/useInternetIdentity';
 
 interface SiteHeaderProps {
   autoplayBlocked?: boolean;
@@ -12,6 +13,7 @@ interface SiteHeaderProps {
 export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { identity } = useInternetIdentity();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +22,8 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isAuthenticated = !!identity;
 
   const navItems = [
     { label: 'Home', href: '#home', type: 'scroll' },
@@ -36,6 +40,11 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
     { label: 'Calendar', href: '#/calendar', type: 'route' },
     { label: 'CMS', href: '#/cms', type: 'route' },
   ];
+
+  // Add Actors link only for authenticated users
+  if (isAuthenticated) {
+    navItems.push({ label: 'Actors', href: '#/actors', type: 'route' });
+  }
 
   const handleNavClick = (item: typeof navItems[0]) => {
     if (item.type === 'route') {

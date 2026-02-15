@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, AlertTriangle, Clock, Ticket, Shield, Skull } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
+import { PassSelector } from './passes/PassSelector';
+import { passOptions } from './passes/passOptions';
 
 export function InfoLocationSection() {
   return (
@@ -39,37 +41,14 @@ export function InfoLocationSection() {
               Tickets & Passes
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <p className="text-xl font-bold text-destructive">
               Tickets are $30
             </p>
             <Separator className="bg-destructive/20" />
-            <div className="space-y-4">
-              <div className="border-l-4 border-destructive pl-4">
-                <h4 className="font-bold text-lg text-foreground">Bloody Pass</h4>
-                <p className="text-muted-foreground">
-                  For those who want to get covered in blood. Embrace the gore and wear your terror.
-                </p>
-              </div>
-              <div className="border-l-4 border-destructive pl-4">
-                <h4 className="font-bold text-lg text-foreground">U Think U Brave Pass</h4>
-                <p className="text-muted-foreground">
-                  You will have bugs on you and experience no mercy—but no physical contact. Test your limits.
-                </p>
-              </div>
-              <div className="border-l-4 border-destructive pl-4">
-                <h4 className="font-bold text-lg text-foreground">Regular Pass</h4>
-                <p className="text-muted-foreground">
-                  Standard admission for a terrifying experience without the extreme elements.
-                </p>
-              </div>
-              <div className="border-l-4 border-destructive pl-4">
-                <h4 className="font-bold text-lg text-foreground">Horn Pass</h4>
-                <p className="text-muted-foreground">
-                  Special access pass with unique privileges throughout the park.
-                </p>
-              </div>
-            </div>
+            
+            {/* Pass Selector Component */}
+            <PassSelector passes={passOptions} />
           </CardContent>
         </Card>
 

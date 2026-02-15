@@ -1,50 +1,39 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T01:01:32.807Z",
+  "generatedAt": "2026-02-15T21:49:00.094Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-1",
-        "summary": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
+        "id": "REQ-4",
+        "summary": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/content/hauntedHouses.ts"
+          "frontend/src/components/sections/passes/passOptions.ts",
+          "frontend/src/components/sections/InfoLocationSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/content/hauntedHouses.ts"
+          "frontend/src/components/sections/passes/passOptions.ts",
+          "frontend/src/components/sections/InfoLocationSection.tsx"
         ]
       },
       {
-        "id": "REQ-2",
-        "summary": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
+        "id": "REQ-5",
+        "summary": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/content/hauntedHouses.ts"
+          "frontend/src/components/sections/passes/PassSelector.tsx",
+          "frontend/src/components/sections/InfoLocationSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/content/hauntedHouses.ts"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/content/generatedImages.ts",
-          "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
-          "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg"
-        ],
-        "matchedFiles": [
-          "frontend/src/content/generatedImages.ts",
-          "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
-          "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg"
+          "frontend/src/components/sections/passes/PassSelector.tsx",
+          "frontend/src/components/sections/InfoLocationSection.tsx"
         ]
       }
     ]
@@ -54,10 +43,9 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
-    "frontend/public/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg",
-    "frontend/src/content/generatedImages.ts",
-    "frontend/src/content/hauntedHouses.ts",
+    "frontend/src/components/sections/InfoLocationSection.tsx",
+    "frontend/src/components/sections/passes/PassSelector.tsx",
+    "frontend/src/components/sections/passes/passOptions.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

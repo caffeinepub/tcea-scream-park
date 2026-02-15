@@ -109,6 +109,13 @@ export interface ShowSpecificFields {
   'yearIntroduced' : [] | [bigint],
   'performanceType' : PerformanceType,
 }
+export interface StaffingCounts {
+  'hauntedHouseSupervisors' : bigint,
+  'zoneSupervisors' : bigint,
+  'zoneActors' : bigint,
+  'dancerSupervisors' : bigint,
+  'hauntedHouseActors' : bigint,
+}
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
@@ -135,6 +142,7 @@ export interface _SERVICE {
   'getMainHauntSchedule' : ActorMethod<[], Array<EventDateRange>>,
   'getScareZones' : ActorMethod<[], Array<ContentItem>>,
   'getShows' : ActorMethod<[], Array<ContentItem>>,
+  'getStaffingCounts' : ActorMethod<[], StaffingCounts>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'now' : ActorMethod<[], bigint>,

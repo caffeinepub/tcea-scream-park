@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-new-haunted-house-entry-named-diner-hell-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description-the-haunted-house-must-include-a-sub-scene-named-kitchen-nightmares-inside-the-diner-hell-haunted-house-stored-in-the-haunted-house-data-as-a-sub-scene-entry",
-      "featureTitle": "Add a new haunted house entry named \"Diner Hell\" to the haunted house catalog with an English scary tagline and an English scary description. The haunted house must include a sub-scene named \"Kitchen Nightmares\" inside the Diner Hell haunted house (stored in the haunted house data as a sub-scene entry).",
+      "featureId": "feature-update-the-homepage-tickets-passes-ui-in-frontend-src-components-sections-infolocationsection-tsx-to-include-five-additional-pass-options-with-the-exact-names-price-inclusion-text-and-descriptions-specified-in-the-conversation-1-content-creator-pass-4-with-a-creator-influencer-focused-description-2-touch-pass-included-with-regular-pass-ask-to-upgrade-with-a-description-about-interactive-touch-allowed-elements-3-skip-the-line-pass-34-with-a-description-about-priority-entry-4-blackout-pass-included-with-ticket-with-a-description-warning-guests-who-are-afraid-of-the-dark-5-kid-pass-8-with-a-description-for-younger-guests-family-friendly-access-keep-existing-passes-already-shown-unless-explicitly-removed-by-the-user",
+      "featureTitle": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
       "files": [
-        "frontend/src/content/hauntedHouses.ts"
+        "frontend/src/components/sections/InfoLocationSection.tsx",
+        "frontend/src/components/sections/passes/passOptions.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,15 +17,16 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-1"
+        "REQ-4"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-new-haunted-house-entry-named-toxic-trails-science-to-the-haunted-house-catalog-with-an-english-scary-tagline-and-an-english-scary-description",
-      "featureTitle": "Add a new haunted house entry named \"Toxic Trails Science\" to the haunted house catalog with an English scary tagline and an English scary description.",
+      "featureId": "feature-make-the-pass-options-selectable-on-the-homepage-tickets-passes-section-and-provide-a-clear-call-to-action-to-secure-the-selected-pass-ui-only-selection-should-be-obvious-and-accessible-keyboard-navigable-and-the-cta-must-not-require-implementing-payments",
+      "featureTitle": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
       "files": [
-        "frontend/src/content/hauntedHouses.ts"
+        "frontend/src/components/sections/InfoLocationSection.tsx",
+        "frontend/src/components/sections/passes/PassSelector.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -35,26 +37,7 @@
         "authorization@4.0.0"
       ],
       "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-generated-image-asset-mappings-for-the-new-haunted-houses-so-they-render-with-images-in-the-haunted-house-grid-update-the-generated-images-mapping-to-include-keys-for-diner-hell-and-toxic-trails-science-that-point-to-the-newly-generated-static-assets-in-frontend-public-assets-generated",
-      "featureTitle": "Add generated image asset mappings for the new haunted houses so they render with images in the haunted house grid. Update the generated images mapping to include keys for \"Diner Hell\" and \"Toxic Trails Science\" that point to the newly generated static assets in frontend/public/assets/generated.",
-      "files": [
-        "frontend/src/content/generatedImages.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
+        "REQ-5"
       ],
       "confidence": "high"
     }

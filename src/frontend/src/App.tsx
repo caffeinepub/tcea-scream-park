@@ -32,6 +32,22 @@ import { ShowsSection } from './components/sections/ShowsSection';
 import { UpcomingEventsSection } from './components/sections/UpcomingEventsSection';
 import { SlidersOfDecadeSection } from './components/sections/SlidersOfDecadeSection';
 import { HomeIntroVideoSection } from './components/sections/HomeIntroVideoSection';
+import { FrostedHauntPage } from './pages/FrostedHauntPage';
+import { OpenIceTombPage } from './pages/OpenIceTombPage';
+import { WaxWorksPage } from './pages/WaxWorksPage';
+import { SantasHellPage } from './pages/SantasHellPage';
+import { ChainsawColdPage } from './pages/ChainsawColdPage';
+import { GingerdeadBakesPage } from './pages/GingerdeadBakesPage';
+import { HellfireHotCocoaPage } from './pages/HellfireHotCocoaPage';
+import { WrathOfWrappingPage } from './pages/WrathOfWrappingPage';
+import { EggnogExorcismPage } from './pages/EggnogExorcismPage';
+import { CandyCaneCarnagePage } from './pages/CandyCaneCarnagePage';
+import { OrnamentOssuaryPage } from './pages/OrnamentOssuaryPage';
+import { AboutAttractionSection } from './components/sections/AboutAttractionSection';
+import { ScareActorAuditionPage } from './pages/ScareActorAuditionPage';
+import { DancerAuditionPage } from './pages/DancerAuditionPage';
+import { ActorsPage } from './pages/ActorsPage';
+import { GuestRulesPage } from './pages/GuestRulesPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,6 +78,16 @@ function App() {
         setCurrentRoute('calendar');
       } else if (normalizedHash === 'auditions') {
         setCurrentRoute('auditions');
+      } else if (normalizedHash === 'auditions/scare-actor') {
+        setCurrentRoute('auditions-scare-actor');
+      } else if (normalizedHash === 'auditions/dancer') {
+        setCurrentRoute('auditions-dancer');
+      } else if (normalizedHash === 'actors') {
+        setCurrentRoute('actors');
+      } else if (normalizedHash.startsWith('rules/haunted-house/')) {
+        setCurrentRoute('guest-rules');
+      } else if (normalizedHash.startsWith('rules/scare-zone/')) {
+        setCurrentRoute('guest-rules');
       } else if (normalizedHash === 'sneak-peek/schoolhouse') {
         setCurrentRoute('sneak-peek-schoolhouse');
       } else if (normalizedHash === 'food-booth/slider-doom') {
@@ -76,6 +102,28 @@ function App() {
         setCurrentRoute('sneak-peek-hell-hole');
       } else if (normalizedHash === 'sneak-peek/toys-come-to-play') {
         setCurrentRoute('sneak-peek-toys-come-to-play');
+      } else if (normalizedHash === 'event/frosted-haunt') {
+        setCurrentRoute('frosted-haunt');
+      } else if (normalizedHash === 'haunted-house/open-ice-tomb') {
+        setCurrentRoute('open-ice-tomb');
+      } else if (normalizedHash === 'haunted-house/wax-works') {
+        setCurrentRoute('wax-works');
+      } else if (normalizedHash === 'scare-zone/santas-hell') {
+        setCurrentRoute('santas-hell');
+      } else if (normalizedHash === 'scare-zone/chainsaw-cold') {
+        setCurrentRoute('chainsaw-cold');
+      } else if (normalizedHash === 'food-booth/gingerdead-bakes') {
+        setCurrentRoute('gingerdead-bakes');
+      } else if (normalizedHash === 'food-booth/hellfire-hot-cocoa') {
+        setCurrentRoute('hellfire-hot-cocoa');
+      } else if (normalizedHash === 'food-booth/wrath-of-wrapping') {
+        setCurrentRoute('wrath-of-wrapping');
+      } else if (normalizedHash === 'food-booth/eggnog-exorcism') {
+        setCurrentRoute('eggnog-exorcism');
+      } else if (normalizedHash === 'food-booth/candy-cane-carnage') {
+        setCurrentRoute('candy-cane-carnage');
+      } else if (normalizedHash === 'food-booth/ornament-ossuary') {
+        setCurrentRoute('ornament-ossuary');
       } else {
         setCurrentRoute('home');
       }
@@ -108,6 +156,14 @@ function App() {
         return <CalendarPage />;
       case 'auditions':
         return <AuditionsPage />;
+      case 'auditions-scare-actor':
+        return <ScareActorAuditionPage />;
+      case 'auditions-dancer':
+        return <DancerAuditionPage />;
+      case 'actors':
+        return <ActorsPage />;
+      case 'guest-rules':
+        return <GuestRulesPage />;
       case 'sneak-peek-schoolhouse':
         return <SchoolhouseSneakPeekPage />;
       case 'slider-doom':
@@ -122,12 +178,35 @@ function App() {
         return <HellHoleSneakPeekPage />;
       case 'sneak-peek-toys-come-to-play':
         return <ToysComeToPlaySneakPeekPage />;
+      case 'frosted-haunt':
+        return <FrostedHauntPage />;
+      case 'open-ice-tomb':
+        return <OpenIceTombPage />;
+      case 'wax-works':
+        return <WaxWorksPage />;
+      case 'santas-hell':
+        return <SantasHellPage />;
+      case 'chainsaw-cold':
+        return <ChainsawColdPage />;
+      case 'gingerdead-bakes':
+        return <GingerdeadBakesPage />;
+      case 'hellfire-hot-cocoa':
+        return <HellfireHotCocoaPage />;
+      case 'wrath-of-wrapping':
+        return <WrathOfWrappingPage />;
+      case 'eggnog-exorcism':
+        return <EggnogExorcismPage />;
+      case 'candy-cane-carnage':
+        return <CandyCaneCarnagePage />;
+      case 'ornament-ossuary':
+        return <OrnamentOssuaryPage />;
       case 'home':
       default:
         return (
           <>
             <HomeHeroSection />
             <HomeIntroVideoSection />
+            <AboutAttractionSection />
             <AuditionsSection />
             <HauntedHousesSection />
             <FoodBoothsSection />

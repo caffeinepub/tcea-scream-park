@@ -8,10 +8,20 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export function FoodBoothsSection() {
   const handleViewBooth = (boothName: string) => {
-    if (boothName === 'Slider Doom') {
-      window.location.hash = '#/food-booths/slider-doom';
-    } else if (boothName === 'Sharks Hell') {
-      window.location.hash = '#/food-booths/sharks-hell';
+    const routeMap: Record<string, string> = {
+      'Slider Doom': '#/food-booth/slider-doom',
+      'Sharks Hell': '#/food-booth/sharks-hell',
+      'Gingerdead Bakes': '#/food-booth/gingerdead-bakes',
+      'Hellfire Hot Cocoa': '#/food-booth/hellfire-hot-cocoa',
+      'Wrath of Wrapping': '#/food-booth/wrath-of-wrapping',
+      'Eggnog Exorcism': '#/food-booth/eggnog-exorcism',
+      'Candy Cane Carnage': '#/food-booth/candy-cane-carnage',
+      'Ornament Ossuary': '#/food-booth/ornament-ossuary',
+    };
+    
+    const route = routeMap[boothName];
+    if (route) {
+      window.location.hash = route;
     }
   };
 
@@ -33,6 +43,17 @@ export function FoodBoothsSection() {
     // Final fallback: return a placeholder or empty string
     return '';
   };
+
+  const boothsWithDetails = [
+    'Slider Doom',
+    'Sharks Hell',
+    'Gingerdead Bakes',
+    'Hellfire Hot Cocoa',
+    'Wrath of Wrapping',
+    'Eggnog Exorcism',
+    'Candy Cane Carnage',
+    'Ornament Ossuary',
+  ];
 
   return (
     <Section
@@ -120,7 +141,7 @@ export function FoodBoothsSection() {
                     ))}
                   </ul>
                 </div>
-                {(booth.name === 'Slider Doom' || booth.name === 'Sharks Hell') && (
+                {boothsWithDetails.includes(booth.name) && (
                   <Button
                     onClick={() => handleViewBooth(booth.name)}
                     variant="outline"

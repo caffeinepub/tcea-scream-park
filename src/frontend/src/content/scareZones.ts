@@ -29,4 +29,16 @@ export const scareZones = [
     description: 'Coming 2028. Enter a nightmarish industrial wasteland where Victorian machinery has fused with the fires of damnation to create a hellscape of metal and flame. This professionally designed scare zone features massive steam-powered engines belching toxic fumes, clockwork demons patrolling rusted corridors, and gears the size of buildings grinding relentlessly—crushing anything caught between their teeth. The air is thick with coal smoke and the screams of those trapped in the infernal machinery. Professional scare actors embody mechanical horrors and industrial nightmares, creating an atmosphere of oppressive dread. In Steampunk Hell, progress has a terrible price, and you are about to pay it. The factory never stops, the furnaces never cool, and escape is just another broken cog in the machine of eternal torment.',
     location: null,
   },
+  {
+    name: 'Santa\'s Hell',
+    tagline: 'He knows if you\'ve been naughty. And you have.',
+    description: 'Welcome to the North Pole\'s darkest nightmare, where Santa\'s workshop has become a torture chamber and Christmas cheer has curdled into pure malevolence. This Christmas-horror scare zone features demonic elves wielding candy cane weapons, a corrupted Santa Claus dragging a sack of screaming souls, and twisted reindeer with glowing red eyes stalking through blood-stained snow. Professional scare actors portray holiday horrors gone wrong—gingerbread men with razor-sharp teeth, possessed nutcrackers that crack more than nuts, and murderous snowmen that melt to reveal rotting corpses inside. The air smells of burnt cookies and sulfur, jingle bells ring with ominous intent, and Christmas carols play in distorted, nightmarish versions. In Santa\'s Hell, you\'re definitely on the naughty list, and the punishment is eternal terror.',
+    location: null,
+  },
+  {
+    name: 'Chainsaw Cold',
+    tagline: 'The blades never freeze. Neither does the screaming.',
+    description: 'Venture into the frozen wasteland where chainsaw-wielding maniacs have claimed the winter as their hunting ground. This Christmas-horror scare zone combines the brutal terror of roaring chainsaws with the unforgiving cold of a blizzard nightmare. Professional scare actors dressed in blood-splattered winter gear pursue victims through snowdrifts and ice-covered paths, their chainsaws cutting through the frigid air with deafening roars. The ground is slick with ice and crimson stains, abandoned Christmas decorations hang from frozen trees like macabre ornaments, and the howling wind carries the screams of previous victims. In Chainsaw Cold, there\'s no warm refuge, no safe haven—only the relentless pursuit of blade-wielding psychos who never feel the cold because their blood runs hot with murderous rage. This is winter\'s most brutal nightmare, where frostbite is a mercy compared to what awaits you.',
+    location: null,
+  },
 ];

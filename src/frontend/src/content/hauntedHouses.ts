@@ -54,5 +54,19 @@ export const hauntedHouses = {
       subScenes: [],
       location: null,
     },
+    {
+      name: 'Open Ice Tomb',
+      tagline: 'Where the frozen dead never rest.',
+      description: 'Descend into the cursed ice cavern where winter\'s victims are entombed in eternal frost. This Christmas-horror haunted house features frozen corpses suspended in crystalline ice, frostbitten ghouls emerging from glacial walls, and a bone-chilling atmosphere that will freeze you to your core. Navigate through icy corridors where the temperature drops to unbearable levels and your breath forms clouds of terror. Professional scare actors portray the frozen undead—victims of a cursed winter who now hunt for warmth by stealing the life force of the living. Icicles drip with blood, snowdrifts conceal horrors, and the sound of cracking ice signals something terrible awakening. In the Open Ice Tomb, hypothermia is the least of your worries, and the cold embrace of death is always one step behind you.',
+      subScenes: [],
+      location: null,
+    },
+    {
+      name: 'Wax Works',
+      tagline: 'The exhibits are watching. And waiting.',
+      description: 'Enter the twisted wax museum where the line between sculpture and living nightmare has dissolved completely. This Christmas-horror haunted house features disturbingly lifelike wax figures of holiday horrors—demonic Santas, twisted elves, and corrupted carolers frozen in poses of eternal torment. As you navigate the dimly lit galleries, you\'ll discover that not all the figures are made of wax—some are very much alive and hungry for new additions to the collection. Professional scare actors blend seamlessly with the exhibits, creating an atmosphere of paranoid dread where any statue could spring to life. The air smells of melted wax and decay, candles flicker with unnatural flames, and the museum curator—a deranged artist obsessed with preserving beauty through horror—stalks the halls seeking new subjects. In Wax Works, you might become the next permanent exhibit, preserved forever in a pose of pure terror.',
+      subScenes: [],
+      location: null,
+    },
   ],
 };
