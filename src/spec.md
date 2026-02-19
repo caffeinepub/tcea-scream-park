@@ -1,16 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Expand the homepage “Tickets & Passes” section with five new pass options and make all pass options selectable with a UI-only “secure” call-to-action.
+**Goal:** Add 'Toys Come to Play' haunted house with characters Blippy and Jiffy, and announce 2030 costume character expansion featuring Lola the Rabbit, Asher the Rabbit, Max, and DD with new princesses.
 
 **Planned changes:**
-- Update `frontend/src/components/sections/InfoLocationSection.tsx` to add five additional pass options to the existing Tickets & Passes list:
-  - Content Creator Pass ($4) with a creator/influencer-focused description
-  - Touch Pass (Included with Regular Pass; ask to upgrade) with an interactive/touch-allowed description
-  - Skip the Line Pass ($34) with a priority entry description
-  - Blackout Pass (Included with ticket) with a darkness-related warning description
-  - Kid Pass ($8) with a younger guests/family-friendly description
-- Add single-select (radio-group style) pass selection behavior with accessible, obvious selection states (keyboard navigable).
-- Add a “Secure your pass” call-to-action that is disabled until a pass is selected, and on activation shows immediate UI feedback that includes the selected pass name (UI-only; no payments).
+- Add 'Toys Come to Play' haunted house to Haunted Houses section with tagline 'never talk back we just want to rip ur head off'
+- Include information about 22 different scenes featuring characters Blippy and Jiffy with scene description 'out of breath and almost head'
+- Add 2030 investment announcement section highlighting new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses
+- Add audition information for 2030 costume character roles emphasizing vocal skills with note that 'some sing some don't'
 
-**User-visible outcome:** On the homepage, users can view the five new passes alongside existing ones, select exactly one pass, and click “Secure your pass” to get immediate confirmation of the selected pass without any checkout or payment flow.
+**User-visible outcome:** Visitors can view the new 'Toys Come to Play' haunted house with character details and scenes, and learn about the upcoming 2030 costume character expansion with audition requirements.

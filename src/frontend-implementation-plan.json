@@ -1,51 +1,120 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add five new selectable passes to homepage Tickets & Passes section",
+  "title": "Add 'Toys Come to Play' haunted house with characters and 2030 costume character announcements",
   "requirements": [
     {
-      "id": "REQ-4",
-      "summary": "Extend the homepage Tickets & Passes list to include five additional pass options with exact names and price/inclusion labels plus appropriate descriptions, while keeping existing passes.",
+      "id": "REQ-1",
+      "summary": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline",
       "acceptanceCriteria": [
-        "On the homepage, the Tickets & Passes card lists the five new passes in addition to the existing passes.",
-        "Each of the five new passes displays: (a) pass name, (b) price or inclusion label exactly as provided, and (c) the provided/generated description text.",
-        "Skip the Line Pass shows $34 and Kid Pass shows $8.",
-        "Content Creator Pass shows $4.",
-        "Touch Pass displays that it is included with Regular Pass and requires asking to upgrade.",
-        "Blackout Pass displays that it is included with ticket and includes a clear darkness-related warning."
+        "Haunted house appears in the Haunted Houses section alongside existing houses",
+        "Tagline 'never talk back we just want to rip ur head off' is displayed",
+        "House is accessible via detail page navigation"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/passes/passOptions.ts",
-          "operation": "create",
-          "description": "Create a typed, centralized list of pass option content used by the homepage Tickets & Passes section. Ensure the five new passes are included with the exact names and price/inclusion labels: Content Creator Pass ($4), Touch Pass (Included with Regular Pass; ask to upgrade), Skip the Line Pass ($34), Blackout Pass (Included with ticket), Kid Pass ($8). Keep existing pass options (Bloody Pass, U Think U Brave Pass, Regular Pass, Horn Pass) in the list. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/components/sections/HauntedHousesSection.tsx",
+          "operation": "modify",
+          "description": "Add 'Toys Come to Play' card to the haunted houses grid with generated image frontend/public/assets/generated/house-toys-come-to-play.dim_1400x900.jpg, tagline 'never talk back we just want to rip ur head off', description from hauntedHouses.ts, and navigation button to detail page"
         },
         {
-          "path": "frontend/src/components/sections/InfoLocationSection.tsx",
+          "path": "frontend/src/pages/ToysComeToPlayPage.tsx",
+          "operation": "create",
+          "description": "Create detail page for 'Toys Come to Play' haunted house displaying hero image frontend/public/assets/generated/toys-come-to-play-exterior.dim_1200x600.png, house name, tagline 'never talk back we just want to rip ur head off', full description including 22 different scenes, characters Blippy and Jiffy with scene description 'out of breath and almost head', extreme horror warning alert, and button to view guest rules"
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the Tickets & Passes portion of the section to render pass options from the centralized pass list, ensuring the five new passes appear alongside the existing passes and display name + price/inclusion label + description text exactly as required. Keep the section layout consistent with existing shadcn/ui-composed Card/Separator styling and do not modify any files under frontend/src/components/ui. Verify the component's usage instructions before implementing."
+          "description": "Add route for /toys-come-to-play that renders ToysComeToPlayPage component in the hash-based router configuration"
+        },
+        {
+          "path": "frontend/src/content/hauntedHouses.ts",
+          "operation": "modify",
+          "description": "Verify 'Toys Come to Play' entry exists with name, tagline 'never talk back we just want to rip ur head off', description mentioning 22 different scenes, characters Blippy and Jiffy, and scene description 'out of breath and almost head'"
+        },
+        {
+          "path": "frontend/src/content/guestRules.ts",
+          "operation": "modify",
+          "description": "Add guest rules entry for 'Toys Come to Play' with safety guidelines, behavior rules, and health warnings appropriate for a toy-themed horror attraction"
+        },
+        {
+          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
+          "operation": "modify",
+          "description": "Verify 'Toys Come to Play' sneak peek card exists in the preview grid with image frontend/public/assets/generated/house-toys-come-to-play.dim_1400x900.jpg, tagline, and navigation button to ToysComeToPlaySneakPeekPage"
         }
       ]
     },
     {
-      "id": "REQ-5",
-      "summary": "Make homepage pass options selectable (single-select) with an accessible, obvious selection state and a UI-only 'Secure your pass' CTA with confirmation feedback.",
+      "id": "REQ-2",
+      "summary": "Add characters Blippy and Jiffy to 'Toys Come to Play' with scene descriptions integrated into 22 scenes system",
       "acceptanceCriteria": [
-        "Users can select exactly one pass option in the Tickets & Passes section (e.g., radio-group style selection).",
-        "A \"Secure your pass\" call-to-action is present and is disabled until a pass is selected.",
-        "Triggering the CTA provides immediate UI feedback that includes the selected pass name (e.g., a toast/alert/inline confirmation).",
-        "No payment processing, checkout flow, or third-party integrations are added."
+        "Blippy and Jiffy characters are mentioned in the haunted house description",
+        "Scene description 'out of breath and almost head' is incorporated into the scenes",
+        "Information about 22 different scenes is displayed in the haunted house detail page"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/passes/PassSelector.tsx",
-          "operation": "create",
-          "description": "Create a PassSelector component that renders the provided pass options as a keyboard-navigable, single-select control (native radio inputs or equivalent), with clear selected styling and accessible labeling. Include a UI-only \"Secure your pass\" CTA that is disabled until a selection is made, and on activation shows immediate confirmation feedback containing the selected pass name (inline message within the section). Use existing shadcn/ui building blocks by composition only (e.g., Card/Alert/Separator patterns already used in the app) without editing frontend/src/components/ui. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/pages/ToysComeToPlayPage.tsx",
+          "operation": "modify",
+          "description": "Add dedicated character showcase section featuring Blippy with image frontend/public/assets/generated/blippy-scene.dim_800x600.png and Jiffy with image frontend/public/assets/generated/jiffy-scene.dim_800x600.png in a two-column grid layout, include scene description 'out of breath and almost head' integrated with the 22 different scenes information display"
         },
         {
-          "path": "frontend/src/components/sections/InfoLocationSection.tsx",
+          "path": "frontend/src/content/hauntedHouses.ts",
           "operation": "modify",
-          "description": "Wire PassSelector into the Tickets & Passes card: pass in the full pass list, ensure exactly one selection is possible, and place the \"Secure your pass\" CTA and confirmation feedback within this section (homepage). Ensure the CTA stays UI-only (no payments, no backend calls) and selection is visually obvious and keyboard accessible. Verify the component's usage instructions before implementing."
+          "description": "Update 'Toys Come to Play' entry to prominently feature characters Blippy and Jiffy in the description, incorporate scene description 'out of breath and almost head', and explicitly mention the 22 different scenes as a key attraction feature"
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add 2030 investment announcement featuring new costume characters and princesses",
+      "acceptanceCriteria": [
+        "2030 investment announcement is visible on the site",
+        "All four new costume characters are listed: Lola the Rabbit, Asher the Rabbit, Max, and DD",
+        "Princesses section is included in the announcement",
+        "Content clearly indicates this is for 2030"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "operation": "create",
+          "description": "Create announcement section for 2030 investment featuring banner text 'In 2030 we are getting our biggest investment for the kids', character showcase grid displaying Lola the Rabbit and Asher the Rabbit (her boyfriend) with image frontend/public/assets/generated/lola-asher-rabbits.dim_1000x600.png, Max with image frontend/public/assets/generated/max-character.dim_600x800.png, DD with image frontend/public/assets/generated/dd-character.dim_600x800.png, and mention of all new princesses"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add CostumeCharacters2030Section component to the home page rendering sequence after AuditionsSection and before UpcomingEventsSection"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add audition information for 2030 costume characters emphasizing vocal skills",
+      "acceptanceCriteria": [
+        "Audition section mentions vocal requirements for costume character roles",
+        "Clarification that 'some sing some don't' is included",
+        "Information is associated with the 2030 characters announcement"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "operation": "modify",
+          "description": "Add audition call-to-action subsection within the 2030 announcement featuring vocal skills emphasis with text 'if u want to audition just be vocal and some sing some don't', include button linking to costume character audition form or auditions page"
+        },
+        {
+          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "operation": "modify",
+          "description": "Update costume character audition card to include 2030 investment context, vocal skills requirement with note 'some sing some don't', and mention the new characters (Lola, Asher, Max, DD, princesses)"
+        },
+        {
+          "path": "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+          "operation": "create",
+          "description": "Create dialog form component for costume character audition submissions with fields for name, age, email, phone, vocal range/skills, musical skills, character preferences (referencing 2030 characters), performance preferences, physical limitations, schedule conflicts, experience, and Internet Identity authentication requirement, submitting via actor.submitCostumeCharacterAudition"
+        },
+        {
+          "path": "frontend/src/hooks/useAuditionSubmissions.ts",
+          "operation": "modify",
+          "description": "Add mutation hook useCostumeCharacterAuditionSubmission that maps UI form data to backend CostumeCharacterAuditionForm structure and calls actor.submitCostumeCharacterAudition, handling success/error states with toast notifications"
         }
       ]
     }

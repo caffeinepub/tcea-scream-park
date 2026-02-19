@@ -37,7 +37,7 @@ export function DancerAuditionSignupDialog({
   const [age, setAge] = useState('');
   const [experience, setExperience] = useState('');
   const [whatYouLoveToDo, setWhatYouLoveToDo] = useState('');
-  const [locationPreference, setLocationPreference] = useState('');
+  const [rolePreference, setRolePreference] = useState('');
 
   const submitMutation = useSubmitDancerAudition();
 
@@ -49,7 +49,7 @@ export function DancerAuditionSignupDialog({
     setAge('');
     setExperience('');
     setWhatYouLoveToDo('');
-    setLocationPreference('');
+    setRolePreference('');
   };
 
   const handleSubmit = async () => {
@@ -75,7 +75,7 @@ export function DancerAuditionSignupDialog({
       return;
     }
 
-    if (!locationPreference) {
+    if (!rolePreference) {
       toast.error('Please select a location preference');
       return;
     }
@@ -86,7 +86,7 @@ export function DancerAuditionSignupDialog({
         age: ageNum,
         experience: experience.trim(),
         whatYouLoveToDo: whatYouLoveToDo.trim(),
-        locationPreference,
+        rolePreference,
       });
 
       toast.success('Audition application submitted successfully!');
@@ -191,13 +191,13 @@ export function DancerAuditionSignupDialog({
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="locationPreference">Location Preference *</Label>
+                <Label htmlFor="rolePreference">Location Preference *</Label>
                 <Select
-                  value={locationPreference}
-                  onValueChange={setLocationPreference}
+                  value={rolePreference}
+                  onValueChange={setRolePreference}
                   disabled={submitMutation.isPending}
                 >
-                  <SelectTrigger id="locationPreference">
+                  <SelectTrigger id="rolePreference">
                     <SelectValue placeholder="Select your preferred location" />
                   </SelectTrigger>
                   <SelectContent>

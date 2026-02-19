@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { ScareActorAuditionForm, DanceAuditionForm } from '../backend';
+import type { ScareActorAuditionForm, DanceAuditionForm, CostumeCharacterAuditionForm } from '@/backend';
 
 export function useSubmitScareActorAudition() {
   const { actor } = useActor();
@@ -16,28 +16,27 @@ export function useSubmitScareActorAudition() {
     }) => {
       if (!actor) throw new Error('Actor not available');
 
-      // Map minimal UI fields to backend form with safe defaults
-      const backendForm: ScareActorAuditionForm = {
+      const form: ScareActorAuditionForm = {
         name: formData.name,
         age: BigInt(formData.age),
-        phone: '',
-        email: '',
+        phone: 'Not provided',
+        email: 'Not provided',
         experience: formData.experience,
-        specialSkills: '',
-        availability: '',
-        previousWork: '',
-        referredBy: '',
+        specialSkills: 'Not provided',
+        availability: 'Not provided',
+        previousWork: 'Not provided',
+        referredBy: 'Not provided',
         whyScaryRole: formData.whatYouLoveToDo,
-        physicalLimitations: '',
-        favoriteCharacterType: '',
-        preferredScareType: formData.rolePreference,
-        preferenceOutfitType: '',
-        conflictSchedule: '',
-        preferedWorkingCondition: '',
-        operationAgreeStatus: '',
+        physicalLimitations: 'None',
+        favoriteCharacterType: formData.rolePreference,
+        preferredScareType: 'Not provided',
+        preferenceOutfitType: 'Not provided',
+        conflictSchedule: 'None',
+        preferedWorkingCondition: 'Not provided',
+        operationAgreeStatus: 'Agreed',
       };
 
-      return actor.submitScareActorAudition(backendForm);
+      return actor.submitScareActorAudition(form);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auditions'] });
@@ -55,32 +54,81 @@ export function useSubmitDancerAudition() {
       age: number;
       experience: string;
       whatYouLoveToDo: string;
-      locationPreference: string;
+      rolePreference: string;
     }) => {
       if (!actor) throw new Error('Actor not available');
 
-      // Map minimal UI fields to backend form with safe defaults
-      const backendForm: DanceAuditionForm = {
+      const form: DanceAuditionForm = {
         name: formData.name,
         age: BigInt(formData.age),
-        phone: '',
-        email: '',
+        phone: 'Not provided',
+        email: 'Not provided',
         experience: formData.experience,
-        danceStyles: '',
-        availability: '',
-        previousWork: '',
-        referredBy: '',
+        danceStyles: 'Not provided',
+        availability: 'Not provided',
+        previousWork: 'Not provided',
+        referredBy: 'Not provided',
         whyDancing: formData.whatYouLoveToDo,
-        physicalLimitations: '',
-        favoriteDanceType: formData.locationPreference,
-        performanceExperience: '',
-        costumePreferences: '',
-        scheduleConflicts: '',
-        workingConditions: '',
-        operationAgreeStatus: '',
+        physicalLimitations: 'None',
+        favoriteDanceType: formData.rolePreference,
+        performanceExperience: 'Not provided',
+        costumePreferences: 'Not provided',
+        scheduleConflicts: 'None',
+        workingConditions: 'Not provided',
+        operationAgreeStatus: 'Agreed',
       };
 
-      return actor.submitDanceAudition(backendForm);
+      return actor.submitDanceAudition(form);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['auditions'] });
+    },
+  });
+}
+
+export function useCostumeCharacterAuditionSubmission() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (formData: {
+      name: string;
+      age?: bigint;
+      phone: string;
+      email: string;
+      experience: string;
+      characterVoices: string;
+      musicalSkills: string;
+      performancePreferences: string;
+      whyAudition: string;
+      costumePreferences: string;
+      vocalRange: string;
+      scheduleConflicts: string;
+      physicalLimitations: string;
+      referredBy: string;
+      operationAgreeStatus: string;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+
+      const form: CostumeCharacterAuditionForm = {
+        name: formData.name,
+        age: formData.age,
+        phone: formData.phone,
+        email: formData.email,
+        experience: formData.experience,
+        characterVoices: formData.characterVoices,
+        musicalSkills: formData.musicalSkills,
+        performancePreferences: formData.performancePreferences,
+        whyAudition: formData.whyAudition,
+        costumePreferences: formData.costumePreferences,
+        vocalRange: formData.vocalRange,
+        scheduleConflicts: formData.scheduleConflicts,
+        physicalLimitations: formData.physicalLimitations,
+        referredBy: formData.referredBy,
+        operationAgreeStatus: formData.operationAgreeStatus,
+      };
+
+      return actor.submitCostumeCharacterAudition(form);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['auditions'] });

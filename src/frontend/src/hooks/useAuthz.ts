@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useActor } from './useActor';
 import { useInternetIdentity } from './useInternetIdentity';
-import type { UserRole, UserProfile } from '../backend';
+import { UserRole } from '../backend';
+import type { UserProfile } from '../backend';
 
 export function useGetCallerUserRole() {
   const { actor, isFetching: actorFetching } = useActor();
@@ -27,6 +28,23 @@ export function useIsCallerAdmin() {
     queryFn: async () => {
       if (!actor) throw new Error('Actor not available');
       return actor.isCallerAdmin();
+    },
+    enabled: !!actor && !actorFetching && !!identity,
+    retry: false,
+  });
+}
+
+export function useIsEmployee() {
+  const { actor, isFetching: actorFetching } = useActor();
+  const { identity } = useInternetIdentity();
+
+  return useQuery<boolean>({
+    queryKey: ['isEmployee'],
+    queryFn: async () => {
+      if (!actor) throw new Error('Actor not available');
+      const role = await actor.getCallerUserRole();
+      // Employees have 'user' role, guests have 'guest' role
+      return role === UserRole.user || role === UserRole.admin;
     },
     enabled: !!actor && !actorFetching && !!identity,
     retry: false,

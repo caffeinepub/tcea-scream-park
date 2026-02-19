@@ -1,74 +1,110 @@
 {
   "kind": "build_request",
-  "title": "Add five new selectable passes to homepage Tickets & Passes section",
+  "title": "Add 'Toys Come to Play' haunted house with characters and scenes",
+  "projectName": "TCEA Scream Park",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-4",
-      "text": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
-      "target": "frontend",
+      "id": "REQ-1",
+      "text": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-add-passes",
-          "msg-user-pass-details"
+          "msg-1",
+          "msg-5",
+          "msg-7"
         ],
         "quotes": [
-          "Add 5 new passes the content creator pass, the Touch pass, the Skip the line pass $34, the Blackout pass and the kid pass $8",
-          "Passes appear on homepage... Include price and name descriptions... Passes are meant to selectable to secure ur pass",
-          "Content creator pass is $4, Touch pass is included with regular pass just ask to upgrade and blackout pass is included with ticket but be warned if u are afraid of dark"
+          "Yes add it to haunted house section",
+          "22 different scenes so never talk back we just want to rip ur head off"
         ]
       },
       "acceptanceCriteria": [
-        "On the homepage, the Tickets & Passes card lists the five new passes in addition to the existing passes.",
-        "Each of the five new passes displays: (a) pass name, (b) price or inclusion label exactly as provided, and (c) the provided/generated description text.",
-        "Skip the Line Pass shows $34 and Kid Pass shows $8.",
-        "Content Creator Pass shows $4.",
-        "Touch Pass displays that it is included with Regular Pass and requires asking to upgrade.",
-        "Blackout Pass displays that it is included with ticket and includes a clear darkness-related warning."
+        "Haunted house appears in the Haunted Houses section alongside existing houses",
+        "Tagline 'never talk back we just want to rip ur head off' is displayed",
+        "House is accessible via detail page navigation"
       ]
     },
     {
-      "id": "REQ-5",
-      "text": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
-      "target": "frontend",
+      "id": "REQ-2",
+      "text": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-selection"
+          "msg-1",
+          "msg-5",
+          "msg-7"
         ],
         "quotes": [
-          "Passes are meant to selectable to secure ur pass"
+          "I can only share 2 characters one name is Blippy and other one is Jiffy",
+          "out of breath and almsot head",
+          "Intergraded into haunted house information system"
         ]
       },
       "acceptanceCriteria": [
-        "Users can select exactly one pass option in the Tickets & Passes section (e.g., radio-group style selection).",
-        "A \"Secure your pass\" call-to-action is present and is disabled until a pass is selected.",
-        "Triggering the CTA provides immediate UI feedback that includes the selected pass name (e.g., a toast/alert/inline confirmation).",
-        "No payment processing, checkout flow, or third-party integrations are added."
+        "Blippy and Jiffy characters are mentioned in the haunted house description",
+        "Scene description 'out of breath and almost head' is incorporated into the scenes",
+        "Information about 22 different scenes is displayed in the haunted house detail page"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-9"
+        ],
+        "quotes": [
+          "In 2030 we are getting our biggest investment for the kids we are having more costume characters like Lola the Rabbit and her boyfriend Asher the rabbit and getting all new princesses",
+          "a new character called Max and DD"
+        ]
+      },
+      "acceptanceCriteria": [
+        "2030 investment announcement is visible on the site",
+        "All four new costume characters are listed: Lola the Rabbit, Asher the Rabbit, Max, and DD",
+        "Princesses section is included in the announcement",
+        "Content clearly indicates this is for 2030"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-9"
+        ],
+        "quotes": [
+          "if u want to audition just be vocal and some sing some don't"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Audition section mentions vocal requirements for costume character roles",
+        "Clarification that 'some sing some don't' is included",
+        "Information is associated with the 2030 characters announcement"
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under `frontend/src/components/ui` (read-only UI components must be composed, not edited).",
-    "Do not edit immutable frontend hook entrypoints: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`.",
-    "Keep backend as a single Motoko actor; do not introduce additional backend services."
+    "Do not modify existing haunted house entries (Open Ice Tomb, Wax Works, Terror Hell Hole, Clown Town, Asylum Hell, Schoolhouse Break and Blackout)",
+    "Preserve existing audition structure and forms for scare actors and dancers",
+    "Maintain employee portal authentication requirements"
   ],
   "nonGoals": [
-    "Implementing real payment processing or checkout for passes.",
-    "Adding third-party authentication (anything other than Internet Identity).",
-    "Persisting pass selections to backend storage unless explicitly requested later."
+    "Building Room Assignments page for Secret Tunnels (Phase 2)",
+    "Creating interactive tunnel map with clickable floor plan (Phase 2)",
+    "Adding auditions schedules for makeup artists and SFX artists (Phase 2)"
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Haunted house exterior photo showing toy-themed horror attraction with prominent entrance (toys-come-to-play-exterior.dim_1200x600.png)",
+      "Interior scene showing Blippy character in creepy toy setting with dark atmospheric lighting (blippy-scene.dim_800x600.png)",
+      "Interior scene showing Jiffy character in menacing pose among scattered toys (jiffy-scene.dim_800x600.png)",
+      "Promotional banner showing Lola the Rabbit and Asher the Rabbit costume characters in friendly pose (lola-asher-rabbits.dim_1000x600.png)",
+      "Character illustration of Max costume character in vibrant family-friendly style (max-character.dim_600x800.png)",
+      "Character illustration of DD costume character in colorful cheerful design (dd-character.dim_600x800.png)"
+    ],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

@@ -13,6 +13,8 @@ export function HauntedHousesSection() {
       window.location.hash = '#/haunted-house/open-ice-tomb';
     } else if (houseName === 'Wax Works') {
       window.location.hash = '#/haunted-house/wax-works';
+    } else if (houseName === 'Toys Come to Play') {
+      window.location.hash = '#/toys-come-to-play';
     }
   };
 
@@ -81,7 +83,7 @@ export function HauntedHousesSection() {
                     <Shield className="mr-2 h-4 w-4" />
                     Guest Rules
                   </Button>
-                  {(house.name === 'Open Ice Tomb' || house.name === 'Wax Works') && (
+                  {(house.name === 'Open Ice Tomb' || house.name === 'Wax Works' || house.name === 'Toys Come to Play') && (
                     <Button
                       onClick={() => handleViewHouse(house.name)}
                       variant="outline"

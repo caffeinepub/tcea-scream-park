@@ -1,16 +1,15 @@
 import Map "mo:core/Map";
 import List "mo:core/List";
 import Nat "mo:core/Nat";
-import Array "mo:core/Array";
-import Runtime "mo:core/Runtime";
 import Iter "mo:core/Iter";
+import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
 import Principal "mo:core/Principal";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
+import Migration "migration";
 
-// Use migration module to preserve data across upgrades
-
+(with migration = Migration.run)
 actor {
   // ----------- General Types -----------
   public type Date = {
@@ -40,6 +39,7 @@ actor {
     #scareZone : ScareZoneSpecificFields;
     #show : ShowSpecificFields;
     #attraction : AttractionSpecificFields;
+    #hauntedHouse : HauntedHouseSpecificFields;
   };
 
   // Additional Fields for Each Type
@@ -62,6 +62,14 @@ actor {
     ageRestriction : AgeRestriction;
     hasGuidedTour : Bool;
     yearIntroduced : ?Nat;
+  };
+
+  public type HauntedHouseSpecificFields = {
+    scareLevel : ScareLevel;
+    characters : [HauntedHouseCharacter];
+    sceneDescriptions : [Text];
+    yearIntroduced : ?Nat;
+    tagline : Text;
   };
 
   // Enums for Type-Specific Fields
@@ -98,6 +106,30 @@ actor {
     #dance;
     #interactive;
     #stunt;
+  };
+
+  // Haunted House Specific Types
+  public type HauntedHouseCharacter = {
+    name : Text;
+    description : Text;
+    voiceType : VoiceType;
+    scareType : ScareType;
+  };
+
+  public type VoiceType = {
+    #creepy;
+    #playful;
+    #highPitch;
+    #lowPitch;
+    #silent;
+  };
+
+  public type ScareType = {
+    #jumpScare;
+    #psychological;
+    #physical;
+    #ambient;
+    #interactive;
   };
 
   // ----------- New Audition Types -----------
@@ -141,9 +173,28 @@ actor {
     operationAgreeStatus : Text;
   };
 
+  public type CostumeCharacterAuditionForm = {
+    name : Text;
+    age : ?Nat;
+    phone : Text;
+    email : Text;
+    experience : Text;
+    characterVoices : Text;
+    musicalSkills : Text;
+    performancePreferences : Text;
+    whyAudition : Text;
+    costumePreferences : Text;
+    vocalRange : Text;
+    scheduleConflicts : Text;
+    physicalLimitations : Text;
+    referredBy : Text;
+    operationAgreeStatus : Text;
+  };
+
   public type AuditionType = {
     #scareActor;
     #danceActor;
+    #costumeCharacter;
   };
 
   public type AuditionSubmission = {
@@ -152,11 +203,12 @@ actor {
     formData : {
       #scareActor : ScareActorAuditionForm;
       #danceActor : DanceAuditionForm;
+      #costumeCharacter : CostumeCharacterAuditionForm;
     };
     submissionTime : Time.Time;
   };
 
-  // ----------- AuditionLinks Type -----------
+  // ----------- Audition Links Type -----------
   public type AuditionLink = {
     title : Text;
     url : Text;
@@ -171,17 +223,16 @@ actor {
     zoneActors : Nat;
     zoneSupervisors : Nat;
     dancerSupervisors : Nat;
+    costumeCharacters : Nat;
+    princessPerformers : Nat;
   };
 
-  // ----------- State Management -----------
-  let contentItems = Map.empty<Nat, ContentItem>();
-  var nextContentId = 1;
-  var mainHauntSchedule : [EventDateRange] = [
-    {
-      startDate = { year = 2024; month = 9; day = 15 }; // Sep 15, 2024
-      endDate = { year = 2024; month = 11; day = 1 }; // Nov 1, 2024
-    },
-  ];
+  // ----------- Upcoming Event Employee Unlock -----------
+  public type EventUnlockStatus = {
+    hasFireworks : Bool;
+    hasFlynAppearance : Bool;
+    hasSecretEntrance : Bool;
+  };
 
   public type UserProfile = {
     name : Text;
@@ -197,6 +248,100 @@ actor {
 
   // Persisted Audition links as [AuditionLink]
   var auditionLinks : [AuditionLink] = [];
+
+  // CMS Content Storage
+  let contentItems = Map.empty<Nat, ContentItem>();
+  var nextContentId = 1;
+  var mainHauntSchedule : [EventDateRange] = [
+    {
+      startDate = { year = 2024; month = 9; day = 15 };
+      endDate = { year = 2024; month = 11; day = 1 };
+    },
+  ];
+
+  // ----------- Upcoming Event Functions -----------
+  public type UpcomingEvent = {
+    title : Text;
+    year : Nat;
+    month : Nat;
+    day : Nat;
+    description : Text;
+    featureTransactionType : Text;
+    isUnlocked : Bool;
+  };
+
+  public query ({ caller }) func getEmployeeUpcomingEvents(currentDate : Date) : async [UpcomingEvent] {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only employees can access upcoming events.");
+    };
+
+    [
+      {
+        title = "Happily Scary After";
+        year = 2029;
+        month = 10;
+        day = 1;
+        description = "2029 full fireworks show";
+        featureTransactionType = "20% fireworks";
+        isUnlocked = isEventUnlocked(currentDate, {
+          year = 2029;
+          month = 10;
+          day = 1;
+        });
+      },
+      {
+        title = "Flyn";
+        year = 2030;
+        month = 1;
+        day = 1;
+        description = "New character/costume";
+        featureTransactionType = "Flyn appearance";
+        isUnlocked = isEventUnlocked(currentDate, {
+          year = 2030;
+          month = 1;
+          day = 1;
+        });
+      },
+      {
+        title = "Secret entrance";
+        year = 2040;
+        month = 1;
+        day = 1;
+        description = "Revealed entrance for shows and processions";
+        featureTransactionType = "Secret entrance";
+        isUnlocked = isEventUnlocked(currentDate, {
+          year = 2040;
+          month = 1;
+          day = 1;
+        });
+      },
+    ];
+  };
+
+  // Helper function to check if event is unlocked
+  func isEventUnlocked(currentDate : Date, eventDate : Date) : Bool {
+    if (currentDate.year > eventDate.year) {
+      return true;
+    } else if (currentDate.year == eventDate.year) {
+      if (currentDate.month > eventDate.month) {
+        return true;
+      } else if (currentDate.month == eventDate.month) {
+        return currentDate.day >= eventDate.day;
+      };
+    };
+    false;
+  };
+
+  public query ({ caller }) func getEventUnlockStatus() : async EventUnlockStatus {
+    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+      Runtime.trap("Unauthorized: Only employees can access event unlock status.");
+    };
+    {
+      hasFireworks = false;
+      hasFlynAppearance = false;
+      hasSecretEntrance = false;
+    };
+  };
 
   // ----------- User Profile Functions -----------
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
@@ -243,6 +388,20 @@ actor {
       submitter = caller;
       auditionType = #danceActor;
       formData = #danceActor(form);
+      submissionTime = Time.now();
+    };
+    auditions.add(submission);
+    true;
+  };
+
+  public shared ({ caller }) func submitCostumeCharacterAudition(form : CostumeCharacterAuditionForm) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can submit auditions");
+    };
+    let submission : AuditionSubmission = {
+      submitter = caller;
+      auditionType = #costumeCharacter;
+      formData = #costumeCharacter(form);
       submissionTime = Time.now();
     };
     auditions.add(submission);
@@ -333,7 +492,7 @@ actor {
             hasGuidedTour = true;
             yearIntroduced = ?2022;
           });
-          dates = mainHauntSchedule; // Use haunt schedule
+          dates = mainHauntSchedule;
           useMainHauntSchedule = true;
         },
         {
@@ -345,7 +504,7 @@ actor {
             indoorOutdoor = #outdoor;
             yearIntroduced = ?2023;
           });
-          dates = mainHauntSchedule; // Use haunt schedule
+          dates = mainHauntSchedule;
           useMainHauntSchedule = true;
         },
         {
@@ -431,12 +590,48 @@ actor {
           ];
           useMainHauntSchedule = false;
         },
+        // Haunted House Section
+        {
+          id = 12;
+          name = "Toys Come to Play";
+          description = "Step into a world where childhood toys turn into haunting nightmares. This haunted house is filled with unsettling characters and terrifying scenes that will make you question everything you once loved. Never talk back, we just want to rip your head off.";
+          customType = #hauntedHouse({
+            scareLevel = #extreme;
+            characters = [
+              {
+                name = "Blippy";
+                description = "A twisted toy clown with a mischievous grin and a penchant for chaos.";
+                voiceType = #highPitch;
+                scareType = #jumpScare;
+              },
+              {
+                name = "Jiffy";
+                description = "A demented jack-in-the-box character that pops up when you least expect it.";
+                voiceType = #creepy;
+                scareType = #psychological;
+              },
+            ];
+            sceneDescriptions = [
+              "Out of breath and almost headless, you'll navigate through 22 different scenes filled with terror.",
+              "Each scene is designed to push your fears to the limit and leave a lasting impression."
+            ];
+            yearIntroduced = ?2027;
+            tagline = "never talk back we just want to rip ur head off";
+          });
+          dates = [
+            {
+              startDate = { year = 2027; month = 9; day = 15 };
+              endDate = { year = 2027; month = 11; day = 1 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
       ];
 
       for (item in initialContent.values()) {
         contentItems.add(item.id, item);
       };
-      nextContentId := 12; // Update to the next available id
+      nextContentId := 13;
     };
   };
 
@@ -463,7 +658,7 @@ actor {
     currentId;
   };
 
-  public query ({ caller }) func getContentItem(id : Nat) : async ?ContentItem {
+  public query func getContentItem(id : Nat) : async ?ContentItem {
     contentItems.get(id);
   };
 
@@ -491,7 +686,7 @@ actor {
     contentItems.remove(id);
   };
 
-  public query ({ caller }) func getAllContentItems() : async [ContentItem] {
+  public query func getAllContentItems() : async [ContentItem] {
     contentItems.values().toArray();
   };
 
@@ -503,7 +698,6 @@ actor {
 
     mainHauntSchedule := newSchedule;
 
-    // Update existing content that uses main haunt schedule
     let updates = contentItems.map<Nat, ContentItem, ContentItem>(
       func(_id, item) {
         if (item.useMainHauntSchedule) {
@@ -519,7 +713,7 @@ actor {
     };
   };
 
-  public query ({ caller }) func getMainHauntSchedule() : async [EventDateRange] {
+  public query func getMainHauntSchedule() : async [EventDateRange] {
     mainHauntSchedule;
   };
 
@@ -534,20 +728,24 @@ actor {
     list.toArray();
   };
 
-  public query ({ caller }) func getEvents() : async [ContentItem] {
+  public query func getEvents() : async [ContentItem] {
     getFilteredContentItems(func(item) { isEvent(item.customType) });
   };
 
-  public query ({ caller }) func getScareZones() : async [ContentItem] {
+  public query func getScareZones() : async [ContentItem] {
     getFilteredContentItems(func(item) { isScareZone(item.customType) });
   };
 
-  public query ({ caller }) func getShows() : async [ContentItem] {
+  public query func getShows() : async [ContentItem] {
     getFilteredContentItems(func(item) { isShow(item.customType) });
   };
 
-  public query ({ caller }) func getAttractions() : async [ContentItem] {
+  public query func getAttractions() : async [ContentItem] {
     getFilteredContentItems(func(item) { isAttraction(item.customType) });
+  };
+
+  public query func getHauntedHouses() : async [ContentItem] {
+    getFilteredContentItems(func(item) { isHauntedHouse(item.customType) });
   };
 
   // ----------- Type Helper Functions -----------
@@ -579,13 +777,20 @@ actor {
     };
   };
 
+  func isHauntedHouse(contentType : ContentType) : Bool {
+    switch (contentType) {
+      case (#hauntedHouse(_)) { true };
+      case (_) { false };
+    };
+  };
+
   // ----------- Helper Functions for Date Conversion -----------
-  public query ({ caller }) func now() : async Nat {
+  public query func now() : async Nat {
     Time.now().toNat();
   };
 
   // ----------- Audition Links Management -----------
-  public query ({ caller }) func getAuditionLinks() : async [AuditionLink] {
+  public query func getAuditionLinks() : async [AuditionLink] {
     auditionLinks;
   };
 
@@ -615,9 +820,9 @@ actor {
 
     for ((currentIndex, item) in elements) {
       let itemToAdd = if (currentIndex == index) {
-        updatedLink; // Replace the element at the correct index
+        updatedLink;
       } else {
-        item; // Keep the original element
+        item;
       };
       newList.add(itemToAdd);
     };
@@ -641,7 +846,7 @@ actor {
 
     for ((currentIndex, item) in elements) {
       if (currentIndex != index) {
-        newList.add(item); // Add elements except the one to remove
+        newList.add(item);
       };
     };
 
@@ -661,13 +866,223 @@ actor {
       Runtime.trap("Unauthorized: Only admins can view staffing counts");
     };
 
-    // Return the updated staffing counts based on the correction
     {
       hauntedHouseActors = 14;
       hauntedHouseSupervisors = 3;
       zoneActors = 16;
       zoneSupervisors = 5;
       dancerSupervisors = 3;
+      costumeCharacters = 10;
+      princessPerformers = 10;
     };
+  };
+
+  // ----------- Tunnel Map, Room Assignments, and Schedules -----------
+
+  public type Location = {
+    x : Nat;
+    y : Nat;
+  };
+
+  public type Room = {
+    id : Nat;
+    name : Text;
+    location : Location;
+    scareLevel : ScareLevel;
+  };
+
+  public type Connection = {
+    fromRoomId : Nat;
+    toRoomId : Nat;
+    isOneWay : Bool;
+    distance : Nat;
+    tunnelSection : Text;
+  };
+
+  public type TunnelMap = {
+    id : Nat;
+    name : Text;
+    rooms : [Room];
+    connections : [Connection];
+  };
+
+  public type RoomAssignment = {
+    roomId : Nat;
+    staffMember : Text;
+    shiftTime : Text;
+    role : Text;
+  };
+
+  public type TimeSlot = {
+    startTime : Text;
+    endTime : Text;
+  };
+
+  public type RoomSchedule = {
+    roomId : Nat;
+    timeSlots : [TimeSlot];
+  };
+
+  public type TunnelSchedule = {
+    id : Nat;
+    date : Text;
+    shift : Text;
+    specialEvent : ?Text;
+    roomAssignments : [RoomAssignment];
+    roomSchedules : [RoomSchedule];
+  };
+
+  let tunnelMaps = Map.empty<Nat, TunnelMap>();
+  let roomAssignments = List.empty<[RoomAssignment]>();
+  let tunnelSchedules = List.empty<TunnelSchedule>();
+
+  var nextTunnelMapId = 1;
+  var nextScheduleId = 1;
+
+  // ----------- Tunnel Maps Management -----------
+
+  public shared ({ caller }) func createTunnelMap(name : Text, rooms : [Room], connections : [Connection]) : async Nat {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can create tunnel maps.");
+    };
+
+    let newMap : TunnelMap = {
+      id = nextTunnelMapId;
+      name;
+      rooms;
+      connections;
+    };
+
+    tunnelMaps.add(nextTunnelMapId, newMap);
+    let currentId = nextTunnelMapId;
+    nextTunnelMapId += 1;
+    currentId;
+  };
+
+  public query ({ caller }) func getTunnelMap(id : Nat) : async ?TunnelMap {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can view tunnel maps.");
+    };
+    tunnelMaps.get(id);
+  };
+
+  public query ({ caller }) func getAllTunnelMaps() : async [TunnelMap] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can view tunnel maps.");
+    };
+    tunnelMaps.values().toArray();
+  };
+
+  public shared ({ caller }) func updateTunnelMap(id : Nat, updatedMap : TunnelMap) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can update tunnel maps.");
+    };
+
+    tunnelMaps.add(id, updatedMap);
+  };
+
+  public shared ({ caller }) func deleteTunnelMap(id : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can delete tunnel maps.");
+    };
+
+    tunnelMaps.remove(id);
+  };
+
+  // ----------- Room Assignments Management -----------
+
+  public shared ({ caller }) func addRoomAssignments(assignments : [RoomAssignment]) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can add room assignments.");
+    };
+
+    roomAssignments.add(assignments);
+  };
+
+  public query ({ caller }) func getRoomAssignments() : async [[RoomAssignment]] {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can view room assignments.");
+    };
+    roomAssignments.toArray();
+  };
+
+  // ----------- Tunnel Schedules Management -----------
+
+  public shared ({ caller }) func createTunnelSchedule(date : Text, shift : Text, specialEvent : ?Text, roomAssignments : [RoomAssignment], roomSchedules : [RoomSchedule]) : async Nat {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can create tunnel schedules.");
+    };
+
+    let newSchedule : TunnelSchedule = {
+      id = nextScheduleId;
+      date;
+      shift;
+      specialEvent;
+      roomAssignments;
+      roomSchedules;
+    };
+
+    tunnelSchedules.add(newSchedule);
+    let currentId = nextScheduleId;
+    nextScheduleId += 1;
+    currentId;
+  };
+
+  public query ({ caller }) func getTunnelSchedule(id : Nat) : async ?TunnelSchedule {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can view tunnel schedules.");
+    };
+    let schedulesArray = tunnelSchedules.toArray();
+    for (schedule in schedulesArray.values()) {
+      if (schedule.id == id) {
+        return ?schedule;
+      };
+    };
+    null;
+  };
+
+  public query ({ caller }) func getAllTunnelSchedules() : async [TunnelSchedule] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can view tunnel schedules.");
+    };
+    tunnelSchedules.toArray();
+  };
+
+  public shared ({ caller }) func updateTunnelSchedule(id : Nat, updatedSchedule : TunnelSchedule) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can update tunnel schedules.");
+    };
+
+    let schedulesArray = tunnelSchedules.toArray();
+    let updatedSchedules = List.empty<TunnelSchedule>();
+
+    for (schedule in schedulesArray.values()) {
+      if (schedule.id == id) {
+        updatedSchedules.add(updatedSchedule);
+      } else {
+        updatedSchedules.add(schedule);
+      };
+    };
+
+    tunnelSchedules.clear();
+    tunnelSchedules.addAll(updatedSchedules.values());
+  };
+
+  public shared ({ caller }) func deleteTunnelSchedule(id : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can delete tunnel schedules.");
+    };
+
+    let schedulesArray = tunnelSchedules.toArray();
+    let filteredSchedules = List.empty<TunnelSchedule>();
+
+    for (schedule in schedulesArray.values()) {
+      if (schedule.id != id) {
+        filteredSchedules.add(schedule);
+      };
+    };
+
+    tunnelSchedules.clear();
+    tunnelSchedules.addAll(filteredSchedules.values());
   };
 };

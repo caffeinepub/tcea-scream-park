@@ -6,91 +6,81 @@
 
 @layer base {
   :root {
-    /* Orange/Black/Green Horror Theme - Light Mode */
-    --background: oklch(0.98 0.01 60);
-    --foreground: oklch(0.15 0.02 60);
-
-    --card: oklch(0.96 0.015 60);
-    --card-foreground: oklch(0.15 0.02 60);
-
-    --popover: oklch(0.98 0.01 60);
-    --popover-foreground: oklch(0.15 0.02 60);
-
-    --primary: oklch(0.55 0.18 40);
-    --primary-foreground: oklch(0.98 0.01 60);
-
-    --secondary: oklch(0.85 0.03 60);
-    --secondary-foreground: oklch(0.15 0.02 60);
-
-    --muted: oklch(0.92 0.02 60);
-    --muted-foreground: oklch(0.45 0.03 60);
-
-    --accent: oklch(0.88 0.04 60);
-    --accent-foreground: oklch(0.15 0.02 60);
-
-    --destructive: oklch(0.45 0.20 25);
-    --destructive-foreground: oklch(0.98 0.01 60);
-
-    --success: oklch(0.55 0.15 145);
-    --success-foreground: oklch(0.98 0.01 60);
-
-    --warning: oklch(0.65 0.18 60);
-    --warning-foreground: oklch(0.15 0.02 60);
-
-    --border: oklch(0.85 0.03 60);
-    --input: oklch(0.85 0.03 60);
-    --ring: oklch(0.55 0.18 40);
-
+    /* OKLCH Horror Theme - Orange/Black/Green */
+    --background: oklch(0.15 0.02 30);
+    --foreground: oklch(0.98 0 0);
+    
+    --card: oklch(0.18 0.03 30);
+    --card-foreground: oklch(0.98 0 0);
+    
+    --popover: oklch(0.16 0.02 30);
+    --popover-foreground: oklch(0.98 0 0);
+    
+    --primary: oklch(0.65 0.25 40);
+    --primary-foreground: oklch(0.98 0 0);
+    
+    --secondary: oklch(0.25 0.05 30);
+    --secondary-foreground: oklch(0.98 0 0);
+    
+    --muted: oklch(0.22 0.03 30);
+    --muted-foreground: oklch(0.70 0.05 30);
+    
+    --accent: oklch(0.55 0.20 145);
+    --accent-foreground: oklch(0.98 0 0);
+    
+    --destructive: oklch(0.60 0.22 35);
+    --destructive-foreground: oklch(0.98 0 0);
+    
+    --border: oklch(0.30 0.05 30);
+    --input: oklch(0.30 0.05 30);
+    --ring: oklch(0.60 0.22 35);
+    
     --radius: 0.5rem;
 
-    --chart-1: oklch(0.55 0.18 40);
-    --chart-2: oklch(0.45 0.20 25);
-    --chart-3: oklch(0.55 0.15 145);
-    --chart-4: oklch(0.65 0.18 60);
-    --chart-5: oklch(0.35 0.12 280);
+    /* Employee Portal Theme - Dark Industrial with Orange/Red Accents */
+    --employee-bg-primary: oklch(0.18 0.01 30);
+    --employee-bg-secondary: oklch(0.20 0.01 30);
+    --employee-bg-dark: oklch(0.15 0.01 30);
+    --employee-bg-darker: oklch(0.12 0.01 30);
+    
+    --employee-orange: oklch(0.65 0.25 40);
+    --employee-red: oklch(0.55 0.22 25);
+    --employee-grey: oklch(0.45 0.02 30);
+    
+    --employee-text: oklch(0.95 0.01 30);
+    --employee-text-muted: oklch(0.70 0.02 30);
+    
+    --employee-border: oklch(0.30 0.02 30);
   }
 
   .dark {
-    /* Orange/Black/Green Horror Theme - Dark Mode */
-    --background: oklch(0.12 0.02 60);
-    --foreground: oklch(0.95 0.01 60);
-
-    --card: oklch(0.15 0.025 60);
-    --card-foreground: oklch(0.95 0.01 60);
-
-    --popover: oklch(0.12 0.02 60);
-    --popover-foreground: oklch(0.95 0.01 60);
-
-    --primary: oklch(0.60 0.20 40);
-    --primary-foreground: oklch(0.12 0.02 60);
-
-    --secondary: oklch(0.25 0.04 60);
-    --secondary-foreground: oklch(0.95 0.01 60);
-
-    --muted: oklch(0.20 0.03 60);
-    --muted-foreground: oklch(0.65 0.04 60);
-
-    --accent: oklch(0.22 0.04 60);
-    --accent-foreground: oklch(0.95 0.01 60);
-
-    --destructive: oklch(0.50 0.22 25);
-    --destructive-foreground: oklch(0.95 0.01 60);
-
-    --success: oklch(0.60 0.18 145);
-    --success-foreground: oklch(0.12 0.02 60);
-
-    --warning: oklch(0.70 0.20 60);
-    --warning-foreground: oklch(0.12 0.02 60);
-
-    --border: oklch(0.25 0.04 60);
-    --input: oklch(0.25 0.04 60);
-    --ring: oklch(0.60 0.20 40);
-
-    --chart-1: oklch(0.60 0.20 40);
-    --chart-2: oklch(0.50 0.22 25);
-    --chart-3: oklch(0.60 0.18 145);
-    --chart-4: oklch(0.70 0.20 60);
-    --chart-5: oklch(0.45 0.15 280);
+    --background: oklch(0.12 0.02 30);
+    --foreground: oklch(0.98 0 0);
+    
+    --card: oklch(0.15 0.03 30);
+    --card-foreground: oklch(0.98 0 0);
+    
+    --popover: oklch(0.13 0.02 30);
+    --popover-foreground: oklch(0.98 0 0);
+    
+    --primary: oklch(0.65 0.25 40);
+    --primary-foreground: oklch(0.98 0 0);
+    
+    --secondary: oklch(0.22 0.05 30);
+    --secondary-foreground: oklch(0.98 0 0);
+    
+    --muted: oklch(0.20 0.03 30);
+    --muted-foreground: oklch(0.65 0.05 30);
+    
+    --accent: oklch(0.55 0.20 145);
+    --accent-foreground: oklch(0.98 0 0);
+    
+    --destructive: oklch(0.60 0.22 35);
+    --destructive-foreground: oklch(0.98 0 0);
+    
+    --border: oklch(0.28 0.05 30);
+    --input: oklch(0.28 0.05 30);
+    --ring: oklch(0.60 0.22 35);
   }
 }
 
@@ -100,96 +90,76 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
-
-  /* Apply horror display font to headings and major CTAs */
-  h1, h2, h3,
-  .section-title,
-  .card-title,
-  button.text-lg,
-  button.text-xl,
-  a.text-lg,
-  a.text-xl {
-    font-family: 'Creepster', cursive !important;
-    letter-spacing: 0.05em;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Creepster', cursive;
   }
-
-  /* Global white text override - applies to all text elements site-wide */
-  body,
-  h1, h2, h3, h4, h5, h6,
-  p, span, div, a, li, ul, ol,
-  label, input, textarea, select, button,
-  td, th, caption,
-  blockquote, pre, code,
-  figcaption, legend, summary,
-  [class*="text-"],
-  [class*="Text"] {
+  
+  /* Force white text globally */
+  body, body * {
     color: white !important;
   }
-
-  /* Ensure placeholder text is also white with slight transparency */
-  input::placeholder,
-  textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
+  
+  /* Employee portal text colors */
+  [data-employee-portal] * {
+    color: var(--employee-text) !important;
   }
-
-  /* Override any foreground color utilities */
-  .text-foreground,
-  .text-muted-foreground,
-  .text-card-foreground,
-  .text-popover-foreground,
-  .text-primary-foreground,
-  .text-secondary-foreground,
-  .text-accent-foreground,
-  .text-destructive-foreground,
-  .text-success-foreground,
-  .text-warning-foreground {
-    color: white !important;
+  
+  [data-employee-portal] .text-employee-text {
+    color: var(--employee-text) !important;
+  }
+  
+  [data-employee-portal] .text-employee-text\/80 {
+    color: oklch(from var(--employee-text) l c h / 0.8) !important;
+  }
+  
+  [data-employee-portal] .text-employee-text\/60 {
+    color: oklch(from var(--employee-text) l c h / 0.6) !important;
+  }
+  
+  [data-employee-portal] .text-employee-orange {
+    color: var(--employee-orange) !important;
+  }
+  
+  [data-employee-portal] .text-employee-red {
+    color: var(--employee-red) !important;
+  }
+  
+  [data-employee-portal] .text-employee-grey {
+    color: var(--employee-grey) !important;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Orange glow effect for horror theme */
   .glow-orange {
-    text-shadow: 0 0 10px oklch(0.60 0.20 40), 0 0 20px oklch(0.60 0.20 40),
-      0 0 30px oklch(0.60 0.20 40);
+    text-shadow: 0 0 10px oklch(0.65 0.25 40), 0 0 20px oklch(0.65 0.25 40);
   }
-
+  
   .glow-green {
-    text-shadow: 0 0 10px oklch(0.60 0.18 145), 0 0 20px oklch(0.60 0.18 145),
-      0 0 30px oklch(0.60 0.18 145);
+    text-shadow: 0 0 10px oklch(0.55 0.20 145), 0 0 20px oklch(0.55 0.20 145);
   }
-
-  /* Bloody text effect for scary titles */
+  
   .bloody-text {
-    font-family: 'Creepster', cursive;
-    letter-spacing: 0.05em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: oklch(0.60 0.22 35);
+    text-shadow: 0 2px 4px oklch(0.15 0.02 30);
   }
-
-  /* Poster spotlight effect - warm accent for auditions/merch */
+  
   .poster-spotlight {
     transition: all 0.3s ease;
   }
-
+  
   .poster-spotlight:hover {
-    box-shadow: 0 0 20px oklch(0.60 0.20 40 / 0.3),
-      0 0 40px oklch(0.60 0.20 40 / 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px oklch(0.65 0.25 40 / 0.5);
   }
-}
-
-/* Reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .horror-drift-slow,
-  .horror-drift-medium,
-  .horror-drift-fast,
-  .horror-drift-reverse {
-    animation: none !important;
+  
+  .shadow-glow-green {
+    box-shadow: 0 4px 20px oklch(0.55 0.20 145 / 0.3);
+  }
+  
+  .shadow-glow-orange {
+    box-shadow: 0 4px 20px oklch(0.65 0.25 40 / 0.3);
   }
 }

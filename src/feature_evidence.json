@@ -2,11 +2,73 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-homepage-tickets-passes-ui-in-frontend-src-components-sections-infolocationsection-tsx-to-include-five-additional-pass-options-with-the-exact-names-price-inclusion-text-and-descriptions-specified-in-the-conversation-1-content-creator-pass-4-with-a-creator-influencer-focused-description-2-touch-pass-included-with-regular-pass-ask-to-upgrade-with-a-description-about-interactive-touch-allowed-elements-3-skip-the-line-pass-34-with-a-description-about-priority-entry-4-blackout-pass-included-with-ticket-with-a-description-warning-guests-who-are-afraid-of-the-dark-5-kid-pass-8-with-a-description-for-younger-guests-family-friendly-access-keep-existing-passes-already-shown-unless-explicitly-removed-by-the-user",
-      "featureTitle": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
+      "featureId": "feature-add-toys-come-to-play-haunted-house-to-the-haunted-houses-section-with-tagline-never-talk-back-we-just-want-to-rip-ur-head-off",
+      "featureTitle": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
       "files": [
-        "frontend/src/components/sections/InfoLocationSection.tsx",
-        "frontend/src/components/sections/passes/passOptions.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/HauntedHousesSection.tsx",
+        "frontend/src/pages/ToysComeToPlayPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-characters-blippy-and-jiffy-to-toys-come-to-play-haunted-house-with-scene-description-out-of-breath-and-almost-head-integrated-into-the-22-different-scenes-information-system",
+      "featureTitle": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
+      "files": [
+        "frontend/src/pages/ToysComeToPlayPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-2030-investment-announcement-featuring-new-costume-characters-lola-the-rabbit-asher-the-rabbit-her-boyfriend-max-and-dd-plus-all-new-princesses",
+      "featureTitle": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/CostumeCharacters2030Section.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-audition-information-for-2030-costume-characters-emphasizing-vocal-skills-with-note-that-some-sing-some-don-t",
+      "featureTitle": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+      "files": [
+        "frontend/src/components/sections/AuditionsSection.tsx",
+        "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+        "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+        "frontend/src/hooks/useAuditionSubmissions.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -18,26 +80,6 @@
       ],
       "testIds": [
         "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-make-the-pass-options-selectable-on-the-homepage-tickets-passes-section-and-provide-a-clear-call-to-action-to-secure-the-selected-pass-ui-only-selection-should-be-obvious-and-accessible-keyboard-navigable-and-the-cta-must-not-require-implementing-payments",
-      "featureTitle": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
-      "files": [
-        "frontend/src/components/sections/InfoLocationSection.tsx",
-        "frontend/src/components/sections/passes/PassSelector.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
       ],
       "confidence": "high"
     }

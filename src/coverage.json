@@ -1,51 +1,103 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T21:49:00.094Z",
+  "generatedAt": "2026-02-19T22:39:06.470Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-4",
-        "summary": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
+        "id": "REQ-1",
+        "summary": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/passes/passOptions.ts",
-          "frontend/src/components/sections/InfoLocationSection.tsx"
+          "frontend/src/components/sections/HauntedHousesSection.tsx",
+          "frontend/src/pages/ToysComeToPlayPage.tsx",
+          "frontend/src/App.tsx",
+          "frontend/src/content/hauntedHouses.ts",
+          "frontend/src/content/guestRules.ts",
+          "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/passes/passOptions.ts",
-          "frontend/src/components/sections/InfoLocationSection.tsx"
+          "frontend/src/components/sections/HauntedHousesSection.tsx",
+          "frontend/src/pages/ToysComeToPlayPage.tsx",
+          "frontend/src/App.tsx"
         ]
       },
       {
-        "id": "REQ-5",
-        "summary": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
+        "id": "REQ-2",
+        "summary": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/passes/PassSelector.tsx",
-          "frontend/src/components/sections/InfoLocationSection.tsx"
+          "frontend/src/pages/ToysComeToPlayPage.tsx",
+          "frontend/src/content/hauntedHouses.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/passes/PassSelector.tsx",
-          "frontend/src/components/sections/InfoLocationSection.tsx"
+          "frontend/src/pages/ToysComeToPlayPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "frontend/src/components/sections/AuditionsSection.tsx",
+          "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+          "frontend/src/hooks/useAuditionSubmissions.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "frontend/src/components/sections/AuditionsSection.tsx",
+          "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+          "frontend/src/hooks/useAuditionSubmissions.ts"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/sections/InfoLocationSection.tsx",
-    "frontend/src/components/sections/passes/PassSelector.tsx",
-    "frontend/src/components/sections/passes/passOptions.ts",
+    "frontend/public/assets/generated/blippy-scene.dim_800x600.png",
+    "frontend/public/assets/generated/dd-character.dim_600x800.png",
+    "frontend/public/assets/generated/jiffy-scene.dim_800x600.png",
+    "frontend/public/assets/generated/lola-asher-rabbits.dim_1000x600.png",
+    "frontend/public/assets/generated/max-character.dim_600x800.png",
+    "frontend/public/assets/generated/toys-come-to-play-exterior.dim_1200x600.png",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/sections/AuditionsSection.tsx",
+    "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+    "frontend/src/components/sections/HauntedHousesSection.tsx",
+    "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+    "frontend/src/components/sections/auditions/DancerAuditionSignupDialog.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useAuditionSubmissions.ts",
+    "frontend/src/pages/DancerAuditionPage.tsx",
+    "frontend/src/pages/ToysComeToPlayPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

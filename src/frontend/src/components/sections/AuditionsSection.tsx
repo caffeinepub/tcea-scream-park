@@ -1,255 +1,178 @@
 import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, Users, Mic, ExternalLink, Skull, Ruler, Weight, User } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Users, Mic, Music, Sparkles } from 'lucide-react';
+import { generatedImages } from '@/content/generatedImages';
 import { AuditionPerksBlock } from './auditions/AuditionPerksBlock';
-import { AuditionSignupEntryPoints } from './auditions/AuditionSignupEntryPoints';
+import { useState } from 'react';
 import { ScareActorAuditionSignupDialog } from './auditions/ScareActorAuditionSignupDialog';
 import { DancerAuditionSignupDialog } from './auditions/DancerAuditionSignupDialog';
-import { generatedImages } from '@/content/generatedImages';
-import { useState } from 'react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useGetAuditionLinks } from '@/hooks/useAuditionLinks';
-
-interface Role {
-  name: string;
-  description?: string;
-}
-
-function AuditionsHeroImage({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="relative w-full h-64 overflow-hidden">
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-card" />
-    </div>
-  );
-}
+import { CostumeCharacterAuditionSignupDialog } from './auditions/CostumeCharacterAuditionSignupDialog';
 
 export function AuditionsSection() {
   const [scareActorDialogOpen, setScareActorDialogOpen] = useState(false);
   const [dancerDialogOpen, setDancerDialogOpen] = useState(false);
-  const { data: auditionLinks } = useGetAuditionLinks();
+  const [costumeCharacterDialogOpen, setCostumeCharacterDialogOpen] = useState(false);
 
-  const roles: Role[] = [
-    { name: 'Sliders' },
-    { name: 'Stilts' },
-    { name: 'Dancers' },
-    { name: 'Chainsaws' },
-    { name: 'Fire Dancers' },
-  ];
-
-  const auditionsImageUrl = generatedImages.auditions['The Scream Team Auditions'];
-  const showHostImageUrl = generatedImages.auditions['Show Host Auditions'];
-  const costumeCharacterImageUrl = generatedImages.auditions['Costume Character Auditions'];
-
-  // Helper to find costume character audition URL
-  const costumeCharacterLink = auditionLinks?.find(
-    link => link.auditionType === 'scareActor' && link.title.toLowerCase().includes('costume')
-  );
-
-  const handleViewAllAuditions = () => {
-    window.location.hash = '#/auditions';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const navigateToScareActorAudition = () => {
-    window.location.hash = '#/auditions/scare-actor';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const navigateToDancerAudition = () => {
-    window.location.hash = '#/auditions/dancer';
+  const handleNavigateToAuditions = () => {
+    window.location.hash = '#auditions';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <Section
-      id="auditions"
-      title="Join The Scream Team"
-      subtitle="Only the fearless survive. Do you have what it takes to become a nightmare?"
-      icon={<Skull className="h-10 w-10 text-destructive" />}
-    >
-      <div className="max-w-4xl mx-auto space-y-8">
-        {/* WARNING ALERT */}
-        <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
-          <Skull className="h-5 w-5" />
-          <AlertTitle className="text-xl font-bold">WARNING: EXTREME AUDITIONS</AlertTitle>
-          <AlertDescription className="text-base">
-            These positions require physical stamina, mental fortitude, and the ability to terrify. 
-            You will work in intense conditions, wear heavy costumes, and perform extreme scares. 
-            Only apply if you are prepared for the most demanding haunt experience of your life.
-          </AlertDescription>
-        </Alert>
-
-        {/* PERKS BLOCK */}
-        <AuditionPerksBlock />
-
-        {/* COSTUME CHARACTER AUDITIONS */}
-        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden">
-          <AuditionsHeroImage src={costumeCharacterImageUrl} alt="Costume Character Auditions" />
-          <CardHeader>
-            <CardTitle className="text-3xl text-destructive bloody-text flex items-center gap-2">
-              <Users className="h-8 w-8" />
-              Costume Character Auditions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <User className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                <div>
-                  <h4 className="font-bold text-lg text-destructive">Character Roster (7 Total)</h4>
-                  <p className="text-sm text-muted-foreground">Riley, Ace, Kevin, Rocky, Felix, Vicky, Emily</p>
-                </div>
+    <>
+      <Section
+        id="auditions"
+        title="Join Our Team"
+        subtitle="Become part of the terror. Auditions now open."
+        icon={<Users className="h-10 w-10 text-destructive" />}
+      >
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="bg-card/80 backdrop-blur-sm border-primary/30 overflow-hidden hover:border-primary/50 transition-all">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={generatedImages.auditions['Costume Character']}
+                  alt="Costume Character Auditions"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
               </div>
-
-              <div className="flex items-start gap-3">
-                <Ruler className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                <div>
-                  <h4 className="font-bold text-lg text-destructive">Height Requirements</h4>
-                  <p className="text-sm text-muted-foreground">Minimum 5'6" (varies by character)</p>
+              <CardHeader>
+                <CardTitle className="text-2xl text-primary flex items-center gap-2">
+                  <Sparkles className="h-6 w-6" />
+                  Costume Character
+                </CardTitle>
+                <CardDescription>
+                  Join our 2030 investment! New characters including Lola, Asher, Max, DD, and all new princesses
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground font-semibold">Requirements:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>Be vocal - some sing, some don't</li>
+                    <li>Character performance skills</li>
+                    <li>Comfortable in full-body costumes</li>
+                    <li>Family-friendly demeanor</li>
+                  </ul>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Weight className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                <div>
-                  <h4 className="font-bold text-lg text-destructive">Physical Requirements</h4>
-                  <p className="text-sm text-muted-foreground">Must meet character-specific weight ranges and be able to perform in full costume for extended periods</p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="shrink-0">Lola & Asher</Badge>
+                  <Badge variant="secondary" className="shrink-0">Max & DD</Badge>
+                  <Badge variant="secondary" className="shrink-0">Princesses</Badge>
                 </div>
-              </div>
+                <Button
+                  onClick={() => setCostumeCharacterDialogOpen(true)}
+                  className="w-full bg-primary hover:bg-primary/90"
+                >
+                  Apply Now
+                </Button>
+              </CardContent>
+            </Card>
 
-              <div className="flex items-start gap-3">
-                <Calendar className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                <div>
-                  <h4 className="font-bold text-lg text-destructive">Age Minimum</h4>
-                  <p className="text-sm text-muted-foreground">18+ years old</p>
+            <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden hover:border-destructive/50 transition-all">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={generatedImages.auditions['Scream Team']}
+                  alt="Scream Team Auditions"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-2xl text-destructive flex items-center gap-2">
+                  <Users className="h-6 w-6" />
+                  Scream Team
+                </CardTitle>
+                <CardDescription>
+                  Scare actors for haunted houses and scare zones
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground font-semibold">Requirements:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>High energy and commitment</li>
+                    <li>Ability to improvise</li>
+                    <li>Physical stamina</li>
+                    <li>Team player mentality</li>
+                  </ul>
                 </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="shrink-0">Sliders</Badge>
+                  <Badge variant="secondary" className="shrink-0">Chainsaws</Badge>
+                  <Badge variant="secondary" className="shrink-0">In-house</Badge>
+                  <Badge variant="secondary" className="shrink-0">Stilts</Badge>
+                </div>
+                <Button
+                  onClick={() => setScareActorDialogOpen(true)}
+                  className="w-full bg-destructive hover:bg-destructive/90"
+                >
+                  Apply Now
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur-sm border-secondary/30 overflow-hidden hover:border-secondary/50 transition-all">
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={generatedImages.auditions['Show Host']}
+                  alt="Show Host Auditions"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
               </div>
-            </div>
+              <CardHeader>
+                <CardTitle className="text-2xl text-secondary flex items-center gap-2">
+                  <Music className="h-6 w-6" />
+                  Show Host
+                </CardTitle>
+                <CardDescription>
+                  Dancers and performers for shows and processions
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground font-semibold">Requirements:</p>
+                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                    <li>Dance experience preferred</li>
+                    <li>Stage presence</li>
+                    <li>Choreography skills</li>
+                    <li>Performance background</li>
+                  </ul>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="shrink-0">Outside Dancing</Badge>
+                  <Badge variant="secondary" className="shrink-0">Inside Shows</Badge>
+                </div>
+                <Button
+                  onClick={() => setDancerDialogOpen(true)}
+                  className="w-full bg-secondary hover:bg-secondary/90"
+                >
+                  Apply Now
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
 
-            <Separator className="bg-destructive/20" />
+          <AuditionPerksBlock />
 
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Costume characters are the face of TCEA Scream Park. You will interact with guests, pose for photos, 
-              and bring beloved (and terrifying) characters to life. This role requires exceptional physical stamina, 
-              the ability to perform in heavy costumes in all weather conditions, and strong improvisational skills.
-            </p>
-
-            {costumeCharacterLink && (
-              <Button
-                onClick={() => window.open(costumeCharacterLink.url, '_blank')}
-                className="w-full bg-destructive hover:bg-destructive/90"
-              >
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Apply for Costume Character
-              </Button>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* SCREAM TEAM AUDITIONS */}
-        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden">
-          <AuditionsHeroImage src={auditionsImageUrl} alt="Scream Team Auditions" />
-          <CardHeader>
-            <CardTitle className="text-3xl text-destructive bloody-text flex items-center gap-2">
-              <Skull className="h-8 w-8" />
-              Scream Team Auditions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex flex-wrap gap-2">
-              {roles.map((role) => (
-                <Badge key={role.name} variant="destructive" className="text-sm px-3 py-1">
-                  {role.name}
-                </Badge>
-              ))}
-            </div>
-
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The Scream Team is the elite force of terror at TCEA Scream Park. As a scare actor, you will embody 
-              nightmares, master the art of psychological horror, and deliver unforgettable scares. This role demands 
-              creativity, physical endurance, and the ability to improvise in high-pressure situations.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={navigateToScareActorAudition}
-                className="flex-1 bg-destructive hover:bg-destructive/90"
-              >
-                Apply for Scream Team
-              </Button>
-              <Button
-                onClick={() => setScareActorDialogOpen(true)}
-                variant="outline"
-                className="flex-1 border-destructive/40 text-destructive hover:bg-destructive/10"
-              >
-                Quick Apply (Dialog)
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* SHOW HOST AUDITIONS */}
-        <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden">
-          <AuditionsHeroImage src={showHostImageUrl} alt="Show Host Auditions" />
-          <CardHeader>
-            <CardTitle className="text-3xl text-destructive bloody-text flex items-center gap-2">
-              <Mic className="h-8 w-8" />
-              Show Host Auditions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Show hosts are the charismatic masters of ceremonies who guide guests through the terror. You will 
-              perform scripted segments, improvise crowd interactions, and maintain high energy throughout the night. 
-              This role requires stage presence, vocal projection, and the ability to command an audience.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={navigateToDancerAudition}
-                className="flex-1 bg-destructive hover:bg-destructive/90"
-              >
-                Apply for Show Host
-              </Button>
-              <Button
-                onClick={() => setDancerDialogOpen(true)}
-                variant="outline"
-                className="flex-1 border-destructive/40 text-destructive hover:bg-destructive/10"
-              >
-                Quick Apply (Dialog)
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* SIGNUP ENTRY POINTS */}
-        <AuditionSignupEntryPoints
-          onScareActorClick={() => setScareActorDialogOpen(true)}
-          onDancerClick={() => setDancerDialogOpen(true)}
-        />
-
-        {/* VIEW ALL AUDITIONS BUTTON */}
-        <div className="text-center pt-4">
-          <Button
-            size="lg"
-            onClick={handleViewAllAuditions}
-            className="bg-destructive hover:bg-destructive/90 text-white text-lg px-12 py-6 shadow-glow-green"
-          >
-            <ExternalLink className="mr-2 h-5 w-5" />
-            View All Auditions & Apply
-          </Button>
+          <div className="text-center">
+            <Button
+              onClick={handleNavigateToAuditions}
+              size="lg"
+              variant="outline"
+              className="border-destructive/40 text-destructive hover:bg-destructive/10"
+            >
+              <Mic className="mr-2 h-5 w-5" />
+              View All Audition Opportunities
+            </Button>
+          </div>
         </div>
-      </div>
+      </Section>
 
-      {/* DIALOGS */}
       <ScareActorAuditionSignupDialog
         open={scareActorDialogOpen}
         onOpenChange={setScareActorDialogOpen}
@@ -258,6 +181,10 @@ export function AuditionsSection() {
         open={dancerDialogOpen}
         onOpenChange={setDancerDialogOpen}
       />
-    </Section>
+      <CostumeCharacterAuditionSignupDialog
+        open={costumeCharacterDialogOpen}
+        onOpenChange={setCostumeCharacterDialogOpen}
+      />
+    </>
   );
 }

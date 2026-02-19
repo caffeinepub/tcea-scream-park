@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Briefcase } from 'lucide-react';
 import { LoginButton } from '@/components/auth/LoginButton';
 import { SoundControls } from '@/components/audio/SoundControls';
 import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { useIsEmployee } from '@/hooks/useAuthz';
 
 interface SiteHeaderProps {
   autoplayBlocked?: boolean;
@@ -14,6 +15,7 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { identity } = useInternetIdentity();
+  const { data: isEmployee } = useIsEmployee();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +47,14 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
   if (isAuthenticated) {
     navItems.push({ label: 'Actors', href: '#/actors', type: 'route' });
   }
+
+  const employeeNavItems = isEmployee
+    ? [
+        { label: 'TCEA Tunnels', href: '#/employee/tcea-tunnels', type: 'route' },
+        { label: 'Upcoming Events', href: '#/employee/upcoming-events', type: 'route' },
+        { label: 'Secret Tunnels', href: '#/employee/secret-tunnels', type: 'route' },
+      ]
+    : [];
 
   const handleNavClick = (item: typeof navItems[0]) => {
     if (item.type === 'route') {
@@ -121,6 +131,22 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
                   {item.label}
                 </Button>
               ))}
+              {isEmployee && employeeNavItems.length > 0 && (
+                <>
+                  <div className="h-6 w-px bg-employee-orange/50 mx-2" />
+                  {employeeNavItems.map((item) => (
+                    <Button
+                      key={item.href}
+                      variant="ghost"
+                      onClick={() => handleNavClick(item)}
+                      className="text-employee-orange hover:text-employee-orange/80 hover:bg-employee-orange/10 transition-colors"
+                    >
+                      <Briefcase className="h-4 w-4 mr-1" />
+                      {item.label}
+                    </Button>
+                  ))}
+                </>
+              )}
             </nav>
             <SoundControls autoplayBlocked={autoplayBlocked} onEnableSound={onEnableSound} />
             <LoginButton />
@@ -149,7 +175,24 @@ export function SiteHeader({ autoplayBlocked, onEnableSound }: SiteHeaderProps) 
                   {item.label}
                 </Button>
               ))}
-              <div className="pt-2 border-t border-destructive/30 space-y-2">
+              {isEmployee && employeeNavItems.length > 0 && (
+                <>
+                  <div className="h-px bg-employee-orange/30 my-2" />
+                  <p className="text-xs text-employee-orange/60 px-3 py-1">Employee Portal</p>
+                  {employeeNavItems.map((item) => (
+                    <Button
+                      key={item.href}
+                      variant="ghost"
+                      onClick={() => handleNavClick(item)}
+                      className="justify-start text-employee-orange hover:text-employee-orange/80 hover:bg-employee-orange/10"
+                    >
+                      <Briefcase className="h-4 w-4 mr-2" />
+                      {item.label}
+                    </Button>
+                  ))}
+                </>
+              )}
+              <div className="flex items-center gap-2 pt-2 border-t border-destructive/30 mt-2">
                 <SoundControls autoplayBlocked={autoplayBlocked} onEnableSound={onEnableSound} />
                 <LoginButton />
               </div>

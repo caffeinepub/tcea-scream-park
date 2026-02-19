@@ -12,7 +12,6 @@ import { InfoLocationSection } from './components/sections/InfoLocationSection';
 import { TeaserSection } from './components/sections/TeaserSection';
 import { Toaster } from '@/components/ui/sonner';
 import { BackgroundAudioManager } from './components/audio/BackgroundAudioManager';
-import { useSoundPreferences } from './hooks/useSoundPreferences';
 import { useState, useEffect, useCallback } from 'react';
 import { Teaser2027Section } from './components/sections/Teaser2027Section';
 import { HomeProcessionSection } from './components/sections/HomeProcessionSection';
@@ -48,6 +47,15 @@ import { ScareActorAuditionPage } from './pages/ScareActorAuditionPage';
 import { DancerAuditionPage } from './pages/DancerAuditionPage';
 import { ActorsPage } from './pages/ActorsPage';
 import { GuestRulesPage } from './pages/GuestRulesPage';
+import { TCEATunnelsPage } from './pages/TCEATunnelsPage';
+import { EmployeeUpcomingEventsPage } from './pages/EmployeeUpcomingEventsPage';
+import { ShowsEntrancePage } from './pages/ShowsEntrancePage';
+import { HappilyScaryAfterPage } from './pages/HappilyScaryAfterPage';
+import { FlynCharacterPage } from './pages/FlynCharacterPage';
+import { SecretTunnelsPage } from './pages/SecretTunnelsPage';
+import { EmployeePortalLink } from './components/sections/EmployeePortalLink';
+import { CostumeCharacters2030Section } from './components/sections/CostumeCharacters2030Section';
+import { ToysComeToPlayPage } from './pages/ToysComeToPlayPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -59,7 +67,6 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const { preferences } = useSoundPreferences();
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [requestStartCallback, setRequestStartCallback] = useState<(() => void) | null>(null);
   const [currentRoute, setCurrentRoute] = useState('home');
@@ -67,7 +74,6 @@ function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      // Normalize hash to handle both #/route and #route formats
       const normalizedHash = hash.startsWith('/') ? hash.slice(1) : hash;
       
       if (!normalizedHash) {
@@ -102,12 +108,14 @@ function App() {
         setCurrentRoute('sneak-peek-hell-hole');
       } else if (normalizedHash === 'sneak-peek/toys-come-to-play') {
         setCurrentRoute('sneak-peek-toys-come-to-play');
-      } else if (normalizedHash === 'event/frosted-haunt') {
+      } else if (normalizedHash === 'upcoming-event/frosted-haunt') {
         setCurrentRoute('frosted-haunt');
       } else if (normalizedHash === 'haunted-house/open-ice-tomb') {
         setCurrentRoute('open-ice-tomb');
       } else if (normalizedHash === 'haunted-house/wax-works') {
         setCurrentRoute('wax-works');
+      } else if (normalizedHash === 'toys-come-to-play') {
+        setCurrentRoute('toys-come-to-play');
       } else if (normalizedHash === 'scare-zone/santas-hell') {
         setCurrentRoute('santas-hell');
       } else if (normalizedHash === 'scare-zone/chainsaw-cold') {
@@ -124,8 +132,18 @@ function App() {
         setCurrentRoute('candy-cane-carnage');
       } else if (normalizedHash === 'food-booth/ornament-ossuary') {
         setCurrentRoute('ornament-ossuary');
-      } else {
-        setCurrentRoute('home');
+      } else if (normalizedHash === 'employee/tcea-tunnels') {
+        setCurrentRoute('employee-tcea-tunnels');
+      } else if (normalizedHash === 'employee/upcoming-events') {
+        setCurrentRoute('employee-upcoming-events');
+      } else if (normalizedHash === 'employee/shows-entrance') {
+        setCurrentRoute('employee-shows-entrance');
+      } else if (normalizedHash === 'employee/happily-scary-after') {
+        setCurrentRoute('employee-happily-scary-after');
+      } else if (normalizedHash === 'employee/flyn-character') {
+        setCurrentRoute('employee-flyn-character');
+      } else if (normalizedHash === 'employee/secret-tunnels') {
+        setCurrentRoute('employee-secret-tunnels');
       }
     };
 
@@ -141,12 +159,6 @@ function App() {
   const handleRequestStart = useCallback((callback: () => void) => {
     setRequestStartCallback(() => callback);
   }, []);
-
-  const handleEnableSound = useCallback(() => {
-    if (requestStartCallback) {
-      requestStartCallback();
-    }
-  }, [requestStartCallback]);
 
   const renderRoute = () => {
     switch (currentRoute) {
@@ -184,6 +196,8 @@ function App() {
         return <OpenIceTombPage />;
       case 'wax-works':
         return <WaxWorksPage />;
+      case 'toys-come-to-play':
+        return <ToysComeToPlayPage />;
       case 'santas-hell':
         return <SantasHellPage />;
       case 'chainsaw-cold':
@@ -200,27 +214,40 @@ function App() {
         return <CandyCaneCarnagePage />;
       case 'ornament-ossuary':
         return <OrnamentOssuaryPage />;
-      case 'home':
+      case 'employee-tcea-tunnels':
+        return <TCEATunnelsPage />;
+      case 'employee-upcoming-events':
+        return <EmployeeUpcomingEventsPage />;
+      case 'employee-shows-entrance':
+        return <ShowsEntrancePage />;
+      case 'employee-happily-scary-after':
+        return <HappilyScaryAfterPage />;
+      case 'employee-flyn-character':
+        return <FlynCharacterPage />;
+      case 'employee-secret-tunnels':
+        return <SecretTunnelsPage />;
       default:
         return (
           <>
-            <HomeHeroSection />
             <HomeIntroVideoSection />
+            <HomeHeroSection />
             <AboutAttractionSection />
+            <HomeProcessionSection />
+            <SlidersOfDecadeSection />
             <AuditionsSection />
+            <CostumeCharacters2030Section />
+            <UpcomingEventsSection />
+            <ShowsSection />
             <HauntedHousesSection />
+            <ScareZonesSection />
             <FoodBoothsSection />
             <MerchShopsSection />
-            <ScareZonesSection />
-            <ShowsSection />
-            <UpcomingEventsSection />
-            <Teaser2027Section />
-            <HomeProcessionSection />
-            <ClownTownInteriorElevationSection />
             <SchoolhouseSneakPeekSection />
+            <ClownTownInteriorElevationSection />
+            <Teaser2027Section />
             <InfoLocationSection />
             <TeaserSection />
-            <SlidersOfDecadeSection />
+            <EmployeePortalLink />
           </>
         );
     }
@@ -230,18 +257,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-background text-foreground relative">
         <HorrorBackground />
-        <SiteHeader autoplayBlocked={autoplayBlocked} onEnableSound={handleEnableSound} />
-        <main className="relative z-10">
-          {renderRoute()}
-        </main>
-        <SiteFooter />
+        <BackgroundAudioManager
+          onAutoplayBlockedChange={handleAutoplayBlockedChange}
+          onRequestStart={handleRequestStart}
+        />
+        <div className="relative z-10">
+          <SiteHeader />
+          <main>{renderRoute()}</main>
+          <SiteFooter />
+        </div>
         <Toaster />
-        {preferences.enabled && (
-          <BackgroundAudioManager 
-            onAutoplayBlockedChange={handleAutoplayBlockedChange}
-            onRequestStart={handleRequestStart}
-          />
-        )}
       </div>
     </QueryClientProvider>
   );

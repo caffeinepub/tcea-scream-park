@@ -1,26 +1,46 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Homepage update to add a selectable passes section with five pass options (name, price/inclusion, and descriptions).",
+  "summary": "Horror theme park website with ticketing, events calendar, auditions, employee portal with secret tunnels, haunted houses including 'Toys Come to Play', and 2030 expansion plans featuring new costume characters",
   "architectural_notes": [
-    "Homepage includes a passes section where users can select a pass to secure it."
+    "Employee Portal contains Secret Tunnels section with room assignments and interactive map",
+    "Haunted Houses section displays multiple themed attractions with character and scene information",
+    "Auditions section separated by role type (makeup artists vs SFX artists)",
+    "2030 expansion features new costume character categories and updated audition requirements"
   ],
   "known_issues": [],
   "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Haunted house exterior photo showing toy-themed horror attraction with prominent entrance (toys-come-to-play-exterior.dim_1200x600.png)\n- Interior scene showing Blippy character in creepy toy setting with dark atmospheric lighting (blippy-scene.dim_800x600.png)\n- Interior scene showing Jiffy character in menacing pose among scattered toys (jiffy-scene.dim_800x600.png)\n- Promotional banner showing Lola the Rabbit and Asher the Rabbit costume characters in friendly pose (lola-asher-rabbits.dim_1000x600.png)\n- Character illustration of Max costume character in vibrant family-friendly style (max-character.dim_600x800.png)\n- Character illustration of DD costume character in colorful cheerful design (dd-character.dim_600x800.png)",
   "existing_features": [
     {
-      "id": "feature-update-the-homepage-tickets-passes-ui-in-frontend-src-components-sections-infolocationsection-tsx-to-include-five-additional-pass-options-with-the-exact-names-price-inclusion-text-and-descriptions-specified-in-the-conversation-1-content-creator-pass-4-with-a-creator-influencer-focused-description-2-touch-pass-included-with-regular-pass-ask-to-upgrade-with-a-description-about-interactive-touch-allowed-elements-3-skip-the-line-pass-34-with-a-description-about-priority-entry-4-blackout-pass-included-with-ticket-with-a-description-warning-guests-who-are-afraid-of-the-dark-5-kid-pass-8-with-a-description-for-younger-guests-family-friendly-access-keep-existing-passes-already-shown-unless-explicitly-removed-by-the-user",
-      "title": "Update the homepage \"Tickets & Passes\" UI (in `frontend/src/components/sections/InfoLocationSection.tsx`) to include five additional pass options with the exact names, price/inclusion text, and descriptions specified in the conversation: (1) Content Creator Pass ($4) with a creator/influencer-focused description; (2) Touch Pass (Included with Regular Pass; ask to upgrade) with a description about interactive/touch-allowed elements; (3) Skip the Line Pass ($34) with a description about priority entry; (4) Blackout Pass (Included with ticket) with a description warning guests who are afraid of the dark; (5) Kid Pass ($8) with a description for younger guests/family-friendly access. Keep existing passes already shown unless explicitly removed by the user.",
+      "id": "feature-add-toys-come-to-play-haunted-house-to-the-haunted-houses-section-with-tagline-never-talk-back-we-just-want-to-rip-ur-head-off",
+      "title": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
       "reqIds": [
-        "REQ-4"
+        "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-make-the-pass-options-selectable-on-the-homepage-tickets-passes-section-and-provide-a-clear-call-to-action-to-secure-the-selected-pass-ui-only-selection-should-be-obvious-and-accessible-keyboard-navigable-and-the-cta-must-not-require-implementing-payments",
-      "title": "Make the pass options selectable on the homepage Tickets & Passes section, and provide a clear call-to-action to \"secure\" the selected pass (UI-only). Selection should be obvious and accessible (keyboard navigable), and the CTA must not require implementing payments.",
+      "id": "feature-add-characters-blippy-and-jiffy-to-toys-come-to-play-haunted-house-with-scene-description-out-of-breath-and-almost-head-integrated-into-the-22-different-scenes-information-system",
+      "title": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
       "reqIds": [
-        "REQ-5"
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-2030-investment-announcement-featuring-new-costume-characters-lola-the-rabbit-asher-the-rabbit-her-boyfriend-max-and-dd-plus-all-new-princesses",
+      "title": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-audition-information-for-2030-costume-characters-emphasizing-vocal-skills-with-note-that-some-sing-some-don-t",
+      "title": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+      "reqIds": [
+        "REQ-4"
       ],
       "version": 1
     }
@@ -28,12 +48,36 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add 5 selectable passes to homepage with name, price/inclusion, and descriptions (Content Creator $4, Touch included w/ regular upgrade, Skip the Line $34, Blackout included w/ ticket warning, Kid $8)",
+      "summary": "Add 'Toys Come to Play' haunted house with Blippy and Jiffy characters, 22 scenes, and tagline",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add 2030 investment announcement with new costume characters (Lola, Asher, Max, DD) and princesses section with audition info",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create Room Assignments page in Secret Tunnels area showing tunnel room assignments by role",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Build interactive tunnel map with clickable floor plan showing all rooms (makeup, haunted house entrances, hot tubs, game room, cafeteria, security)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add auditions schedules: makeup artists (March) in Auditions section, SFX artists in Employee Portal",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Add five new selectable passes to homepage Tickets & Passes section",
+  "projectName": "TCEA Scream Park",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

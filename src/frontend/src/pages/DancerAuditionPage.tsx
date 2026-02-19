@@ -19,7 +19,7 @@ export function DancerAuditionPage() {
   const [weight, setWeight] = useState('');
   const [experience, setExperience] = useState('');
   const [whatYouLoveToDo, setWhatYouLoveToDo] = useState('');
-  const [locationPreference, setLocationPreference] = useState('');
+  const [rolePreference, setRolePreference] = useState('');
 
   const submitMutation = useSubmitDancerAudition();
 
@@ -38,7 +38,7 @@ export function DancerAuditionPage() {
     setWeight('');
     setExperience('');
     setWhatYouLoveToDo('');
-    setLocationPreference('');
+    setRolePreference('');
   };
 
   const handleSubmit = async () => {
@@ -73,8 +73,8 @@ export function DancerAuditionPage() {
       return;
     }
 
-    if (!locationPreference) {
-      toast.error('Please select a location preference');
+    if (!rolePreference) {
+      toast.error('Please select a role preference');
       return;
     }
 
@@ -84,7 +84,7 @@ export function DancerAuditionPage() {
         age: ageNum,
         experience: experience.trim(),
         whatYouLoveToDo: whatYouLoveToDo.trim(),
-        locationPreference,
+        rolePreference,
       });
 
       toast.success('Audition application submitted successfully!');
@@ -235,13 +235,13 @@ export function DancerAuditionPage() {
                   </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="locationPreference">What do you want to be? *</Label>
+                    <Label htmlFor="rolePreference">What do you want to be? *</Label>
                     <Select
-                      value={locationPreference}
-                      onValueChange={setLocationPreference}
+                      value={rolePreference}
+                      onValueChange={setRolePreference}
                       disabled={submitMutation.isPending}
                     >
-                      <SelectTrigger id="locationPreference">
+                      <SelectTrigger id="rolePreference">
                         <SelectValue placeholder="Select your preferred role" />
                       </SelectTrigger>
                       <SelectContent>

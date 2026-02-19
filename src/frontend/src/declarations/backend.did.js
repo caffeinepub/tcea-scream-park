@@ -10,6 +10,7 @@ import { IDL } from '@icp-sdk/core/candid';
 
 export const AuditionType = IDL.Variant({
   'scareActor' : IDL.Null,
+  'costumeCharacter' : IDL.Null,
   'danceActor' : IDL.Null,
 });
 export const AuditionLink = IDL.Record({
@@ -18,10 +19,48 @@ export const AuditionLink = IDL.Record({
   'auditionType' : AuditionType,
   'description' : IDL.Text,
 });
+export const RoomAssignment = IDL.Record({
+  'role' : IDL.Text,
+  'staffMember' : IDL.Text,
+  'roomId' : IDL.Nat,
+  'shiftTime' : IDL.Text,
+});
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
   'user' : IDL.Null,
   'guest' : IDL.Null,
+});
+export const VoiceType = IDL.Variant({
+  'lowPitch' : IDL.Null,
+  'creepy' : IDL.Null,
+  'playful' : IDL.Null,
+  'silent' : IDL.Null,
+  'highPitch' : IDL.Null,
+});
+export const ScareType = IDL.Variant({
+  'jumpScare' : IDL.Null,
+  'ambient' : IDL.Null,
+  'interactive' : IDL.Null,
+  'psychological' : IDL.Null,
+  'physical' : IDL.Null,
+});
+export const HauntedHouseCharacter = IDL.Record({
+  'voiceType' : VoiceType,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'scareType' : ScareType,
+});
+export const ScareLevel = IDL.Variant({
+  'mild' : IDL.Null,
+  'extreme' : IDL.Null,
+  'moderate' : IDL.Null,
+});
+export const HauntedHouseSpecificFields = IDL.Record({
+  'yearIntroduced' : IDL.Opt(IDL.Nat),
+  'tagline' : IDL.Text,
+  'characters' : IDL.Vec(HauntedHouseCharacter),
+  'sceneDescriptions' : IDL.Vec(IDL.Text),
+  'scareLevel' : ScareLevel,
 });
 export const PerformanceType = IDL.Variant({
   'interactive' : IDL.Null,
@@ -47,11 +86,6 @@ export const ZoneLocation = IDL.Variant({
   'indoor' : IDL.Null,
   'outdoor' : IDL.Null,
 });
-export const ScareLevel = IDL.Variant({
-  'mild' : IDL.Null,
-  'extreme' : IDL.Null,
-  'moderate' : IDL.Null,
-});
 export const ScareZoneSpecificFields = IDL.Record({
   'yearIntroduced' : IDL.Opt(IDL.Nat),
   'indoorOutdoor' : ZoneLocation,
@@ -69,6 +103,7 @@ export const AttractionSpecificFields = IDL.Record({
   'hasGuidedTour' : IDL.Bool,
 });
 export const ContentType = IDL.Variant({
+  'hauntedHouse' : HauntedHouseSpecificFields,
   'show' : ShowSpecificFields,
   'event' : EventSpecificFields,
   'scareZone' : ScareZoneSpecificFields,
@@ -91,6 +126,28 @@ export const ContentItem = IDL.Record({
   'customType' : ContentType,
   'dates' : IDL.Vec(EventDateRange),
 });
+export const Location = IDL.Record({ 'x' : IDL.Nat, 'y' : IDL.Nat });
+export const Room = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'scareLevel' : ScareLevel,
+  'location' : Location,
+});
+export const Connection = IDL.Record({
+  'fromRoomId' : IDL.Nat,
+  'tunnelSection' : IDL.Text,
+  'isOneWay' : IDL.Bool,
+  'distance' : IDL.Nat,
+  'toRoomId' : IDL.Nat,
+});
+export const TimeSlot = IDL.Record({
+  'startTime' : IDL.Text,
+  'endTime' : IDL.Text,
+});
+export const RoomSchedule = IDL.Record({
+  'timeSlots' : IDL.Vec(TimeSlot),
+  'roomId' : IDL.Nat,
+});
 export const ScareActorAuditionForm = IDL.Record({
   'age' : IDL.Opt(IDL.Nat),
   'specialSkills' : IDL.Text,
@@ -109,6 +166,23 @@ export const ScareActorAuditionForm = IDL.Record({
   'phone' : IDL.Text,
   'favoriteCharacterType' : IDL.Text,
   'previousWork' : IDL.Text,
+});
+export const CostumeCharacterAuditionForm = IDL.Record({
+  'age' : IDL.Opt(IDL.Nat),
+  'name' : IDL.Text,
+  'musicalSkills' : IDL.Text,
+  'email' : IDL.Text,
+  'experience' : IDL.Text,
+  'referredBy' : IDL.Text,
+  'performancePreferences' : IDL.Text,
+  'vocalRange' : IDL.Text,
+  'physicalLimitations' : IDL.Text,
+  'operationAgreeStatus' : IDL.Text,
+  'phone' : IDL.Text,
+  'scheduleConflicts' : IDL.Text,
+  'costumePreferences' : IDL.Text,
+  'characterVoices' : IDL.Text,
+  'whyAudition' : IDL.Text,
 });
 export const DanceAuditionForm = IDL.Record({
   'age' : IDL.Opt(IDL.Nat),
@@ -134,39 +208,109 @@ export const AuditionSubmission = IDL.Record({
   'submitter' : IDL.Principal,
   'formData' : IDL.Variant({
     'scareActor' : ScareActorAuditionForm,
+    'costumeCharacter' : CostumeCharacterAuditionForm,
     'danceActor' : DanceAuditionForm,
   }),
   'auditionType' : AuditionType,
   'submissionTime' : Time,
 });
+export const TunnelMap = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'connections' : IDL.Vec(Connection),
+  'rooms' : IDL.Vec(Room),
+});
+export const TunnelSchedule = IDL.Record({
+  'id' : IDL.Nat,
+  'roomAssignments' : IDL.Vec(RoomAssignment),
+  'date' : IDL.Text,
+  'shift' : IDL.Text,
+  'specialEvent' : IDL.Opt(IDL.Text),
+  'roomSchedules' : IDL.Vec(RoomSchedule),
+});
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const UpcomingEvent = IDL.Record({
+  'day' : IDL.Nat,
+  'month' : IDL.Nat,
+  'title' : IDL.Text,
+  'year' : IDL.Nat,
+  'description' : IDL.Text,
+  'featureTransactionType' : IDL.Text,
+  'isUnlocked' : IDL.Bool,
+});
+export const EventUnlockStatus = IDL.Record({
+  'hasSecretEntrance' : IDL.Bool,
+  'hasFireworks' : IDL.Bool,
+  'hasFlynAppearance' : IDL.Bool,
+});
 export const StaffingCounts = IDL.Record({
+  'costumeCharacters' : IDL.Nat,
   'hauntedHouseSupervisors' : IDL.Nat,
   'zoneSupervisors' : IDL.Nat,
   'zoneActors' : IDL.Nat,
   'dancerSupervisors' : IDL.Nat,
+  'princessPerformers' : IDL.Nat,
   'hauntedHouseActors' : IDL.Nat,
 });
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addAuditionLink' : IDL.Func([AuditionLink], [], []),
+  'addRoomAssignments' : IDL.Func([IDL.Vec(RoomAssignment)], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'clearAuditionLinks' : IDL.Func([], [], []),
   'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
+  'createTunnelMap' : IDL.Func(
+      [IDL.Text, IDL.Vec(Room), IDL.Vec(Connection)],
+      [IDL.Nat],
+      [],
+    ),
+  'createTunnelSchedule' : IDL.Func(
+      [
+        IDL.Text,
+        IDL.Text,
+        IDL.Opt(IDL.Text),
+        IDL.Vec(RoomAssignment),
+        IDL.Vec(RoomSchedule),
+      ],
+      [IDL.Nat],
+      [],
+    ),
   'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+  'deleteTunnelMap' : IDL.Func([IDL.Nat], [], []),
+  'deleteTunnelSchedule' : IDL.Func([IDL.Nat], [], []),
   'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
   'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getAllTunnelMaps' : IDL.Func([], [IDL.Vec(TunnelMap)], ['query']),
+  'getAllTunnelSchedules' : IDL.Func([], [IDL.Vec(TunnelSchedule)], ['query']),
   'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getAuditionLinks' : IDL.Func([], [IDL.Vec(AuditionLink)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),
+  'getEmployeeUpcomingEvents' : IDL.Func(
+      [Date],
+      [IDL.Vec(UpcomingEvent)],
+      ['query'],
+    ),
+  'getEventUnlockStatus' : IDL.Func([], [EventUnlockStatus], ['query']),
   'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getHauntedHouses' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+  'getRoomAssignments' : IDL.Func(
+      [],
+      [IDL.Vec(IDL.Vec(RoomAssignment))],
+      ['query'],
+    ),
   'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
+  'getTunnelMap' : IDL.Func([IDL.Nat], [IDL.Opt(TunnelMap)], ['query']),
+  'getTunnelSchedule' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Opt(TunnelSchedule)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -177,6 +321,11 @@ export const idlService = IDL.Service({
   'removeAuditionLink' : IDL.Func([IDL.Nat], [], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'seedInitialContent' : IDL.Func([], [], []),
+  'submitCostumeCharacterAudition' : IDL.Func(
+      [CostumeCharacterAuditionForm],
+      [IDL.Bool],
+      [],
+    ),
   'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
   'submitScareActorAudition' : IDL.Func(
       [ScareActorAuditionForm],
@@ -186,6 +335,8 @@ export const idlService = IDL.Service({
   'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
   'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
   'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+  'updateTunnelMap' : IDL.Func([IDL.Nat, TunnelMap], [], []),
+  'updateTunnelSchedule' : IDL.Func([IDL.Nat, TunnelSchedule], [], []),
 });
 
 export const idlInitArgs = [];
@@ -193,6 +344,7 @@ export const idlInitArgs = [];
 export const idlFactory = ({ IDL }) => {
   const AuditionType = IDL.Variant({
     'scareActor' : IDL.Null,
+    'costumeCharacter' : IDL.Null,
     'danceActor' : IDL.Null,
   });
   const AuditionLink = IDL.Record({
@@ -201,10 +353,48 @@ export const idlFactory = ({ IDL }) => {
     'auditionType' : AuditionType,
     'description' : IDL.Text,
   });
+  const RoomAssignment = IDL.Record({
+    'role' : IDL.Text,
+    'staffMember' : IDL.Text,
+    'roomId' : IDL.Nat,
+    'shiftTime' : IDL.Text,
+  });
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
     'user' : IDL.Null,
     'guest' : IDL.Null,
+  });
+  const VoiceType = IDL.Variant({
+    'lowPitch' : IDL.Null,
+    'creepy' : IDL.Null,
+    'playful' : IDL.Null,
+    'silent' : IDL.Null,
+    'highPitch' : IDL.Null,
+  });
+  const ScareType = IDL.Variant({
+    'jumpScare' : IDL.Null,
+    'ambient' : IDL.Null,
+    'interactive' : IDL.Null,
+    'psychological' : IDL.Null,
+    'physical' : IDL.Null,
+  });
+  const HauntedHouseCharacter = IDL.Record({
+    'voiceType' : VoiceType,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'scareType' : ScareType,
+  });
+  const ScareLevel = IDL.Variant({
+    'mild' : IDL.Null,
+    'extreme' : IDL.Null,
+    'moderate' : IDL.Null,
+  });
+  const HauntedHouseSpecificFields = IDL.Record({
+    'yearIntroduced' : IDL.Opt(IDL.Nat),
+    'tagline' : IDL.Text,
+    'characters' : IDL.Vec(HauntedHouseCharacter),
+    'sceneDescriptions' : IDL.Vec(IDL.Text),
+    'scareLevel' : ScareLevel,
   });
   const PerformanceType = IDL.Variant({
     'interactive' : IDL.Null,
@@ -230,11 +420,6 @@ export const idlFactory = ({ IDL }) => {
     'indoor' : IDL.Null,
     'outdoor' : IDL.Null,
   });
-  const ScareLevel = IDL.Variant({
-    'mild' : IDL.Null,
-    'extreme' : IDL.Null,
-    'moderate' : IDL.Null,
-  });
   const ScareZoneSpecificFields = IDL.Record({
     'yearIntroduced' : IDL.Opt(IDL.Nat),
     'indoorOutdoor' : ZoneLocation,
@@ -252,6 +437,7 @@ export const idlFactory = ({ IDL }) => {
     'hasGuidedTour' : IDL.Bool,
   });
   const ContentType = IDL.Variant({
+    'hauntedHouse' : HauntedHouseSpecificFields,
     'show' : ShowSpecificFields,
     'event' : EventSpecificFields,
     'scareZone' : ScareZoneSpecificFields,
@@ -271,6 +457,25 @@ export const idlFactory = ({ IDL }) => {
     'customType' : ContentType,
     'dates' : IDL.Vec(EventDateRange),
   });
+  const Location = IDL.Record({ 'x' : IDL.Nat, 'y' : IDL.Nat });
+  const Room = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'scareLevel' : ScareLevel,
+    'location' : Location,
+  });
+  const Connection = IDL.Record({
+    'fromRoomId' : IDL.Nat,
+    'tunnelSection' : IDL.Text,
+    'isOneWay' : IDL.Bool,
+    'distance' : IDL.Nat,
+    'toRoomId' : IDL.Nat,
+  });
+  const TimeSlot = IDL.Record({ 'startTime' : IDL.Text, 'endTime' : IDL.Text });
+  const RoomSchedule = IDL.Record({
+    'timeSlots' : IDL.Vec(TimeSlot),
+    'roomId' : IDL.Nat,
+  });
   const ScareActorAuditionForm = IDL.Record({
     'age' : IDL.Opt(IDL.Nat),
     'specialSkills' : IDL.Text,
@@ -289,6 +494,23 @@ export const idlFactory = ({ IDL }) => {
     'phone' : IDL.Text,
     'favoriteCharacterType' : IDL.Text,
     'previousWork' : IDL.Text,
+  });
+  const CostumeCharacterAuditionForm = IDL.Record({
+    'age' : IDL.Opt(IDL.Nat),
+    'name' : IDL.Text,
+    'musicalSkills' : IDL.Text,
+    'email' : IDL.Text,
+    'experience' : IDL.Text,
+    'referredBy' : IDL.Text,
+    'performancePreferences' : IDL.Text,
+    'vocalRange' : IDL.Text,
+    'physicalLimitations' : IDL.Text,
+    'operationAgreeStatus' : IDL.Text,
+    'phone' : IDL.Text,
+    'scheduleConflicts' : IDL.Text,
+    'costumePreferences' : IDL.Text,
+    'characterVoices' : IDL.Text,
+    'whyAudition' : IDL.Text,
   });
   const DanceAuditionForm = IDL.Record({
     'age' : IDL.Opt(IDL.Nat),
@@ -314,39 +536,113 @@ export const idlFactory = ({ IDL }) => {
     'submitter' : IDL.Principal,
     'formData' : IDL.Variant({
       'scareActor' : ScareActorAuditionForm,
+      'costumeCharacter' : CostumeCharacterAuditionForm,
       'danceActor' : DanceAuditionForm,
     }),
     'auditionType' : AuditionType,
     'submissionTime' : Time,
   });
+  const TunnelMap = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'connections' : IDL.Vec(Connection),
+    'rooms' : IDL.Vec(Room),
+  });
+  const TunnelSchedule = IDL.Record({
+    'id' : IDL.Nat,
+    'roomAssignments' : IDL.Vec(RoomAssignment),
+    'date' : IDL.Text,
+    'shift' : IDL.Text,
+    'specialEvent' : IDL.Opt(IDL.Text),
+    'roomSchedules' : IDL.Vec(RoomSchedule),
+  });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const UpcomingEvent = IDL.Record({
+    'day' : IDL.Nat,
+    'month' : IDL.Nat,
+    'title' : IDL.Text,
+    'year' : IDL.Nat,
+    'description' : IDL.Text,
+    'featureTransactionType' : IDL.Text,
+    'isUnlocked' : IDL.Bool,
+  });
+  const EventUnlockStatus = IDL.Record({
+    'hasSecretEntrance' : IDL.Bool,
+    'hasFireworks' : IDL.Bool,
+    'hasFlynAppearance' : IDL.Bool,
+  });
   const StaffingCounts = IDL.Record({
+    'costumeCharacters' : IDL.Nat,
     'hauntedHouseSupervisors' : IDL.Nat,
     'zoneSupervisors' : IDL.Nat,
     'zoneActors' : IDL.Nat,
     'dancerSupervisors' : IDL.Nat,
+    'princessPerformers' : IDL.Nat,
     'hauntedHouseActors' : IDL.Nat,
   });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addAuditionLink' : IDL.Func([AuditionLink], [], []),
+    'addRoomAssignments' : IDL.Func([IDL.Vec(RoomAssignment)], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'clearAuditionLinks' : IDL.Func([], [], []),
     'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
+    'createTunnelMap' : IDL.Func(
+        [IDL.Text, IDL.Vec(Room), IDL.Vec(Connection)],
+        [IDL.Nat],
+        [],
+      ),
+    'createTunnelSchedule' : IDL.Func(
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Opt(IDL.Text),
+          IDL.Vec(RoomAssignment),
+          IDL.Vec(RoomSchedule),
+        ],
+        [IDL.Nat],
+        [],
+      ),
     'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+    'deleteTunnelMap' : IDL.Func([IDL.Nat], [], []),
+    'deleteTunnelSchedule' : IDL.Func([IDL.Nat], [], []),
     'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
     'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getAllTunnelMaps' : IDL.Func([], [IDL.Vec(TunnelMap)], ['query']),
+    'getAllTunnelSchedules' : IDL.Func(
+        [],
+        [IDL.Vec(TunnelSchedule)],
+        ['query'],
+      ),
     'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getAuditionLinks' : IDL.Func([], [IDL.Vec(AuditionLink)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getContentItem' : IDL.Func([IDL.Nat], [IDL.Opt(ContentItem)], ['query']),
+    'getEmployeeUpcomingEvents' : IDL.Func(
+        [Date],
+        [IDL.Vec(UpcomingEvent)],
+        ['query'],
+      ),
+    'getEventUnlockStatus' : IDL.Func([], [EventUnlockStatus], ['query']),
     'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getHauntedHouses' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+    'getRoomAssignments' : IDL.Func(
+        [],
+        [IDL.Vec(IDL.Vec(RoomAssignment))],
+        ['query'],
+      ),
     'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
+    'getTunnelMap' : IDL.Func([IDL.Nat], [IDL.Opt(TunnelMap)], ['query']),
+    'getTunnelSchedule' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(TunnelSchedule)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -357,6 +653,11 @@ export const idlFactory = ({ IDL }) => {
     'removeAuditionLink' : IDL.Func([IDL.Nat], [], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'seedInitialContent' : IDL.Func([], [], []),
+    'submitCostumeCharacterAudition' : IDL.Func(
+        [CostumeCharacterAuditionForm],
+        [IDL.Bool],
+        [],
+      ),
     'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
     'submitScareActorAudition' : IDL.Func(
         [ScareActorAuditionForm],
@@ -366,6 +667,8 @@ export const idlFactory = ({ IDL }) => {
     'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
     'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
     'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+    'updateTunnelMap' : IDL.Func([IDL.Nat, TunnelMap], [], []),
+    'updateTunnelSchedule' : IDL.Func([IDL.Nat, TunnelSchedule], [], []),
   });
 };
 
