@@ -1,12 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Add 'Toys Come to Play' haunted house with characters Blippy and Jiffy, and announce 2030 costume character expansion featuring Lola the Rabbit, Asher the Rabbit, Max, and DD with new princesses.
+**Goal:** Add Color Paint show, Kid Grove land, Dead Eyes merch booth, Paint & Death food booth, and Obsession Scream haunted house to the TCEA Scream Park.
 
 **Planned changes:**
-- Add 'Toys Come to Play' haunted house to Haunted Houses section with tagline 'never talk back we just want to rip ur head off'
-- Include information about 22 different scenes featuring characters Blippy and Jiffy with scene description 'out of breath and almost head'
-- Add 2030 investment announcement section highlighting new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses
-- Add audition information for 2030 costume character roles emphasizing vocal skills with note that 'some sing some don't'
+- Add Color Paint show (2028) featuring 5 kid-friendly characters including Celeste the unicorn and Cosmo the dog
+- Add Kid Grove land (2050, 500,000 sq ft) as the location for Color Paint show
+- Add Dead Eyes merchandise booth selling shoes, clothes, autographs, and more
+- Add Paint & Death split-concept food booth with paint-themed menu on one side and death-themed menu on the other
+- Add Obsession Scream haunted house featuring Leslie, a terrifying teen with long purple hair
 
-**User-visible outcome:** Visitors can view the new 'Toys Come to Play' haunted house with character details and scenes, and learn about the upcoming 2030 costume character expansion with audition requirements.
+**User-visible outcome:** Visitors can view the new Color Paint show and Kid Grove land announcement, browse the Dead Eyes merch booth, explore the Paint & Death food booth with dual menus, and learn about the Obsession Scream haunted house with Leslie as the featured character.

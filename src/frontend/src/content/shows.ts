@@ -24,4 +24,10 @@ export const shows = [
     description: 'Join us for a spooky-fun adventure at Camp Riley! This kid-friendly show brings together silly monsters, friendly ghosts, and magical creatures for an unforgettable experience. Perfect for young thrill-seekers who love a good scare with plenty of laughs. Featuring interactive games, surprise appearances, and a campfire story circle that will delight kids of all ages. Coming 2027—get ready for the most fun-scary show of the season!',
     hauntSeasonOnly: false,
   },
+  {
+    name: 'Color Paint',
+    description: 'A vibrant, high-energy kid-friendly show coming in 2028! Meet Celeste the unicorn, Cosmo the dog, Sparkle the butterfly, Bubbles the otter, and Rainbow the parrot—five colorful characters who bring joy, laughter, and excitement to every performance. This show will be featured in the upcoming Kid Grove land opening in 2050. Get ready for singing, dancing, interactive games, and a rainbow of fun that kids will never forget!',
+    hauntSeasonOnly: false,
+    year: 2028,
+  },
 ];

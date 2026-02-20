@@ -2,12 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-toys-come-to-play-haunted-house-to-the-haunted-houses-section-with-tagline-never-talk-back-we-just-want-to-rip-ur-head-off",
-      "featureTitle": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
+      "featureId": "feature-add-a-new-kid-friendly-show-called-color-paint-scheduled-for-2028-with-5-high-energy-characters-celeste-the-unicorn-cosmo-the-dog-and-3-additional-kid-friendly-characters-display-in-the-shows-section-with-appropriate-badge-indicating-it-s-a-future-show",
+      "featureTitle": "Add a new kid-friendly show called 'Color Paint' scheduled for 2028 with 5 high-energy characters: Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters. Display in the Shows section with appropriate badge indicating it's a future show.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/HauntedHousesSection.tsx",
-        "frontend/src/pages/ToysComeToPlayPage.tsx"
+        "frontend/src/components/sections/ShowsSection.tsx",
+        "frontend/src/content/shows.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -23,10 +22,13 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-characters-blippy-and-jiffy-to-toys-come-to-play-haunted-house-with-scene-description-out-of-breath-and-almost-head-integrated-into-the-22-different-scenes-information-system",
-      "featureTitle": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
+      "featureId": "feature-add-a-new-themed-land-called-kid-grove-coming-in-2050-with-500-000-square-feet-indicate-that-color-paint-show-will-be-located-in-this-land-display-as-an-upcoming-expansion-announcement",
+      "featureTitle": "Add a new themed land called 'Kid Grove' coming in 2050 with 500,000 square feet. Indicate that Color Paint show will be located in this land. Display as an upcoming expansion announcement.",
       "files": [
-        "frontend/src/pages/ToysComeToPlayPage.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/UpcomingExpansionsSection.tsx",
+        "frontend/src/content/shows.ts",
+        "frontend/src/content/themedLands.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -42,11 +44,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-2030-investment-announcement-featuring-new-costume-characters-lola-the-rabbit-asher-the-rabbit-her-boyfriend-max-and-dd-plus-all-new-princesses",
-      "featureTitle": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+      "featureId": "feature-add-a-new-merchandise-booth-called-dead-eyes-that-sells-shoes-clothes-autographs-and-additional-merchandise-items-display-in-the-merch-shops-section",
+      "featureTitle": "Add a new merchandise booth called 'Dead Eyes' that sells shoes, clothes, autographs, and additional merchandise items. Display in the Merch Shops section.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/CostumeCharacters2030Section.tsx"
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/merchShops.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -62,13 +64,14 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-audition-information-for-2030-costume-characters-emphasizing-vocal-skills-with-note-that-some-sing-some-don-t",
-      "featureTitle": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+      "featureId": "feature-add-a-new-split-concept-food-booth-combining-paint-themed-and-death-themed-cuisine-one-side-serves-paint-themed-menu-items-the-other-serves-death-themed-items-create-complete-menus-for-both-sides-with-creative-horror-appropriate-food-names-and-descriptions",
+      "featureTitle": "Add a new split-concept food booth combining paint-themed and death-themed cuisine. One side serves paint-themed menu items, the other serves death-themed items. Create complete menus for both sides with creative horror-appropriate food names and descriptions.",
       "files": [
-        "frontend/src/components/sections/AuditionsSection.tsx",
-        "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
-        "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
-        "frontend/src/hooks/useAuditionSubmissions.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/FoodBoothsSection.tsx",
+        "frontend/src/content/foodBooths.ts",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/pages/PaintDeathBoothPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -80,6 +83,49 @@
       ],
       "testIds": [
         "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-new-haunted-house-called-obsession-scream-featuring-the-character-leslie-a-terrifying-teen-with-long-purple-hair-create-a-detailed-description-for-both-the-haunted-house-and-leslie-s-character-emphasizing-horror-elements-appropriate-for-a-teen-antagonist",
+      "featureTitle": "Add a new haunted house called 'Obsession Scream' featuring the character Leslie, a terrifying teen with long purple hair. Create a detailed description for both the haunted house and Leslie's character, emphasizing horror elements appropriate for a teen antagonist.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/HauntedHousesSection.tsx",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/guestRules.ts",
+        "frontend/src/content/hauntedHouses.ts",
+        "frontend/src/pages/ObsessionScreamPage.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-an-ai-image-of-leslie-character-a-terrifying-teen-with-long-purple-hair-in-a-horror-context-use-this-image-for-the-obsession-scream-haunted-house-display",
+      "featureTitle": "Generate an AI image of Leslie character: a terrifying teen with long purple hair in a horror context. Use this image for the Obsession Scream haunted house display.",
+      "files": [
+        "frontend/src/content/generatedImages.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
       ],
       "confidence": "high"
     }

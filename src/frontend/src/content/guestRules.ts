@@ -241,6 +241,42 @@ export const guestRules = {
         },
       ],
     },
+    'obsession-scream': {
+      name: 'Obsession Scream',
+      sections: [
+        {
+          title: 'Safety Rules',
+          rules: [
+            'Do not touch the actors, props, or set pieces',
+            'Stay with your group at all times',
+            'Follow the marked path through Leslie\'s domain',
+            'No running, pushing, or aggressive behavior',
+            'Keep your hands to yourself and respect boundaries',
+          ],
+        },
+        {
+          title: 'Behavior Rules',
+          rules: [
+            'No photography, video recording, or phone use inside the attraction',
+            'Do not attempt to scare or startle the actors',
+            'Respect Leslie and all performers in their character space',
+            'No inappropriate language or gestures toward actors or other guests',
+            'If you need to exit early, notify a staff member immediately',
+          ],
+        },
+        {
+          title: 'Health & Safety Warnings',
+          rules: [
+            'This attraction contains intense psychological horror, strobe lights, and confined spaces',
+            'Not recommended for guests with heart conditions, anxiety disorders, or claustrophobia',
+            'Features themes of obsession and pursuit that may be disturbing',
+            'Pregnant guests should not enter',
+            'Guests under the influence of alcohol or drugs will not be admitted',
+            'This is an extreme psychological horror experience',
+          ],
+        },
+      ],
+    },
   },
   'scare-zone': {
     'santas-hell': {

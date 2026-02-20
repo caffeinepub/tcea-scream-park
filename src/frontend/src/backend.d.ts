@@ -11,6 +11,9 @@ export interface Location {
     x: bigint;
     y: bigint;
 }
+export interface UserProfile {
+    name: string;
+}
 export type ContentType = {
     __kind__: "hauntedHouse";
     hauntedHouse: HauntedHouseSpecificFields;
@@ -126,6 +129,19 @@ export interface ScareActorAuditionForm {
     favoriteCharacterType: string;
     previousWork: string;
 }
+export interface FoodItem {
+    theme: FoodTheme;
+    name: string;
+    description: string;
+    itemType: FoodType;
+    price: number;
+    allergens: Array<string>;
+    specialNotes: string;
+}
+export interface RoomSchedule {
+    timeSlots: Array<TimeSlot>;
+    roomId: bigint;
+}
 export interface DanceAuditionForm {
     age?: bigint;
     performanceExperience: string;
@@ -145,17 +161,6 @@ export interface DanceAuditionForm {
     costumePreferences: string;
     previousWork: string;
 }
-export interface RoomSchedule {
-    timeSlots: Array<TimeSlot>;
-    roomId: bigint;
-}
-export interface Connection {
-    fromRoomId: bigint;
-    tunnelSection: string;
-    isOneWay: boolean;
-    distance: bigint;
-    toRoomId: bigint;
-}
 export interface TimeSlot {
     startTime: string;
     endTime: string;
@@ -168,14 +173,32 @@ export interface TunnelSchedule {
     specialEvent?: string;
     roomSchedules: Array<RoomSchedule>;
 }
+export interface MerchShop {
+    id: bigint;
+    name: string;
+    products: Array<Product>;
+    location: string;
+}
+export interface ShowSpecificFields {
+    yearIntroduced?: bigint;
+    performanceType: PerformanceType;
+}
 export interface Date_ {
     day: bigint;
     month: bigint;
     year: bigint;
 }
-export interface ShowSpecificFields {
-    yearIntroduced?: bigint;
-    performanceType: PerformanceType;
+export interface EventUnlockStatus {
+    hasSecretEntrance: boolean;
+    hasFireworks: boolean;
+    hasFlynAppearance: boolean;
+}
+export interface Connection {
+    fromRoomId: bigint;
+    tunnelSection: string;
+    isOneWay: boolean;
+    distance: bigint;
+    toRoomId: bigint;
 }
 export interface AuditionLink {
     url: string;
@@ -188,10 +211,22 @@ export interface AttractionSpecificFields {
     ageRestriction: AgeRestriction;
     hasGuidedTour: boolean;
 }
-export interface EventUnlockStatus {
-    hasSecretEntrance: boolean;
-    hasFireworks: boolean;
-    hasFlynAppearance: boolean;
+export interface ThemedLand {
+    id: bigint;
+    status: LandStatus;
+    name: string;
+    description: string;
+    openingYear: bigint;
+    sizeSqFt: bigint;
+    futureShows: Array<bigint>;
+}
+export interface ThemedFoodBooth {
+    id: bigint;
+    deathMenu: Array<FoodItem>;
+    name: string;
+    description: string;
+    location: string;
+    paintMenu: Array<FoodItem>;
 }
 export interface ScareZoneSpecificFields {
     yearIntroduced?: bigint;
@@ -209,14 +244,18 @@ export interface HauntedHouseSpecificFields {
     sceneDescriptions: Array<string>;
     scareLevel: ScareLevel;
 }
+export interface Product {
+    name: string;
+    description: string;
+    availability: AvailabilityStatus;
+    category: ProductCategory;
+    price: number;
+}
 export interface HauntedHouseCharacter {
     voiceType: VoiceType;
     name: string;
     description: string;
     scareType: ScareType;
-}
-export interface UserProfile {
-    name: string;
 }
 export enum AgeRestriction {
     teens = "teens",
@@ -229,6 +268,11 @@ export enum AuditionType {
     costumeCharacter = "costumeCharacter",
     danceActor = "danceActor"
 }
+export enum AvailabilityStatus {
+    inStock = "inStock",
+    outOfStock = "outOfStock",
+    limited = "limited"
+}
 export enum EventType {
     seasonal = "seasonal",
     convention = "convention",
@@ -236,12 +280,33 @@ export enum EventType {
     specialEvent = "specialEvent",
     special = "special"
 }
+export enum FoodTheme {
+    paint = "paint",
+    death = "death"
+}
+export enum FoodType {
+    dessert = "dessert",
+    food = "food",
+    drink = "drink"
+}
+export enum LandStatus {
+    open = "open",
+    underConstruction = "underConstruction",
+    planned = "planned"
+}
 export enum PerformanceType {
     interactive = "interactive",
     theatrical = "theatrical",
     stunt = "stunt",
     dance = "dance",
     musical = "musical"
+}
+export enum ProductCategory {
+    posters = "posters",
+    skateboard = "skateboard",
+    clothes = "clothes",
+    shoes = "shoes",
+    autograph = "autograph"
 }
 export enum ScareLevel {
     mild = "mild",
@@ -274,17 +339,26 @@ export enum ZoneLocation {
 }
 export interface backendInterface {
     addAuditionLink(link: AuditionLink): Promise<void>;
+    addFoodBooth(booth: ThemedFoodBooth): Promise<void>;
+    addMerchShop(shop: MerchShop): Promise<void>;
     addRoomAssignments(assignments: Array<RoomAssignment>): Promise<void>;
+    addThemedLand(land: ThemedLand): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     clearAuditionLinks(): Promise<void>;
     createContentItem(item: ContentItem): Promise<bigint>;
     createTunnelMap(name: string, rooms: Array<Room>, connections: Array<Connection>): Promise<bigint>;
     createTunnelSchedule(date: string, shift: string, specialEvent: string | null, roomAssignments: Array<RoomAssignment>, roomSchedules: Array<RoomSchedule>): Promise<bigint>;
     deleteContentItem(id: bigint): Promise<void>;
+    deleteFoodBooth(id: bigint): Promise<void>;
+    deleteMerchShop(id: bigint): Promise<void>;
+    deleteThemedLand(id: bigint): Promise<void>;
     deleteTunnelMap(id: bigint): Promise<void>;
     deleteTunnelSchedule(id: bigint): Promise<void>;
     getAllAuditions(): Promise<Array<AuditionSubmission>>;
     getAllContentItems(): Promise<Array<ContentItem>>;
+    getAllFoodBooths(): Promise<Array<ThemedFoodBooth>>;
+    getAllMerchShops(): Promise<Array<MerchShop>>;
+    getAllThemedLands(): Promise<Array<ThemedLand>>;
     getAllTunnelMaps(): Promise<Array<TunnelMap>>;
     getAllTunnelSchedules(): Promise<Array<TunnelSchedule>>;
     getAttractions(): Promise<Array<ContentItem>>;
@@ -295,12 +369,15 @@ export interface backendInterface {
     getEmployeeUpcomingEvents(currentDate: Date_): Promise<Array<UpcomingEvent>>;
     getEventUnlockStatus(): Promise<EventUnlockStatus>;
     getEvents(): Promise<Array<ContentItem>>;
+    getFoodBooth(id: bigint): Promise<ThemedFoodBooth | null>;
     getHauntedHouses(): Promise<Array<ContentItem>>;
     getMainHauntSchedule(): Promise<Array<EventDateRange>>;
+    getMerchShop(id: bigint): Promise<MerchShop | null>;
     getRoomAssignments(): Promise<Array<Array<RoomAssignment>>>;
     getScareZones(): Promise<Array<ContentItem>>;
     getShows(): Promise<Array<ContentItem>>;
     getStaffingCounts(): Promise<StaffingCounts>;
+    getThemedLand(id: bigint): Promise<ThemedLand | null>;
     getTunnelMap(id: bigint): Promise<TunnelMap | null>;
     getTunnelSchedule(id: bigint): Promise<TunnelSchedule | null>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
@@ -314,7 +391,10 @@ export interface backendInterface {
     submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
     updateAuditionLink(index: bigint, updatedLink: AuditionLink): Promise<void>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
+    updateFoodBooth(id: bigint, updatedBooth: ThemedFoodBooth): Promise<void>;
     updateMainHauntSchedule(newSchedule: Array<EventDateRange>): Promise<void>;
+    updateMerchShop(id: bigint, updatedShop: MerchShop): Promise<void>;
+    updateThemedLand(id: bigint, updatedLand: ThemedLand): Promise<void>;
     updateTunnelMap(id: bigint, updatedMap: TunnelMap): Promise<void>;
     updateTunnelSchedule(id: bigint, updatedSchedule: TunnelSchedule): Promise<void>;
 }

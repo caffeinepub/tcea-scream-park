@@ -56,6 +56,9 @@ import { SecretTunnelsPage } from './pages/SecretTunnelsPage';
 import { EmployeePortalLink } from './components/sections/EmployeePortalLink';
 import { CostumeCharacters2030Section } from './components/sections/CostumeCharacters2030Section';
 import { ToysComeToPlayPage } from './pages/ToysComeToPlayPage';
+import { UpcomingExpansionsSection } from './components/sections/UpcomingExpansionsSection';
+import { ObsessionScreamPage } from './pages/ObsessionScreamPage';
+import { PaintDeathBoothPage } from './pages/PaintDeathBoothPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,7 +71,7 @@ const queryClient = new QueryClient({
 
 function App() {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
-  const [requestStartCallback, setRequestStartCallback] = useState<(() => void) | null>(null);
+  const [enableSoundCallback, setEnableSoundCallback] = useState<(() => void) | undefined>(undefined);
   const [currentRoute, setCurrentRoute] = useState('home');
 
   useEffect(() => {
@@ -100,6 +103,8 @@ function App() {
         setCurrentRoute('slider-doom');
       } else if (normalizedHash === 'food-booth/sharks-hell') {
         setCurrentRoute('sharks-hell');
+      } else if (normalizedHash === 'food-booth/paint-death') {
+        setCurrentRoute('paint-death');
       } else if (normalizedHash === 'scare-zone/laser-hell') {
         setCurrentRoute('laser-hell');
       } else if (normalizedHash === 'sneak-peek/clown-town') {
@@ -114,6 +119,8 @@ function App() {
         setCurrentRoute('open-ice-tomb');
       } else if (normalizedHash === 'haunted-house/wax-works') {
         setCurrentRoute('wax-works');
+      } else if (normalizedHash === 'haunted-house/obsession-scream') {
+        setCurrentRoute('obsession-scream');
       } else if (normalizedHash === 'toys-come-to-play') {
         setCurrentRoute('toys-come-to-play');
       } else if (normalizedHash === 'scare-zone/santas-hell') {
@@ -157,7 +164,7 @@ function App() {
   }, []);
 
   const handleRequestStart = useCallback((callback: () => void) => {
-    setRequestStartCallback(() => callback);
+    setEnableSoundCallback(() => callback);
   }, []);
 
   const renderRoute = () => {
@@ -182,6 +189,8 @@ function App() {
         return <SliderDoomPage />;
       case 'sharks-hell':
         return <SharksHellPage />;
+      case 'paint-death':
+        return <PaintDeathBoothPage />;
       case 'laser-hell':
         return <LaserHellPage />;
       case 'sneak-peek-clown-town':
@@ -196,6 +205,8 @@ function App() {
         return <OpenIceTombPage />;
       case 'wax-works':
         return <WaxWorksPage />;
+      case 'obsession-scream':
+        return <ObsessionScreamPage />;
       case 'toys-come-to-play':
         return <ToysComeToPlayPage />;
       case 'santas-hell':
@@ -237,6 +248,7 @@ function App() {
             <AuditionsSection />
             <CostumeCharacters2030Section />
             <UpcomingEventsSection />
+            <UpcomingExpansionsSection />
             <ShowsSection />
             <HauntedHousesSection />
             <ScareZonesSection />
@@ -255,17 +267,22 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background text-foreground relative">
+      <div className="relative min-h-screen">
         <HorrorBackground />
+        <div className="relative z-10">
+          <SiteHeader
+            autoplayBlocked={autoplayBlocked}
+            onEnableSound={enableSoundCallback}
+          />
+          <main>
+            {renderRoute()}
+          </main>
+          <SiteFooter />
+        </div>
         <BackgroundAudioManager
           onAutoplayBlockedChange={handleAutoplayBlockedChange}
           onRequestStart={handleRequestStart}
         />
-        <div className="relative z-10">
-          <SiteHeader />
-          <main>{renderRoute()}</main>
-          <SiteFooter />
-        </div>
         <Toaster />
       </div>
     </QueryClientProvider>

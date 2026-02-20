@@ -10,6 +10,11 @@ export const merchShops = {
       items: 'Clown town hoodies and bags',
       price: 13,
     },
+    {
+      name: 'Dead Eyes',
+      items: 'Horror-themed shoes, Exclusive clothing line, Character autographs, Collectible posters, Limited edition accessories',
+      price: '$25-$75',
+    },
   ],
   note: 'And many more shops throughout the park',
 };

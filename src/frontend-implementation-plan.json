@@ -1,120 +1,180 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add 'Toys Come to Play' haunted house with characters and 2030 costume character announcements",
+  "title": "Add Color Paint show, Kid Grove land, Dead Eyes merch booth, Paint & Death food booth, and Obsession Scream haunted house",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline",
+      "summary": "Add Color Paint kid-friendly show with 5 characters (Celeste the unicorn, Cosmo the dog, and 3 additional characters) scheduled for 2028, displayed in Shows section with future show badge",
       "acceptanceCriteria": [
-        "Haunted house appears in the Haunted Houses section alongside existing houses",
-        "Tagline 'never talk back we just want to rip ur head off' is displayed",
-        "House is accessible via detail page navigation"
+        "Color Paint show appears in shows.ts content with name, description highlighting 5 characters, and appropriate metadata",
+        "Show card displays in Shows section with 2028 badge",
+        "Characters Celeste the unicorn and Cosmo the dog are prominently featured in the description",
+        "3 additional kid-friendly characters are created and included in the show description"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/HauntedHousesSection.tsx",
+          "path": "frontend/src/content/shows.ts",
           "operation": "modify",
-          "description": "Add 'Toys Come to Play' card to the haunted houses grid with generated image frontend/public/assets/generated/house-toys-come-to-play.dim_1400x900.jpg, tagline 'never talk back we just want to rip ur head off', description from hauntedHouses.ts, and navigation button to detail page"
+          "description": "Add Color Paint show to the shows array with name 'Color Paint', description featuring Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters, hauntSeasonOnly set to false, and a year field set to 2028 to indicate future show status"
         },
         {
-          "path": "frontend/src/pages/ToysComeToPlayPage.tsx",
-          "operation": "create",
-          "description": "Create detail page for 'Toys Come to Play' haunted house displaying hero image frontend/public/assets/generated/toys-come-to-play-exterior.dim_1200x600.png, house name, tagline 'never talk back we just want to rip ur head off', full description including 22 different scenes, characters Blippy and Jiffy with scene description 'out of breath and almost head', extreme horror warning alert, and button to view guest rules"
-        },
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/sections/ShowsSection.tsx",
           "operation": "modify",
-          "description": "Add route for /toys-come-to-play that renders ToysComeToPlayPage component in the hash-based router configuration"
-        },
-        {
-          "path": "frontend/src/content/hauntedHouses.ts",
-          "operation": "modify",
-          "description": "Verify 'Toys Come to Play' entry exists with name, tagline 'never talk back we just want to rip ur head off', description mentioning 22 different scenes, characters Blippy and Jiffy, and scene description 'out of breath and almost head'"
-        },
-        {
-          "path": "frontend/src/content/guestRules.ts",
-          "operation": "modify",
-          "description": "Add guest rules entry for 'Toys Come to Play' with safety guidelines, behavior rules, and health warnings appropriate for a toy-themed horror attraction"
-        },
-        {
-          "path": "frontend/src/components/sections/SchoolhouseSneakPeekSection.tsx",
-          "operation": "modify",
-          "description": "Verify 'Toys Come to Play' sneak peek card exists in the preview grid with image frontend/public/assets/generated/house-toys-come-to-play.dim_1400x900.jpg, tagline, and navigation button to ToysComeToPlaySneakPeekPage"
+          "description": "Update ShowsSection to display a '2028' or 'Coming 2028' badge for shows with a future year field, ensuring the Color Paint show is visually distinguished as an upcoming attraction"
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add characters Blippy and Jiffy to 'Toys Come to Play' with scene descriptions integrated into 22 scenes system",
+      "summary": "Add Kid Grove themed land coming in 2050 with 500,000 square feet, indicating Color Paint show will be located there, displayed as upcoming expansion",
       "acceptanceCriteria": [
-        "Blippy and Jiffy characters are mentioned in the haunted house description",
-        "Scene description 'out of breath and almost head' is incorporated into the scenes",
-        "Information about 22 different scenes is displayed in the haunted house detail page"
+        "Kid Grove land is added to appropriate content structure with 500,000 sq ft specification",
+        "Land information indicates 2050 opening date",
+        "Color Paint show description references Kid Grove as its location",
+        "Kid Grove announcement is visible in an appropriate section (upcoming features or expansions)"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/ToysComeToPlayPage.tsx",
-          "operation": "modify",
-          "description": "Add dedicated character showcase section featuring Blippy with image frontend/public/assets/generated/blippy-scene.dim_800x600.png and Jiffy with image frontend/public/assets/generated/jiffy-scene.dim_800x600.png in a two-column grid layout, include scene description 'out of breath and almost head' integrated with the 22 different scenes information display"
+          "path": "frontend/src/content/themedLands.ts",
+          "operation": "create",
+          "description": "Create new content file exporting themedLands array containing Kid Grove land with id, name 'Kid Grove', description highlighting kid-friendly theme, openingYear 2050, sizeSqFt 500000, status 'planned', and futureShows array referencing Color Paint. Follow the ThemedLand interface from backend.d.ts"
         },
         {
-          "path": "frontend/src/content/hauntedHouses.ts",
+          "path": "frontend/src/content/shows.ts",
           "operation": "modify",
-          "description": "Update 'Toys Come to Play' entry to prominently feature characters Blippy and Jiffy in the description, incorporate scene description 'out of breath and almost head', and explicitly mention the 22 different scenes as a key attraction feature"
+          "description": "Update Color Paint show description to reference Kid Grove as its future location, stating 'This show will be featured in the upcoming Kid Grove land opening in 2050'"
+        },
+        {
+          "path": "frontend/src/components/sections/UpcomingExpansionsSection.tsx",
+          "operation": "create",
+          "description": "Create section component that displays planned themed lands from themedLands.ts filtered by status 'planned', showing Kid Grove with opening year, size, and associated shows in a card layout with appropriate future expansion styling"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Import and add UpcomingExpansionsSection component to the home route after the ShowsSection to display Kid Grove and other future land announcements"
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add 2030 investment announcement featuring new costume characters and princesses",
+      "summary": "Add Dead Eyes merchandise booth selling shoes, clothes, autographs, and additional items, displayed in Merch Shops section",
       "acceptanceCriteria": [
-        "2030 investment announcement is visible on the site",
-        "All four new costume characters are listed: Lola the Rabbit, Asher the Rabbit, Max, and DD",
-        "Princesses section is included in the announcement",
-        "Content clearly indicates this is for 2030"
+        "Dead Eyes merch booth is added to merchShops.ts with name, items list including shoes, clothes, autographs, and additional merchandise",
+        "Booth appears in the Merch Shops section grid",
+        "Description reflects horror theme while showcasing the merchandise variety"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
-          "operation": "create",
-          "description": "Create announcement section for 2030 investment featuring banner text 'In 2030 we are getting our biggest investment for the kids', character showcase grid displaying Lola the Rabbit and Asher the Rabbit (her boyfriend) with image frontend/public/assets/generated/lola-asher-rabbits.dim_1000x600.png, Max with image frontend/public/assets/generated/max-character.dim_600x800.png, DD with image frontend/public/assets/generated/dd-character.dim_600x800.png, and mention of all new princesses"
+          "path": "frontend/src/content/merchShops.ts",
+          "operation": "modify",
+          "description": "Add Dead Eyes merch shop to the shops array with name 'Dead Eyes', items array including 'Horror-themed shoes', 'Exclusive clothing line', 'Character autographs', 'Collectible posters', 'Limited edition accessories', and additional horror merchandise items, with appropriate pricing (e.g., '$25-$75')"
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/content/generatedImages.ts",
           "operation": "modify",
-          "description": "Add CostumeCharacters2030Section component to the home page rendering sequence after AuditionsSection and before UpcomingEventsSection"
+          "description": "Add 'dead-eyes-merch' entry to merchShops category mapping to 'frontend/public/assets/generated/dead-eyes-merch.dim_800x600.png' to reference the AI-generated booth image"
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Add audition information for 2030 costume characters emphasizing vocal skills",
+      "summary": "Add Paint & Death split-concept food booth with paint-themed menu on one side and death-themed menu on the other, with creative horror-appropriate food names and descriptions",
       "acceptanceCriteria": [
-        "Audition section mentions vocal requirements for costume character roles",
-        "Clarification that 'some sing some don't' is included",
-        "Information is associated with the 2030 characters announcement"
+        "Food booth is added to foodBooths.ts with name indicating split concept",
+        "Menu includes distinct paint-themed items on one side with creative names and descriptions",
+        "Menu includes distinct death-themed items on the other side with horror-appropriate names and descriptions",
+        "Booth description explains the split concept clearly",
+        "Booth appears in Food Booths section with appropriate styling",
+        "Detail page shows complete menu for both sides"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/CostumeCharacters2030Section.tsx",
+          "path": "frontend/src/content/foodBooths.ts",
           "operation": "modify",
-          "description": "Add audition call-to-action subsection within the 2030 announcement featuring vocal skills emphasis with text 'if u want to audition just be vocal and some sing some don't', include button linking to costume character audition form or auditions page"
+          "description": "Add Paint & Death booth to foodBooths array with name 'Paint & Death', tagline highlighting the split concept (e.g., 'A Split Experience: Colorful Chaos Meets Dark Delights'), description explaining one side serves vibrant paint-themed cuisine while the other offers macabre death-themed items, and menu array containing paint-themed items (e.g., 'Splatter Burger - Colorful beef patty with rainbow sauces', 'Brushstroke Fries - Multi-colored seasoned fries', 'Canvas Shake - Swirled fruit smoothie') and death-themed items (e.g., 'Reaper's Ribs - Blackened BBQ ribs', 'Tombstone Pizza - Charcoal crust specialty pizza', 'Coffin Cake - Dark chocolate dessert')"
         },
         {
-          "path": "frontend/src/components/sections/AuditionsSection.tsx",
+          "path": "frontend/src/content/generatedImages.ts",
           "operation": "modify",
-          "description": "Update costume character audition card to include 2030 investment context, vocal skills requirement with note 'some sing some don't', and mention the new characters (Lola, Asher, Max, DD, princesses)"
+          "description": "Add 'paint-death-booth' entry to foodBooths category mapping to 'frontend/public/assets/generated/paint-death-booth.dim_1000x700.png' to reference the AI-generated split booth design image"
         },
         {
-          "path": "frontend/src/components/sections/auditions/CostumeCharacterAuditionSignupDialog.tsx",
+          "path": "frontend/src/pages/PaintDeathBoothPage.tsx",
           "operation": "create",
-          "description": "Create dialog form component for costume character audition submissions with fields for name, age, email, phone, vocal range/skills, musical skills, character preferences (referencing 2030 characters), performance preferences, physical limitations, schedule conflicts, experience, and Internet Identity authentication requirement, submitting via actor.submitCostumeCharacterAudition"
+          "description": "Create detail page component for Paint & Death booth following the pattern of existing food booth pages (e.g., CandyCaneCarnagePage.tsx), displaying booth image from generatedImages, description emphasizing the split concept, and two distinct menu sections labeled 'Paint Side Menu' and 'Death Side Menu' with all items from foodBooths.ts"
         },
         {
-          "path": "frontend/src/hooks/useAuditionSubmissions.ts",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add mutation hook useCostumeCharacterAuditionSubmission that maps UI form data to backend CostumeCharacterAuditionForm structure and calls actor.submitCostumeCharacterAudition, handling success/error states with toast notifications"
+          "description": "Add route for Paint & Death booth detail page at path '/food-booth/paint-death' following the pattern of other food booth routes"
+        },
+        {
+          "path": "frontend/src/components/sections/FoodBoothsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure Paint & Death booth card navigation uses slugified name 'paint-death' to route to the detail page at '/food-booth/paint-death'"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add Obsession Scream haunted house featuring Leslie character (terrifying teen with long purple hair) with detailed descriptions emphasizing psychological horror and obsession themes",
+      "acceptanceCriteria": [
+        "Obsession Scream haunted house is added to hauntedHouses.ts with name, tagline, and detailed description",
+        "Leslie character is prominently featured in the house description as a terrifying teen with long purple hair",
+        "House description emphasizes psychological horror and obsession themes",
+        "Haunted house appears in the Haunted Houses section grid",
+        "Detail page includes extreme horror warning and guest rules navigation",
+        "Leslie's character description highlights her threatening nature and distinctive appearance"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/hauntedHouses.ts",
+          "operation": "modify",
+          "description": "Add Obsession Scream to hauntedHouses array with name 'Obsession Scream', tagline emphasizing psychological horror (e.g., 'When Obsession Turns Deadly'), detailed description featuring Leslie as the main antagonist described as a terrifying teen with long purple hair who stalks victims through twisted corridors of her obsessive shrine, subScenes array including scenes like 'Leslie's Lair', 'Hall of Obsession', 'The Shrine Room', and location field"
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add 'obsession-scream' entry to hauntedHouses category mapping to 'frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png' to reference the AI-generated Leslie character portrait image"
+        },
+        {
+          "path": "frontend/src/pages/ObsessionScreamPage.tsx",
+          "operation": "create",
+          "description": "Create detail page component for Obsession Scream haunted house following the pattern of existing house pages (e.g., OpenIceTombPage.tsx, WaxWorksPage.tsx), displaying extreme horror warning alert, Leslie character image from generatedImages at frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png, house description highlighting Leslie's terrifying presence and long purple hair, tagline, and button to navigate to guest rules page with house parameter 'obsession-scream'"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add route for Obsession Scream detail page at path '/haunted-house/obsession-scream' following the pattern of other haunted house routes"
+        },
+        {
+          "path": "frontend/src/components/sections/HauntedHousesSection.tsx",
+          "operation": "modify",
+          "description": "Ensure Obsession Scream card navigation uses slugified name 'obsession-scream' to route to the detail page at '/haunted-house/obsession-scream', and displays the Leslie character image from generatedImages"
+        },
+        {
+          "path": "frontend/src/content/guestRules.ts",
+          "operation": "modify",
+          "description": "Add guest rules entry for Obsession Scream with key 'obsession-scream', including safety rules about psychological horror intensity, behavior rules about respecting boundaries with Leslie character encounters, and health warnings about strobe lights and confined spaces typical of obsession-themed horror"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Wire AI-generated Leslie character image (terrifying teen with long purple hair) for display on Obsession Scream haunted house card and detail page",
+      "acceptanceCriteria": [
+        "AI-generated image of Leslie (teen, long purple hair, terrifying) is created and stored in frontend/public/assets/generated/",
+        "Image is referenced in generatedImages.ts under haunted houses category",
+        "Image displays on Obsession Scream haunted house card and detail page",
+        "Image conveys horror atmosphere appropriate for the character"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Verify 'obsession-scream' entry in hauntedHouses category correctly maps to 'frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png' for the AI-generated Leslie character portrait showing a terrifying teen with long purple hair in horror atmosphere (this entry is already added in REQ-5)"
         }
       ]
     }

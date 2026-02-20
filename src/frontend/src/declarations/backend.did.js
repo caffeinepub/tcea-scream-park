@@ -19,11 +19,76 @@ export const AuditionLink = IDL.Record({
   'auditionType' : AuditionType,
   'description' : IDL.Text,
 });
+export const FoodTheme = IDL.Variant({
+  'paint' : IDL.Null,
+  'death' : IDL.Null,
+});
+export const FoodType = IDL.Variant({
+  'dessert' : IDL.Null,
+  'food' : IDL.Null,
+  'drink' : IDL.Null,
+});
+export const FoodItem = IDL.Record({
+  'theme' : FoodTheme,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'itemType' : FoodType,
+  'price' : IDL.Float64,
+  'allergens' : IDL.Vec(IDL.Text),
+  'specialNotes' : IDL.Text,
+});
+export const ThemedFoodBooth = IDL.Record({
+  'id' : IDL.Nat,
+  'deathMenu' : IDL.Vec(FoodItem),
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'location' : IDL.Text,
+  'paintMenu' : IDL.Vec(FoodItem),
+});
+export const AvailabilityStatus = IDL.Variant({
+  'inStock' : IDL.Null,
+  'outOfStock' : IDL.Null,
+  'limited' : IDL.Null,
+});
+export const ProductCategory = IDL.Variant({
+  'posters' : IDL.Null,
+  'skateboard' : IDL.Null,
+  'clothes' : IDL.Null,
+  'shoes' : IDL.Null,
+  'autograph' : IDL.Null,
+});
+export const Product = IDL.Record({
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'availability' : AvailabilityStatus,
+  'category' : ProductCategory,
+  'price' : IDL.Float64,
+});
+export const MerchShop = IDL.Record({
+  'id' : IDL.Nat,
+  'name' : IDL.Text,
+  'products' : IDL.Vec(Product),
+  'location' : IDL.Text,
+});
 export const RoomAssignment = IDL.Record({
   'role' : IDL.Text,
   'staffMember' : IDL.Text,
   'roomId' : IDL.Nat,
   'shiftTime' : IDL.Text,
+});
+export const LandStatus = IDL.Variant({
+  'open' : IDL.Null,
+  'underConstruction' : IDL.Null,
+  'planned' : IDL.Null,
+});
+export const ThemedLand = IDL.Record({
+  'id' : IDL.Nat,
+  'status' : LandStatus,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'openingYear' : IDL.Nat,
+  'sizeSqFt' : IDL.Nat,
+  'futureShows' : IDL.Vec(IDL.Nat),
 });
 export const UserRole = IDL.Variant({
   'admin' : IDL.Null,
@@ -256,7 +321,10 @@ export const StaffingCounts = IDL.Record({
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
   'addAuditionLink' : IDL.Func([AuditionLink], [], []),
+  'addFoodBooth' : IDL.Func([ThemedFoodBooth], [], []),
+  'addMerchShop' : IDL.Func([MerchShop], [], []),
   'addRoomAssignments' : IDL.Func([IDL.Vec(RoomAssignment)], [], []),
+  'addThemedLand' : IDL.Func([ThemedLand], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'clearAuditionLinks' : IDL.Func([], [], []),
   'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
@@ -277,10 +345,16 @@ export const idlService = IDL.Service({
       [],
     ),
   'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+  'deleteFoodBooth' : IDL.Func([IDL.Nat], [], []),
+  'deleteMerchShop' : IDL.Func([IDL.Nat], [], []),
+  'deleteThemedLand' : IDL.Func([IDL.Nat], [], []),
   'deleteTunnelMap' : IDL.Func([IDL.Nat], [], []),
   'deleteTunnelSchedule' : IDL.Func([IDL.Nat], [], []),
   'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
   'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getAllFoodBooths' : IDL.Func([], [IDL.Vec(ThemedFoodBooth)], ['query']),
+  'getAllMerchShops' : IDL.Func([], [IDL.Vec(MerchShop)], ['query']),
+  'getAllThemedLands' : IDL.Func([], [IDL.Vec(ThemedLand)], ['query']),
   'getAllTunnelMaps' : IDL.Func([], [IDL.Vec(TunnelMap)], ['query']),
   'getAllTunnelSchedules' : IDL.Func([], [IDL.Vec(TunnelSchedule)], ['query']),
   'getAttractions' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
@@ -295,8 +369,10 @@ export const idlService = IDL.Service({
     ),
   'getEventUnlockStatus' : IDL.Func([], [EventUnlockStatus], ['query']),
   'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+  'getFoodBooth' : IDL.Func([IDL.Nat], [IDL.Opt(ThemedFoodBooth)], ['query']),
   'getHauntedHouses' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+  'getMerchShop' : IDL.Func([IDL.Nat], [IDL.Opt(MerchShop)], ['query']),
   'getRoomAssignments' : IDL.Func(
       [],
       [IDL.Vec(IDL.Vec(RoomAssignment))],
@@ -305,6 +381,7 @@ export const idlService = IDL.Service({
   'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
   'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
+  'getThemedLand' : IDL.Func([IDL.Nat], [IDL.Opt(ThemedLand)], ['query']),
   'getTunnelMap' : IDL.Func([IDL.Nat], [IDL.Opt(TunnelMap)], ['query']),
   'getTunnelSchedule' : IDL.Func(
       [IDL.Nat],
@@ -334,7 +411,10 @@ export const idlService = IDL.Service({
     ),
   'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
   'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
+  'updateFoodBooth' : IDL.Func([IDL.Nat, ThemedFoodBooth], [], []),
   'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+  'updateMerchShop' : IDL.Func([IDL.Nat, MerchShop], [], []),
+  'updateThemedLand' : IDL.Func([IDL.Nat, ThemedLand], [], []),
   'updateTunnelMap' : IDL.Func([IDL.Nat, TunnelMap], [], []),
   'updateTunnelSchedule' : IDL.Func([IDL.Nat, TunnelSchedule], [], []),
 });
@@ -353,11 +433,73 @@ export const idlFactory = ({ IDL }) => {
     'auditionType' : AuditionType,
     'description' : IDL.Text,
   });
+  const FoodTheme = IDL.Variant({ 'paint' : IDL.Null, 'death' : IDL.Null });
+  const FoodType = IDL.Variant({
+    'dessert' : IDL.Null,
+    'food' : IDL.Null,
+    'drink' : IDL.Null,
+  });
+  const FoodItem = IDL.Record({
+    'theme' : FoodTheme,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'itemType' : FoodType,
+    'price' : IDL.Float64,
+    'allergens' : IDL.Vec(IDL.Text),
+    'specialNotes' : IDL.Text,
+  });
+  const ThemedFoodBooth = IDL.Record({
+    'id' : IDL.Nat,
+    'deathMenu' : IDL.Vec(FoodItem),
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'location' : IDL.Text,
+    'paintMenu' : IDL.Vec(FoodItem),
+  });
+  const AvailabilityStatus = IDL.Variant({
+    'inStock' : IDL.Null,
+    'outOfStock' : IDL.Null,
+    'limited' : IDL.Null,
+  });
+  const ProductCategory = IDL.Variant({
+    'posters' : IDL.Null,
+    'skateboard' : IDL.Null,
+    'clothes' : IDL.Null,
+    'shoes' : IDL.Null,
+    'autograph' : IDL.Null,
+  });
+  const Product = IDL.Record({
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'availability' : AvailabilityStatus,
+    'category' : ProductCategory,
+    'price' : IDL.Float64,
+  });
+  const MerchShop = IDL.Record({
+    'id' : IDL.Nat,
+    'name' : IDL.Text,
+    'products' : IDL.Vec(Product),
+    'location' : IDL.Text,
+  });
   const RoomAssignment = IDL.Record({
     'role' : IDL.Text,
     'staffMember' : IDL.Text,
     'roomId' : IDL.Nat,
     'shiftTime' : IDL.Text,
+  });
+  const LandStatus = IDL.Variant({
+    'open' : IDL.Null,
+    'underConstruction' : IDL.Null,
+    'planned' : IDL.Null,
+  });
+  const ThemedLand = IDL.Record({
+    'id' : IDL.Nat,
+    'status' : LandStatus,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'openingYear' : IDL.Nat,
+    'sizeSqFt' : IDL.Nat,
+    'futureShows' : IDL.Vec(IDL.Nat),
   });
   const UserRole = IDL.Variant({
     'admin' : IDL.Null,
@@ -584,7 +726,10 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
     'addAuditionLink' : IDL.Func([AuditionLink], [], []),
+    'addFoodBooth' : IDL.Func([ThemedFoodBooth], [], []),
+    'addMerchShop' : IDL.Func([MerchShop], [], []),
     'addRoomAssignments' : IDL.Func([IDL.Vec(RoomAssignment)], [], []),
+    'addThemedLand' : IDL.Func([ThemedLand], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'clearAuditionLinks' : IDL.Func([], [], []),
     'createContentItem' : IDL.Func([ContentItem], [IDL.Nat], []),
@@ -605,10 +750,16 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'deleteContentItem' : IDL.Func([IDL.Nat], [], []),
+    'deleteFoodBooth' : IDL.Func([IDL.Nat], [], []),
+    'deleteMerchShop' : IDL.Func([IDL.Nat], [], []),
+    'deleteThemedLand' : IDL.Func([IDL.Nat], [], []),
     'deleteTunnelMap' : IDL.Func([IDL.Nat], [], []),
     'deleteTunnelSchedule' : IDL.Func([IDL.Nat], [], []),
     'getAllAuditions' : IDL.Func([], [IDL.Vec(AuditionSubmission)], []),
     'getAllContentItems' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getAllFoodBooths' : IDL.Func([], [IDL.Vec(ThemedFoodBooth)], ['query']),
+    'getAllMerchShops' : IDL.Func([], [IDL.Vec(MerchShop)], ['query']),
+    'getAllThemedLands' : IDL.Func([], [IDL.Vec(ThemedLand)], ['query']),
     'getAllTunnelMaps' : IDL.Func([], [IDL.Vec(TunnelMap)], ['query']),
     'getAllTunnelSchedules' : IDL.Func(
         [],
@@ -627,8 +778,10 @@ export const idlFactory = ({ IDL }) => {
       ),
     'getEventUnlockStatus' : IDL.Func([], [EventUnlockStatus], ['query']),
     'getEvents' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
+    'getFoodBooth' : IDL.Func([IDL.Nat], [IDL.Opt(ThemedFoodBooth)], ['query']),
     'getHauntedHouses' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getMainHauntSchedule' : IDL.Func([], [IDL.Vec(EventDateRange)], ['query']),
+    'getMerchShop' : IDL.Func([IDL.Nat], [IDL.Opt(MerchShop)], ['query']),
     'getRoomAssignments' : IDL.Func(
         [],
         [IDL.Vec(IDL.Vec(RoomAssignment))],
@@ -637,6 +790,7 @@ export const idlFactory = ({ IDL }) => {
     'getScareZones' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getShows' : IDL.Func([], [IDL.Vec(ContentItem)], ['query']),
     'getStaffingCounts' : IDL.Func([], [StaffingCounts], ['query']),
+    'getThemedLand' : IDL.Func([IDL.Nat], [IDL.Opt(ThemedLand)], ['query']),
     'getTunnelMap' : IDL.Func([IDL.Nat], [IDL.Opt(TunnelMap)], ['query']),
     'getTunnelSchedule' : IDL.Func(
         [IDL.Nat],
@@ -666,7 +820,10 @@ export const idlFactory = ({ IDL }) => {
       ),
     'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
     'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
+    'updateFoodBooth' : IDL.Func([IDL.Nat, ThemedFoodBooth], [], []),
     'updateMainHauntSchedule' : IDL.Func([IDL.Vec(EventDateRange)], [], []),
+    'updateMerchShop' : IDL.Func([IDL.Nat, MerchShop], [], []),
+    'updateThemedLand' : IDL.Func([IDL.Nat, ThemedLand], [], []),
     'updateTunnelMap' : IDL.Func([IDL.Nat, TunnelMap], [], []),
     'updateTunnelSchedule' : IDL.Func([IDL.Nat, TunnelSchedule], [], []),
   });

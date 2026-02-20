@@ -36,6 +36,9 @@ export interface AuditionSubmission {
 export type AuditionType = { 'scareActor' : null } |
   { 'costumeCharacter' : null } |
   { 'danceActor' : null };
+export type AvailabilityStatus = { 'inStock' : null } |
+  { 'outOfStock' : null } |
+  { 'limited' : null };
 export interface Connection {
   'fromRoomId' : bigint,
   'tunnelSection' : string,
@@ -105,6 +108,20 @@ export interface EventUnlockStatus {
   'hasFireworks' : boolean,
   'hasFlynAppearance' : boolean,
 }
+export interface FoodItem {
+  'theme' : FoodTheme,
+  'name' : string,
+  'description' : string,
+  'itemType' : FoodType,
+  'price' : number,
+  'allergens' : Array<string>,
+  'specialNotes' : string,
+}
+export type FoodTheme = { 'paint' : null } |
+  { 'death' : null };
+export type FoodType = { 'dessert' : null } |
+  { 'food' : null } |
+  { 'drink' : null };
 export interface HauntedHouseCharacter {
   'voiceType' : VoiceType,
   'name' : string,
@@ -118,12 +135,33 @@ export interface HauntedHouseSpecificFields {
   'sceneDescriptions' : Array<string>,
   'scareLevel' : ScareLevel,
 }
+export type LandStatus = { 'open' : null } |
+  { 'underConstruction' : null } |
+  { 'planned' : null };
 export interface Location { 'x' : bigint, 'y' : bigint }
+export interface MerchShop {
+  'id' : bigint,
+  'name' : string,
+  'products' : Array<Product>,
+  'location' : string,
+}
 export type PerformanceType = { 'interactive' : null } |
   { 'theatrical' : null } |
   { 'stunt' : null } |
   { 'dance' : null } |
   { 'musical' : null };
+export interface Product {
+  'name' : string,
+  'description' : string,
+  'availability' : AvailabilityStatus,
+  'category' : ProductCategory,
+  'price' : number,
+}
+export type ProductCategory = { 'posters' : null } |
+  { 'skateboard' : null } |
+  { 'clothes' : null } |
+  { 'shoes' : null } |
+  { 'autograph' : null };
 export interface Room {
   'id' : bigint,
   'name' : string,
@@ -185,6 +223,23 @@ export interface StaffingCounts {
   'princessPerformers' : bigint,
   'hauntedHouseActors' : bigint,
 }
+export interface ThemedFoodBooth {
+  'id' : bigint,
+  'deathMenu' : Array<FoodItem>,
+  'name' : string,
+  'description' : string,
+  'location' : string,
+  'paintMenu' : Array<FoodItem>,
+}
+export interface ThemedLand {
+  'id' : bigint,
+  'status' : LandStatus,
+  'name' : string,
+  'description' : string,
+  'openingYear' : bigint,
+  'sizeSqFt' : bigint,
+  'futureShows' : Array<bigint>,
+}
 export type Time = bigint;
 export interface TimeSlot { 'startTime' : string, 'endTime' : string }
 export interface TunnelMap {
@@ -225,7 +280,10 @@ export type ZoneLocation = { 'both' : null } |
 export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'addAuditionLink' : ActorMethod<[AuditionLink], undefined>,
+  'addFoodBooth' : ActorMethod<[ThemedFoodBooth], undefined>,
+  'addMerchShop' : ActorMethod<[MerchShop], undefined>,
   'addRoomAssignments' : ActorMethod<[Array<RoomAssignment>], undefined>,
+  'addThemedLand' : ActorMethod<[ThemedLand], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'clearAuditionLinks' : ActorMethod<[], undefined>,
   'createContentItem' : ActorMethod<[ContentItem], bigint>,
@@ -238,10 +296,16 @@ export interface _SERVICE {
     bigint
   >,
   'deleteContentItem' : ActorMethod<[bigint], undefined>,
+  'deleteFoodBooth' : ActorMethod<[bigint], undefined>,
+  'deleteMerchShop' : ActorMethod<[bigint], undefined>,
+  'deleteThemedLand' : ActorMethod<[bigint], undefined>,
   'deleteTunnelMap' : ActorMethod<[bigint], undefined>,
   'deleteTunnelSchedule' : ActorMethod<[bigint], undefined>,
   'getAllAuditions' : ActorMethod<[], Array<AuditionSubmission>>,
   'getAllContentItems' : ActorMethod<[], Array<ContentItem>>,
+  'getAllFoodBooths' : ActorMethod<[], Array<ThemedFoodBooth>>,
+  'getAllMerchShops' : ActorMethod<[], Array<MerchShop>>,
+  'getAllThemedLands' : ActorMethod<[], Array<ThemedLand>>,
   'getAllTunnelMaps' : ActorMethod<[], Array<TunnelMap>>,
   'getAllTunnelSchedules' : ActorMethod<[], Array<TunnelSchedule>>,
   'getAttractions' : ActorMethod<[], Array<ContentItem>>,
@@ -252,12 +316,15 @@ export interface _SERVICE {
   'getEmployeeUpcomingEvents' : ActorMethod<[Date], Array<UpcomingEvent>>,
   'getEventUnlockStatus' : ActorMethod<[], EventUnlockStatus>,
   'getEvents' : ActorMethod<[], Array<ContentItem>>,
+  'getFoodBooth' : ActorMethod<[bigint], [] | [ThemedFoodBooth]>,
   'getHauntedHouses' : ActorMethod<[], Array<ContentItem>>,
   'getMainHauntSchedule' : ActorMethod<[], Array<EventDateRange>>,
+  'getMerchShop' : ActorMethod<[bigint], [] | [MerchShop]>,
   'getRoomAssignments' : ActorMethod<[], Array<Array<RoomAssignment>>>,
   'getScareZones' : ActorMethod<[], Array<ContentItem>>,
   'getShows' : ActorMethod<[], Array<ContentItem>>,
   'getStaffingCounts' : ActorMethod<[], StaffingCounts>,
+  'getThemedLand' : ActorMethod<[bigint], [] | [ThemedLand]>,
   'getTunnelMap' : ActorMethod<[bigint], [] | [TunnelMap]>,
   'getTunnelSchedule' : ActorMethod<[bigint], [] | [TunnelSchedule]>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
@@ -274,7 +341,10 @@ export interface _SERVICE {
   'submitScareActorAudition' : ActorMethod<[ScareActorAuditionForm], boolean>,
   'updateAuditionLink' : ActorMethod<[bigint, AuditionLink], undefined>,
   'updateContentItem' : ActorMethod<[bigint, ContentItem], undefined>,
+  'updateFoodBooth' : ActorMethod<[bigint, ThemedFoodBooth], undefined>,
   'updateMainHauntSchedule' : ActorMethod<[Array<EventDateRange>], undefined>,
+  'updateMerchShop' : ActorMethod<[bigint, MerchShop], undefined>,
+  'updateThemedLand' : ActorMethod<[bigint, ThemedLand], undefined>,
   'updateTunnelMap' : ActorMethod<[bigint, TunnelMap], undefined>,
   'updateTunnelSchedule' : ActorMethod<[bigint, TunnelSchedule], undefined>,
 }

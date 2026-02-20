@@ -1,46 +1,60 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Horror theme park website with ticketing, events calendar, auditions, employee portal with secret tunnels, haunted houses including 'Toys Come to Play', and 2030 expansion plans featuring new costume characters",
+  "summary": "Theme park app featuring multiple attractions: haunted houses (Obsession Scream with character Leslie), shows (Color Paint 2028 kid-friendly show with 5 characters including Celeste the unicorn and Cosmo the dog), lands (Kid Grove 500,000 sq ft coming 2050), merch booth (Dead Eyes), and food booth (Paint & Death split booth)",
   "architectural_notes": [
-    "Employee Portal contains Secret Tunnels section with room assignments and interactive map",
-    "Haunted Houses section displays multiple themed attractions with character and scene information",
-    "Auditions section separated by role type (makeup artists vs SFX artists)",
-    "2030 expansion features new costume character categories and updated audition requirements"
+    "Theme park app with multiple attraction types: shows, haunted houses, lands, merch booths, and food booths",
+    "AI-generated character images for attraction characters"
   ],
   "known_issues": [],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Haunted house exterior photo showing toy-themed horror attraction with prominent entrance (toys-come-to-play-exterior.dim_1200x600.png)\n- Interior scene showing Blippy character in creepy toy setting with dark atmospheric lighting (blippy-scene.dim_800x600.png)\n- Interior scene showing Jiffy character in menacing pose among scattered toys (jiffy-scene.dim_800x600.png)\n- Promotional banner showing Lola the Rabbit and Asher the Rabbit costume characters in friendly pose (lola-asher-rabbits.dim_1000x600.png)\n- Character illustration of Max costume character in vibrant family-friendly style (max-character.dim_600x800.png)\n- Character illustration of DD costume character in colorful cheerful design (dd-character.dim_600x800.png)",
+  "imageRequirements": "## Required Images\n- Leslie character portrait: terrifying teen with long purple hair in horror atmosphere, dark background with ominous lighting (leslie-obsession-scream.dim_800x1000.png)\n- Celeste the unicorn character: kid-friendly colorful unicorn with energetic pose for Color Paint show (celeste-unicorn.dim_600x600.png)\n- Cosmo the dog character: high-energy kid-friendly dog character for Color Paint show (cosmo-dog.dim_600x600.png)\n- Dead Eyes merch booth exterior: horror-themed merchandise shop with shoes, clothes, and autograph displays (dead-eyes-merch.dim_800x600.png)\n- Paint & Death food booth: split design showing paint-themed side and death-themed side in one booth (paint-death-booth.dim_1000x700.png)",
   "existing_features": [
     {
-      "id": "feature-add-toys-come-to-play-haunted-house-to-the-haunted-houses-section-with-tagline-never-talk-back-we-just-want-to-rip-ur-head-off",
-      "title": "Add 'Toys Come to Play' haunted house to the Haunted Houses section with tagline 'never talk back we just want to rip ur head off'",
+      "id": "feature-add-a-new-kid-friendly-show-called-color-paint-scheduled-for-2028-with-5-high-energy-characters-celeste-the-unicorn-cosmo-the-dog-and-3-additional-kid-friendly-characters-display-in-the-shows-section-with-appropriate-badge-indicating-it-s-a-future-show",
+      "title": "Add a new kid-friendly show called 'Color Paint' scheduled for 2028 with 5 high-energy characters: Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters. Display in the Shows section with appropriate badge indicating it's a future show.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-characters-blippy-and-jiffy-to-toys-come-to-play-haunted-house-with-scene-description-out-of-breath-and-almost-head-integrated-into-the-22-different-scenes-information-system",
-      "title": "Add characters Blippy and Jiffy to 'Toys Come to Play' haunted house with scene description 'out of breath and almost head' integrated into the 22 different scenes information system",
+      "id": "feature-add-a-new-themed-land-called-kid-grove-coming-in-2050-with-500-000-square-feet-indicate-that-color-paint-show-will-be-located-in-this-land-display-as-an-upcoming-expansion-announcement",
+      "title": "Add a new themed land called 'Kid Grove' coming in 2050 with 500,000 square feet. Indicate that Color Paint show will be located in this land. Display as an upcoming expansion announcement.",
       "reqIds": [
         "REQ-2"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-2030-investment-announcement-featuring-new-costume-characters-lola-the-rabbit-asher-the-rabbit-her-boyfriend-max-and-dd-plus-all-new-princesses",
-      "title": "Add 2030 investment announcement featuring new costume characters: Lola the Rabbit, Asher the Rabbit (her boyfriend), Max, and DD, plus all new princesses",
+      "id": "feature-add-a-new-merchandise-booth-called-dead-eyes-that-sells-shoes-clothes-autographs-and-additional-merchandise-items-display-in-the-merch-shops-section",
+      "title": "Add a new merchandise booth called 'Dead Eyes' that sells shoes, clothes, autographs, and additional merchandise items. Display in the Merch Shops section.",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-audition-information-for-2030-costume-characters-emphasizing-vocal-skills-with-note-that-some-sing-some-don-t",
-      "title": "Add audition information for 2030 costume characters emphasizing vocal skills with note that 'some sing some don't'",
+      "id": "feature-add-a-new-split-concept-food-booth-combining-paint-themed-and-death-themed-cuisine-one-side-serves-paint-themed-menu-items-the-other-serves-death-themed-items-create-complete-menus-for-both-sides-with-creative-horror-appropriate-food-names-and-descriptions",
+      "title": "Add a new split-concept food booth combining paint-themed and death-themed cuisine. One side serves paint-themed menu items, the other serves death-themed items. Create complete menus for both sides with creative horror-appropriate food names and descriptions.",
       "reqIds": [
         "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-haunted-house-called-obsession-scream-featuring-the-character-leslie-a-terrifying-teen-with-long-purple-hair-create-a-detailed-description-for-both-the-haunted-house-and-leslie-s-character-emphasizing-horror-elements-appropriate-for-a-teen-antagonist",
+      "title": "Add a new haunted house called 'Obsession Scream' featuring the character Leslie, a terrifying teen with long purple hair. Create a detailed description for both the haunted house and Leslie's character, emphasizing horror elements appropriate for a teen antagonist.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-an-ai-image-of-leslie-character-a-terrifying-teen-with-long-purple-hair-in-a-horror-context-use-this-image-for-the-obsession-scream-haunted-house-display",
+      "title": "Generate an AI image of Leslie character: a terrifying teen with long purple hair in a horror context. Use this image for the Obsession Scream haunted house display.",
+      "reqIds": [
+        "REQ-6"
       ],
       "version": 1
     }
@@ -48,31 +62,31 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add 'Toys Come to Play' haunted house with Blippy and Jiffy characters, 22 scenes, and tagline",
+      "summary": "Add Color Paint show (2028) with 5 kid-friendly characters including Celeste the unicorn and Cosmo the dog",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Add 2030 investment announcement with new costume characters (Lola, Asher, Max, DD) and princesses section with audition info",
+      "summary": "Add Kid Grove land (500,000 sq ft, coming 2050) to house Color Paint show",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "Create Room Assignments page in Secret Tunnels area showing tunnel room assignments by role",
+      "summary": "Add Dead Eyes merch booth selling shoes, clothes, autographs, and more",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-4",
-      "summary": "Build interactive tunnel map with clickable floor plan showing all rooms (makeup, haunted house entrances, hot tubs, game room, cafeteria, security)",
+      "summary": "Add Paint & Death split food booth with menus for both paint-themed and death-themed sides",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-5",
-      "summary": "Add auditions schedules: makeup artists (March) in Auditions section, SFX artists in Employee Portal",
+      "summary": "Add Obsession Scream haunted house with character Leslie (terrifying teen with long purple hair)",
       "reqIds": [],
       "status": "pending"
     }

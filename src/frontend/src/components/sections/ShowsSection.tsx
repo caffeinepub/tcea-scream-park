@@ -31,11 +31,18 @@ export function ShowsSection() {
                   <CardTitle className="text-2xl text-destructive bloody-text">
                     {show.name}
                   </CardTitle>
-                  {show.hauntSeasonOnly && (
-                    <Badge variant="destructive" className="shrink-0">
-                      Haunt Season Only
-                    </Badge>
-                  )}
+                  <div className="flex flex-col gap-2 shrink-0">
+                    {show.hauntSeasonOnly && (
+                      <Badge variant="destructive">
+                        Haunt Season Only
+                      </Badge>
+                    )}
+                    {show.year && (
+                      <Badge variant="outline" className="border-primary text-primary">
+                        Coming {show.year}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>

@@ -1,310 +1,161 @@
 import Map "mo:core/Map";
 import List "mo:core/List";
 import Nat "mo:core/Nat";
-import AccessControl "authorization/access-control";
-import Principal "mo:core/Principal";
 
 module {
-  public type Date = {
-    year : Nat;
-    month : Nat;
-    day : Nat;
+  type OldActor = {/* previous state without kid grove etc. */ };
+  type NewActor = {
+    /* new state including kid grove etc. */
+    themedLands : Map.Map<Nat, NewThemedLand>;
+    merchShops : Map.Map<Nat, NewMerchShop>;
+    foodBooths : Map.Map<Nat, NewThemedFoodBooth>;
+    nextLandId : Nat;
+    nextShopId : Nat;
+    nextBoothId : Nat;
   };
 
-  public type EventDateRange = {
-    startDate : Date;
-    endDate : Date;
-  };
-
-  public type EventSpecificFields = {
-    eventType : {
-      #seasonal;
-      #special;
-      #holiday;
-      #specialEvent;
-      #convention;
-    };
-  };
-
-  public type ScareZoneSpecificFields = {
-    scareLevel : {
-      #mild;
-      #moderate;
-      #extreme;
-    };
-    indoorOutdoor : {
-      #indoor;
-      #outdoor;
-      #both;
-    };
-    yearIntroduced : ?Nat;
-  };
-
-  public type ShowSpecificFields = {
-    performanceType : {
-      #musical;
-      #theatrical;
-      #dance;
-      #interactive;
-      #stunt;
-    };
-    yearIntroduced : ?Nat;
-  };
-
-  public type AttractionSpecificFields = {
-    ageRestriction : {
-      #none;
-      #kids;
-      #teens;
-      #adultsOnly;
-    };
-    hasGuidedTour : Bool;
-    yearIntroduced : ?Nat;
-  };
-
-  public type ContentType = {
-    #event : EventSpecificFields;
-    #scareZone : ScareZoneSpecificFields;
-    #show : ShowSpecificFields;
-    #attraction : AttractionSpecificFields;
-  };
-
-  public type ContentItem = {
+  // Additional Types for New Entities in Migration
+  type NewThemedLand = {
     id : Nat;
     name : Text;
     description : Text;
-    customType : ContentType;
-    dates : [EventDateRange];
-    useMainHauntSchedule : Bool;
+    openingYear : Nat;
+    sizeSqFt : Nat;
+    futureShows : [Nat];
+    status : LandStatus;
   };
+  type LandStatus = { #planned; #underConstruction; #open };
 
-  public type ScareActorAuditionForm = {
-    name : Text;
-    age : ?Nat;
-    phone : Text;
-    email : Text;
-    experience : Text;
-    specialSkills : Text;
-    availability : Text;
-    previousWork : Text;
-    referredBy : Text;
-    whyScaryRole : Text;
-    physicalLimitations : Text;
-    favoriteCharacterType : Text;
-    preferredScareType : Text;
-    preferenceOutfitType : Text;
-    conflictSchedule : Text;
-    preferedWorkingCondition : Text;
-    operationAgreeStatus : Text;
-  };
-
-  public type DanceAuditionForm = {
-    name : Text;
-    age : ?Nat;
-    phone : Text;
-    email : Text;
-    experience : Text;
-    danceStyles : Text;
-    availability : Text;
-    previousWork : Text;
-    referredBy : Text;
-    whyDancing : Text;
-    physicalLimitations : Text;
-    favoriteDanceType : Text;
-    performanceExperience : Text;
-    costumePreferences : Text;
-    scheduleConflicts : Text;
-    workingConditions : Text;
-    operationAgreeStatus : Text;
-  };
-
-  public type AuditionType = {
-    #scareActor;
-    #danceActor;
-  };
-
-  public type AuditionSubmission = {
-    submitter : Principal.Principal;
-    auditionType : AuditionType;
-    formData : {
-      #scareActor : ScareActorAuditionForm;
-      #danceActor : DanceAuditionForm;
-    };
-    submissionTime : Int;
-  };
-
-  public type AuditionLink = {
-    title : Text;
-    url : Text;
-    description : Text;
-    auditionType : AuditionType;
-  };
-
-  type ActorOld = {
-    accessControlState : AccessControl.AccessControlState;
-    userProfiles : Map.Map<Principal.Principal, { name : Text }>;
-    auditions : List.List<AuditionSubmission>;
-    auditionLinks : [AuditionLink];
-    contentItems : Map.Map<Nat, ContentItem>;
-    nextContentId : Nat;
-    mainHauntSchedule : [EventDateRange];
-  };
-
-  public type HauntedHouseCharacter = {
-    name : Text;
-    description : Text;
-    voiceType : {
-      #creepy;
-      #playful;
-      #highPitch;
-      #lowPitch;
-      #silent;
-    };
-    scareType : {
-      #jumpScare;
-      #psychological;
-      #physical;
-      #ambient;
-      #interactive;
-    };
-  };
-
-  public type HauntedHouseSpecificFields = {
-    scareLevel : {
-      #mild;
-      #moderate;
-      #extreme;
-    };
-    characters : [HauntedHouseCharacter];
-    sceneDescriptions : [Text];
-    yearIntroduced : ?Nat;
-    tagline : Text;
-  };
-
-  public type CostumeCharacterAuditionForm = {
-    name : Text;
-    age : ?Nat;
-    phone : Text;
-    email : Text;
-    experience : Text;
-    characterVoices : Text;
-    musicalSkills : Text;
-    performancePreferences : Text;
-    whyAudition : Text;
-    costumePreferences : Text;
-    vocalRange : Text;
-    scheduleConflicts : Text;
-    physicalLimitations : Text;
-    referredBy : Text;
-    operationAgreeStatus : Text;
-  };
-
-  public type AuditionTypeNew = {
-    #scareActor;
-    #danceActor;
-    #costumeCharacter;
-  };
-
-  public type AuditionSubmissionNew = {
-    submitter : Principal.Principal;
-    auditionType : AuditionTypeNew;
-    formData : {
-      #scareActor : ScareActorAuditionForm;
-      #danceActor : DanceAuditionForm;
-      #costumeCharacter : CostumeCharacterAuditionForm;
-    };
-    submissionTime : Int;
-  };
-
-  public type AuditionLinkNew = {
-    title : Text;
-    url : Text;
-    description : Text;
-    auditionType : AuditionTypeNew;
-  };
-
-  public type ContentTypeNew = {
-    #event : EventSpecificFields;
-    #scareZone : ScareZoneSpecificFields;
-    #show : ShowSpecificFields;
-    #attraction : AttractionSpecificFields;
-    #hauntedHouse : HauntedHouseSpecificFields;
-  };
-
-  public type ContentItemNew = {
+  type NewMerchShop = {
     id : Nat;
     name : Text;
+    products : [Product];
+    location : Text;
+  };
+  type Product = {
+    name : Text;
+    price : Float;
+    category : ProductCategory;
     description : Text;
-    customType : ContentTypeNew;
-    dates : [EventDateRange];
-    useMainHauntSchedule : Bool;
+    availability : AvailabilityStatus;
   };
+  type ProductCategory = { #shoes; #clothes; #autograph; #skateboard; #posters };
+  type AvailabilityStatus = { #inStock; #limited; #outOfStock };
 
-  type ActorNew = {
-    accessControlState : AccessControl.AccessControlState;
-    userProfiles : Map.Map<Principal.Principal, { name : Text }>;
-    auditions : List.List<AuditionSubmissionNew>;
-    auditionLinks : [AuditionLinkNew];
-    contentItems : Map.Map<Nat, ContentItemNew>;
-    nextContentId : Nat;
-    mainHauntSchedule : [EventDateRange];
+  type NewThemedFoodBooth = {
+    id : Nat;
+    name : Text;
+    paintMenu : [FoodItem];
+    deathMenu : [FoodItem];
+    location : Text;
+    description : Text;
   };
+  type FoodItem = {
+    name : Text;
+    price : Float;
+    description : Text;
+    theme : FoodTheme;
+    itemType : FoodType;
+    specialNotes : Text;
+    allergens : [Text];
+  };
+  type FoodTheme = { #paint; #death };
+  type FoodType = { #food; #drink; #dessert };
 
-  public func run(old : ActorOld) : ActorNew {
-    let auditions = old.auditions.map<AuditionSubmission, AuditionSubmissionNew>(
-      func(oldSubmission) {
-        {
-          submitter = oldSubmission.submitter;
-          auditionType = switch (oldSubmission.auditionType) {
-            case (#scareActor) { #scareActor };
-            case (#danceActor) { #danceActor };
-          };
-          formData = switch (oldSubmission.formData) {
-            case (#scareActor(data)) { #scareActor(data) };
-            case (#danceActor(data)) { #danceActor(data) };
-          };
-          submissionTime = oldSubmission.submissionTime;
-        };
-      }
-    );
+  public func run(old : OldActor) : NewActor {
+    let themedLands = Map.empty<Nat, NewThemedLand>();
+    let merchShops = Map.empty<Nat, NewMerchShop>();
+    let foodBooths = Map.empty<Nat, NewThemedFoodBooth>();
 
-    let auditionLinks = old.auditionLinks.map<AuditionLink, AuditionLinkNew>(
-      func(oldLink) {
-        {
-          title = oldLink.title;
-          url = oldLink.url;
-          description = oldLink.description;
-          auditionType = switch (oldLink.auditionType) {
-            case (#scareActor) { #scareActor };
-            case (#danceActor) { #danceActor };
-          };
-        };
-      }
-    );
+    let kidGroveLand : NewThemedLand = {
+      id = 1;
+      name = "Kid Grove";
+      description = "A kid-friendly themed land featuring vibrant colors and fun attractions.";
+      openingYear = 2050;
+      sizeSqFt = 500_000;
+      futureShows = [10];
+      status = #planned;
+    };
+    themedLands.add(1, kidGroveLand);
 
-    let contentItems = old.contentItems.map<Nat, ContentItem, ContentItemNew>(
-      func(_id, oldContentItem) {
+    let deadEyesShop : NewMerchShop = {
+      id = 1;
+      name = "Dead Eyes";
+      products = [
         {
-          id = oldContentItem.id;
-          name = oldContentItem.name;
-          description = oldContentItem.description;
-          customType = switch (oldContentItem.customType) {
-            case (#event(data)) { #event(data) };
-            case (#scareZone(data)) { #scareZone(data) };
-            case (#show(data)) { #show(data) };
-            case (#attraction(data)) { #attraction(data) };
-          };
-          dates = oldContentItem.dates;
-          useMainHauntSchedule = oldContentItem.useMainHauntSchedule;
-        };
-      }
-    );
+          name = "Signature Shoes";
+          price = 49.99;
+          category = #shoes;
+          description = "High-quality shoes with unique designs.";
+          availability = #inStock;
+        },
+        {
+          name = "Autographed Posters";
+          price = 29.99;
+          category = #autograph;
+          description = "Posters signed by popular characters.";
+          availability = #limited;
+        },
+      ];
+      location = "Main Street";
+    };
+    merchShops.add(1, deadEyesShop);
+
+    let themedFoodBooth : NewThemedFoodBooth = {
+      id = 1;
+      name = "Paint & Death Eats";
+      paintMenu = [
+        {
+          name = "Rainbow Burger";
+          price = 12.99;
+          description = "A colorful burger with vibrant sauces and toppings.";
+          theme = #paint;
+          itemType = #food;
+          specialNotes = "Contains gluten and dairy";
+          allergens = ["gluten", "dairy"];
+        },
+        {
+          name = "Unicorn Shake";
+          price = 6.99;
+          description = "A magical, colorful milkshake topped with whipped cream and sprinkles.";
+          theme = #paint;
+          itemType = #drink;
+          specialNotes = "Contains dairy";
+          allergens = ["dairy"];
+        },
+      ];
+      deathMenu = [
+        {
+          name = "Tombstone Tacos";
+          price = 10.99;
+          description = "Dark-themed tacos with a spooky presentation.";
+          theme = #death;
+          itemType = #food;
+          specialNotes = "Gluten free";
+          allergens = [];
+        },
+        {
+          name = "Bloody Mary Deluxe";
+          price = 8.99;
+          description = "A premium Bloody Mary with horror-themed garnishes.";
+          theme = #death;
+          itemType = #drink;
+          specialNotes = "Spicy";
+          allergens = [];
+        },
+      ];
+      location = "Food Court";
+      description = "A food booth with two distinctive menus - paint-themed and death-themed cuisine.";
+    };
+    foodBooths.add(1, themedFoodBooth);
 
     {
-      old with
-      auditions;
-      auditionLinks;
-      contentItems
+      old with themedLands;
+      merchShops;
+      foodBooths;
+      nextLandId = 2;
+      nextShopId = 2;
+      nextBoothId = 2;
     };
   };
 };

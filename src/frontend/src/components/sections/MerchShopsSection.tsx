@@ -15,7 +15,7 @@ export function MerchShopsSection() {
     ? merchProducts 
     : merchProducts.filter(p => p.category === selectedCategory);
 
-  const felixBoothImage = generatedImages.merch?.['Felix Merch Booth'];
+  const felixBoothImage = generatedImages.other['Felix Merch Booth'];
 
   return (
     <Section

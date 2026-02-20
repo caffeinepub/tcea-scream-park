@@ -15,7 +15,7 @@ export function AboutAttractionSection() {
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden">
           <div className="relative h-96 overflow-hidden">
             <img
-              src={generatedImages.attraction.exterior}
+              src="/assets/generated/attraction-exterior.dim_1600x900.jpg"
               alt="TCEA Scream Park Exterior"
               className="w-full h-full object-cover"
             />

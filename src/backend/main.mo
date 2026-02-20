@@ -11,7 +11,7 @@ import Migration "migration";
 
 (with migration = Migration.run)
 actor {
-  // ----------- General Types -----------
+  // ----------- Core Content Types -----------
   public type Date = {
     year : Nat;
     month : Nat; // 1-12
@@ -23,7 +23,6 @@ actor {
     endDate : Date;
   };
 
-  // Shared CMS Content Type
   public type ContentItem = {
     id : Nat;
     name : Text;
@@ -33,7 +32,6 @@ actor {
     useMainHauntSchedule : Bool;
   };
 
-  // ContentType Enumeration
   public type ContentType = {
     #event : EventSpecificFields;
     #scareZone : ScareZoneSpecificFields;
@@ -42,7 +40,6 @@ actor {
     #hauntedHouse : HauntedHouseSpecificFields;
   };
 
-  // Additional Fields for Each Type
   public type EventSpecificFields = {
     eventType : EventType;
   };
@@ -556,9 +553,25 @@ actor {
           ];
           useMainHauntSchedule = false;
         },
-        // New Scare Zone
         {
           id = 10;
+          name = "Color Paint";
+          description = "A vibrant and kid-friendly show featuring Celeste the unicorn, Cosmo the dog, and three other high-energy characters. Scheduled for 2028 in the upcoming Kid Grove themed land.";
+          customType = #show({
+            performanceType = #theatrical;
+            yearIntroduced = ?2028;
+          });
+          dates = [
+            {
+              startDate = { year = 2028; month = 1; day = 1 };
+              endDate = { year = 2028; month = 12; day = 31 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        // New Scare Zone
+        {
+          id = 11;
           name = "zombie hell";
           description = "Venture into the depths of the undead world. This English horror-style scare zone will challenge your senses with intense scares, realistic zombies, and a truly haunting ambiance. Coming in 2027.";
           customType = #scareZone({
@@ -576,7 +589,7 @@ actor {
         },
         // New 2028 Procession Event
         {
-          id = 11;
+          id = 12;
           name = "2028 Procession";
           description = "Prepare for a spine-tingling journey through our annual procession. This English horror-style event features detailed costumes, eerie floats, and a frightful parade. Scary Rules: All participants must be aware of sudden scares, loud noises, and strictly follow the procession path. Participation is at your own risk!";
           customType = #event({
@@ -592,7 +605,7 @@ actor {
         },
         // Haunted House Section
         {
-          id = 12;
+          id = 13;
           name = "Toys Come to Play";
           description = "Step into a world where childhood toys turn into haunting nightmares. This haunted house is filled with unsettling characters and terrifying scenes that will make you question everything you once loved. Never talk back, we just want to rip your head off.";
           customType = #hauntedHouse({
@@ -626,12 +639,42 @@ actor {
           ];
           useMainHauntSchedule = false;
         },
+        {
+          id = 14;
+          name = "Obsession Scream";
+          description = "Step into the twisted mind of Leslie, a terrifying teen with long purple hair. This haunted house features intense scenes of psychological horror, scream-inducing jump scares, and a relentless pursuit by Leslie herself. Are you brave enough to face your obsessions?";
+          customType = #hauntedHouse({
+            scareLevel = #extreme;
+            characters = [
+              {
+                name = "Leslie";
+                description = "A teen with long purple hair, obsessed with causing fear and chaos. Leslie is known for her sudden mood swings and unpredictable behavior.";
+                voiceType = #creepy;
+                scareType = #psychological;
+              },
+            ];
+            sceneDescriptions = [
+              "Navigate through a series of rooms filled with Leslie's twisted creations.",
+              "Experience intense psychological horror and mind-bending illusions.",
+              "Face Leslie in the final showdown, where your fears become reality."
+            ];
+            yearIntroduced = ?2025;
+            tagline = "Face your fears. Embrace the screams. Survive Obsession Scream.";
+          });
+          dates = [
+            {
+              startDate = { year = 2025; month = 9; day = 15 };
+              endDate = { year = 2025; month = 11; day = 1 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
       ];
 
       for (item in initialContent.values()) {
         contentItems.add(item.id, item);
       };
-      nextContentId := 13;
+      nextContentId := 15;
     };
   };
 
@@ -1084,5 +1127,157 @@ actor {
 
     tunnelSchedules.clear();
     tunnelSchedules.addAll(filteredSchedules.values());
+  };
+
+  // ----------- New Entities: Kid Grove, Dead Eyes, Themed Food Booth -----------
+  public type ThemedLand = {
+    id : Nat;
+    name : Text;
+    description : Text;
+    openingYear : Nat;
+    sizeSqFt : Nat;
+    futureShows : [Nat];
+    status : LandStatus;
+  };
+
+  public type LandStatus = { #planned; #underConstruction; #open };
+
+  public type MerchShop = {
+    id : Nat;
+    name : Text;
+    products : [Product];
+    location : Text;
+  };
+
+  public type Product = {
+    name : Text;
+    price : Float;
+    category : ProductCategory;
+    description : Text;
+    availability : AvailabilityStatus;
+  };
+
+  public type ProductCategory = { #shoes; #clothes; #autograph; #skateboard; #posters };
+
+  public type AvailabilityStatus = { #inStock; #limited; #outOfStock };
+
+  public type ThemedFoodBooth = {
+    id : Nat;
+    name : Text;
+    paintMenu : [FoodItem];
+    deathMenu : [FoodItem];
+    location : Text;
+    description : Text;
+  };
+
+  public type FoodItem = {
+    name : Text;
+    price : Float;
+    description : Text;
+    theme : FoodTheme;
+    itemType : FoodType;
+    specialNotes : Text;
+    allergens : [Text];
+  };
+
+  public type FoodTheme = { #paint; #death };
+  public type FoodType = { #food; #drink; #dessert };
+
+  let themedLands = Map.empty<Nat, ThemedLand>();
+  let merchShops = Map.empty<Nat, MerchShop>();
+  let foodBooths = Map.empty<Nat, ThemedFoodBooth>();
+
+  var nextLandId = 1;
+  var nextShopId = 1;
+  var nextBoothId = 1;
+
+  // ----------- Themed Lands Management -----------
+  public shared ({ caller }) func addThemedLand(land : ThemedLand) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can add themed lands.");
+    };
+    themedLands.add(land.id, land);
+  };
+
+  public query func getAllThemedLands() : async [ThemedLand] {
+    themedLands.values().toArray();
+  };
+
+  public query func getThemedLand(id : Nat) : async ?ThemedLand {
+    themedLands.get(id);
+  };
+
+  public shared ({ caller }) func updateThemedLand(id : Nat, updatedLand : ThemedLand) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can update themed lands.");
+    };
+    themedLands.add(id, updatedLand);
+  };
+
+  public shared ({ caller }) func deleteThemedLand(id : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can delete themed lands.");
+    };
+    themedLands.remove(id);
+  };
+
+  // ----------- Merch Shops Management -----------
+  public shared ({ caller }) func addMerchShop(shop : MerchShop) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can add merch shops.");
+    };
+    merchShops.add(shop.id, shop);
+  };
+
+  public query func getAllMerchShops() : async [MerchShop] {
+    merchShops.values().toArray();
+  };
+
+  public query func getMerchShop(id : Nat) : async ?MerchShop {
+    merchShops.get(id);
+  };
+
+  public shared ({ caller }) func updateMerchShop(id : Nat, updatedShop : MerchShop) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can update merch shops.");
+    };
+    merchShops.add(id, updatedShop);
+  };
+
+  public shared ({ caller }) func deleteMerchShop(id : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can delete merch shops.");
+    };
+    merchShops.remove(id);
+  };
+
+  // ----------- Food Booths Management -----------
+  public shared ({ caller }) func addFoodBooth(booth : ThemedFoodBooth) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can add food booths.");
+    };
+    foodBooths.add(booth.id, booth);
+  };
+
+  public query func getAllFoodBooths() : async [ThemedFoodBooth] {
+    foodBooths.values().toArray();
+  };
+
+  public query func getFoodBooth(id : Nat) : async ?ThemedFoodBooth {
+    foodBooths.get(id);
+  };
+
+  public shared ({ caller }) func updateFoodBooth(id : Nat, updatedBooth : ThemedFoodBooth) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can update food booths.");
+    };
+    foodBooths.add(id, updatedBooth);
+  };
+
+  public shared ({ caller }) func deleteFoodBooth(id : Nat) : async () {
+    if (not (AccessControl.isAdmin(accessControlState, caller))) {
+      Runtime.trap("Unauthorized: Only admins can delete food booths.");
+    };
+    foodBooths.remove(id);
   };
 };
