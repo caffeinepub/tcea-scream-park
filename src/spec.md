@@ -1,13 +1,14 @@
 # Specification
 
 ## Summary
-**Goal:** Add Color Paint show, Kid Grove land, Dead Eyes merch booth, Paint & Death food booth, and Obsession Scream haunted house to the TCEA Scream Park.
+**Goal:** Add an Upcoming Attractions timeline section displaying future park expansions from 2027-2029 with detailed attraction information and AI-generated imagery.
 
 **Planned changes:**
-- Add Color Paint show (2028) featuring 5 kid-friendly characters including Celeste the unicorn and Cosmo the dog
-- Add Kid Grove land (2050, 500,000 sq ft) as the location for Color Paint show
-- Add Dead Eyes merchandise booth selling shoes, clothes, autographs, and more
-- Add Paint & Death split-concept food booth with paint-themed menu on one side and death-themed menu on the other
-- Add Obsession Scream haunted house featuring Leslie, a terrifying teen with long purple hair
+- Create UpcomingAttractionsSection component displaying attractions organized by year (2027, 2028, 2029)
+- Add Starr Eyes restaurant to 2027 attractions
+- Add Lone Starr stunt show to 2028 attractions
+- Add Chaos Breaths themed land to 2029 with Fire over Water show, Dragon Lair show, and character meet-and-greets
+- Add Under the Sea live show with Six Flags America easter egg reference
+- Integrate component into home page with existing sections
 
-**User-visible outcome:** Visitors can view the new Color Paint show and Kid Grove land announcement, browse the Dead Eyes merch booth, explore the Paint & Death food booth with dual menus, and learn about the Obsession Scream haunted house with Leslie as the featured character.
+**User-visible outcome:** Visitors can view a timeline of upcoming attractions launching between 2027-2029, including new restaurants, shows, and the Chaos Breaths themed land, each with visual imagery and descriptions.

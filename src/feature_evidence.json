@@ -2,11 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-new-kid-friendly-show-called-color-paint-scheduled-for-2028-with-5-high-energy-characters-celeste-the-unicorn-cosmo-the-dog-and-3-additional-kid-friendly-characters-display-in-the-shows-section-with-appropriate-badge-indicating-it-s-a-future-show",
-      "featureTitle": "Add a new kid-friendly show called 'Color Paint' scheduled for 2028 with 5 high-energy characters: Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters. Display in the Shows section with appropriate badge indicating it's a future show.",
+      "featureId": "feature-create-a-new-upcomingattractionssection-component-that-displays-future-park-expansions-in-timeline-format-showing-2027-2028-and-2029-attractions-grouped-by-year",
+      "featureTitle": "Create a new UpcomingAttractionsSection component that displays future park expansions in timeline format showing 2027, 2028, and 2029 attractions grouped by year",
       "files": [
-        "frontend/src/components/sections/ShowsSection.tsx",
-        "frontend/src/content/shows.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,13 +22,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-new-themed-land-called-kid-grove-coming-in-2050-with-500-000-square-feet-indicate-that-color-paint-show-will-be-located-in-this-land-display-as-an-upcoming-expansion-announcement",
-      "featureTitle": "Add a new themed land called 'Kid Grove' coming in 2050 with 500,000 square feet. Indicate that Color Paint show will be located in this land. Display as an upcoming expansion announcement.",
+      "featureId": "feature-add-starr-eyes-restaurant-to-2027-attractions-with-description-as-an-upscale-horror-themed-dining-experience",
+      "featureTitle": "Add Starr Eyes restaurant to 2027 attractions with description as an upscale horror-themed dining experience",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/UpcomingExpansionsSection.tsx",
-        "frontend/src/content/shows.ts",
-        "frontend/src/content/themedLands.ts"
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -44,11 +41,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-new-merchandise-booth-called-dead-eyes-that-sells-shoes-clothes-autographs-and-additional-merchandise-items-display-in-the-merch-shops-section",
-      "featureTitle": "Add a new merchandise booth called 'Dead Eyes' that sells shoes, clothes, autographs, and additional merchandise items. Display in the Merch Shops section.",
+      "featureId": "feature-add-lone-starr-stunt-show-to-2028-attractions-with-description-of-action-packed-live-stunt-performances",
+      "featureTitle": "Add Lone Starr stunt show to 2028 attractions with description of action-packed live stunt performances",
       "files": [
-        "frontend/src/content/generatedImages.ts",
-        "frontend/src/content/merchShops.ts"
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -64,14 +60,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-new-split-concept-food-booth-combining-paint-themed-and-death-themed-cuisine-one-side-serves-paint-themed-menu-items-the-other-serves-death-themed-items-create-complete-menus-for-both-sides-with-creative-horror-appropriate-food-names-and-descriptions",
-      "featureTitle": "Add a new split-concept food booth combining paint-themed and death-themed cuisine. One side serves paint-themed menu items, the other serves death-themed items. Create complete menus for both sides with creative horror-appropriate food names and descriptions.",
+      "featureId": "feature-add-chaos-breaths-themed-land-to-2029-attractions-as-a-major-new-land-featuring-multiple-shows-and-character-meet-and-greets",
+      "featureTitle": "Add Chaos Breaths themed land to 2029 attractions as a major new land featuring multiple shows and character meet-and-greets",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/FoodBoothsSection.tsx",
-        "frontend/src/content/foodBooths.ts",
-        "frontend/src/content/generatedImages.ts",
-        "frontend/src/pages/PaintDeathBoothPage.tsx"
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -87,15 +79,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-new-haunted-house-called-obsession-scream-featuring-the-character-leslie-a-terrifying-teen-with-long-purple-hair-create-a-detailed-description-for-both-the-haunted-house-and-leslie-s-character-emphasizing-horror-elements-appropriate-for-a-teen-antagonist",
-      "featureTitle": "Add a new haunted house called 'Obsession Scream' featuring the character Leslie, a terrifying teen with long purple hair. Create a detailed description for both the haunted house and Leslie's character, emphasizing horror elements appropriate for a teen antagonist.",
+      "featureId": "feature-add-fire-over-water-show-as-a-featured-attraction-within-chaos-breaths-land-with-description-of-water-and-fire-special-effects-spectacle",
+      "featureTitle": "Add Fire over Water show as a featured attraction within Chaos Breaths land with description of water and fire special effects spectacle",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/HauntedHousesSection.tsx",
-        "frontend/src/content/generatedImages.ts",
-        "frontend/src/content/guestRules.ts",
-        "frontend/src/content/hauntedHouses.ts",
-        "frontend/src/pages/ObsessionScreamPage.tsx"
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -111,10 +98,10 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-generate-an-ai-image-of-leslie-character-a-terrifying-teen-with-long-purple-hair-in-a-horror-context-use-this-image-for-the-obsession-scream-haunted-house-display",
-      "featureTitle": "Generate an AI image of Leslie character: a terrifying teen with long purple hair in a horror context. Use this image for the Obsession Scream haunted house display.",
+      "featureId": "feature-add-dragon-lair-show-as-a-featured-attraction-within-chaos-breaths-land-with-description-of-dragon-themed-performance",
+      "featureTitle": "Add Dragon Lair show as a featured attraction within Chaos Breaths land with description of dragon-themed performance",
       "files": [
-        "frontend/src/content/generatedImages.ts"
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -126,6 +113,63 @@
       ],
       "testIds": [
         "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-character-meet-and-greet-information-to-chaos-breaths-land-indicating-all-costume-characters-will-be-available-for-photo-opportunities",
+      "featureTitle": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters will be available for photo opportunities",
+      "files": [
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-under-the-sea-live-show-with-description-of-pyrotechnic-water-show-and-include-a-six-flags-america-easter-egg-reference-in-the-description",
+      "featureTitle": "Add Under the Sea live show with description of pyrotechnic water show and include a Six Flags America easter egg reference in the description",
+      "files": [
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-all-generated-ai-images-for-upcoming-attractions-as-static-assets-from-frontend-public-assets-generated-directory",
+      "featureTitle": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
+      "files": [
+        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
       ],
       "confidence": "high"
     }

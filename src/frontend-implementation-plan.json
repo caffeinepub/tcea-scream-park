@@ -1,180 +1,157 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add Color Paint show, Kid Grove land, Dead Eyes merch booth, Paint & Death food booth, and Obsession Scream haunted house",
+  "title": "Add Upcoming Attractions Timeline (2027-2029) with AI-Generated Images",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Add Color Paint kid-friendly show with 5 characters (Celeste the unicorn, Cosmo the dog, and 3 additional characters) scheduled for 2028, displayed in Shows section with future show badge",
+      "summary": "Create UpcomingAttractionsSection component displaying future park expansions in timeline format organized by year (2027, 2028, 2029)",
       "acceptanceCriteria": [
-        "Color Paint show appears in shows.ts content with name, description highlighting 5 characters, and appropriate metadata",
-        "Show card displays in Shows section with 2028 badge",
-        "Characters Celeste the unicorn and Cosmo the dog are prominently featured in the description",
-        "3 additional kid-friendly characters are created and included in the show description"
+        "Section displays attractions organized by opening year (2027, 2028, 2029)",
+        "Each year grouping shows all attractions scheduled for that year",
+        "Section uses consistent styling with existing Section components",
+        "Component is added to home page alongside other sections"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/shows.ts",
-          "operation": "modify",
-          "description": "Add Color Paint show to the shows array with name 'Color Paint', description featuring Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters, hauntSeasonOnly set to false, and a year field set to 2028 to indicate future show status"
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "operation": "create",
+          "description": "Create new section component that displays upcoming attractions grouped by year (2027, 2028, 2029) in timeline format. Use existing Section component for layout consistency with title 'Coming Soon: Future Attractions' and subtitle describing the expansion timeline. Structure with year headings and attraction cards within each year group. Include the attractions data inline as a typed array matching requirements REQ-2 through REQ-8."
         },
         {
-          "path": "frontend/src/components/sections/ShowsSection.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update ShowsSection to display a '2028' or 'Coming 2028' badge for shows with a future year field, ensuring the Color Paint show is visually distinguished as an upcoming attraction"
+          "description": "Import and add UpcomingAttractionsSection component to the home page between UpcomingExpansionsSection and TeaserSection to maintain logical flow of future content sections."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add Kid Grove themed land coming in 2050 with 500,000 square feet, indicating Color Paint show will be located there, displayed as upcoming expansion",
+      "summary": "Add Starr Eyes restaurant to 2027 attractions with upscale horror-themed dining description",
       "acceptanceCriteria": [
-        "Kid Grove land is added to appropriate content structure with 500,000 sq ft specification",
-        "Land information indicates 2050 opening date",
-        "Color Paint show description references Kid Grove as its location",
-        "Kid Grove announcement is visible in an appropriate section (upcoming features or expansions)"
+        "Restaurant appears under 2027 section",
+        "Includes name 'Starr Eyes' and description",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/themedLands.ts",
-          "operation": "create",
-          "description": "Create new content file exporting themedLands array containing Kid Grove land with id, name 'Kid Grove', description highlighting kid-friendly theme, openingYear 2050, sizeSqFt 500000, status 'planned', and futureShows array referencing Color Paint. Follow the ThemedLand interface from backend.d.ts"
-        },
-        {
-          "path": "frontend/src/content/shows.ts",
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Update Color Paint show description to reference Kid Grove as its future location, stating 'This show will be featured in the upcoming Kid Grove land opening in 2050'"
-        },
-        {
-          "path": "frontend/src/components/sections/UpcomingExpansionsSection.tsx",
-          "operation": "create",
-          "description": "Create section component that displays planned themed lands from themedLands.ts filtered by status 'planned', showing Kid Grove with opening year, size, and associated shows in a card layout with appropriate future expansion styling"
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Import and add UpcomingExpansionsSection component to the home route after the ShowsSection to display Kid Grove and other future land announcements"
+          "description": "Add Starr Eyes restaurant entry to 2027 attractions array with name, type 'Restaurant', description highlighting upscale horror-themed dining experience with neon stars and eerie ambiance. Reference the generated image at frontend/public/assets/generated/starr-eyes-restaurant.dim_800x600.png. Include card layout with image, name, type badge, and description text."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add Dead Eyes merchandise booth selling shoes, clothes, autographs, and additional items, displayed in Merch Shops section",
+      "summary": "Add Lone Starr stunt show to 2028 attractions with action-packed live stunt performance description",
       "acceptanceCriteria": [
-        "Dead Eyes merch booth is added to merchShops.ts with name, items list including shoes, clothes, autographs, and additional merchandise",
-        "Booth appears in the Merch Shops section grid",
-        "Description reflects horror theme while showcasing the merchandise variety"
+        "Show appears under 2028 section",
+        "Includes name 'Lone Starr' and description of stunt show",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/merchShops.ts",
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Add Dead Eyes merch shop to the shops array with name 'Dead Eyes', items array including 'Horror-themed shoes', 'Exclusive clothing line', 'Character autographs', 'Collectible posters', 'Limited edition accessories', and additional horror merchandise items, with appropriate pricing (e.g., '$25-$75')"
-        },
-        {
-          "path": "frontend/src/content/generatedImages.ts",
-          "operation": "modify",
-          "description": "Add 'dead-eyes-merch' entry to merchShops category mapping to 'frontend/public/assets/generated/dead-eyes-merch.dim_800x600.png' to reference the AI-generated booth image"
+          "description": "Add Lone Starr stunt show entry to 2028 attractions array with name, type 'Stunt Show', description featuring action-packed live stunt performances in western horror setting with dangerous tricks. Reference the generated image at frontend/public/assets/generated/lone-starr-stunt-show.dim_800x600.png. Use consistent card styling with other attraction cards."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Add Paint & Death split-concept food booth with paint-themed menu on one side and death-themed menu on the other, with creative horror-appropriate food names and descriptions",
+      "summary": "Add Chaos Breaths themed land to 2029 attractions featuring multiple shows and character meet-and-greets",
       "acceptanceCriteria": [
-        "Food booth is added to foodBooths.ts with name indicating split concept",
-        "Menu includes distinct paint-themed items on one side with creative names and descriptions",
-        "Menu includes distinct death-themed items on the other side with horror-appropriate names and descriptions",
-        "Booth description explains the split concept clearly",
-        "Booth appears in Food Booths section with appropriate styling",
-        "Detail page shows complete menu for both sides"
+        "Land appears under 2029 section with name 'Chaos Breaths'",
+        "Description mentions it's a new themed land with shows and character interactions",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/foodBooths.ts",
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Add Paint & Death booth to foodBooths array with name 'Paint & Death', tagline highlighting the split concept (e.g., 'A Split Experience: Colorful Chaos Meets Dark Delights'), description explaining one side serves vibrant paint-themed cuisine while the other offers macabre death-themed items, and menu array containing paint-themed items (e.g., 'Splatter Burger - Colorful beef patty with rainbow sauces', 'Brushstroke Fries - Multi-colored seasoned fries', 'Canvas Shake - Swirled fruit smoothie') and death-themed items (e.g., 'Reaper's Ribs - Blackened BBQ ribs', 'Tombstone Pizza - Charcoal crust specialty pizza', 'Coffin Cake - Dark chocolate dessert')"
-        },
-        {
-          "path": "frontend/src/content/generatedImages.ts",
-          "operation": "modify",
-          "description": "Add 'paint-death-booth' entry to foodBooths category mapping to 'frontend/public/assets/generated/paint-death-booth.dim_1000x700.png' to reference the AI-generated split booth design image"
-        },
-        {
-          "path": "frontend/src/pages/PaintDeathBoothPage.tsx",
-          "operation": "create",
-          "description": "Create detail page component for Paint & Death booth following the pattern of existing food booth pages (e.g., CandyCaneCarnagePage.tsx), displaying booth image from generatedImages, description emphasizing the split concept, and two distinct menu sections labeled 'Paint Side Menu' and 'Death Side Menu' with all items from foodBooths.ts"
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for Paint & Death booth detail page at path '/food-booth/paint-death' following the pattern of other food booth routes"
-        },
-        {
-          "path": "frontend/src/components/sections/FoodBoothsSection.tsx",
-          "operation": "modify",
-          "description": "Ensure Paint & Death booth card navigation uses slugified name 'paint-death' to route to the detail page at '/food-booth/paint-death'"
+          "description": "Add Chaos Breaths themed land entry to 2029 attractions array with name, type 'Themed Land', description highlighting it as a major new land featuring chaotic breath effects, dark atmosphere, multiple live shows, and all costume character meet-and-greets. Reference the generated image at frontend/public/assets/generated/chaos-breaths-land.dim_1000x600.png. Use larger card format to emphasize it as a major expansion containing sub-attractions."
         }
       ]
     },
     {
       "id": "REQ-5",
-      "summary": "Add Obsession Scream haunted house featuring Leslie character (terrifying teen with long purple hair) with detailed descriptions emphasizing psychological horror and obsession themes",
+      "summary": "Add Fire over Water show as featured attraction within Chaos Breaths land with water and fire special effects description",
       "acceptanceCriteria": [
-        "Obsession Scream haunted house is added to hauntedHouses.ts with name, tagline, and detailed description",
-        "Leslie character is prominently featured in the house description as a terrifying teen with long purple hair",
-        "House description emphasizes psychological horror and obsession themes",
-        "Haunted house appears in the Haunted Houses section grid",
-        "Detail page includes extreme horror warning and guest rules navigation",
-        "Leslie's character description highlights her threatening nature and distinctive appearance"
+        "Show is listed as part of Chaos Breaths land attractions",
+        "Name is 'Fire over Water'",
+        "Description highlights water and fire effects",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/hauntedHouses.ts",
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Add Obsession Scream to hauntedHouses array with name 'Obsession Scream', tagline emphasizing psychological horror (e.g., 'When Obsession Turns Deadly'), detailed description featuring Leslie as the main antagonist described as a terrifying teen with long purple hair who stalks victims through twisted corridors of her obsessive shrine, subScenes array including scenes like 'Leslie's Lair', 'Hall of Obsession', 'The Shrine Room', and location field"
-        },
-        {
-          "path": "frontend/src/content/generatedImages.ts",
-          "operation": "modify",
-          "description": "Add 'obsession-scream' entry to hauntedHouses category mapping to 'frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png' to reference the AI-generated Leslie character portrait image"
-        },
-        {
-          "path": "frontend/src/pages/ObsessionScreamPage.tsx",
-          "operation": "create",
-          "description": "Create detail page component for Obsession Scream haunted house following the pattern of existing house pages (e.g., OpenIceTombPage.tsx, WaxWorksPage.tsx), displaying extreme horror warning alert, Leslie character image from generatedImages at frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png, house description highlighting Leslie's terrifying presence and long purple hair, tagline, and button to navigate to guest rules page with house parameter 'obsession-scream'"
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add route for Obsession Scream detail page at path '/haunted-house/obsession-scream' following the pattern of other haunted house routes"
-        },
-        {
-          "path": "frontend/src/components/sections/HauntedHousesSection.tsx",
-          "operation": "modify",
-          "description": "Ensure Obsession Scream card navigation uses slugified name 'obsession-scream' to route to the detail page at '/haunted-house/obsession-scream', and displays the Leslie character image from generatedImages"
-        },
-        {
-          "path": "frontend/src/content/guestRules.ts",
-          "operation": "modify",
-          "description": "Add guest rules entry for Obsession Scream with key 'obsession-scream', including safety rules about psychological horror intensity, behavior rules about respecting boundaries with Leslie character encounters, and health warnings about strobe lights and confined spaces typical of obsession-themed horror"
+          "description": "Add Fire over Water show as a sub-attraction within the Chaos Breaths land card in 2029. Include name, type 'Live Show', description emphasizing dramatic water and fire special effects spectacle. Reference the generated image at frontend/public/assets/generated/fire-over-water-show.dim_800x600.png. Display as a nested item or sub-card within the Chaos Breaths land entry."
         }
       ]
     },
     {
       "id": "REQ-6",
-      "summary": "Wire AI-generated Leslie character image (terrifying teen with long purple hair) for display on Obsession Scream haunted house card and detail page",
+      "summary": "Add Dragon Lair show as featured attraction within Chaos Breaths land with dragon-themed performance description",
       "acceptanceCriteria": [
-        "AI-generated image of Leslie (teen, long purple hair, terrifying) is created and stored in frontend/public/assets/generated/",
-        "Image is referenced in generatedImages.ts under haunted houses category",
-        "Image displays on Obsession Scream haunted house card and detail page",
-        "Image conveys horror atmosphere appropriate for the character"
+        "Show is listed as part of Chaos Breaths land attractions",
+        "Name is 'Dragon Lair'",
+        "Description features dragon theming",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/content/generatedImages.ts",
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Verify 'obsession-scream' entry in hauntedHouses category correctly maps to 'frontend/public/assets/generated/leslie-obsession-scream.dim_800x1000.png' for the AI-generated Leslie character portrait showing a terrifying teen with long purple hair in horror atmosphere (this entry is already added in REQ-5)"
+          "description": "Add Dragon Lair show as a sub-attraction within the Chaos Breaths land card in 2029. Include name, type 'Live Show', description featuring menacing dragon presence in lair setting with dragon-themed performance elements. Reference the generated image at frontend/public/assets/generated/dragon-lair-show.dim_800x600.png. Display alongside Fire over Water as a nested item within the Chaos Breaths land entry."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters available for photos",
+      "acceptanceCriteria": [
+        "Chaos Breaths land description or card mentions character meet-and-greets",
+        "Text indicates all costume characters will be present"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "operation": "modify",
+          "description": "Update Chaos Breaths land description or add a features list to explicitly mention that all costume characters will be available for meet-and-greets and photo opportunities throughout the themed land. Include this information in the main land card text or as a highlighted feature bullet point."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add Under the Sea live show with pyrotechnic water show description and Six Flags America easter egg reference",
+      "acceptanceCriteria": [
+        "Show appears in upcoming attractions with name 'Under the Sea'",
+        "Description mentions live show with pyrotechnic effects",
+        "Description includes subtle reference or easter egg to Six Flags America",
+        "Uses generated AI image with cartoon/horror/graffiti style"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "operation": "modify",
+          "description": "Add Under the Sea live show to one of the year groupings (2027, 2028, or 2029 based on overall timeline balance). Include name, type 'Live Show', description highlighting underwater ocean scene with sea creatures, pyrotechnic effects bursting from water, and a subtle Six Flags America easter egg reference integrated naturally into the description text. Reference the generated image at frontend/public/assets/generated/under-the-sea-show.dim_800x600.png."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
+      "acceptanceCriteria": [
+        "All attraction images load from frontend/public/assets/generated",
+        "Images display in attraction cards with proper sizing",
+        "Error handling for missing images is in place"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure all attraction cards use img elements with src paths pointing to /assets/generated/<filename> for the six required images: starr-eyes-restaurant.dim_800x600.png, lone-starr-stunt-show.dim_800x600.png, chaos-breaths-land.dim_1000x600.png, fire-over-water-show.dim_800x600.png, dragon-lair-show.dim_800x600.png, and under-the-sea-show.dim_800x600.png. Add onError handlers with fallback placeholder or error state display. Apply appropriate sizing with object-fit cover and aspect ratio constraints matching the attraction card design pattern used in other section components."
         }
       ]
     }

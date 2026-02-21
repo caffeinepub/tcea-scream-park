@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component with QueryClientProvider, hash-based routing including new routes for Obsession Scream haunted house, Paint & Death food booth, and UpcomingExpansionsSection on home page, with corrected audio callback handling using onEnableSound prop.",
+  "frontend/src/App.tsx": "Main application component with QueryClientProvider, hash-based routing, and home page layout now including new UpcomingAttractionsSection between UpcomingExpansionsSection and ShowsSection.",
   "frontend/src/components/layout/SiteHeader.tsx": "Sticky header component with navigation including three employee portal links (TCEA Tunnels, Upcoming Events, Secret Tunnels) visible only to authenticated employees with orange accent styling.",
   "frontend/src/components/layout/SiteFooter.tsx": "Footer component displaying a very scary extreme haunt warning with liability disclaimer, followed by copyright notice with heart icon and attribution link to caffeine.ai.",
   "frontend/src/components/layout/Section.tsx": "Reusable section wrapper component that provides consistent spacing, title/subtitle layout, optional icon, separator, and scroll anchor ID for all major page sections.",
@@ -101,5 +101,6 @@
   "frontend/src/components/sections/UpcomingExpansionsSection.tsx": "New section component displaying planned themed lands (Kid Grove) with opening year, size, featured shows, and future expansion styling using primary color theme.",
   "frontend/src/pages/ObsessionScreamPage.tsx": "Dedicated full-page view for Obsession Scream haunted house featuring Leslie character image, extreme horror warning, detailed description of psychological horror experience, and navigation to guest rules.",
   "frontend/src/pages/PaintDeathBoothPage.tsx": "Dedicated full-page view for Paint & Death food booth featuring split-concept layout with separate Paint Side Menu and Death Side Menu sections in contrasting color themes.",
-  "frontend/src/components/sections/AboutAttractionSection.tsx": "About section component displaying TCEA Scream Park exterior image and dark history description with building details and evil spirit backstory, using direct asset path instead of generatedImages object."
+  "frontend/src/components/sections/AboutAttractionSection.tsx": "About section component displaying TCEA Scream Park exterior image and dark history description with building details and evil spirit backstory, using direct asset path instead of generatedImages object.",
+  "frontend/src/components/sections/UpcomingAttractionsSection.tsx": "New section component displaying upcoming attractions organized by year (2027, 2028, 2029) with AI-generated images in cartoon/horror/graffiti style, featuring Starr Eyes restaurant, Lone Starr stunt show, Under the Sea show with Six Flags America easter egg, and Chaos Breaths themed land with Fire over Water and Dragon Lair shows plus character meet-and-greets."
 }

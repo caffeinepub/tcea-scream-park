@@ -1,152 +1,192 @@
 {
   "kind": "build_request",
-  "title": "Add Color Paint show, Kid Grove land, Dead Eyes merch booth, Paint & Death food booth, and Obsession Scream haunted house",
+  "title": "Add Upcoming Attractions Timeline (2027-2029) with AI-Generated Images",
   "projectName": "TCEA Scream Park",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add a new kid-friendly show called 'Color Paint' scheduled for 2028 with 5 high-energy characters: Celeste the unicorn, Cosmo the dog, and 3 additional kid-friendly characters. Display in the Shows section with appropriate badge indicating it's a future show.",
-      "target": "both",
+      "text": "Create a new UpcomingAttractionsSection component that displays future park expansions in timeline format showing 2027, 2028, and 2029 attractions grouped by year",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-recent"
         ],
         "quotes": [
-          "Add a new show called Color paint coming 2028 a kid friendly show with 5 different characters from Celeste the unicorn to Cosmo the dog high energy"
+          "Yes as upcoming attractions"
         ]
       },
       "acceptanceCriteria": [
-        "Color Paint show appears in shows.ts content with name, description highlighting 5 characters, and appropriate metadata",
-        "Show card displays in Shows section with 2028 badge",
-        "Characters Celeste the unicorn and Cosmo the dog are prominently featured in the description",
-        "3 additional kid-friendly characters are created and included in the show description"
+        "Section displays attractions organized by opening year (2027, 2028, 2029)",
+        "Each year grouping shows all attractions scheduled for that year",
+        "Section uses consistent styling with existing Section components",
+        "Component is added to home page alongside other sections"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add a new themed land called 'Kid Grove' coming in 2050 with 500,000 square feet. Indicate that Color Paint show will be located in this land. Display as an upcoming expansion announcement.",
-      "target": "both",
+      "text": "Add Starr Eyes restaurant to 2027 attractions with description as an upscale horror-themed dining experience",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-recent"
         ],
         "quotes": [
-          "add a new land coming 2050 called kid grove and color paint will be in that land 500,000 square feet"
+          "Starr Eyes restaurant in 2027"
         ]
       },
       "acceptanceCriteria": [
-        "Kid Grove land is added to appropriate content structure with 500,000 sq ft specification",
-        "Land information indicates 2050 opening date",
-        "Color Paint show description references Kid Grove as its location",
-        "Kid Grove announcement is visible in an appropriate section (upcoming features or expansions)"
+        "Restaurant appears under 2027 section",
+        "Includes name 'Starr Eyes' and description",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add a new merchandise booth called 'Dead Eyes' that sells shoes, clothes, autographs, and additional merchandise items. Display in the Merch Shops section.",
-      "target": "both",
+      "text": "Add Lone Starr stunt show to 2028 attractions with description of action-packed live stunt performances",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-recent"
         ],
         "quotes": [
-          "add a new new merch booth called Dead eyes have shoes, clothes, autographs and many more"
+          "Lone Starr stunt show coming soon 2028"
         ]
       },
       "acceptanceCriteria": [
-        "Dead Eyes merch booth is added to merchShops.ts with name, items list including shoes, clothes, autographs, and additional merchandise",
-        "Booth appears in the Merch Shops section grid",
-        "Description reflects horror theme while showcasing the merchandise variety"
+        "Show appears under 2028 section",
+        "Includes name 'Lone Starr' and description of stunt show",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Add a new split-concept food booth combining paint-themed and death-themed cuisine. One side serves paint-themed menu items, the other serves death-themed items. Create complete menus for both sides with creative horror-appropriate food names and descriptions.",
-      "target": "both",
+      "text": "Add Chaos Breaths themed land to 2029 attractions as a major new land featuring multiple shows and character meet-and-greets",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-7"
+          "msg-recent"
         ],
         "quotes": [
-          "a new food booth a spilt booth of paint and Death",
-          "Yea one food booth one side death other side paint and add the menu"
+          "Chaos breaths will have two new shows",
+          "meet and greets from all costume characters"
         ]
       },
       "acceptanceCriteria": [
-        "Food booth is added to foodBooths.ts with name indicating split concept",
-        "Menu includes distinct paint-themed items on one side with creative names and descriptions",
-        "Menu includes distinct death-themed items on the other side with horror-appropriate names and descriptions",
-        "Booth description explains the split concept clearly",
-        "Booth appears in Food Booths section with appropriate styling",
-        "Detail page shows complete menu for both sides"
+        "Land appears under 2029 section with name 'Chaos Breaths'",
+        "Description mentions it's a new themed land with shows and character interactions",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ]
     },
     {
       "id": "REQ-5",
-      "text": "Add a new haunted house called 'Obsession Scream' featuring the character Leslie, a terrifying teen with long purple hair. Create a detailed description for both the haunted house and Leslie's character, emphasizing horror elements appropriate for a teen antagonist.",
-      "target": "both",
+      "text": "Add Fire over Water show as a featured attraction within Chaos Breaths land with description of water and fire special effects spectacle",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-7"
+          "msg-recent"
         ],
         "quotes": [
-          "a new haunted house called Obsession scream and a new character called Leslie she's terrifying had long purple hair",
-          "create a description for her and the haunted house"
+          "one is called Fire over water"
         ]
       },
       "acceptanceCriteria": [
-        "Obsession Scream haunted house is added to hauntedHouses.ts with name, tagline, and detailed description",
-        "Leslie character is prominently featured in the house description as a terrifying teen with long purple hair",
-        "House description emphasizes psychological horror and obsession themes",
-        "Haunted house appears in the Haunted Houses section grid",
-        "Detail page includes extreme horror warning and guest rules navigation",
-        "Leslie's character description highlights her threatening nature and distinctive appearance"
+        "Show is listed as part of Chaos Breaths land attractions",
+        "Name is 'Fire over Water'",
+        "Description highlights water and fire effects",
+        "Uses generated AI image with cartoon/horror/graffiti style"
       ]
     },
     {
       "id": "REQ-6",
-      "text": "Generate an AI image of Leslie character: a terrifying teen with long purple hair in a horror context. Use this image for the Obsession Scream haunted house display.",
+      "text": "Add Dragon Lair show as a featured attraction within Chaos Breaths land with description of dragon-themed performance",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6",
-          "msg-7"
+          "msg-recent"
         ],
         "quotes": [
-          "add her image she's like a teen",
-          "Leslie add her image is AI image"
+          "second show is Dragon lair"
         ]
       },
       "acceptanceCriteria": [
-        "AI-generated image of Leslie (teen, long purple hair, terrifying) is created and stored in frontend/public/assets/generated/",
-        "Image is referenced in generatedImages.ts under haunted houses category",
-        "Image displays on Obsession Scream haunted house card and detail page",
-        "Image conveys horror atmosphere appropriate for the character"
+        "Show is listed as part of Chaos Breaths land attractions",
+        "Name is 'Dragon Lair'",
+        "Description features dragon theming",
+        "Uses generated AI image with cartoon/horror/graffiti style"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters will be available for photo opportunities",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "meet and greets from all costume characters"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Chaos Breaths land description or card mentions character meet-and-greets",
+        "Text indicates all costume characters will be present"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add Under the Sea live show with description of pyrotechnic water show and include a Six Flags America easter egg reference in the description",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Under the Sea will have a live show with pyro",
+          "Yes a connection from six flags America Easter egg"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Show appears in upcoming attractions with name 'Under the Sea'",
+        "Description mentions live show with pyrotechnic effects",
+        "Description includes subtle reference or easter egg to Six Flags America",
+        "Uses generated AI image with cartoon/horror/graffiti style"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All attraction images load from frontend/public/assets/generated",
+        "Images display in attraction cards with proper sizing",
+        "Error handling for missing images is in place"
       ]
     }
   ],
   "constraints": [
-    "Maintain existing horror theme and dark aesthetic throughout all new content",
-    "Follow established content structure patterns from existing haunted houses, shows, food booths, and merch shops",
-    "Ensure all new features integrate seamlessly with current app navigation and routing",
-    "Keep backend data models consistent with existing content item types"
+    "All AI-generated images must use cartoon style mixed with horror and graffiti aesthetics",
+    "Maintain existing frontend structure and component patterns",
+    "Do not modify existing shows or attractions data"
   ],
   "nonGoals": [
-    "Modifying existing haunted houses, shows, or food booths",
-    "Changing the overall site layout or navigation structure",
-    "Adding interactive features beyond standard content display",
-    "Implementing e-commerce functionality for merchandise purchases"
+    "Creating detail pages for individual upcoming attractions",
+    "Adding backend storage for upcoming attractions timeline",
+    "Implementing booking or reservation features for future attractions"
   ],
   "imageRequirements": {
     "required": [
-      "Leslie character portrait: terrifying teen with long purple hair in horror atmosphere, dark background with ominous lighting (leslie-obsession-scream.dim_800x1000.png)",
-      "Celeste the unicorn character: kid-friendly colorful unicorn with energetic pose for Color Paint show (celeste-unicorn.dim_600x600.png)",
-      "Cosmo the dog character: high-energy kid-friendly dog character for Color Paint show (cosmo-dog.dim_600x600.png)",
-      "Dead Eyes merch booth exterior: horror-themed merchandise shop with shoes, clothes, and autograph displays (dead-eyes-merch.dim_800x600.png)",
-      "Paint & Death food booth: split design showing paint-themed side and death-themed side in one booth (paint-death-booth.dim_1000x700.png)"
+      "Upscale horror-themed restaurant exterior with neon stars and eerie dining ambiance in cartoon style mixed with horror and graffiti (starr-eyes-restaurant.dim_800x600.png)",
+      "Action-packed stunt show with performers doing dangerous tricks in a western horror setting, cartoon style with horror and graffiti elements (lone-starr-stunt-show.dim_800x600.png)",
+      "Large themed land entrance with chaotic breath effects and dark atmosphere, cartoon style mixed with horror and graffiti (chaos-breaths-land.dim_1000x600.png)",
+      "Water and fire special effects show with dramatic flames over water surface, cartoon style with horror and graffiti aesthetic (fire-over-water-show.dim_800x600.png)",
+      "Dragon-themed show stage with menacing dragon presence in lair setting, cartoon style mixed with horror and graffiti (dragon-lair-show.dim_800x600.png)",
+      "Underwater ocean scene with sea creatures and pyrotechnic effects bursting from water, cartoon style with horror and graffiti elements and subtle Six Flags America reference (under-the-sea-show.dim_800x600.png)"
     ],
     "edits": []
   }

@@ -57,6 +57,7 @@ import { EmployeePortalLink } from './components/sections/EmployeePortalLink';
 import { CostumeCharacters2030Section } from './components/sections/CostumeCharacters2030Section';
 import { ToysComeToPlayPage } from './pages/ToysComeToPlayPage';
 import { UpcomingExpansionsSection } from './components/sections/UpcomingExpansionsSection';
+import { UpcomingAttractionsSection } from './components/sections/UpcomingAttractionsSection';
 import { ObsessionScreamPage } from './pages/ObsessionScreamPage';
 import { PaintDeathBoothPage } from './pages/PaintDeathBoothPage';
 
@@ -249,6 +250,7 @@ function App() {
             <CostumeCharacters2030Section />
             <UpcomingEventsSection />
             <UpcomingExpansionsSection />
+            <UpcomingAttractionsSection />
             <ShowsSection />
             <HauntedHousesSection />
             <ScareZonesSection />
