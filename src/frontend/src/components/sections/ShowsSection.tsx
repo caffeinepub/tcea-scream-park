@@ -1,7 +1,7 @@
 import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Theater } from 'lucide-react';
+import { Theater, Clock, Calendar as CalendarIcon } from 'lucide-react';
 import { shows } from '@/content/shows';
 import { generatedImages } from '@/content/generatedImages';
 import { useState } from 'react';
@@ -40,6 +40,18 @@ export function ShowsSection() {
                     {show.year && (
                       <Badge variant="outline" className="border-primary text-primary">
                         Coming {show.year}
+                      </Badge>
+                    )}
+                    {(show as any).specialTiming && (
+                      <Badge variant="outline" className="border-accent text-accent flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {(show as any).specialTiming}
+                      </Badge>
+                    )}
+                    {(show as any).selectNights && (
+                      <Badge variant="outline" className="border-muted-foreground text-muted-foreground flex items-center gap-1">
+                        <CalendarIcon className="h-3 w-3" />
+                        Select Nights
                       </Badge>
                     )}
                   </div>

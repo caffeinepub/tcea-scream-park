@@ -2,11 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-new-upcomingattractionssection-component-that-displays-future-park-expansions-in-timeline-format-showing-2027-2028-and-2029-attractions-grouped-by-year",
-      "featureTitle": "Create a new UpcomingAttractionsSection component that displays future park expansions in timeline format showing 2027, 2028, and 2029 attractions grouped by year",
+      "featureId": "feature-add-bee-s-dance-show-as-a-new-show-attraction-in-kid-grove-themed-land-the-show-should-be-added-to-the-existing-kid-grove-content-without-replacing-any-existing-attractions-include-a-description-of-the-show-featuring-bees-performing-dance-routines",
+      "featureTitle": "Add 'Bee's Dance Show' as a new show attraction in Kid Grove themed land. The show should be added to the existing Kid Grove content without replacing any existing attractions. Include a description of the show featuring bees performing dance routines.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/shows.ts",
+        "frontend/src/content/themedLands.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -22,10 +23,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-starr-eyes-restaurant-to-2027-attractions-with-description-as-an-upscale-horror-themed-dining-experience",
-      "featureTitle": "Add Starr Eyes restaurant to 2027 attractions with description as an upscale horror-themed dining experience",
+      "featureId": "feature-add-soak-kingdom-water-park-scheduled-to-open-in-2040-the-water-park-should-include-exactly-4-water-slides-one-tornado-slide-and-three-additional-slide-types-such-as-body-slides-tube-slides-or-speed-slides-include-descriptions-for-each-slide-type-and-the-overall-water-park-attraction",
+      "featureTitle": "Add 'Soak Kingdom' water park scheduled to open in 2040. The water park should include exactly 4 water slides: one tornado slide and three additional slide types (such as body slides, tube slides, or speed slides). Include descriptions for each slide type and the overall water park attraction.",
       "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+        "frontend/src/components/sections/UpcomingEventsSection.tsx",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/upcomingEvents.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -41,10 +44,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-lone-starr-stunt-show-to-2028-attractions-with-description-of-action-packed-live-stunt-performances",
-      "featureTitle": "Add Lone Starr stunt show to 2028 attractions with description of action-packed live stunt performances",
+      "featureId": "feature-add-1-am-farewell-procession-as-a-special-nightly-event-that-occurs-on-select-nights-after-the-park-closes-at-1-am-the-procession-should-feature-characters-floats-and-other-theatrical-elements-include-details-about-which-select-nights-it-runs-and-what-guests-can-expect-to-see-during-this-late-night-farewell-event",
+      "featureTitle": "Add '1 AM Farewell Procession' as a special nightly event that occurs on select nights after the park closes at 1 AM. The procession should feature characters, floats, and other theatrical elements. Include details about which select nights it runs and what guests can expect to see during this late-night farewell event.",
       "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+        "frontend/src/components/sections/ShowsSection.tsx",
+        "frontend/src/content/generatedImages.ts",
+        "frontend/src/content/shows.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -60,10 +65,11 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-chaos-breaths-themed-land-to-2029-attractions-as-a-major-new-land-featuring-multiple-shows-and-character-meet-and-greets",
-      "featureTitle": "Add Chaos Breaths themed land to 2029 attractions as a major new land featuring multiple shows and character meet-and-greets",
+      "featureId": "feature-display-all-three-new-additions-bee-s-dance-show-soak-kingdom-and-1-am-farewell-procession-in-the-appropriate-frontend-sections-bee-s-dance-show-in-the-upcoming-attractions-timeline-under-kid-grove-soak-kingdom-in-the-2040-timeline-section-and-1-am-farewell-procession-in-the-shows-events-section-with-appropriate-time-and-scheduling-information",
+      "featureTitle": "Display all three new additions (Bee's Dance Show, Soak Kingdom, and 1 AM Farewell Procession) in the appropriate frontend sections: Bee's Dance Show in the upcoming attractions timeline under Kid Grove, Soak Kingdom in the 2040 timeline section, and 1 AM Farewell Procession in the shows/events section with appropriate time and scheduling information.",
       "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+        "frontend/src/components/sections/ShowsSection.tsx",
+        "frontend/src/components/sections/UpcomingEventsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -75,101 +81,6 @@
       ],
       "testIds": [
         "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-fire-over-water-show-as-a-featured-attraction-within-chaos-breaths-land-with-description-of-water-and-fire-special-effects-spectacle",
-      "featureTitle": "Add Fire over Water show as a featured attraction within Chaos Breaths land with description of water and fire special effects spectacle",
-      "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-dragon-lair-show-as-a-featured-attraction-within-chaos-breaths-land-with-description-of-dragon-themed-performance",
-      "featureTitle": "Add Dragon Lair show as a featured attraction within Chaos Breaths land with description of dragon-themed performance",
-      "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-character-meet-and-greet-information-to-chaos-breaths-land-indicating-all-costume-characters-will-be-available-for-photo-opportunities",
-      "featureTitle": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters will be available for photo opportunities",
-      "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-under-the-sea-live-show-with-description-of-pyrotechnic-water-show-and-include-a-six-flags-america-easter-egg-reference-in-the-description",
-      "featureTitle": "Add Under the Sea live show with description of pyrotechnic water show and include a Six Flags America easter egg reference in the description",
-      "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-render-all-generated-ai-images-for-upcoming-attractions-as-static-assets-from-frontend-public-assets-generated-directory",
-      "featureTitle": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
-      "files": [
-        "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0"
-      ],
-      "testIds": [
-        "REQ-9"
       ],
       "confidence": "high"
     }

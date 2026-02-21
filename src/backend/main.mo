@@ -7,9 +7,9 @@ import Time "mo:core/Time";
 import Principal "mo:core/Principal";
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
+import Migration "migration";
 
-
-
+(with migration = Migration.run)
 actor {
   // ----------- Core Content Types -----------
   public type Date = {
@@ -669,12 +669,61 @@ actor {
           ];
           useMainHauntSchedule = false;
         },
+        // ------------- NEW EVENTS FOR V1.6 ---------------
+        {
+          id = 15;
+          name = "Bee's Dance Show";
+          description = "Join the buzzing excitement at Bee's Dance Show, a delightful performance featuring a troupe of talented bees. Watch as these amazing insects wow the audience with their coordinated dance routines, aerial stunts, and playful interactions. The show combines music, lights, and vibrant costumes to create a truly immersive experience. Bee's Dance Show is part of the Kid Grove themed land, offering fun for the entire family.";
+          customType = #show({
+            performanceType = #dance;
+            yearIntroduced = ?2026;
+          });
+          dates = [
+            {
+              startDate = { year = 2026; month = 3; day = 9 };
+              endDate = { year = 2026; month = 3; day = 9 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        {
+          id = 16;
+          name = "Soak Kingdom";
+          description = "Get ready for a splash-tastic adventure at Soak Kingdom, opening in 2040. This world-class water park features a variety of thrilling water slides, including the All Around Funnel Tornado Slide. Enjoy body slides, tube slides, speed slides, and more, all set in a vibrant and refreshing environment. Soak Kingdom offers fun for all ages and includes multiple pool areas for relaxation.";
+          customType = #attraction({
+            ageRestriction = #none;
+            hasGuidedTour = false;
+            yearIntroduced = ?2040;
+          });
+          dates = [
+            {
+              startDate = { year = 2040; month = 5; day = 1 };
+              endDate = { year = 2040; month = 9; day = 30 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        },
+        {
+          id = 17;
+          name = "1 AM Farewell Procession";
+          description = "Experience the magic of the 1 AM Farewell Procession, a special event that takes place on select nights after the park's official closing time. This grand procession features beloved characters, illuminated floats, and theatrical performances that bid farewell to guests. Expect dazzling costumes, music, and a festive atmosphere as the procession winds through the park. The 1 AM Farewell Procession will run on specific dates throughout the year, creating unforgettable memories for all attendees.";
+          customType = #event({
+            eventType = #specialEvent;
+          });
+          dates = [
+            {
+              startDate = { year = 2024; month = 1; day = 1 };
+              endDate = { year = 2028; month = 12; day = 31 };
+            },
+          ];
+          useMainHauntSchedule = false;
+        }
       ];
 
       for (item in initialContent.values()) {
         contentItems.add(item.id, item);
       };
-      nextContentId := 15;
+      nextContentId := 18;
     };
   };
 

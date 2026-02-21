@@ -2,7 +2,7 @@ import { Section } from '../layout/Section';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Eye, ChevronLeft, ChevronRight, Droplets } from 'lucide-react';
 import { upcomingEvents } from '@/content/upcomingEvents';
 import { generatedImages } from '@/content/generatedImages';
 import { useState } from 'react';
@@ -25,19 +25,23 @@ export function UpcomingEventsSection() {
         {upcomingEvents.map((event) => {
           const imageData = generatedImages.upcomingEvents[event.name as keyof typeof generatedImages.upcomingEvents];
           const images = Array.isArray(imageData) ? imageData : imageData ? [imageData] : [];
+          const isSoakKingdom = event.name === 'Soak Kingdom';
           
           return (
             <Card
               key={event.name}
-              className="bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden hover:border-destructive/50 transition-all hover:shadow-glow-green"
+              className={`bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden hover:border-destructive/50 transition-all hover:shadow-glow-green ${
+                isSoakKingdom ? 'md:col-span-2' : ''
+              }`}
             >
               {images.length > 0 && (
                 <EventImageGallery images={images} alt={event.name} />
               )}
               <CardHeader>
                 <div className="flex items-start justify-between gap-4 mb-2">
-                  <CardTitle className="text-2xl text-destructive bloody-text">
+                  <CardTitle className="text-2xl text-destructive bloody-text flex items-center gap-2">
                     {event.name}
+                    {isSoakKingdom && <Droplets className="h-6 w-6 text-primary" />}
                   </CardTitle>
                 </div>
                 <Badge variant="outline" className="w-fit border-destructive/40">
@@ -48,6 +52,31 @@ export function UpcomingEventsSection() {
                 <p className="text-sm leading-relaxed text-foreground/90">
                   {event.description}
                 </p>
+                {isSoakKingdom && (
+                  <div className="border-t border-border/50 pt-4">
+                    <p className="text-sm font-semibold text-foreground mb-3">
+                      Featured Water Slides:
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                        <p className="font-medium text-primary text-sm">🌪️ All Around Funnel Tornado Slide</p>
+                        <p className="text-xs text-muted-foreground mt-1">Swirling water effects and funnel action</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                        <p className="font-medium text-primary text-sm">⚡ Lightning Strike Speed Slide</p>
+                        <p className="text-xs text-muted-foreground mt-1">High-speed thrills for adrenaline junkies</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                        <p className="font-medium text-primary text-sm">🐍 Serpent's Twist Body Slide</p>
+                        <p className="text-xs text-muted-foreground mt-1">Multiple turns and twists</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                        <p className="font-medium text-primary text-sm">👨‍👩‍👧‍👦 Family Raft Tube Slide</p>
+                        <p className="text-xs text-muted-foreground mt-1">Group fun for the whole family</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {event.name === 'Frosted Haunt' && (
                   <Button
                     onClick={() => handleViewEvent(event.name)}

@@ -1,157 +1,117 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add Upcoming Attractions Timeline (2027-2029) with AI-Generated Images",
+  "title": "Add Bee's Dance Show, Soak Kingdom Water Park (2040), and 1 AM Farewell Procession",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Create UpcomingAttractionsSection component displaying future park expansions in timeline format organized by year (2027, 2028, 2029)",
+      "summary": "Add 'Bee's Dance Show' as a new show attraction in Kid Grove themed land alongside existing attractions with description of bees performing dance routines",
       "acceptanceCriteria": [
-        "Section displays attractions organized by opening year (2027, 2028, 2029)",
-        "Each year grouping shows all attractions scheduled for that year",
-        "Section uses consistent styling with existing Section components",
-        "Component is added to home page alongside other sections"
+        "Bee's Dance Show appears in the Kid Grove themed land alongside existing attractions",
+        "Show has a clear description related to bees and dancing",
+        "Show is visible in the upcoming attractions timeline section"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "operation": "create",
-          "description": "Create new section component that displays upcoming attractions grouped by year (2027, 2028, 2029) in timeline format. Use existing Section component for layout consistency with title 'Coming Soon: Future Attractions' and subtitle describing the expansion timeline. Structure with year headings and attraction cards within each year group. Include the attractions data inline as a typed array matching requirements REQ-2 through REQ-8."
+          "path": "frontend/src/content/themedLands.ts",
+          "operation": "modify",
+          "description": "Add 'Bee's Dance Show' to the Kid Grove themed land's futureShows array. Include the show ID that corresponds to the new show entry. Ensure existing Kid Grove content remains unchanged."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/content/shows.ts",
           "operation": "modify",
-          "description": "Import and add UpcomingAttractionsSection component to the home page between UpcomingExpansionsSection and TeaserSection to maintain logical flow of future content sections."
+          "description": "Add a new show entry for 'Bee's Dance Show' with name, description featuring bees performing coordinated dance routines, hauntSeason flag set appropriately, and year field. Include details about the performance style and choreography."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add the generated image reference for Bee's Dance Show using the workspace file path 'frontend/public/assets/generated/bees-dance-show.dim_800x600.png' in the appropriate shows section of the images mapping object."
+        },
+        {
+          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure the component properly renders Kid Grove themed land with the new Bee's Dance Show in the futureShows array. Verify image display using the generatedImages mapping and that the show card renders alongside existing Kid Grove content."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Add Starr Eyes restaurant to 2027 attractions with upscale horror-themed dining description",
+      "summary": "Add 'Soak Kingdom' water park scheduled to open in 2040 with exactly 4 water slides including one tornado slide and three additional slide types",
       "acceptanceCriteria": [
-        "Restaurant appears under 2027 section",
-        "Includes name 'Starr Eyes' and description",
-        "Uses generated AI image with cartoon/horror/graffiti style"
+        "Soak Kingdom water park appears in the 2040 timeline section",
+        "Water park includes exactly 4 slides with distinct types",
+        "One slide is explicitly identified as a tornado slide",
+        "Each slide has a descriptive name and details"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "path": "frontend/src/content/upcomingEvents.ts",
           "operation": "modify",
-          "description": "Add Starr Eyes restaurant entry to 2027 attractions array with name, type 'Restaurant', description highlighting upscale horror-themed dining experience with neon stars and eerie ambiance. Reference the generated image at frontend/public/assets/generated/starr-eyes-restaurant.dim_800x600.png. Include card layout with image, name, type badge, and description text."
+          "description": "Add a new upcoming event entry for 'Soak Kingdom' water park scheduled for 2040. Include description highlighting the four water slides: one tornado slide with swirling water effects, and three additional distinct slide types (such as body slide, tube slide, and speed slide). Include year, month, day fields, and featureTransactionType. Describe each slide type's unique features."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add the generated image reference for Soak Kingdom water park using the workspace file path 'frontend/public/assets/generated/soak-kingdom-waterpark.dim_1200x800.png' in the upcomingEvents section of the images mapping object."
+        },
+        {
+          "path": "frontend/src/components/sections/UpcomingEventsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure the component properly renders the Soak Kingdom water park event in the 2040 timeline section. Verify that the event card displays the image from generatedImages, shows all 4 slide descriptions prominently, and maintains visual consistency with existing event cards."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Add Lone Starr stunt show to 2028 attractions with action-packed live stunt performance description",
+      "summary": "Add '1 AM Farewell Procession' as a special nightly event occurring on select nights after park closes at 1 AM featuring characters, floats, and theatrical elements",
       "acceptanceCriteria": [
-        "Show appears under 2028 section",
-        "Includes name 'Lone Starr' and description of stunt show",
-        "Uses generated AI image with cartoon/horror/graffiti style"
+        "1 AM Farewell Procession appears as a special event in the shows or events section",
+        "Event is marked as occurring at 1 AM after park closing",
+        "Description includes characters, floats, and theatrical elements",
+        "Indicates it runs on select nights (not every night)"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "path": "frontend/src/content/shows.ts",
           "operation": "modify",
-          "description": "Add Lone Starr stunt show entry to 2028 attractions array with name, type 'Stunt Show', description featuring action-packed live stunt performances in western horror setting with dangerous tricks. Reference the generated image at frontend/public/assets/generated/lone-starr-stunt-show.dim_800x600.png. Use consistent card styling with other attraction cards."
+          "description": "Add a new show entry for '1 AM Farewell Procession' with name, description featuring characters, illuminated floats, performers, and dramatic theatrical lighting. Include details about the 1 AM timing, that it occurs after park closing, and runs on select nights only. Set hauntSeason flag appropriately."
+        },
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add the generated image reference for 1 AM Farewell Procession using the workspace file path 'frontend/public/assets/generated/farewell-procession-night.dim_1200x600.png' in the shows section of the images mapping object."
+        },
+        {
+          "path": "frontend/src/components/sections/ShowsSection.tsx",
+          "operation": "modify",
+          "description": "Ensure the component properly renders the 1 AM Farewell Procession show card with the generated image, displays the special timing information (1 AM, after park closing), and indicates select nights scheduling. Verify the badge styling distinguishes this as a special late-night event."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Add Chaos Breaths themed land to 2029 attractions featuring multiple shows and character meet-and-greets",
+      "summary": "Display all three new additions in appropriate frontend sections with proper rendering, timing, and visual consistency",
       "acceptanceCriteria": [
-        "Land appears under 2029 section with name 'Chaos Breaths'",
-        "Description mentions it's a new themed land with shows and character interactions",
-        "Uses generated AI image with cartoon/horror/graffiti style"
+        "Bee's Dance Show renders correctly in the Kid Grove section of upcoming attractions",
+        "Soak Kingdom renders correctly in the 2040 timeline section with all 4 slides visible",
+        "1 AM Farewell Procession renders correctly in shows/events section with time and schedule info",
+        "All three attractions maintain visual consistency with existing attraction cards"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
           "operation": "modify",
-          "description": "Add Chaos Breaths themed land entry to 2029 attractions array with name, type 'Themed Land', description highlighting it as a major new land featuring chaotic breath effects, dark atmosphere, multiple live shows, and all costume character meet-and-greets. Reference the generated image at frontend/public/assets/generated/chaos-breaths-land.dim_1000x600.png. Use larger card format to emphasize it as a major expansion containing sub-attractions."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add Fire over Water show as featured attraction within Chaos Breaths land with water and fire special effects description",
-      "acceptanceCriteria": [
-        "Show is listed as part of Chaos Breaths land attractions",
-        "Name is 'Fire over Water'",
-        "Description highlights water and fire effects",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ],
-      "file_operations": [
+          "description": "Verify and enhance rendering logic to properly display Bee's Dance Show within Kid Grove themed land card. Ensure the show appears in the futureShows list with appropriate styling, image from generatedImages, and description text. Maintain grouping by opening year and visual consistency with existing themed land attractions."
+        },
         {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "path": "frontend/src/components/sections/UpcomingEventsSection.tsx",
           "operation": "modify",
-          "description": "Add Fire over Water show as a sub-attraction within the Chaos Breaths land card in 2029. Include name, type 'Live Show', description emphasizing dramatic water and fire special effects spectacle. Reference the generated image at frontend/public/assets/generated/fire-over-water-show.dim_800x600.png. Display as a nested item or sub-card within the Chaos Breaths land entry."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add Dragon Lair show as featured attraction within Chaos Breaths land with dragon-themed performance description",
-      "acceptanceCriteria": [
-        "Show is listed as part of Chaos Breaths land attractions",
-        "Name is 'Dragon Lair'",
-        "Description features dragon theming",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ],
-      "file_operations": [
+          "description": "Verify and enhance rendering logic to properly display Soak Kingdom in the 2040 timeline section. Ensure all 4 water slide descriptions are clearly visible in the event card, the tornado slide is prominently featured, and the generated image renders correctly. Maintain visual consistency with existing upcoming events cards."
+        },
         {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "path": "frontend/src/components/sections/ShowsSection.tsx",
           "operation": "modify",
-          "description": "Add Dragon Lair show as a sub-attraction within the Chaos Breaths land card in 2029. Include name, type 'Live Show', description featuring menacing dragon presence in lair setting with dragon-themed performance elements. Reference the generated image at frontend/public/assets/generated/dragon-lair-show.dim_800x600.png. Display alongside Fire over Water as a nested item within the Chaos Breaths land entry."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters available for photos",
-      "acceptanceCriteria": [
-        "Chaos Breaths land description or card mentions character meet-and-greets",
-        "Text indicates all costume characters will be present"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "operation": "modify",
-          "description": "Update Chaos Breaths land description or add a features list to explicitly mention that all costume characters will be available for meet-and-greets and photo opportunities throughout the themed land. Include this information in the main land card text or as a highlighted feature bullet point."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add Under the Sea live show with pyrotechnic water show description and Six Flags America easter egg reference",
-      "acceptanceCriteria": [
-        "Show appears in upcoming attractions with name 'Under the Sea'",
-        "Description mentions live show with pyrotechnic effects",
-        "Description includes subtle reference or easter egg to Six Flags America",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "operation": "modify",
-          "description": "Add Under the Sea live show to one of the year groupings (2027, 2028, or 2029 based on overall timeline balance). Include name, type 'Live Show', description highlighting underwater ocean scene with sea creatures, pyrotechnic effects bursting from water, and a subtle Six Flags America easter egg reference integrated naturally into the description text. Reference the generated image at frontend/public/assets/generated/under-the-sea-show.dim_800x600.png."
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
-      "acceptanceCriteria": [
-        "All attraction images load from frontend/public/assets/generated",
-        "Images display in attraction cards with proper sizing",
-        "Error handling for missing images is in place"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "operation": "modify",
-          "description": "Ensure all attraction cards use img elements with src paths pointing to /assets/generated/<filename> for the six required images: starr-eyes-restaurant.dim_800x600.png, lone-starr-stunt-show.dim_800x600.png, chaos-breaths-land.dim_1000x600.png, fire-over-water-show.dim_800x600.png, dragon-lair-show.dim_800x600.png, and under-the-sea-show.dim_800x600.png. Add onError handlers with fallback placeholder or error state display. Apply appropriate sizing with object-fit cover and aspect ratio constraints matching the attraction card design pattern used in other section components."
+          "description": "Verify and enhance rendering logic to properly display 1 AM Farewell Procession show card. Ensure timing information (1 AM, after closing, select nights) is prominently displayed, the generated nighttime procession image renders correctly, and special event badge styling distinguishes it from regular shows. Maintain visual consistency with existing show cards."
         }
       ]
     }

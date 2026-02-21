@@ -1,131 +1,94 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T17:50:17.699Z",
+  "generatedAt": "2026-02-21T04:01:45.229Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 9,
-    "implemented": 9,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Create a new UpcomingAttractionsSection component that displays future park expansions in timeline format showing 2027, 2028, and 2029 attractions grouped by year",
+        "summary": "Add 'Bee's Dance Show' as a new show attraction in Kid Grove themed land. The show should be added to the existing Kid Grove content without replacing any existing attractions. Include a description of the show featuring bees performing dance routines.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/content/themedLands.ts",
+          "frontend/src/content/shows.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
-          "frontend/src/App.tsx"
+          "frontend/src/content/themedLands.ts",
+          "frontend/src/content/shows.ts",
+          "frontend/src/content/generatedImages.ts"
         ]
       },
       {
         "id": "REQ-2",
-        "summary": "Add Starr Eyes restaurant to 2027 attractions with description as an upscale horror-themed dining experience",
+        "summary": "Add 'Soak Kingdom' water park scheduled to open in 2040. The water park should include exactly 4 water slides: one tornado slide and three additional slide types (such as body slides, tube slides, or speed slides). Include descriptions for each slide type and the overall water park attraction.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/content/upcomingEvents.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/UpcomingEventsSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/content/upcomingEvents.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/UpcomingEventsSection.tsx"
         ]
       },
       {
         "id": "REQ-3",
-        "summary": "Add Lone Starr stunt show to 2028 attractions with description of action-packed live stunt performances",
+        "summary": "Add '1 AM Farewell Procession' as a special nightly event that occurs on select nights after the park closes at 1 AM. The procession should feature characters, floats, and other theatrical elements. Include details about which select nights it runs and what guests can expect to see during this late-night farewell event.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/content/shows.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/ShowsSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/content/shows.ts",
+          "frontend/src/content/generatedImages.ts",
+          "frontend/src/components/sections/ShowsSection.tsx"
         ]
       },
       {
         "id": "REQ-4",
-        "summary": "Add Chaos Breaths themed land to 2029 attractions as a major new land featuring multiple shows and character meet-and-greets",
+        "summary": "Display all three new additions (Bee's Dance Show, Soak Kingdom, and 1 AM Farewell Procession) in the appropriate frontend sections: Bee's Dance Show in the upcoming attractions timeline under Kid Grove, Soak Kingdom in the 2040 timeline section, and 1 AM Farewell Procession in the shows/events section with appropriate time and scheduling information.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+          "frontend/src/components/sections/UpcomingEventsSection.tsx",
+          "frontend/src/components/sections/ShowsSection.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Add Fire over Water show as a featured attraction within Chaos Breaths land with description of water and fire special effects spectacle",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Add Dragon Lair show as a featured attraction within Chaos Breaths land with description of dragon-themed performance",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters will be available for photo opportunities",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Add Under the Sea live show with description of pyrotechnic water show and include a Six Flags America easter egg reference in the description",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/sections/UpcomingAttractionsSection.tsx"
+          "frontend/src/components/sections/UpcomingEventsSection.tsx",
+          "frontend/src/components/sections/ShowsSection.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/chaos-breaths-land.dim_1000x600.png",
-    "frontend/public/assets/generated/dragon-lair-show.dim_800x600.png",
-    "frontend/public/assets/generated/fire-over-water-show.dim_800x600.png",
-    "frontend/public/assets/generated/lone-starr-stunt-show.dim_800x600.png",
-    "frontend/public/assets/generated/starr-eyes-restaurant.dim_800x600.png",
-    "frontend/public/assets/generated/under-the-sea-show.dim_800x600.png",
-    "frontend/src/App.tsx",
-    "frontend/src/components/sections/UpcomingAttractionsSection.tsx",
+    "frontend/public/assets/generated/bees-dance-show.dim_800x600.png",
+    "frontend/public/assets/generated/farewell-procession-night.dim_1200x600.png",
+    "frontend/public/assets/generated/soak-kingdom-waterpark.dim_1200x800.png",
+    "frontend/src/components/sections/ShowsSection.tsx",
+    "frontend/src/components/sections/UpcomingEventsSection.tsx",
+    "frontend/src/components/sections/UpcomingExpansionsSection.tsx",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/shows.ts",
+    "frontend/src/content/themedLands.ts",
+    "frontend/src/content/upcomingEvents.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

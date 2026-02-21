@@ -56,6 +56,8 @@ export const generatedImages = {
     'Camp Riley': '/assets/generated/show-camp-riley.dim_1400x900.jpg',
     'Celeste the unicorn': '/assets/generated/celeste-unicorn.dim_600x600.png',
     'Cosmo the dog': '/assets/generated/cosmo-dog.dim_600x600.png',
+    'Bee\'s Dance Show': '/assets/generated/bees-dance-show.dim_800x600.png',
+    '1 AM Farewell Procession': '/assets/generated/farewell-procession-night.dim_1200x600.png',
   },
   upcomingEvents: {
     'Chaos Purge': '/assets/generated/event-chaos-purge.dim_1400x900.jpg',
@@ -75,6 +77,7 @@ export const generatedImages = {
       '/assets/generated/event-tcea-horror-nights-2.dim_1400x900.jpg',
       '/assets/generated/event-tcea-horror-nights-3.dim_1400x900.jpg',
     ],
+    'Soak Kingdom': '/assets/generated/soak-kingdom-waterpark.dim_1200x800.png',
   },
   other: {
     'Main Street Plaza Procession': '/assets/generated/procession-main-street-plaza.dim_1600x900.jpg',

@@ -30,4 +30,17 @@ export const shows = [
     hauntSeasonOnly: false,
     year: 2028,
   },
+  {
+    name: 'Bee\'s Dance Show',
+    description: 'Join the buzzing excitement at Bee\'s Dance Show, a delightful performance featuring a troupe of talented bees. Watch as these amazing insects wow the audience with their coordinated dance routines, aerial stunts, and playful interactions. The show combines music, lights, and vibrant costumes to create a truly immersive experience. Bee\'s Dance Show is part of the Kid Grove themed land, offering fun for the entire family.',
+    hauntSeasonOnly: false,
+    year: 2026,
+  },
+  {
+    name: '1 AM Farewell Procession',
+    description: 'Experience the magic of the 1 AM Farewell Procession, a special event that takes place on select nights after the park\'s official closing time. This grand procession features beloved characters, illuminated floats, and theatrical performances that bid farewell to guests. Expect dazzling costumes, music, and a festive atmosphere as the procession winds through the park. The 1 AM Farewell Procession runs on specific dates throughout the year, creating unforgettable memories for all attendees.',
+    hauntSeasonOnly: false,
+    specialTiming: '1 AM (After Park Closing)',
+    selectNights: true,
+  },
 ];

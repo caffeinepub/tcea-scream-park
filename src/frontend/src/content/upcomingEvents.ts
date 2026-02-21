@@ -47,4 +47,12 @@ export const upcomingEvents = [
     month: 'August',
     day: 22,
   },
+  {
+    name: 'Soak Kingdom',
+    description: 'Get ready for a splash-tastic adventure at Soak Kingdom, opening in 2040! This world-class water park features four thrilling water slides: the All Around Funnel Tornado Slide with swirling water effects, the Lightning Strike Speed Slide for adrenaline junkies, the Serpent\'s Twist Body Slide with multiple turns, and the Family Raft Tube Slide for group fun. Soak Kingdom offers excitement for all ages with multiple pool areas for relaxation and refreshment. Come make a splash in 2040!',
+    dateLabel: 'Opening 2040',
+    year: 2040,
+    month: 'May',
+    day: 1,
+  },
 ];

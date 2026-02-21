@@ -1,161 +1,71 @@
 {
   "kind": "build_request",
-  "title": "Add Upcoming Attractions Timeline (2027-2029) with AI-Generated Images",
+  "title": "Add Bee's Dance Show, Soak Kingdom Water Park (2040), and 1 AM Farewell Procession",
   "projectName": "TCEA Scream Park",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create a new UpcomingAttractionsSection component that displays future park expansions in timeline format showing 2027, 2028, and 2029 attractions grouped by year",
-      "target": "frontend",
+      "text": "Add 'Bee's Dance Show' as a new show attraction in Kid Grove themed land. The show should be added to the existing Kid Grove content without replacing any existing attractions. Include a description of the show featuring bees performing dance routines.",
+      "target": "both",
       "source": {
         "messageIds": [
           "msg-recent"
         ],
         "quotes": [
-          "Yes as upcoming attractions"
+          "Make me a new show will be in kid grove show called Bees dance show",
+          "Be added as a new attraction"
         ]
       },
       "acceptanceCriteria": [
-        "Section displays attractions organized by opening year (2027, 2028, 2029)",
-        "Each year grouping shows all attractions scheduled for that year",
-        "Section uses consistent styling with existing Section components",
-        "Component is added to home page alongside other sections"
+        "Bee's Dance Show appears in the Kid Grove themed land alongside existing attractions",
+        "Show has a clear description related to bees and dancing",
+        "Show is visible in the upcoming attractions timeline section"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Add Starr Eyes restaurant to 2027 attractions with description as an upscale horror-themed dining experience",
-      "target": "frontend",
+      "text": "Add 'Soak Kingdom' water park scheduled to open in 2040. The water park should include exactly 4 water slides: one tornado slide and three additional slide types (such as body slides, tube slides, or speed slides). Include descriptions for each slide type and the overall water park attraction.",
+      "target": "both",
       "source": {
         "messageIds": [
           "msg-recent"
         ],
         "quotes": [
-          "Starr Eyes restaurant in 2027"
+          "add in 2040 will be a water park called Soak kingdom add 4 slides a tornado slide and more",
+          "4 total slides including: tornado slide + 3 additional slide types"
         ]
       },
       "acceptanceCriteria": [
-        "Restaurant appears under 2027 section",
-        "Includes name 'Starr Eyes' and description",
-        "Uses generated AI image with cartoon/horror/graffiti style"
+        "Soak Kingdom water park appears in the 2040 timeline section",
+        "Water park includes exactly 4 slides with distinct types",
+        "One slide is explicitly identified as a tornado slide",
+        "Each slide has a descriptive name and details"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Add Lone Starr stunt show to 2028 attractions with description of action-packed live stunt performances",
-      "target": "frontend",
+      "text": "Add '1 AM Farewell Procession' as a special nightly event that occurs on select nights after the park closes at 1 AM. The procession should feature characters, floats, and other theatrical elements. Include details about which select nights it runs and what guests can expect to see during this late-night farewell event.",
+      "target": "both",
       "source": {
         "messageIds": [
           "msg-recent"
         ],
         "quotes": [
-          "Lone Starr stunt show coming soon 2028"
+          "1 am farewell procession after park closes",
+          "Nightly event after park closes on select nights, featuring characters, floats, etc."
         ]
       },
       "acceptanceCriteria": [
-        "Show appears under 2028 section",
-        "Includes name 'Lone Starr' and description of stunt show",
-        "Uses generated AI image with cartoon/horror/graffiti style"
+        "1 AM Farewell Procession appears as a special event in the shows or events section",
+        "Event is marked as occurring at 1 AM after park closing",
+        "Description includes characters, floats, and theatrical elements",
+        "Indicates it runs on select nights (not every night)"
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Add Chaos Breaths themed land to 2029 attractions as a major new land featuring multiple shows and character meet-and-greets",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Chaos breaths will have two new shows",
-          "meet and greets from all costume characters"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Land appears under 2029 section with name 'Chaos Breaths'",
-        "Description mentions it's a new themed land with shows and character interactions",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add Fire over Water show as a featured attraction within Chaos Breaths land with description of water and fire special effects spectacle",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "one is called Fire over water"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Show is listed as part of Chaos Breaths land attractions",
-        "Name is 'Fire over Water'",
-        "Description highlights water and fire effects",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Add Dragon Lair show as a featured attraction within Chaos Breaths land with description of dragon-themed performance",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "second show is Dragon lair"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Show is listed as part of Chaos Breaths land attractions",
-        "Name is 'Dragon Lair'",
-        "Description features dragon theming",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Add character meet-and-greet information to Chaos Breaths land indicating all costume characters will be available for photo opportunities",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "meet and greets from all costume characters"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Chaos Breaths land description or card mentions character meet-and-greets",
-        "Text indicates all costume characters will be present"
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Add Under the Sea live show with description of pyrotechnic water show and include a Six Flags America easter egg reference in the description",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Under the Sea will have a live show with pyro",
-          "Yes a connection from six flags America Easter egg"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Show appears in upcoming attractions with name 'Under the Sea'",
-        "Description mentions live show with pyrotechnic effects",
-        "Description includes subtle reference or easter egg to Six Flags America",
-        "Uses generated AI image with cartoon/horror/graffiti style"
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Render all generated AI images for upcoming attractions as static assets from frontend/public/assets/generated directory",
+      "text": "Display all three new additions (Bee's Dance Show, Soak Kingdom, and 1 AM Farewell Procession) in the appropriate frontend sections: Bee's Dance Show in the upcoming attractions timeline under Kid Grove, Soak Kingdom in the 2040 timeline section, and 1 AM Farewell Procession in the shows/events section with appropriate time and scheduling information.",
       "target": "frontend",
       "source": {
         "messageIds": [
@@ -163,30 +73,30 @@
         ]
       },
       "acceptanceCriteria": [
-        "All attraction images load from frontend/public/assets/generated",
-        "Images display in attraction cards with proper sizing",
-        "Error handling for missing images is in place"
+        "Bee's Dance Show renders correctly in the Kid Grove section of upcoming attractions",
+        "Soak Kingdom renders correctly in the 2040 timeline section with all 4 slides visible",
+        "1 AM Farewell Procession renders correctly in shows/events section with time and schedule info",
+        "All three attractions maintain visual consistency with existing attraction cards"
       ]
     }
   ],
   "constraints": [
-    "All AI-generated images must use cartoon style mixed with horror and graffiti aesthetics",
-    "Maintain existing frontend structure and component patterns",
-    "Do not modify existing shows or attractions data"
+    "Do not modify or remove existing attractions in Kid Grove",
+    "Maintain the existing theme park timeline structure (2027-2040+)",
+    "Follow the existing content type patterns for shows, attractions, and events",
+    "Preserve the horror/haunt theme of the park while adding family-friendly water park content"
   ],
   "nonGoals": [
-    "Creating detail pages for individual upcoming attractions",
-    "Adding backend storage for upcoming attractions timeline",
-    "Implementing booking or reservation features for future attractions"
+    "Modifying existing attractions or shows",
+    "Changing the park's operating hours or ticketing system",
+    "Adding any attractions beyond the three specified",
+    "Creating booking or reservation functionality for the new attractions"
   ],
   "imageRequirements": {
     "required": [
-      "Upscale horror-themed restaurant exterior with neon stars and eerie dining ambiance in cartoon style mixed with horror and graffiti (starr-eyes-restaurant.dim_800x600.png)",
-      "Action-packed stunt show with performers doing dangerous tricks in a western horror setting, cartoon style with horror and graffiti elements (lone-starr-stunt-show.dim_800x600.png)",
-      "Large themed land entrance with chaotic breath effects and dark atmosphere, cartoon style mixed with horror and graffiti (chaos-breaths-land.dim_1000x600.png)",
-      "Water and fire special effects show with dramatic flames over water surface, cartoon style with horror and graffiti aesthetic (fire-over-water-show.dim_800x600.png)",
-      "Dragon-themed show stage with menacing dragon presence in lair setting, cartoon style mixed with horror and graffiti (dragon-lair-show.dim_800x600.png)",
-      "Underwater ocean scene with sea creatures and pyrotechnic effects bursting from water, cartoon style with horror and graffiti elements and subtle Six Flags America reference (under-the-sea-show.dim_800x600.png)"
+      "Cartoon-style illustration of bees performing a coordinated dance show on a stage with Kid Grove themed backdrop (bees-dance-show.dim_800x600.png)",
+      "Vibrant water park illustration showing a large tornado slide structure with swirling water effects and three other distinct slide types (soak-kingdom-waterpark.dim_1200x800.png)",
+      "Dramatic nighttime procession scene with illuminated character floats, performers, and theatrical lighting at 1 AM (farewell-procession-night.dim_1200x600.png)"
     ],
     "edits": []
   }
