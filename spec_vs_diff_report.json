@@ -1,0 +1,64 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T19:04:58.156Z",
+  "summary": "The diff implements most of the requested requirements. ShowsSection.tsx is updated to use generatedImages, generatedImages.ts has a shows section, and shows.ts has new entries. However, the diff is truncated for shows.ts and generatedImages.ts, making it impossible to fully verify all content details. Based on available evidence, the implementation appears largely complete but some specifics cannot be confirmed due to truncation.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Add Waterworks Stunt Show entry with description highlighting jet skis, fire, blood-pumping action, choreographed stunt fighting combat, 'Coming 2027' year tag, marked as non-haunt-season show.",
+      "reason": "The shows.ts diff is truncated after existing entries and does not show the new Waterworks Stunt Show entry being added. Cannot confirm description content, year tag, or hauntSeasonOnly flag.",
+      "evidence": [
+        "frontend/src/content/shows.ts"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Add Dog Show entry with family-friendly description, performing dogs, meet & greet/petting experience, 'Coming 2029' year tag.",
+      "reason": "The shows.ts diff is truncated and does not show the Dog Show entry. Cannot confirm this entry exists with required fields.",
+      "evidence": [
+        "frontend/src/content/shows.ts"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Add Halfway to Horror Nights entry with description covering Horror Nights origin story, masks showcase, and annual May timing.",
+      "reason": "The shows.ts diff is truncated and does not show the Halfway to Horror Nights entry. Cannot confirm this entry exists with required description content.",
+      "evidence": [
+        "frontend/src/content/shows.ts"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Register AI-generated jet ski banner for Waterworks Stunt Show and atmospheric banner for Halfway to Horror Nights in generatedImages.ts under frontend/public/assets/generated/.",
+      "reason": "The generatedImages.ts diff is truncated mid-shows object and does not show keys for 'Waterworks Stunt Show' or 'Halfway to Horror Nights'. The existing shows keys visible are 'Lost spirits', 'Dead man's revenge', 'Fire Remix', 'Camp Riley' but the new entries are not visible.",
+      "evidence": [
+        "frontend/src/content/generatedImages.ts"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Badge for 'annualMay' property displaying 'Annual — May' with a calendar icon added to ShowsSection.tsx",
+      "reason": "The build request does not specify a dedicated 'annualMay' boolean field or a special badge for it. The requirement only states the description should reference annual May timing, not that a badge should be rendered from an annualMay property.",
+      "evidence": [
+        "frontend/src/components/sections/ShowsSection.tsx"
+      ]
+    },
+    {
+      "description": "Badge for 'specialTiming' property with a Clock icon added to ShowsSection.tsx",
+      "reason": "No 'specialTiming' field or badge was requested in the build requirements for any of the new shows.",
+      "evidence": [
+        "frontend/src/components/sections/ShowsSection.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.45,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/components/sections/ShowsSection.tsx",
+    "frontend/src/content/generatedImages.ts",
+    "frontend/src/content/shows.ts",
+    "project_state.json"
+  ]
+}

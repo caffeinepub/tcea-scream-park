@@ -1,0 +1,100 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-waterworks-stunt-show-entry-to-the-shows-content-array-in-frontend-src-content-shows-ts-with-name-waterworks-stunt-show-a-description-highlighting-jet-skis-fire-blood-pumping-action-and-choreographed-stunt-fighting-combat-a-coming-2027-year-tag-and-mark-it-as-a-non-haunt-season-show",
+      "featureTitle": "Add a 'Waterworks Stunt Show' entry to the shows content array in frontend/src/content/shows.ts with name 'Waterworks Stunt Show', a description highlighting jet skis, fire, blood-pumping action, and choreographed stunt fighting combat, a 'Coming 2027' year tag, and mark it as a non-haunt-season show.",
+      "files": [
+        "frontend/src/content/shows.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-dog-show-entry-to-the-shows-content-array-in-frontend-src-content-shows-ts-with-name-dog-show-a-fun-family-friendly-description-emphasizing-interactive-entertainment-for-the-whole-family-performing-dogs-and-a-meet-greet-petting-experience-after-the-show-and-a-coming-2029-year-tag",
+      "featureTitle": "Add a 'Dog Show' entry to the shows content array in frontend/src/content/shows.ts with name 'Dog Show', a fun family-friendly description emphasizing interactive entertainment for the whole family, performing dogs, and a meet & greet / petting experience after the show, and a 'Coming 2029' year tag.",
+      "files": [
+        "frontend/src/content/shows.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-halfway-to-horror-nights-entry-to-the-shows-content-array-in-frontend-src-content-shows-ts-with-name-halfway-to-horror-nights-a-description-dedicated-to-the-horror-nights-origin-story-covering-how-the-event-came-about-a-showcase-of-masks-used-throughout-the-event-s-history-and-its-annual-may-timing",
+      "featureTitle": "Add a 'Halfway to Horror Nights' entry to the shows content array in frontend/src/content/shows.ts with name 'Halfway to Horror Nights', a description dedicated to the Horror Nights origin story — covering how the event came about, a showcase of masks used throughout the event's history, and its annual May timing.",
+      "files": [
+        "frontend/src/content/shows.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-register-the-ai-generated-jet-ski-banner-image-for-waterworks-stunt-show-and-the-ai-generated-atmospheric-story-banner-image-for-halfway-to-horror-nights-in-frontend-src-content-generatedimages-ts-mapping-each-show-name-to-its-corresponding-asset-path-under-frontend-public-assets-generated",
+      "featureTitle": "Register the AI-generated jet ski banner image for Waterworks Stunt Show and the AI-generated atmospheric story banner image for Halfway to Horror Nights in frontend/src/content/generatedImages.ts, mapping each show name to its corresponding asset path under frontend/public/assets/generated/.",
+      "files": [
+        "frontend/src/content/generatedImages.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-frontend-src-components-sections-showssection-tsx-to-display-the-ai-generated-banner-images-for-waterworks-stunt-show-and-halfway-to-horror-nights-on-their-respective-show-cards-using-the-generatedimages-map-dog-show-card-should-render-without-a-custom-generated-image-use-a-placeholder-or-omit-the-image-gracefully-if-no-image-is-mapped",
+      "featureTitle": "Update frontend/src/components/sections/ShowsSection.tsx to display the AI-generated banner images for Waterworks Stunt Show and Halfway to Horror Nights on their respective show cards, using the generatedImages map. Dog Show card should render without a custom generated image (use a placeholder or omit the image gracefully if no image is mapped).",
+      "files": [
+        "frontend/src/components/sections/ShowsSection.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

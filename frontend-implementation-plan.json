@@ -1,0 +1,90 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add Waterworks Stunt Show, Dog Show, and Halfway to Horror Nights to Shows Section",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Waterworks Stunt Show entry to shows content with 2027 coming soon tag and stunt show details",
+      "acceptanceCriteria": [
+        "Waterworks Stunt Show entry appears in the shows content array",
+        "Description mentions jet skis, fire, stunt fighting/combat choreography",
+        "Year tag displays 'Coming 2027'",
+        "Show card renders in the Shows section on the home page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/shows.ts",
+          "operation": "modify",
+          "description": "Add a new show object for 'Waterworks Stunt Show' to the shows array. Include name 'Waterworks Stunt Show', a description highlighting jet skis, fire, blood-pumping action, and choreographed stunt fighting combat. Set year to 'Coming 2027' and hauntSeason to false to mark it as a non-haunt-season show. Follow the existing show object structure with all required fields."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Add Dog Show entry to shows content with 2029 coming soon tag and family-friendly interactive experience",
+      "acceptanceCriteria": [
+        "Dog Show entry appears in the shows content array",
+        "Description mentions family-friendly, interactive, performing dogs, and post-show petting/meet & greet",
+        "Year tag displays 'Coming 2029'",
+        "Show card renders in the Shows section on the home page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/shows.ts",
+          "operation": "modify",
+          "description": "Add a new show object for 'Dog Show' to the shows array. Include name 'Dog Show', a fun family-friendly description emphasizing interactive entertainment for the whole family, performing dogs, and a meet & greet/petting experience after the show. Set year to 'Coming 2029' and hauntSeason to false. Follow the existing show object structure with all required fields."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Add Halfway to Horror Nights entry to shows content covering the Horror Nights origin story and masks showcase",
+      "acceptanceCriteria": [
+        "Halfway to Horror Nights entry appears in the shows content array",
+        "Description references Horror Nights origin story, masks showcase, and annual May timing",
+        "Show card renders in the Shows section on the home page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/shows.ts",
+          "operation": "modify",
+          "description": "Add a new show object for 'Halfway to Horror Nights' to the shows array. Include name 'Halfway to Horror Nights', a description dedicated to the Horror Nights origin story covering how the event came about, a showcase of masks used throughout the event's history, and its annual May timing. Set hauntSeason to false since it occurs in May outside the regular haunt season. Follow the existing show object structure with all required fields."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Register AI-generated banner images for Waterworks Stunt Show and Halfway to Horror Nights in the generatedImages map",
+      "acceptanceCriteria": [
+        "generatedImages.ts contains a key for 'Waterworks Stunt Show' pointing to its jet ski banner asset",
+        "generatedImages.ts contains a key for 'Halfway to Horror Nights' pointing to its atmospheric banner asset",
+        "ShowsSection correctly reads and renders both images on their respective show cards"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/content/generatedImages.ts",
+          "operation": "modify",
+          "description": "Add two new entries to the generatedImages map: 'Waterworks Stunt Show' mapped to 'frontend/public/assets/generated/waterworks-stunt-show-banner.dim_1200x500.png' (the jet ski action banner), and 'Halfway to Horror Nights' mapped to 'frontend/public/assets/generated/halfway-to-horror-nights-banner.dim_1200x500.png' (the atmospheric story banner with masks). Use the exact show names as keys to match the names in shows.ts."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Update ShowsSection component to display AI-generated banner images for new shows using the generatedImages map",
+      "acceptanceCriteria": [
+        "Waterworks Stunt Show card displays the jet ski banner image",
+        "Halfway to Horror Nights card displays the atmospheric story banner image",
+        "Dog Show card renders without error even if no image is mapped",
+        "All three new show cards are visible in the Shows section"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/ShowsSection.tsx",
+          "operation": "modify",
+          "description": "Update the ShowsSection component to read from the generatedImages map and display banner images for show cards when available. For each show card, check if generatedImages has a key matching the show name, and if so, render the corresponding image. Ensure the Dog Show card renders gracefully without an image (use a placeholder or conditional rendering). Verify that Waterworks Stunt Show displays frontend/public/assets/generated/waterworks-stunt-show-banner.dim_1200x500.png and Halfway to Horror Nights displays frontend/public/assets/generated/halfway-to-horror-nights-banner.dim_1200x500.png. Handle missing images without breaking the card layout."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "kind": "build_request",
+  "title": "Add Waterworks Stunt Show, Dog Show, and Halfway to Horror Nights to Shows Section",
+  "projectName": "TCEA Scream Park",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Add a 'Waterworks Stunt Show' entry to the shows content array in frontend/src/content/shows.ts with name 'Waterworks Stunt Show', a description highlighting jet skis, fire, blood-pumping action, and choreographed stunt fighting combat, a 'Coming 2027' year tag, and mark it as a non-haunt-season show.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "Waterworks stunt show it's a water stunt show with jet skis and fire and blood and fighting",
+          "Coming 2027",
+          "stunt fighting element"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Waterworks Stunt Show entry appears in the shows content array",
+        "Description mentions jet skis, fire, stunt fighting/combat choreography",
+        "Year tag displays 'Coming 2027'",
+        "Show card renders in the Shows section on the home page"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add a 'Dog Show' entry to the shows content array in frontend/src/content/shows.ts with name 'Dog Show', a fun family-friendly description emphasizing interactive entertainment for the whole family, performing dogs, and a meet & greet / petting experience after the show, and a 'Coming 2029' year tag.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6"
+        ],
+        "quotes": [
+          "dog show coming 2029",
+          "fun and interactive show for whole family with dogs and u can pet them after show"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dog Show entry appears in the shows content array",
+        "Description mentions family-friendly, interactive, performing dogs, and post-show petting/meet & greet",
+        "Year tag displays 'Coming 2029'",
+        "Show card renders in the Shows section on the home page"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Add a 'Halfway to Horror Nights' entry to the shows content array in frontend/src/content/shows.ts with name 'Halfway to Horror Nights', a description dedicated to the Horror Nights origin story — covering how the event came about, a showcase of masks used throughout the event's history, and its annual May timing.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "halfway to horror nights will be a show dedicated to horror nights In may will show all masks and how we came about this event",
+          "annual May event"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Halfway to Horror Nights entry appears in the shows content array",
+        "Description references Horror Nights origin story, masks showcase, and annual May timing",
+        "Show card renders in the Shows section on the home page"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Register the AI-generated jet ski banner image for Waterworks Stunt Show and the AI-generated atmospheric story banner image for Halfway to Horror Nights in frontend/src/content/generatedImages.ts, mapping each show name to its corresponding asset path under frontend/public/assets/generated/.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "AI image of jet skis for this show",
+          "halfway should be AI generated image as well of a story"
+        ]
+      },
+      "acceptanceCriteria": [
+        "generatedImages.ts contains a key for 'Waterworks Stunt Show' pointing to its jet ski banner asset",
+        "generatedImages.ts contains a key for 'Halfway to Horror Nights' pointing to its atmospheric banner asset",
+        "ShowsSection correctly reads and renders both images on their respective show cards"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Update frontend/src/components/sections/ShowsSection.tsx to display the AI-generated banner images for Waterworks Stunt Show and Halfway to Horror Nights on their respective show cards, using the generatedImages map. Dog Show card should render without a custom generated image (use a placeholder or omit the image gracefully if no image is mapped).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6",
+          "msg-8"
+        ],
+        "quotes": [
+          "AI-generated jet ski banner image",
+          "AI-generated atmospheric banner image"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Waterworks Stunt Show card displays the jet ski banner image",
+        "Halfway to Horror Nights card displays the atmospheric story banner image",
+        "Dog Show card renders without error even if no image is mapped",
+        "All three new show cards are visible in the Shows section"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not alter existing show entries in shows.ts",
+    "Do not modify any files listed in frontend.immutablePaths",
+    "Generated images must be served as static assets from frontend/public/assets/generated/ — not routed through the backend"
+  ],
+  "nonGoals": [
+    "Creating separate detail pages for the new shows (cards in the Shows section are sufficient)",
+    "Adding audition forms specific to any of these shows",
+    "Backend schema changes — no new data types or canister endpoints needed",
+    "Checkout or ticketing functionality for these shows"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Dramatic action scene of jet skis racing on water with massive fire explosions, water spray, and intense stunt fighting silhouettes on the water — vivid oranges, reds, and neon reflections on dark water (waterworks-stunt-show-banner.dim_1200x500.png)",
+      "Atmospheric horror story illustration with dramatic fog, spotlights illuminating an array of terrifying masks mounted on a dark wall, blood-red and deep shadow tones evoking mystery and dread (halfway-to-horror-nights-banner.dim_1200x500.png)"
+    ],
+    "edits": []
+  }
+}
