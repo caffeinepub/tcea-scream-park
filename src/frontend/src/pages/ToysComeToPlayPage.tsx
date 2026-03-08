@@ -1,13 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ArrowLeft, AlertTriangle, Users } from 'lucide-react';
-import { hauntedHouses } from '@/content/hauntedHouses';
-import { generatedImages } from '@/content/generatedImages';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { hauntedHouses } from "@/content/hauntedHouses";
+import { AlertTriangle, ArrowLeft, Users } from "lucide-react";
 
 export function ToysComeToPlayPage() {
-  const house = hauntedHouses.houses.find(h => h.name === 'Toys Come to Play');
-  
+  const house = hauntedHouses.houses.find(
+    (h) => h.name === "Toys Come to Play",
+  );
+
   if (!house) {
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
@@ -16,18 +18,19 @@ export function ToysComeToPlayPage() {
     );
   }
 
-  const heroImage = '/assets/generated/toys-come-to-play-exterior.dim_1200x600.png';
-  const blippyImage = '/assets/generated/blippy-scene.dim_800x600.png';
-  const jiffyImage = '/assets/generated/jiffy-scene.dim_800x600.png';
+  const heroImage =
+    "/assets/generated/toys-come-to-play-exterior.dim_1200x600.png";
+  const blippyImage = "/assets/generated/blippy-scene.dim_800x600.png";
+  const jiffyImage = "/assets/generated/jiffy-scene.dim_800x600.png";
 
   const handleBack = () => {
-    window.location.hash = '#/';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#/";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleViewRules = () => {
-    window.location.hash = '#/rules/haunted-house/toys-come-to-play';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#/rules/haunted-house/toys-come-to-play";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -55,26 +58,40 @@ export function ToysComeToPlayPage() {
         <Alert className="border-destructive/50 bg-destructive/10">
           <AlertTriangle className="h-5 w-5 text-destructive" />
           <AlertDescription className="text-foreground">
-            <strong className="text-destructive">EXTREME HORROR WARNING:</strong> This attraction contains intense scares, disturbing toy imagery, and psychological horror. Not recommended for young children or those with pediophobia (fear of dolls). Never talk back—we just want to rip your head off.
+            <strong className="text-destructive">
+              EXTREME HORROR WARNING:
+            </strong>{" "}
+            This attraction contains intense scares, disturbing toy imagery, and
+            psychological horror. Not recommended for young children or those
+            with pediophobia (fear of dolls). Never talk back—we just want to
+            rip your head off.
           </AlertDescription>
         </Alert>
 
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/20">
           <CardHeader>
-            <CardTitle className="text-3xl text-destructive">About the Attraction</CardTitle>
+            <CardTitle className="text-3xl text-destructive">
+              About the Attraction
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-lg leading-relaxed text-foreground/90">
               {house.description}
             </p>
-            
+
             <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-6">
               <h3 className="text-xl font-bold text-destructive mb-3 flex items-center gap-2">
                 <Users className="h-5 w-5" />
                 22 Different Scenes
               </h3>
               <p className="text-foreground/90 leading-relaxed">
-                Navigate through 22 uniquely terrifying scenes, each designed to push your fears to the limit. Out of breath and almost headless, you'll encounter twisted toys at every turn. Each scene is meticulously crafted to leave a lasting impression—from the abandoned nursery to the toy factory floor, from the broken playroom to the collector's nightmare vault. The toys are waiting, and they have 22 different ways to make you scream.
+                Navigate through 22 uniquely terrifying scenes, each designed to
+                push your fears to the limit. Out of breath and almost headless,
+                you'll encounter twisted toys at every turn. Each scene is
+                meticulously crafted to leave a lasting impression—from the
+                abandoned nursery to the toy factory floor, from the broken
+                playroom to the collector's nightmare vault. The toys are
+                waiting, and they have 22 different ways to make you scream.
               </p>
             </div>
           </CardContent>
@@ -82,7 +99,9 @@ export function ToysComeToPlayPage() {
 
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/20">
           <CardHeader>
-            <CardTitle className="text-3xl text-destructive">Featured Characters</CardTitle>
+            <CardTitle className="text-3xl text-destructive">
+              Featured Characters
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
@@ -96,9 +115,16 @@ export function ToysComeToPlayPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-destructive mb-2">Blippy</h3>
+                  <h3 className="text-2xl font-bold text-destructive mb-2">
+                    Blippy
+                  </h3>
                   <p className="text-foreground/90 leading-relaxed">
-                    A twisted toy clown with a mischievous grin and a penchant for chaos. Blippy was once the star of the toy factory's promotional line, but something went terribly wrong during production. Now he stalks the halls, leaving visitors out of breath and almost headless as they try to escape his playful yet deadly games.
+                    A twisted toy clown with a mischievous grin and a penchant
+                    for chaos. Blippy was once the star of the toy factory's
+                    promotional line, but something went terribly wrong during
+                    production. Now he stalks the halls, leaving visitors out of
+                    breath and almost headless as they try to escape his playful
+                    yet deadly games.
                   </p>
                 </div>
               </div>
@@ -113,9 +139,16 @@ export function ToysComeToPlayPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-destructive mb-2">Jiffy</h3>
+                  <h3 className="text-2xl font-bold text-destructive mb-2">
+                    Jiffy
+                  </h3>
                   <p className="text-foreground/90 leading-relaxed">
-                    A demented jack-in-the-box character that pops up when you least expect it. Jiffy's spring-loaded terror has been refined through countless scenes, each appearance more shocking than the last. His creepy voice echoes through the toy factory as he hunts for new playmates, leaving them out of breath and almost headless in his wake.
+                    A demented jack-in-the-box character that pops up when you
+                    least expect it. Jiffy's spring-loaded terror has been
+                    refined through countless scenes, each appearance more
+                    shocking than the last. His creepy voice echoes through the
+                    toy factory as he hunts for new playmates, leaving them out
+                    of breath and almost headless in his wake.
                   </p>
                 </div>
               </div>

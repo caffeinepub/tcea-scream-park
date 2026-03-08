@@ -1,92 +1,165 @@
 export const generatedImages = {
   hauntedHouses: {
-    'Clown Town': '/assets/generated/house-clown-town-haunted-house.dim_1400x900.jpg',
-    'Asylum Hell': '/assets/generated/house-asylum-hell.dim_1400x900.jpg',
-    'Schoolhouse Break and Blackout': '/assets/generated/house-schoolhouse-break.dim_1400x900.jpg',
-    'Terror Hell Hole': '/assets/generated/house-terror-hell-hole.dim_1400x900.jpg',
-    'Diner Hell': '/assets/generated/house-diner-hell-logo.dim_1400x900.jpg',
-    'Emily\'s Playground': '/assets/generated/house-emilys-playground.dim_1400x900.jpg',
-    'Toxic Trails Science': '/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg',
-    'Open Ice Tomb': '/assets/generated/house-open-ice-tomb.dim_1400x900.jpg',
-    'Wax Works': '/assets/generated/house-wax-works.dim_1400x900.jpg',
-    'Toys Come to Play': '/assets/generated/house-toys-come-to-play.dim_1400x900.jpg',
-    'Obsession Scream': '/assets/generated/leslie-obsession-scream.dim_800x1000.png',
+    "Clown Town":
+      "/assets/generated/house-clown-town-haunted-house.dim_1400x900.jpg",
+    "Asylum Hell": "/assets/generated/house-asylum-hell.dim_1400x900.jpg",
+    "Schoolhouse Break and Blackout":
+      "/assets/generated/house-schoolhouse-break.dim_1400x900.jpg",
+    "Terror Hell Hole":
+      "/assets/generated/house-terror-hell-hole.dim_1400x900.jpg",
+    "Diner Hell": "/assets/generated/house-diner-hell-logo.dim_1400x900.jpg",
+    "Emily's Playground":
+      "/assets/generated/house-emilys-playground.dim_1400x900.jpg",
+    "Toxic Trails Science":
+      "/assets/generated/house-toxic-trails-science-logo.dim_1400x900.jpg",
+    "Open Ice Tomb": "/assets/generated/house-open-ice-tomb.dim_1400x900.jpg",
+    "Wax Works": "/assets/generated/house-wax-works.dim_1400x900.jpg",
+    "Toys Come to Play":
+      "/assets/generated/house-toys-come-to-play.dim_1400x900.jpg",
+    "Obsession Scream":
+      "/assets/generated/leslie-obsession-scream.dim_800x1000.png",
+    Blackjack: "/assets/generated/blackjack-hero.dim_1200x600.png",
   },
   scareZones: {
-    'Carnival Bros Circus': '/assets/generated/zone-carnival-bros-circus.dim_1400x900.jpg',
-    'Playtime\'s Over': '/assets/generated/zone-playtimes-over.dim_1400x900.jpg',
-    'Laser Hell': '/assets/generated/zone-laser-hell.dim_1400x900.jpg',
-    'Undead Dance Party': '/assets/generated/zone-undead-dance-party.dim_1400x900.jpg',
-    'Steampunk Hell': '/assets/generated/zone-steampunk-hell.dim_1400x900.jpg',
-    'Santa\'s Hell': '/assets/generated/zone-santas-hell.dim_1400x900.jpg',
-    'Chainsaw Cold': '/assets/generated/zone-chainsaw-cold.dim_1400x900.jpg',
+    "Ghost Town": "/assets/generated/zone-ghost-town.dim_1400x900.jpg",
+    "Carnival Bros Circus":
+      "/assets/generated/zone-carnival-bros-circus.dim_1400x900.jpg",
+    "Playtime's Over": "/assets/generated/zone-playtimes-over.dim_1400x900.jpg",
+    "Laser Hell": "/assets/generated/zone-laser-hell.dim_1400x900.jpg",
+    "Zombie Hell": "/assets/generated/zone-zombie-hell.dim_1400x900.jpg",
+    "Undead Dance Party":
+      "/assets/generated/zone-undead-dance-party.dim_1400x900.jpg",
+    "Screamtown Chaos":
+      "/assets/generated/zone-playtimes-over.dim_1400x900.jpg",
+    "Grave danger dace":
+      "/assets/generated/zone-undead-dance-party.dim_1400x900.jpg",
+    "Steampunk Hell": "/assets/generated/zone-steampunk-hell.dim_1400x900.jpg",
+    "Santa's Hell": "/assets/generated/zone-santas-hell.dim_1400x900.jpg",
+    "Chainsaw Cold": "/assets/generated/zone-chainsaw-cold.dim_1400x900.jpg",
   },
   foodBooths: {
-    'Clown town Chicken': '/assets/generated/booth-clown-town-chicken.dim_1400x900.jpg',
-    'Hell hole bbq': '/assets/generated/booth-hell-hole-bbq.dim_1400x900.jpg',
-    'Schoolhouse Fish': '/assets/generated/booth-schoolhouse-fish.dim_1400x900.jpg',
-    'Asylum Seekers': '/assets/generated/booth-asylum-seekers-chain-pizza.dim_1400x900.jpg',
-    'Felix\'s Yum': '/assets/generated/booth-felixs-yum.dim_1400x900.jpg',
-    'Scary bears spicy eyes': '/assets/generated/booth-scary-bears-spicy-eyes.dim_1400x900.jpg',
-    'Terror bite': '/assets/generated/booth-terror-bite.dim_1400x900.jpg',
-    'chaos  carnival': '/assets/generated/booth-chaos-carnival.dim_1400x900.jpg',
-    'Slider Doom': '/assets/generated/booth-slider-doom.dim_1400x900.jpg',
-    'Sharks Hell': '/assets/generated/booth-sharks-hell.dim_1400x900.jpg',
-    'Steampunk Eats': '/assets/generated/booth-steampunk-eats.dim_1400x900.jpg',
-    'Gingerdead Bakes': '/assets/generated/booth-gingerdead-bakes.dim_1400x900.jpg',
-    'Hellfire Hot Cocoa': '/assets/generated/booth-hellfire-hot-cocoa.dim_1400x900.jpg',
-    'Wrath of Wrapping': '/assets/generated/booth-wrath-of-wrapping.dim_1400x900.jpg',
-    'Eggnog Exorcism': '/assets/generated/booth-eggnog-exorcism.dim_1400x900.jpg',
-    'Candy Cane Carnage': '/assets/generated/booth-candy-cane-carnage.dim_1400x900.jpg',
-    'Ornament Ossuary': '/assets/generated/booth-ornament-ossuary.dim_1400x900.jpg',
-    'Paint & Death': '/assets/generated/paint-death-booth.dim_1000x700.png',
+    "Clown town Chicken":
+      "/assets/generated/booth-clown-town-chicken.dim_1400x900.jpg",
+    "Hell hole bbq": "/assets/generated/booth-hell-hole-bbq.dim_1400x900.jpg",
+    "Schoolhouse Fish":
+      "/assets/generated/booth-schoolhouse-fish.dim_1400x900.jpg",
+    "Asylum Seekers":
+      "/assets/generated/booth-asylum-seekers-chain-pizza.dim_1400x900.jpg",
+    "Felix's Yum": "/assets/generated/booth-felixs-yum.dim_1400x900.jpg",
+    "Scary bears spicy eyes":
+      "/assets/generated/booth-scary-bears-spicy-eyes.dim_1400x900.jpg",
+    "Terror bite": "/assets/generated/booth-terror-bite.dim_1400x900.jpg",
+    "chaos  carnival":
+      "/assets/generated/booth-chaos-carnival.dim_1400x900.jpg",
+    "Slider Doom": "/assets/generated/booth-slider-doom.dim_1400x900.jpg",
+    "Sharks Hell": "/assets/generated/booth-sharks-hell.dim_1400x900.jpg",
+    "Steampunk Eats": "/assets/generated/booth-steampunk-eats.dim_1400x900.jpg",
+    "Gingerdead Bakes":
+      "/assets/generated/booth-gingerdead-bakes.dim_1400x900.jpg",
+    "Hellfire Hot Cocoa":
+      "/assets/generated/booth-hellfire-hot-cocoa.dim_1400x900.jpg",
+    "Wrath of Wrapping":
+      "/assets/generated/booth-wrath-of-wrapping.dim_1400x900.jpg",
+    "Eggnog Exorcism":
+      "/assets/generated/booth-eggnog-exorcism.dim_1400x900.jpg",
+    "Candy Cane Carnage":
+      "/assets/generated/booth-candy-cane-carnage.dim_1400x900.jpg",
+    "Ornament Ossuary":
+      "/assets/generated/booth-ornament-ossuary.dim_1400x900.jpg",
+    "Paint & Death": "/assets/generated/paint-death-booth.dim_1000x700.png",
   },
   merchShops: {
-    'Dead Eyes': '/assets/generated/dead-eyes-merch.dim_800x600.png',
+    "Dead Eyes": "/assets/generated/dead-eyes-merch.dim_800x600.png",
   },
   auditions: {
-    'Scare Actor': '/assets/generated/auditions-scream-team.dim_1400x900.jpg',
-    'Show Host': '/assets/generated/auditions-show-host-auditions.dim_1400x900.jpg',
-    'Costume Character': '/assets/generated/costume-character-audition-cast-group.dim_1600x900.jpg',
+    "Scare Actor": "/assets/generated/auditions-scream-team.dim_1400x900.jpg",
+    "Show Host":
+      "/assets/generated/auditions-show-host-auditions.dim_1400x900.jpg",
+    "Costume Character":
+      "/assets/generated/costume-character-audition-cast-group.dim_1600x900.jpg",
+    Usher: "/assets/generated/usher-audition-hero.dim_1200x600.png",
+    "Haunted House Supervisors":
+      "/assets/generated/supervisor-audition-hero.dim_1200x600.png",
   },
   shows: {
-    'Lost spirits': '/assets/generated/show-lost-spirits.dim_1400x900.jpg',
-    'Dead man\'s revenge': '/assets/generated/show-dead-mans-revenge.dim_1400x900.jpg',
-    'Fire Remix': '/assets/generated/show-fire-remix.dim_1400x900.jpg',
-    'Camp Riley': '/assets/generated/show-camp-riley.dim_1400x900.jpg',
-    'Celeste the unicorn': '/assets/generated/celeste-unicorn.dim_600x600.png',
-    'Cosmo the dog': '/assets/generated/cosmo-dog.dim_600x600.png',
-    'Bee\'s Dance Show': '/assets/generated/bees-dance-show.dim_800x600.png',
-    '1 AM Farewell Procession': '/assets/generated/farewell-procession-night.dim_1200x600.png',
+    "Circus town": "/assets/generated/show-dead-mans-revenge.dim_1400x900.jpg",
+    "Lost spirits": "/assets/generated/show-lost-spirits.dim_1400x900.jpg",
+    "Dead man's revenge":
+      "/assets/generated/show-dead-mans-revenge.dim_1400x900.jpg",
+    "Fire Remix": "/assets/generated/show-fire-remix.dim_1400x900.jpg",
+    "Camp Riley": "/assets/generated/show-camp-riley.dim_1400x900.jpg",
+    "Color Paint": "/assets/generated/celeste-unicorn.dim_600x600.png",
+    "Celeste the unicorn": "/assets/generated/celeste-unicorn.dim_600x600.png",
+    "Cosmo the dog": "/assets/generated/cosmo-dog.dim_600x600.png",
+    "Bee's Dance Show": "/assets/generated/bees-dance-show.dim_800x600.png",
+    "Dog Show": "/assets/generated/kids-zone-show.dim_800x500.jpg",
+    "1 AM Farewell Procession":
+      "/assets/generated/farewell-procession-night.dim_1200x600.png",
+    "Waterworks Stunt Show":
+      "/assets/generated/waterworks-stunt-show-banner.dim_1200x500.png",
+    "Halfway to Horror Nights":
+      "/assets/generated/halfway-to-horror-nights-banner.dim_1200x500.png",
+    "Lone Starr Stunt Show":
+      "/assets/generated/lone-starr-stunt-show.dim_800x600.png",
+    "Under the Sea": "/assets/generated/under-the-sea-show.dim_800x600.png",
   },
   upcomingEvents: {
-    'Chaos Purge': '/assets/generated/event-chaos-purge.dim_1400x900.jpg',
-    'Frosted Haunt': '/assets/generated/event-frosted-haunt.dim_1400x900.jpg',
-    'Viva Nova': [
-      '/assets/generated/event-viva-nova-1.dim_1400x900.jpg',
-      '/assets/generated/event-viva-nova-2.dim_1400x900.jpg',
-      '/assets/generated/event-viva-nova-3.dim_1400x900.jpg',
+    "Chaos Purge": "/assets/generated/event-chaos-purge.dim_1400x900.jpg",
+    "Frosted Haunt": "/assets/generated/event-frosted-haunt.dim_1400x900.jpg",
+    "Viva Nova": [
+      "/assets/generated/event-viva-nova-1.dim_1400x900.jpg",
+      "/assets/generated/event-viva-nova-2.dim_1400x900.jpg",
+      "/assets/generated/event-viva-nova-3.dim_1400x900.jpg",
     ],
-    'DMV Harbor Nights': [
-      '/assets/generated/event-dmv-harbor-nights-1.dim_1400x900.jpg',
-      '/assets/generated/event-dmv-harbor-nights-2.dim_1400x900.jpg',
-      '/assets/generated/event-dmv-harbor-nights-3.dim_1400x900.jpg',
+    "DMV Harbor Nights": [
+      "/assets/generated/event-dmv-harbor-nights-1.dim_1400x900.jpg",
+      "/assets/generated/event-dmv-harbor-nights-2.dim_1400x900.jpg",
+      "/assets/generated/event-dmv-harbor-nights-3.dim_1400x900.jpg",
     ],
-    'TCEA Horror Nights': [
-      '/assets/generated/event-tcea-horror-nights-1.dim_1400x900.jpg',
-      '/assets/generated/event-tcea-horror-nights-2.dim_1400x900.jpg',
-      '/assets/generated/event-tcea-horror-nights-3.dim_1400x900.jpg',
+    "TCEA Horror Nights": [
+      "/assets/generated/event-tcea-horror-nights-1.dim_1400x900.jpg",
+      "/assets/generated/event-tcea-horror-nights-2.dim_1400x900.jpg",
+      "/assets/generated/event-tcea-horror-nights-3.dim_1400x900.jpg",
     ],
-    'Soak Kingdom': '/assets/generated/soak-kingdom-waterpark.dim_1200x800.png',
+    "Soak Kingdom": "/assets/generated/soak-kingdom-waterpark.dim_1200x800.png",
+  },
+  blackjack: {
+    hero: "/assets/generated/blackjack-hero.dim_1200x600.png",
+    gallery1: "/assets/generated/blackjack-gallery-1.dim_900x600.png",
+    gallery2: "/assets/generated/blackjack-gallery-2.dim_900x600.png",
+    gallery3: "/assets/generated/blackjack-gallery-3.dim_900x600.png",
+  },
+  icons2026: {
+    "Flora the Clown": "/assets/generated/icon-flora-clown.dim_400x500.jpg",
+    "Grimsby the Ghoul": "/assets/generated/icon-grimsby-ghoul.dim_400x500.jpg",
+    "Vex the Demon": "/assets/generated/icon-vex-demon.dim_400x500.jpg",
+    "Maggot the Zombie Clown":
+      "/assets/generated/icon-maggot-zombie.dim_400x500.jpg",
+    "Sable the Witch": "/assets/generated/icon-sable-witch.dim_400x500.jpg",
+  },
+  kidsZone: {
+    "Haunted Hayride": "/assets/generated/kids-zone-hayride.dim_800x500.jpg",
+    "Kids Show": "/assets/generated/kids-zone-show.dim_800x500.jpg",
+    "Pumpkin Patch":
+      "/assets/generated/kids-zone-pumpkin-patch.dim_800x500.jpg",
+    "Face Painting":
+      "/assets/generated/kids-zone-face-painting.dim_800x500.jpg",
+  },
+  attractions: {
+    "Scream Corn Maze": "/assets/generated/scream-corn-maze.dim_800x500.jpg",
   },
   other: {
-    'Main Street Plaza Procession': '/assets/generated/procession-main-street-plaza.dim_1600x900.jpg',
-    'Clown Town Interior Elevation': '/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg',
-    'Felix Merch Booth': '/assets/generated/felix-merch-booth-sneak-peek.dim_1600x900.jpg',
-    'Blippy Scene': '/assets/generated/blippy-scene.dim_800x600.png',
-    'Jiffy Scene': '/assets/generated/jiffy-scene.dim_800x600.png',
-    'Lola and Asher Rabbits': '/assets/generated/lola-asher-rabbits.dim_1000x600.png',
-    'Max Character': '/assets/generated/max-character.dim_600x800.png',
-    'DD Character': '/assets/generated/dd-character.dim_600x800.png',
+    "Main Street Plaza Procession":
+      "/assets/generated/procession-main-street-plaza.dim_1600x900.jpg",
+    "Clown Town Interior Elevation":
+      "/assets/generated/clown-town-interior-elevation-v2.dim_1600x900.jpg",
+    "Felix Merch Booth":
+      "/assets/generated/felix-merch-booth-sneak-peek.dim_1600x900.jpg",
+    "Blippy Scene": "/assets/generated/blippy-scene.dim_800x600.png",
+    "Jiffy Scene": "/assets/generated/jiffy-scene.dim_800x600.png",
+    "Lola and Asher Rabbits":
+      "/assets/generated/lola-asher-rabbits.dim_1000x600.png",
+    "Max Character": "/assets/generated/max-character.dim_600x800.png",
+    "DD Character": "/assets/generated/dd-character.dim_600x800.png",
   },
 };

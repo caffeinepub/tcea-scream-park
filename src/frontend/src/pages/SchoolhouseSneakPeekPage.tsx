@@ -1,12 +1,18 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { schoolhouseSneakPeek } from '../content/schoolhouseSneakPeek';
-import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { schoolhouseSneakPeek } from "../content/schoolhouseSneakPeek";
 
 export function SchoolhouseSneakPeekPage() {
   const handleBackToHome = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

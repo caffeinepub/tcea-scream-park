@@ -11,8 +11,11 @@ export interface Location {
     x: bigint;
     y: bigint;
 }
-export interface UserProfile {
+export interface HauntedHouseCharacter {
+    voiceType: VoiceType;
     name: string;
+    description: string;
+    scareType: ScareType;
 }
 export type ContentType = {
     __kind__: "hauntedHouse";
@@ -95,8 +98,14 @@ export interface AuditionSubmission {
         __kind__: "costumeCharacter";
         costumeCharacter: CostumeCharacterAuditionForm;
     } | {
+        __kind__: "usher";
+        usher: UsherAuditionForm;
+    } | {
         __kind__: "danceActor";
         danceActor: DanceAuditionForm;
+    } | {
+        __kind__: "hauntedHouseSupervisor";
+        hauntedHouseSupervisor: HauntedHouseSupervisorAuditionForm;
     };
     auditionType: AuditionType;
     submissionTime: Time;
@@ -183,15 +192,24 @@ export interface ShowSpecificFields {
     yearIntroduced?: bigint;
     performanceType: PerformanceType;
 }
-export interface Date_ {
-    day: bigint;
-    month: bigint;
-    year: bigint;
+export interface HauntedHouseSupervisorAuditionForm {
+    age: bigint;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    phone: string;
+    leadershipExperience: string;
 }
 export interface EventUnlockStatus {
     hasSecretEntrance: boolean;
     hasFireworks: boolean;
     hasFlynAppearance: boolean;
+}
+export interface Date_ {
+    day: bigint;
+    month: bigint;
+    year: bigint;
 }
 export interface Connection {
     fromRoomId: bigint;
@@ -205,11 +223,6 @@ export interface AuditionLink {
     title: string;
     auditionType: AuditionType;
     description: string;
-}
-export interface AttractionSpecificFields {
-    yearIntroduced?: bigint;
-    ageRestriction: AgeRestriction;
-    hasGuidedTour: boolean;
 }
 export interface ThemedLand {
     id: bigint;
@@ -228,6 +241,14 @@ export interface ThemedFoodBooth {
     location: string;
     paintMenu: Array<FoodItem>;
 }
+export interface UsherAuditionForm {
+    age: bigint;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    phone: string;
+}
 export interface ScareZoneSpecificFields {
     yearIntroduced?: bigint;
     indoorOutdoor: ZoneLocation;
@@ -236,6 +257,11 @@ export interface ScareZoneSpecificFields {
 export interface EventDateRange {
     endDate: Date_;
     startDate: Date_;
+}
+export interface AttractionSpecificFields {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
 }
 export interface HauntedHouseSpecificFields {
     yearIntroduced?: bigint;
@@ -251,11 +277,8 @@ export interface Product {
     category: ProductCategory;
     price: number;
 }
-export interface HauntedHouseCharacter {
-    voiceType: VoiceType;
+export interface UserProfile {
     name: string;
-    description: string;
-    scareType: ScareType;
 }
 export enum AgeRestriction {
     teens = "teens",
@@ -266,7 +289,9 @@ export enum AgeRestriction {
 export enum AuditionType {
     scareActor = "scareActor",
     costumeCharacter = "costumeCharacter",
-    danceActor = "danceActor"
+    usher = "usher",
+    danceActor = "danceActor",
+    hauntedHouseSupervisor = "hauntedHouseSupervisor"
 }
 export enum AvailabilityStatus {
     inStock = "inStock",
@@ -388,7 +413,9 @@ export interface backendInterface {
     seedInitialContent(): Promise<void>;
     submitCostumeCharacterAudition(form: CostumeCharacterAuditionForm): Promise<boolean>;
     submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
+    submitHauntedHouseSupervisorAudition(form: HauntedHouseSupervisorAuditionForm): Promise<boolean>;
     submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
+    submitUsherAudition(form: UsherAuditionForm): Promise<boolean>;
     updateAuditionLink(index: bigint, updatedLink: AuditionLink): Promise<void>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateFoodBooth(id: bigint, updatedBooth: ThemedFoodBooth): Promise<void>;

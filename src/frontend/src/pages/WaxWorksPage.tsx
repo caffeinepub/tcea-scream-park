@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, AlertTriangle, Shield } from 'lucide-react';
-import { generatedImages } from '@/content/generatedImages';
-import { hauntedHouses } from '@/content/hauntedHouses';
-import { slugify } from '@/utils/slug';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { hauntedHouses } from "@/content/hauntedHouses";
+import { slugify } from "@/utils/slug";
+import { AlertTriangle, ArrowLeft, Shield } from "lucide-react";
 
 export function WaxWorksPage() {
-  const house = hauntedHouses.houses.find(h => h.name === 'Wax Works');
+  const house = hauntedHouses.houses.find((h) => h.name === "Wax Works");
 
   const handleBack = () => {
-    window.location.hash = '#haunted-houses';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#haunted-houses";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleViewRules = () => {
-    const slug = slugify('Wax Works');
+    const slug = slugify("Wax Works");
     window.location.hash = `#/rules/haunted-house/${slug}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!house) {
@@ -45,7 +45,7 @@ export function WaxWorksPage() {
         <Card className="bg-card/90 backdrop-blur-sm border-destructive/20 overflow-hidden">
           <div className="relative h-96 overflow-hidden">
             <img
-              src={generatedImages.hauntedHouses['Wax Works']}
+              src={generatedImages.hauntedHouses["Wax Works"]}
               alt="Wax Works"
               className="w-full h-full object-cover"
             />
@@ -62,13 +62,20 @@ export function WaxWorksPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <AlertTriangle className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">EXTREME HORROR WARNING</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                EXTREME HORROR WARNING
+              </AlertTitle>
               <AlertDescription className="text-base">
-                This Christmas-horror haunted house features disturbing wax figures, psychological horror, 
-                and actors who blend seamlessly with exhibits. Not recommended for guests with anxiety disorders 
-                or those sensitive to holiday horror themes. Participation is at your own risk. You must be 18+ or accompanied by an adult.
+                This Christmas-horror haunted house features disturbing wax
+                figures, psychological horror, and actors who blend seamlessly
+                with exhibits. Not recommended for guests with anxiety disorders
+                or those sensitive to holiday horror themes. Participation is at
+                your own risk. You must be 18+ or accompanied by an adult.
               </AlertDescription>
             </Alert>
 

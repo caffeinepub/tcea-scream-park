@@ -1,10 +1,10 @@
-import { EmployeeGuard } from '@/components/auth/EmployeeGuard';
-import { EmployeeLayout } from '@/components/layout/EmployeeLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useEventUnlockStatus } from '@/hooks/useEventUnlockStatus';
-import { Lock, Unlock, MapPin, Info, Loader2 } from 'lucide-react';
-import { showsEntranceInfo } from '@/content/showsEntrance';
+import { EmployeeGuard } from "@/components/auth/EmployeeGuard";
+import { EmployeeLayout } from "@/components/layout/EmployeeLayout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { showsEntranceInfo } from "@/content/showsEntrance";
+import { useEventUnlockStatus } from "@/hooks/useEventUnlockStatus";
+import { Info, Loader2, Lock, MapPin, Unlock } from "lucide-react";
 
 export function ShowsEntrancePage() {
   const { data: unlockStatus, isLoading } = useEventUnlockStatus();
@@ -15,8 +15,8 @@ export function ShowsEntrancePage() {
       <EmployeeLayout
         title="Secret Entrance for Shows & Processions"
         breadcrumbs={[
-          { label: 'Upcoming Events', href: '#/employee/upcoming-events' },
-          { label: 'Shows Entrance' },
+          { label: "Upcoming Events", href: "#/employee/upcoming-events" },
+          { label: "Shows Entrance" },
         ]}
       >
         {isLoading ? (
@@ -29,8 +29,8 @@ export function ShowsEntrancePage() {
             <Alert
               className={`mb-8 ${
                 isUnlocked
-                  ? 'border-employee-orange bg-employee-bg-darker'
-                  : 'border-employee-grey bg-employee-bg-darker'
+                  ? "border-employee-orange bg-employee-bg-darker"
+                  : "border-employee-grey bg-employee-bg-darker"
               }`}
             >
               {isUnlocked ? (
@@ -39,11 +39,13 @@ export function ShowsEntrancePage() {
                 <Lock className="h-5 w-5 text-employee-grey" />
               )}
               <AlertTitle className="text-employee-text text-lg">
-                {isUnlocked ? 'Entrance Now Available' : `Opening in ${showsEntranceInfo.unlockYear}`}
+                {isUnlocked
+                  ? "Entrance Now Available"
+                  : `Opening in ${showsEntranceInfo.unlockYear}`}
               </AlertTitle>
               <AlertDescription className="text-employee-text/80 mt-2">
                 {isUnlocked
-                  ? 'This entrance is now operational for all performers and crew.'
+                  ? "This entrance is now operational for all performers and crew."
                   : `This entrance will be available starting ${showsEntranceInfo.unlockYear}.`}
               </AlertDescription>
             </Alert>
@@ -53,7 +55,7 @@ export function ShowsEntrancePage() {
               <img
                 src="/assets/generated/shows-entrance-locked.dim_600x800.png"
                 alt="Shows Entrance"
-                className={`w-full h-auto ${!isUnlocked ? 'grayscale' : ''}`}
+                className={`w-full h-auto ${!isUnlocked ? "grayscale" : ""}`}
               />
             </div>
 
@@ -62,7 +64,7 @@ export function ShowsEntrancePage() {
               <CardHeader>
                 <CardTitle className="text-employee-text flex items-center gap-2">
                   <Info className="h-5 w-5 text-employee-orange" />
-                  {isUnlocked ? 'Entrance Details' : 'Coming Soon'}
+                  {isUnlocked ? "Entrance Details" : "Coming Soon"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -93,7 +95,9 @@ export function ShowsEntrancePage() {
             {isUnlocked && (
               <Card className="bg-employee-bg-darker border-employee-orange/50">
                 <CardHeader>
-                  <CardTitle className="text-employee-text">Access Instructions</CardTitle>
+                  <CardTitle className="text-employee-text">
+                    Access Instructions
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-employee-text/80 leading-relaxed">

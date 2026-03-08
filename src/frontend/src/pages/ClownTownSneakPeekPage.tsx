@@ -1,17 +1,25 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
-import { hauntedHouses } from '../content/hauntedHouses';
-import { generatedImages } from '../content/generatedImages';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { generatedImages } from "../content/generatedImages";
+import { hauntedHouses } from "../content/hauntedHouses";
 
 export function ClownTownSneakPeekPage() {
   const handleBackToHome = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const clownTown = hauntedHouses.houses.find(h => h.name === 'clown town haunted house');
-  const image = generatedImages.hauntedHouses['clown town haunted house'];
+  const clownTown = hauntedHouses.houses.find(
+    (h) => h.name === "clown town haunted house",
+  );
+  const image = generatedImages.hauntedHouses["clown town haunted house"];
 
   if (!clownTown) return null;
 

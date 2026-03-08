@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from "@/components/ui/separator";
+import type { ReactNode } from "react";
 
 interface SectionProps {
   id: string;
@@ -10,7 +10,14 @@ interface SectionProps {
   className?: string;
 }
 
-export function Section({ id, title, subtitle, children, icon, className = '' }: SectionProps) {
+export function Section({
+  id,
+  title,
+  subtitle,
+  children,
+  icon,
+  className = "",
+}: SectionProps) {
   return (
     <section id={id} className={`py-16 md:py-24 scroll-mt-20 ${className}`}>
       <div className="container mx-auto px-4">
@@ -22,7 +29,9 @@ export function Section({ id, title, subtitle, children, icon, className = '' }:
             </h2>
           </div>
           {subtitle && (
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {subtitle}
+            </p>
           )}
           <Separator className="mt-6 max-w-xs mx-auto bg-destructive/30" />
         </div>

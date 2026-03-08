@@ -1,11 +1,11 @@
-import { useRef, useEffect, useState } from 'react';
-import { Section } from '../layout/Section';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Play, Volume2, VolumeX, Maximize } from 'lucide-react';
-import { useAutoplayVideo } from '@/hooks/useAutoplayVideo';
-import { useFullscreen } from '@/hooks/useFullscreen';
-import { FullscreenVideoOverlay } from '../media/FullscreenVideoOverlay';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useAutoplayVideo } from "@/hooks/useAutoplayVideo";
+import { useFullscreen } from "@/hooks/useFullscreen";
+import { Maximize, Play, Volume2, VolumeX } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Section } from "../layout/Section";
+import { FullscreenVideoOverlay } from "../media/FullscreenVideoOverlay";
 
 export function HomeIntroVideoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -16,8 +16,9 @@ export function HomeIntroVideoSection() {
   const [hasEnded, setHasEnded] = useState(false);
   const [showFullscreenOverlay, setShowFullscreenOverlay] = useState(false);
 
-  const { isPlaying, isAutoplayBlocked, play, pause } = useAutoplayVideo(videoRef);
-  const { isFullscreen, toggleFullscreen } = useFullscreen(containerRef);
+  const { isPlaying, isAutoplayBlocked, play, pause } =
+    useAutoplayVideo(videoRef);
+  const { toggleFullscreen } = useFullscreen(containerRef);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -28,15 +29,15 @@ export function HomeIntroVideoSection() {
       // Play clown laugh audio
       if (audioRef.current) {
         audioRef.current.play().catch((err) => {
-          console.log('Audio playback failed:', err);
+          console.log("Audio playback failed:", err);
         });
       }
     };
 
-    video.addEventListener('ended', handleVideoEnd);
+    video.addEventListener("ended", handleVideoEnd);
 
     return () => {
-      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener("ended", handleVideoEnd);
     };
   }, []);
 
@@ -82,7 +83,10 @@ export function HomeIntroVideoSection() {
         <div className="max-w-6xl mx-auto">
           <Card className="bg-card/80 backdrop-blur border-destructive/30 overflow-hidden">
             <CardContent className="p-0">
-              <div ref={containerRef} className="relative aspect-video bg-black">
+              <div
+                ref={containerRef}
+                className="relative aspect-video bg-black"
+              >
                 {videoError ? (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center p-8">
@@ -100,7 +104,10 @@ export function HomeIntroVideoSection() {
                       muted={isMuted}
                       onError={handleVideoError}
                     >
-                      <source src="/assets/video/tcea-scream-intro-placeholder.mp4" type="video/mp4" />
+                      <source
+                        src="/assets/video/tcea-scream-intro-placeholder.mp4"
+                        type="video/mp4"
+                      />
                       Your browser does not support the video tag.
                     </video>
 
@@ -191,6 +198,7 @@ export function HomeIntroVideoSection() {
           </Card>
 
           {/* Hidden audio element for clown laugh */}
+          {/* biome-ignore lint/a11y/useMediaCaption: decorative sound effect, no caption needed */}
           <audio ref={audioRef} src="/assets/audio/clown-laugh-end.mp3" />
         </div>
       </Section>

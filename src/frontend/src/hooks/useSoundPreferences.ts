@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 
 export interface SoundPreferences {
   enabled: boolean;
   volume: number;
 }
 
-const STORAGE_KEY = 'tcea-sound-preferences';
+const STORAGE_KEY = "tcea-sound-preferences";
 
 const DEFAULT_PREFERENCES: SoundPreferences = {
   enabled: true,
@@ -24,7 +24,7 @@ export function useSoundPreferences() {
         };
       }
     } catch (error) {
-      console.error('Failed to load sound preferences:', error);
+      console.error("Failed to load sound preferences:", error);
     }
     return DEFAULT_PREFERENCES;
   });
@@ -33,7 +33,7 @@ export function useSoundPreferences() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
     } catch (error) {
-      console.error('Failed to save sound preferences:', error);
+      console.error("Failed to save sound preferences:", error);
     }
   }, [preferences]);
 

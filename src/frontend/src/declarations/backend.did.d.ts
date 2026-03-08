@@ -29,13 +29,17 @@ export interface AuditionSubmission {
   'submitter' : Principal,
   'formData' : { 'scareActor' : ScareActorAuditionForm } |
     { 'costumeCharacter' : CostumeCharacterAuditionForm } |
-    { 'danceActor' : DanceAuditionForm },
+    { 'usher' : UsherAuditionForm } |
+    { 'danceActor' : DanceAuditionForm } |
+    { 'hauntedHouseSupervisor' : HauntedHouseSupervisorAuditionForm },
   'auditionType' : AuditionType,
   'submissionTime' : Time,
 }
 export type AuditionType = { 'scareActor' : null } |
   { 'costumeCharacter' : null } |
-  { 'danceActor' : null };
+  { 'usher' : null } |
+  { 'danceActor' : null } |
+  { 'hauntedHouseSupervisor' : null };
 export type AvailabilityStatus = { 'inStock' : null } |
   { 'outOfStock' : null } |
   { 'limited' : null };
@@ -134,6 +138,15 @@ export interface HauntedHouseSpecificFields {
   'characters' : Array<HauntedHouseCharacter>,
   'sceneDescriptions' : Array<string>,
   'scareLevel' : ScareLevel,
+}
+export interface HauntedHouseSupervisorAuditionForm {
+  'age' : bigint,
+  'name' : string,
+  'email' : string,
+  'experience' : string,
+  'availability' : string,
+  'phone' : string,
+  'leadershipExperience' : string,
 }
 export type LandStatus = { 'open' : null } |
   { 'underConstruction' : null } |
@@ -269,6 +282,14 @@ export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
+export interface UsherAuditionForm {
+  'age' : bigint,
+  'name' : string,
+  'email' : string,
+  'experience' : string,
+  'availability' : string,
+  'phone' : string,
+}
 export type VoiceType = { 'lowPitch' : null } |
   { 'creepy' : null } |
   { 'playful' : null } |
@@ -338,7 +359,12 @@ export interface _SERVICE {
     boolean
   >,
   'submitDanceAudition' : ActorMethod<[DanceAuditionForm], boolean>,
+  'submitHauntedHouseSupervisorAudition' : ActorMethod<
+    [HauntedHouseSupervisorAuditionForm],
+    boolean
+  >,
   'submitScareActorAudition' : ActorMethod<[ScareActorAuditionForm], boolean>,
+  'submitUsherAudition' : ActorMethod<[UsherAuditionForm], boolean>,
   'updateAuditionLink' : ActorMethod<[bigint, AuditionLink], undefined>,
   'updateContentItem' : ActorMethod<[bigint, ContentItem], undefined>,
   'updateFoodBooth' : ActorMethod<[bigint, ThemedFoodBooth], undefined>,

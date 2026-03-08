@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { CheckCircle2 } from 'lucide-react';
-import { PassOption } from './passOptions';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import type { PassOption } from "./passOptions";
 
 interface PassSelectorProps {
   passes: PassOption[];
@@ -35,8 +35,8 @@ export function PassSelector({ passes }: PassSelectorProps) {
             key={pass.id}
             className={`block cursor-pointer transition-all ${
               selectedPassId === pass.id
-                ? 'ring-2 ring-destructive ring-offset-2 ring-offset-background'
-                : 'hover:ring-1 hover:ring-destructive/50'
+                ? "ring-2 ring-destructive ring-offset-2 ring-offset-background"
+                : "hover:ring-1 hover:ring-destructive/50"
             }`}
           >
             <Card className="bg-card/80 backdrop-blur-sm border-destructive/20">
@@ -55,10 +55,16 @@ export function PassSelector({ passes }: PassSelectorProps) {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                      <h4 className="font-bold text-lg text-foreground">{pass.name}</h4>
-                      <span className="font-semibold text-destructive whitespace-nowrap">{pass.price}</span>
+                      <h4 className="font-bold text-lg text-foreground">
+                        {pass.name}
+                      </h4>
+                      <span className="font-semibold text-destructive whitespace-nowrap">
+                        {pass.price}
+                      </span>
                     </div>
-                    <p className="text-sm text-muted-foreground mt-1">{pass.description}</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {pass.description}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -83,7 +89,8 @@ export function PassSelector({ passes }: PassSelectorProps) {
           <Alert className="bg-destructive/20 border-destructive max-w-md">
             <CheckCircle2 className="h-5 w-5 text-destructive" />
             <AlertDescription className="text-foreground font-semibold">
-              {selectedPass.name} selected! Your pass selection has been recorded.
+              {selectedPass.name} selected! Your pass selection has been
+              recorded.
             </AlertDescription>
           </Alert>
         )}

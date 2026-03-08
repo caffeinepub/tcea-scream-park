@@ -1,43 +1,66 @@
-import { useState, useEffect, useRef } from 'react';
-import { useGetAllContentItems } from '@/hooks/useContentItems';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Calendar as CalendarIcon, AlertCircle, ArrowLeft } from 'lucide-react';
-import { formatDate, formatDateRange, formatContentType, getTypeSpecificFieldsSummary } from '@/lib/contentFormatting';
-import { expandItemDateRanges } from '@/utils/dateRange';
-import type { ContentItem } from '../backend';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useGetAllContentItems } from "@/hooks/useContentItems";
+import {
+  formatContentType,
+  formatDate,
+  formatDateRange,
+  getTypeSpecificFieldsSummary,
+} from "@/lib/contentFormatting";
+import { expandItemDateRanges } from "@/utils/dateRange";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Calendar as CalendarIcon,
+  Loader2,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import type { ContentItem } from "../backend";
 
-type FilterType = 'all' | 'event' | 'scareZone' | 'show' | 'attraction';
+type FilterType = "all" | "event" | "scareZone" | "show" | "attraction";
 
 export function CalendarPage() {
   const { data: contentItems = [], isLoading, error } = useGetAllContentItems();
-  const [filter, setFilter] = useState<FilterType>('all');
+  const [filter, setFilter] = useState<FilterType>("all");
   const [selectedItem, setSelectedItem] = useState<ContentItem | null>(null);
   const dateRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
-  const filteredItems = filter === 'all'
-    ? contentItems
-    : contentItems.filter(item => filter in item.customType);
+  const filteredItems =
+    filter === "all"
+      ? contentItems
+      : contentItems.filter((item) => filter in item.customType);
 
   // Group items by date, expanding date ranges to include all days
   const itemsByDate = new Map<string, ContentItem[]>();
-  filteredItems.forEach(item => {
+  for (const item of filteredItems) {
     const dateKeys = expandItemDateRanges(item.dates);
-    dateKeys.forEach(key => {
+    for (const key of dateKeys) {
       if (!itemsByDate.has(key)) {
         itemsByDate.set(key, []);
       }
       itemsByDate.get(key)!.push(item);
-    });
-  });
+    }
+  }
 
   const sortedDates = Array.from(itemsByDate.keys()).sort((a, b) => {
-    const [aYear, aMonth, aDay] = a.split('-').map(Number);
-    const [bYear, bMonth, bDay] = b.split('-').map(Number);
+    const [aYear, aMonth, aDay] = a.split("-").map(Number);
+    const [bYear, bMonth, bDay] = b.split("-").map(Number);
     if (aYear !== bYear) return aYear - bYear;
     if (aMonth !== bMonth) return aMonth - bMonth;
     return aDay - bDay;
@@ -48,26 +71,29 @@ export function CalendarPage() {
     if (isLoading || sortedDates.length === 0) return;
 
     const hash = window.location.hash;
-    if (hash.startsWith('#date=')) {
+    if (hash.startsWith("#date=")) {
       const dateParam = hash.substring(6); // Remove '#date='
       // Support both formats: 2028-8-30 and 2028-08-30
-      const normalizedDate = dateParam.split('-').map((part, idx) => {
-        if (idx === 0) return part; // year as-is
-        return part.padStart(2, '0'); // pad month and day
-      }).join('-');
+      const normalizedDate = dateParam
+        .split("-")
+        .map((part, idx) => {
+          if (idx === 0) return part; // year as-is
+          return part.padStart(2, "0"); // pad month and day
+        })
+        .join("-");
 
       const targetRef = dateRefs.current.get(normalizedDate);
       if (targetRef) {
         setTimeout(() => {
-          targetRef.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetRef.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 100);
       }
     }
   }, [isLoading, sortedDates]);
 
   const handleBack = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -83,8 +109,12 @@ export function CalendarPage() {
             Back to Home
           </Button>
           <div className="flex-1">
-            <h1 className="text-4xl font-bold text-destructive bloody-text mb-2">Event Calendar</h1>
-            <p className="text-muted-foreground">View all scheduled events, attractions, shows, and scare zones</p>
+            <h1 className="text-4xl font-bold text-destructive bloody-text mb-2">
+              Event Calendar
+            </h1>
+            <p className="text-muted-foreground">
+              View all scheduled events, attractions, shows, and scare zones
+            </p>
           </div>
         </div>
 
@@ -98,7 +128,10 @@ export function CalendarPage() {
         )}
 
         <div className="mb-6">
-          <Tabs value={filter} onValueChange={(v) => setFilter(v as FilterType)}>
+          <Tabs
+            value={filter}
+            onValueChange={(v) => setFilter(v as FilterType)}
+          >
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="event">Events</TabsTrigger>
@@ -122,14 +155,18 @@ export function CalendarPage() {
           </Card>
         ) : (
           <div className="grid gap-6">
-            {sortedDates.map(dateKey => {
+            {sortedDates.map((dateKey) => {
               const items = itemsByDate.get(dateKey)!;
-              const [year, month, day] = dateKey.split('-').map(Number);
-              const dateObj = { year: BigInt(year), month: BigInt(month), day: BigInt(day) };
+              const [year, month, day] = dateKey.split("-").map(Number);
+              const dateObj = {
+                year: BigInt(year),
+                month: BigInt(month),
+                day: BigInt(day),
+              };
 
               return (
-                <Card 
-                  key={dateKey} 
+                <Card
+                  key={dateKey}
                   className="border-destructive/30"
                   ref={(el) => {
                     if (el) {
@@ -145,29 +182,40 @@ export function CalendarPage() {
                       <CalendarIcon className="h-5 w-5" />
                       {formatDate(dateObj)}
                     </CardTitle>
-                    <CardDescription>{items.length} item{items.length !== 1 ? 's' : ''} scheduled</CardDescription>
+                    <CardDescription>
+                      {items.length} item{items.length !== 1 ? "s" : ""}{" "}
+                      scheduled
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-3">
-                      {items.map(item => (
-                        <div
+                      {items.map((item) => (
+                        <button
                           key={item.id.toString()}
-                          className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-destructive/50 transition-colors cursor-pointer"
+                          type="button"
+                          className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-destructive/50 transition-colors cursor-pointer w-full text-left"
                           onClick={() => setSelectedItem(item)}
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-semibold text-lg">{item.name}</h3>
-                              <Badge variant="outline" className="border-destructive/50">
+                              <h3 className="font-semibold text-lg">
+                                {item.name}
+                              </h3>
+                              <Badge
+                                variant="outline"
+                                className="border-destructive/50"
+                              >
                                 {formatContentType(item.customType)}
                               </Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                            <p className="text-sm text-muted-foreground line-clamp-2">
+                              {item.description}
+                            </p>
                           </div>
-                          <Button variant="ghost" size="sm">
-                            View Details
-                          </Button>
-                        </div>
+                          <span className="text-sm text-muted-foreground ml-2">
+                            View Details →
+                          </span>
+                        </button>
                       ))}
                     </div>
                   </CardContent>
@@ -178,11 +226,16 @@ export function CalendarPage() {
         )}
 
         {selectedItem && (
-          <Dialog open={!!selectedItem} onOpenChange={(open) => !open && setSelectedItem(null)}>
+          <Dialog
+            open={!!selectedItem}
+            onOpenChange={(open) => !open && setSelectedItem(null)}
+          >
             <DialogContent className="max-w-2xl">
               <DialogHeader>
                 <div className="flex items-center gap-2 mb-2">
-                  <DialogTitle className="text-2xl text-destructive">{selectedItem.name}</DialogTitle>
+                  <DialogTitle className="text-2xl text-destructive">
+                    {selectedItem.name}
+                  </DialogTitle>
                   <Badge variant="outline" className="border-destructive/50">
                     {formatContentType(selectedItem.customType)}
                   </Badge>
@@ -194,21 +247,31 @@ export function CalendarPage() {
 
               <div className="grid gap-4 py-4">
                 <div>
-                  <h4 className="font-semibold mb-2 text-destructive">Schedule</h4>
+                  <h4 className="font-semibold mb-2 text-destructive">
+                    Schedule
+                  </h4>
                   {selectedItem.useMainHauntSchedule ? (
-                    <p className="text-sm text-muted-foreground">Uses main haunt schedule</p>
+                    <p className="text-sm text-muted-foreground">
+                      Uses main haunt schedule
+                    </p>
                   ) : (
                     <div className="space-y-1">
-                      {selectedItem.dates.map((range, idx) => (
-                        <p key={idx} className="text-sm">{formatDateRange(range)}</p>
+                      {selectedItem.dates.map((range) => (
+                        <p key={formatDateRange(range)} className="text-sm">
+                          {formatDateRange(range)}
+                        </p>
                       ))}
                     </div>
                   )}
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2 text-destructive">Details</h4>
-                  <p className="text-sm">{getTypeSpecificFieldsSummary(selectedItem)}</p>
+                  <h4 className="font-semibold mb-2 text-destructive">
+                    Details
+                  </h4>
+                  <p className="text-sm">
+                    {getTypeSpecificFieldsSummary(selectedItem)}
+                  </p>
                 </div>
               </div>
             </DialogContent>

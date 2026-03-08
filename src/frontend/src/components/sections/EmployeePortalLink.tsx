@@ -1,8 +1,8 @@
-import { useIsEmployee } from '@/hooks/useAuthz';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { Lock, ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useIsEmployee } from "@/hooks/useAuthz";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { ArrowRight, Lock } from "lucide-react";
 
 export function EmployeePortalLink() {
   const { identity } = useInternetIdentity();
@@ -14,7 +14,7 @@ export function EmployeePortalLink() {
   }
 
   const handleNavigate = () => {
-    window.location.hash = '#/employee/secret-tunnels';
+    window.location.hash = "#/employee/secret-tunnels";
   };
 
   return (
@@ -27,7 +27,9 @@ export function EmployeePortalLink() {
                 <Lock className="h-6 w-6 text-employee-orange" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-employee-text mb-1">Employee Portal</h3>
+                <h3 className="text-xl font-bold text-employee-text mb-1">
+                  Employee Portal
+                </h3>
                 <p className="text-sm text-employee-text/70">
                   Access secret tunnels, backstage areas, and employee resources
                 </p>

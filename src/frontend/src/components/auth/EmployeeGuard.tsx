@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
-import { useIsEmployee } from '@/hooks/useAuthz';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { ShieldAlert, Loader2 } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { useIsEmployee } from "@/hooks/useAuthz";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { Loader2, ShieldAlert } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface EmployeeGuardProps {
   children: ReactNode;
@@ -19,22 +19,25 @@ export function EmployeeGuard({ children }: EmployeeGuardProps) {
       <div className="min-h-screen flex items-center justify-center p-4">
         <Alert className="max-w-md border-employee-orange bg-employee-bg-darker">
           <ShieldAlert className="h-5 w-5 text-employee-orange" />
-          <AlertTitle className="text-employee-text">Employee Access Required</AlertTitle>
+          <AlertTitle className="text-employee-text">
+            Employee Access Required
+          </AlertTitle>
           <AlertDescription className="text-employee-text/80 mt-2">
-            This area is restricted to TCEA employees only. Please log in with your employee credentials to continue.
+            This area is restricted to TCEA employees only. Please log in with
+            your employee credentials to continue.
           </AlertDescription>
           <Button
             onClick={login}
-            disabled={loginStatus === 'logging-in'}
+            disabled={loginStatus === "logging-in"}
             className="mt-4 bg-employee-orange hover:bg-employee-orange/90 text-white"
           >
-            {loginStatus === 'logging-in' ? (
+            {loginStatus === "logging-in" ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Logging in...
               </>
             ) : (
-              'Employee Login'
+              "Employee Login"
             )}
           </Button>
         </Alert>
@@ -62,10 +65,13 @@ export function EmployeeGuard({ children }: EmployeeGuardProps) {
           <ShieldAlert className="h-5 w-5 text-employee-red" />
           <AlertTitle className="text-employee-text">Access Denied</AlertTitle>
           <AlertDescription className="text-employee-text/80 mt-2">
-            You do not have employee permissions to access this area. This section is restricted to TCEA staff members only.
+            You do not have employee permissions to access this area. This
+            section is restricted to TCEA staff members only.
           </AlertDescription>
           <Button
-            onClick={() => window.location.hash = ''}
+            onClick={() => {
+              window.location.hash = "";
+            }}
             variant="outline"
             className="mt-4 border-employee-grey text-employee-text hover:bg-employee-bg-dark"
           >

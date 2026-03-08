@@ -1,18 +1,24 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { scareZones } from '../content/scareZones';
-import { generatedImages } from '../content/generatedImages';
-import { ArrowLeft, MapPin } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft, MapPin } from "lucide-react";
+import { generatedImages } from "../content/generatedImages";
+import { scareZones } from "../content/scareZones";
 
 export function LaserHellPage() {
-  const zone = scareZones.find(z => z.name === 'Laser Hell');
+  const zone = scareZones.find((z) => z.name === "Laser Hell");
 
   const handleBackToHome = () => {
-    window.location.hash = '';
+    window.location.hash = "";
     setTimeout(() => {
-      const element = document.querySelector('#scare-zones');
+      const element = document.querySelector("#scare-zones");
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 100);
   };
@@ -30,10 +36,15 @@ export function LaserHellPage() {
         </Button>
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 max-w-2xl mx-auto">
           <CardHeader>
-            <CardTitle className="text-3xl text-destructive">Zone Not Found</CardTitle>
+            <CardTitle className="text-3xl text-destructive">
+              Zone Not Found
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">This scare zone is no longer available. Please check out our other terrifying zones!</p>
+            <p className="text-muted-foreground">
+              This scare zone is no longer available. Please check out our other
+              terrifying zones!
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -55,7 +66,7 @@ export function LaserHellPage() {
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
           <div className="relative h-[500px] overflow-hidden">
             <img
-              src={generatedImages.scareZones['Laser Hell']}
+              src={generatedImages.scareZones["Laser Hell"]}
               alt={zone.name}
               className="w-full h-full object-cover"
             />

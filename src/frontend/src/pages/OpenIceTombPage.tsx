@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, AlertTriangle, Shield } from 'lucide-react';
-import { generatedImages } from '@/content/generatedImages';
-import { hauntedHouses } from '@/content/hauntedHouses';
-import { slugify } from '@/utils/slug';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { hauntedHouses } from "@/content/hauntedHouses";
+import { slugify } from "@/utils/slug";
+import { AlertTriangle, ArrowLeft, Shield } from "lucide-react";
 
 export function OpenIceTombPage() {
-  const house = hauntedHouses.houses.find(h => h.name === 'Open Ice Tomb');
+  const house = hauntedHouses.houses.find((h) => h.name === "Open Ice Tomb");
 
   const handleBack = () => {
-    window.location.hash = '#haunted-houses';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#haunted-houses";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleViewRules = () => {
-    const slug = slugify('Open Ice Tomb');
+    const slug = slugify("Open Ice Tomb");
     window.location.hash = `#/rules/haunted-house/${slug}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!house) {
@@ -45,7 +45,7 @@ export function OpenIceTombPage() {
         <Card className="bg-card/90 backdrop-blur-sm border-destructive/20 overflow-hidden">
           <div className="relative h-96 overflow-hidden">
             <img
-              src={generatedImages.hauntedHouses['Open Ice Tomb']}
+              src={generatedImages.hauntedHouses["Open Ice Tomb"]}
               alt="Open Ice Tomb"
               className="w-full h-full object-cover"
             />
@@ -62,13 +62,20 @@ export function OpenIceTombPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <AlertTriangle className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">EXTREME HORROR WARNING</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                EXTREME HORROR WARNING
+              </AlertTitle>
               <AlertDescription className="text-base">
-                This Christmas-horror haunted house features extreme cold temperatures, intense scares, frozen corpses, 
-                and frostbitten ghouls. Not recommended for guests with heart conditions, cold sensitivity, or claustrophobia. 
-                Participation is at your own risk. You must be 18+ or accompanied by an adult.
+                This Christmas-horror haunted house features extreme cold
+                temperatures, intense scares, frozen corpses, and frostbitten
+                ghouls. Not recommended for guests with heart conditions, cold
+                sensitivity, or claustrophobia. Participation is at your own
+                risk. You must be 18+ or accompanied by an adult.
               </AlertDescription>
             </Alert>
 

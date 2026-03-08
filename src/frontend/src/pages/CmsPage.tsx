@@ -1,34 +1,96 @@
-import { useState, useEffect } from 'react';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { useIsCallerAdmin } from '@/hooks/useAuthz';
-import { useGetAllContentItems, useSeedInitialContent, useCreateContentItem, useUpdateContentItem, useDeleteContentItem } from '@/hooks/useContentItems';
-import { useGetMainHauntSchedule, useUpdateMainHauntSchedule } from '@/hooks/useMainHauntSchedule';
-import { AccessDeniedScreen } from '@/components/auth/AccessDeniedScreen';
-import { LoginButton } from '@/components/auth/LoginButton';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Separator } from '@/components/ui/separator';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Loader2, Plus, Edit, Trash2, Calendar, AlertCircle, Database } from 'lucide-react';
-import { toast } from 'sonner';
-import { formatDate, formatDateRange, formatContentType, getTypeSpecificFieldsSummary } from '@/lib/contentFormatting';
-import { ContentItem, EventDateRange, Date_, ContentType, EventType, ScareLevel, ZoneLocation, AgeRestriction, PerformanceType } from '../backend';
+import { AccessDeniedScreen } from "@/components/auth/AccessDeniedScreen";
+import { LoginButton } from "@/components/auth/LoginButton";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useIsCallerAdmin } from "@/hooks/useAuthz";
+import {
+  useCreateContentItem,
+  useDeleteContentItem,
+  useGetAllContentItems,
+  useSeedInitialContent,
+  useUpdateContentItem,
+} from "@/hooks/useContentItems";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import {
+  useGetMainHauntSchedule,
+  useUpdateMainHauntSchedule,
+} from "@/hooks/useMainHauntSchedule";
+import {
+  formatContentType,
+  formatDate,
+  formatDateRange,
+  getTypeSpecificFieldsSummary,
+} from "@/lib/contentFormatting";
+import {
+  AlertCircle,
+  Calendar,
+  Database,
+  Edit,
+  Loader2,
+  Plus,
+  Trash2,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import {
+  AgeRestriction,
+  type ContentItem,
+  type ContentType,
+  Date_,
+  type EventDateRange,
+  EventType,
+  PerformanceType,
+  ScareLevel,
+  ZoneLocation,
+} from "../backend";
 
-type ContentItemForm = Omit<ContentItem, 'id'>;
+type ContentItemForm = Omit<ContentItem, "id">;
 
 export function CmsPage() {
   const { identity } = useInternetIdentity();
   const { data: isAdmin, isLoading: isAdminLoading } = useIsCallerAdmin();
-  const { data: contentItems = [], isLoading: itemsLoading, error: itemsError } = useGetAllContentItems();
-  const { data: mainSchedule = [], isLoading: scheduleLoading } = useGetMainHauntSchedule();
+  const {
+    data: contentItems = [],
+    isLoading: itemsLoading,
+    error: itemsError,
+  } = useGetAllContentItems();
+  const { data: mainSchedule = [] } = useGetMainHauntSchedule();
   const seedMutation = useSeedInitialContent();
   const createMutation = useCreateContentItem();
   const updateMutation = useUpdateContentItem();
@@ -38,13 +100,18 @@ export function CmsPage() {
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isScheduleDialogOpen, setIsScheduleDialogOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState("all");
 
   const isAuthenticated = !!identity;
   const isAuthorized = isAuthenticated && isAdmin === true;
 
   useEffect(() => {
-    if (isAuthenticated && isAdmin && contentItems.length === 0 && !itemsLoading) {
+    if (
+      isAuthenticated &&
+      isAdmin &&
+      contentItems.length === 0 &&
+      !itemsLoading
+    ) {
       handleSeedContent();
     }
   }, [isAuthenticated, isAdmin, contentItems.length, itemsLoading]);
@@ -52,55 +119,59 @@ export function CmsPage() {
   const handleSeedContent = async () => {
     try {
       await seedMutation.mutateAsync();
-      toast.success('Initial content seeded successfully!');
+      toast.success("Initial content seeded successfully!");
     } catch (error: any) {
-      console.error('Seed error:', error);
-      toast.error('Failed to seed content: ' + (error.message || 'Unknown error'));
+      console.error("Seed error:", error);
+      toast.error(
+        `Failed to seed content: ${error.message || "Unknown error"}`,
+      );
     }
   };
 
   const handleCreateItem = async (item: ContentItemForm) => {
     try {
       await createMutation.mutateAsync({ ...item, id: 0n });
-      toast.success('Content item created successfully!');
+      toast.success("Content item created successfully!");
       setIsCreateDialogOpen(false);
     } catch (error: any) {
-      console.error('Create error:', error);
-      toast.error('Failed to create item: ' + (error.message || 'Unknown error'));
+      console.error("Create error:", error);
+      toast.error(`Failed to create item: ${error.message || "Unknown error"}`);
     }
   };
 
   const handleUpdateItem = async (id: bigint, item: ContentItemForm) => {
     try {
       await updateMutation.mutateAsync({ id, item: { ...item, id } });
-      toast.success('Content item updated successfully!');
+      toast.success("Content item updated successfully!");
       setEditingItem(null);
     } catch (error: any) {
-      console.error('Update error:', error);
-      toast.error('Failed to update item: ' + (error.message || 'Unknown error'));
+      console.error("Update error:", error);
+      toast.error(`Failed to update item: ${error.message || "Unknown error"}`);
     }
   };
 
   const handleDeleteItem = async (id: bigint) => {
-    if (!confirm('Are you sure you want to delete this item?')) return;
-    
+    if (!confirm("Are you sure you want to delete this item?")) return;
+
     try {
       await deleteMutation.mutateAsync(id);
-      toast.success('Content item deleted successfully!');
+      toast.success("Content item deleted successfully!");
     } catch (error: any) {
-      console.error('Delete error:', error);
-      toast.error('Failed to delete item: ' + (error.message || 'Unknown error'));
+      console.error("Delete error:", error);
+      toast.error(`Failed to delete item: ${error.message || "Unknown error"}`);
     }
   };
 
   const handleUpdateSchedule = async (newSchedule: EventDateRange[]) => {
     try {
       await updateScheduleMutation.mutateAsync(newSchedule);
-      toast.success('Main haunt schedule updated successfully!');
+      toast.success("Main haunt schedule updated successfully!");
       setIsScheduleDialogOpen(false);
     } catch (error: any) {
-      console.error('Schedule update error:', error);
-      toast.error('Failed to update schedule: ' + (error.message || 'Unknown error'));
+      console.error("Schedule update error:", error);
+      toast.error(
+        `Failed to update schedule: ${error.message || "Unknown error"}`,
+      );
     }
   };
 
@@ -109,7 +180,9 @@ export function CmsPage() {
       <div className="container mx-auto px-4 py-20">
         <Card className="max-w-2xl mx-auto border-destructive/50">
           <CardHeader>
-            <CardTitle className="text-2xl text-destructive">Login Required</CardTitle>
+            <CardTitle className="text-2xl text-destructive">
+              Login Required
+            </CardTitle>
             <CardDescription>
               You must be logged in to access the Content Management System.
             </CardDescription>
@@ -134,23 +207,29 @@ export function CmsPage() {
     return <AccessDeniedScreen />;
   }
 
-  const filteredItems = activeTab === 'all' 
-    ? contentItems 
-    : contentItems.filter(item => {
-        if (activeTab === 'events') return 'event' in item.customType;
-        if (activeTab === 'scareZones') return 'scareZone' in item.customType;
-        if (activeTab === 'shows') return 'show' in item.customType;
-        if (activeTab === 'attractions') return 'attraction' in item.customType;
-        return false;
-      });
+  const filteredItems =
+    activeTab === "all"
+      ? contentItems
+      : contentItems.filter((item) => {
+          if (activeTab === "events") return "event" in item.customType;
+          if (activeTab === "scareZones") return "scareZone" in item.customType;
+          if (activeTab === "shows") return "show" in item.customType;
+          if (activeTab === "attractions")
+            return "attraction" in item.customType;
+          return false;
+        });
 
   return (
     <div className="container mx-auto px-4 py-24">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-destructive bloody-text mb-2">Content Management System</h1>
-            <p className="text-muted-foreground">Manage events, scare zones, shows, and attractions</p>
+            <h1 className="text-4xl font-bold text-destructive bloody-text mb-2">
+              Content Management System
+            </h1>
+            <p className="text-muted-foreground">
+              Manage events, scare zones, shows, and attractions
+            </p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -188,10 +267,27 @@ export function CmsPage() {
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-5 mb-6">
               <TabsTrigger value="all">All ({contentItems.length})</TabsTrigger>
-              <TabsTrigger value="events">Events ({contentItems.filter(i => 'event' in i.customType).length})</TabsTrigger>
-              <TabsTrigger value="scareZones">Scare Zones ({contentItems.filter(i => 'scareZone' in i.customType).length})</TabsTrigger>
-              <TabsTrigger value="shows">Shows ({contentItems.filter(i => 'show' in i.customType).length})</TabsTrigger>
-              <TabsTrigger value="attractions">Attractions ({contentItems.filter(i => 'attraction' in i.customType).length})</TabsTrigger>
+              <TabsTrigger value="events">
+                Events (
+                {contentItems.filter((i) => "event" in i.customType).length})
+              </TabsTrigger>
+              <TabsTrigger value="scareZones">
+                Scare Zones (
+                {contentItems.filter((i) => "scareZone" in i.customType).length}
+                )
+              </TabsTrigger>
+              <TabsTrigger value="shows">
+                Shows (
+                {contentItems.filter((i) => "show" in i.customType).length})
+              </TabsTrigger>
+              <TabsTrigger value="attractions">
+                Attractions (
+                {
+                  contentItems.filter((i) => "attraction" in i.customType)
+                    .length
+                }
+                )
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value={activeTab}>
@@ -199,14 +295,18 @@ export function CmsPage() {
                 <CardHeader>
                   <CardTitle>Content Items</CardTitle>
                   <CardDescription>
-                    {activeTab === 'all' ? 'All content items' : `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} only`}
+                    {activeTab === "all"
+                      ? "All content items"
+                      : `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} only`}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   {filteredItems.length === 0 ? (
                     <div className="text-center py-12 text-muted-foreground">
                       <Database className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                      <p>No items found. Create your first item to get started.</p>
+                      <p>
+                        No items found. Create your first item to get started.
+                      </p>
                     </div>
                   ) : (
                     <Table>
@@ -222,15 +322,25 @@ export function CmsPage() {
                       <TableBody>
                         {filteredItems.map((item) => (
                           <TableRow key={item.id.toString()}>
-                            <TableCell className="font-medium">{item.name}</TableCell>
-                            <TableCell>{formatContentType(item.customType)}</TableCell>
-                            <TableCell className="max-w-xs truncate">{item.description}</TableCell>
+                            <TableCell className="font-medium">
+                              {item.name}
+                            </TableCell>
+                            <TableCell>
+                              {formatContentType(item.customType)}
+                            </TableCell>
+                            <TableCell className="max-w-xs truncate">
+                              {item.description}
+                            </TableCell>
                             <TableCell className="text-sm">
                               {item.useMainHauntSchedule ? (
-                                <span className="text-muted-foreground">Inherits main schedule</span>
+                                <span className="text-muted-foreground">
+                                  Inherits main schedule
+                                </span>
                               ) : (
-                                item.dates.map((range, idx) => (
-                                  <div key={idx}>{formatDateRange(range)}</div>
+                                item.dates.map((range) => (
+                                  <div key={formatDateRange(range)}>
+                                    {formatDateRange(range)}
+                                  </div>
                                 ))
                               )}
                             </TableCell>
@@ -305,87 +415,117 @@ function ContentItemDialog({
   initialItem?: ContentItem;
   title: string;
 }) {
-  const [name, setName] = useState(initialItem?.name || '');
-  const [description, setDescription] = useState(initialItem?.description || '');
-  const [contentTypeKey, setContentTypeKey] = useState<'event' | 'scareZone' | 'show' | 'attraction'>(
-    initialItem ? (
-      'event' in initialItem.customType ? 'event' :
-      'scareZone' in initialItem.customType ? 'scareZone' :
-      'show' in initialItem.customType ? 'show' : 'attraction'
-    ) : 'event'
+  const [name, setName] = useState(initialItem?.name || "");
+  const [description, setDescription] = useState(
+    initialItem?.description || "",
   );
-  const [useMainSchedule, setUseMainSchedule] = useState(initialItem?.useMainHauntSchedule ?? true);
+  const [contentTypeKey, setContentTypeKey] = useState<
+    "event" | "scareZone" | "show" | "attraction"
+  >(
+    initialItem
+      ? "event" in initialItem.customType
+        ? "event"
+        : "scareZone" in initialItem.customType
+          ? "scareZone"
+          : "show" in initialItem.customType
+            ? "show"
+            : "attraction"
+      : "event",
+  );
+  const [useMainSchedule, setUseMainSchedule] = useState(
+    initialItem?.useMainHauntSchedule ?? true,
+  );
   const [dateRanges, setDateRanges] = useState<EventDateRange[]>(
-    initialItem?.dates.length ? initialItem.dates : [
-      {
-        startDate: { year: 2024n, month: 9n, day: 15n },
-        endDate: { year: 2024n, month: 11n, day: 1n },
-      }
-    ]
+    initialItem?.dates.length
+      ? initialItem.dates
+      : [
+          {
+            startDate: { year: 2024n, month: 9n, day: 15n },
+            endDate: { year: 2024n, month: 11n, day: 1n },
+          },
+        ],
   );
 
   const [eventType, setEventType] = useState<EventType>(
-    initialItem && 'event' in initialItem.customType ? initialItem.customType.event.eventType : EventType.seasonal
+    initialItem && "event" in initialItem.customType
+      ? initialItem.customType.event.eventType
+      : EventType.seasonal,
   );
   const [scareLevel, setScareLevel] = useState<ScareLevel>(
-    initialItem && 'scareZone' in initialItem.customType ? initialItem.customType.scareZone.scareLevel : ScareLevel.moderate
+    initialItem && "scareZone" in initialItem.customType
+      ? initialItem.customType.scareZone.scareLevel
+      : ScareLevel.moderate,
   );
   const [zoneLocation, setZoneLocation] = useState<ZoneLocation>(
-    initialItem && 'scareZone' in initialItem.customType ? initialItem.customType.scareZone.indoorOutdoor : ZoneLocation.outdoor
+    initialItem && "scareZone" in initialItem.customType
+      ? initialItem.customType.scareZone.indoorOutdoor
+      : ZoneLocation.outdoor,
   );
   const [performanceType, setPerformanceType] = useState<PerformanceType>(
-    initialItem && 'show' in initialItem.customType ? initialItem.customType.show.performanceType : PerformanceType.theatrical
+    initialItem && "show" in initialItem.customType
+      ? initialItem.customType.show.performanceType
+      : PerformanceType.theatrical,
   );
   const [ageRestriction, setAgeRestriction] = useState<AgeRestriction>(
-    initialItem && 'attraction' in initialItem.customType ? initialItem.customType.attraction.ageRestriction : AgeRestriction.none
+    initialItem && "attraction" in initialItem.customType
+      ? initialItem.customType.attraction.ageRestriction
+      : AgeRestriction.none,
   );
   const [hasGuidedTour, setHasGuidedTour] = useState(
-    initialItem && 'attraction' in initialItem.customType ? initialItem.customType.attraction.hasGuidedTour : false
+    initialItem && "attraction" in initialItem.customType
+      ? initialItem.customType.attraction.hasGuidedTour
+      : false,
   );
   const [yearIntroduced, setYearIntroduced] = useState<string>(
-    initialItem && 'scareZone' in initialItem.customType && initialItem.customType.scareZone.yearIntroduced
+    initialItem &&
+      "scareZone" in initialItem.customType &&
+      initialItem.customType.scareZone.yearIntroduced
       ? initialItem.customType.scareZone.yearIntroduced.toString()
-      : initialItem && 'show' in initialItem.customType && initialItem.customType.show.yearIntroduced
-      ? initialItem.customType.show.yearIntroduced.toString()
-      : initialItem && 'attraction' in initialItem.customType && initialItem.customType.attraction.yearIntroduced
-      ? initialItem.customType.attraction.yearIntroduced.toString()
-      : ''
+      : initialItem &&
+          "show" in initialItem.customType &&
+          initialItem.customType.show.yearIntroduced
+        ? initialItem.customType.show.yearIntroduced.toString()
+        : initialItem &&
+            "attraction" in initialItem.customType &&
+            initialItem.customType.attraction.yearIntroduced
+          ? initialItem.customType.attraction.yearIntroduced.toString()
+          : "",
   );
 
   const handleSave = () => {
     if (!name.trim() || !description.trim()) {
-      toast.error('Name and description are required');
+      toast.error("Name and description are required");
       return;
     }
 
     let customType: ContentType;
-    if (contentTypeKey === 'event') {
-      customType = { __kind__: 'event', event: { eventType } };
-    } else if (contentTypeKey === 'scareZone') {
+    if (contentTypeKey === "event") {
+      customType = { __kind__: "event", event: { eventType } };
+    } else if (contentTypeKey === "scareZone") {
       customType = {
-        __kind__: 'scareZone',
+        __kind__: "scareZone",
         scareZone: {
           scareLevel,
           indoorOutdoor: zoneLocation,
           yearIntroduced: yearIntroduced ? BigInt(yearIntroduced) : undefined,
-        }
+        },
       };
-    } else if (contentTypeKey === 'show') {
+    } else if (contentTypeKey === "show") {
       customType = {
-        __kind__: 'show',
+        __kind__: "show",
         show: {
           performanceType,
           yearIntroduced: yearIntroduced ? BigInt(yearIntroduced) : undefined,
-        }
+        },
       };
     } else {
       customType = {
-        __kind__: 'attraction',
+        __kind__: "attraction",
         attraction: {
           ageRestriction,
           hasGuidedTour,
           yearIntroduced: yearIntroduced ? BigInt(yearIntroduced) : undefined,
-        }
+        },
       };
     }
 
@@ -432,7 +572,10 @@ function ContentItemDialog({
 
           <div className="grid gap-2">
             <Label htmlFor="contentType">Content Type</Label>
-            <Select value={contentTypeKey} onValueChange={(v: any) => setContentTypeKey(v)}>
+            <Select
+              value={contentTypeKey}
+              onValueChange={(v: any) => setContentTypeKey(v)}
+            >
               <SelectTrigger id="contentType">
                 <SelectValue />
               </SelectTrigger>
@@ -447,10 +590,13 @@ function ContentItemDialog({
 
           <Separator />
 
-          {contentTypeKey === 'event' && (
+          {contentTypeKey === "event" && (
             <div className="grid gap-2">
               <Label htmlFor="eventType">Event Type</Label>
-              <Select value={eventType} onValueChange={(v: EventType) => setEventType(v)}>
+              <Select
+                value={eventType}
+                onValueChange={(v: EventType) => setEventType(v)}
+              >
                 <SelectTrigger id="eventType">
                   <SelectValue />
                 </SelectTrigger>
@@ -458,43 +604,59 @@ function ContentItemDialog({
                   <SelectItem value={EventType.seasonal}>Seasonal</SelectItem>
                   <SelectItem value={EventType.special}>Special</SelectItem>
                   <SelectItem value={EventType.holiday}>Holiday</SelectItem>
-                  <SelectItem value={EventType.specialEvent}>Special Event</SelectItem>
-                  <SelectItem value={EventType.convention}>Convention</SelectItem>
+                  <SelectItem value={EventType.specialEvent}>
+                    Special Event
+                  </SelectItem>
+                  <SelectItem value={EventType.convention}>
+                    Convention
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
           )}
 
-          {contentTypeKey === 'scareZone' && (
+          {contentTypeKey === "scareZone" && (
             <>
               <div className="grid gap-2">
                 <Label htmlFor="scareLevel">Scare Level</Label>
-                <Select value={scareLevel} onValueChange={(v: ScareLevel) => setScareLevel(v)}>
+                <Select
+                  value={scareLevel}
+                  onValueChange={(v: ScareLevel) => setScareLevel(v)}
+                >
                   <SelectTrigger id="scareLevel">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={ScareLevel.mild}>Mild</SelectItem>
-                    <SelectItem value={ScareLevel.moderate}>Moderate</SelectItem>
+                    <SelectItem value={ScareLevel.moderate}>
+                      Moderate
+                    </SelectItem>
                     <SelectItem value={ScareLevel.extreme}>Extreme</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="zoneLocation">Location</Label>
-                <Select value={zoneLocation} onValueChange={(v: ZoneLocation) => setZoneLocation(v)}>
+                <Select
+                  value={zoneLocation}
+                  onValueChange={(v: ZoneLocation) => setZoneLocation(v)}
+                >
                   <SelectTrigger id="zoneLocation">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={ZoneLocation.indoor}>Indoor</SelectItem>
-                    <SelectItem value={ZoneLocation.outdoor}>Outdoor</SelectItem>
+                    <SelectItem value={ZoneLocation.outdoor}>
+                      Outdoor
+                    </SelectItem>
                     <SelectItem value={ZoneLocation.both}>Both</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="yearIntroduced">Year Introduced (optional)</Label>
+                <Label htmlFor="yearIntroduced">
+                  Year Introduced (optional)
+                </Label>
                 <Input
                   id="yearIntroduced"
                   type="number"
@@ -506,25 +668,36 @@ function ContentItemDialog({
             </>
           )}
 
-          {contentTypeKey === 'show' && (
+          {contentTypeKey === "show" && (
             <>
               <div className="grid gap-2">
                 <Label htmlFor="performanceType">Performance Type</Label>
-                <Select value={performanceType} onValueChange={(v: PerformanceType) => setPerformanceType(v)}>
+                <Select
+                  value={performanceType}
+                  onValueChange={(v: PerformanceType) => setPerformanceType(v)}
+                >
                   <SelectTrigger id="performanceType">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={PerformanceType.musical}>Musical</SelectItem>
-                    <SelectItem value={PerformanceType.theatrical}>Theatrical</SelectItem>
+                    <SelectItem value={PerformanceType.musical}>
+                      Musical
+                    </SelectItem>
+                    <SelectItem value={PerformanceType.theatrical}>
+                      Theatrical
+                    </SelectItem>
                     <SelectItem value={PerformanceType.dance}>Dance</SelectItem>
-                    <SelectItem value={PerformanceType.interactive}>Interactive</SelectItem>
+                    <SelectItem value={PerformanceType.interactive}>
+                      Interactive
+                    </SelectItem>
                     <SelectItem value={PerformanceType.stunt}>Stunt</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="yearIntroduced">Year Introduced (optional)</Label>
+                <Label htmlFor="yearIntroduced">
+                  Year Introduced (optional)
+                </Label>
                 <Input
                   id="yearIntroduced"
                   type="number"
@@ -536,11 +709,14 @@ function ContentItemDialog({
             </>
           )}
 
-          {contentTypeKey === 'attraction' && (
+          {contentTypeKey === "attraction" && (
             <>
               <div className="grid gap-2">
                 <Label htmlFor="ageRestriction">Age Restriction</Label>
-                <Select value={ageRestriction} onValueChange={(v: AgeRestriction) => setAgeRestriction(v)}>
+                <Select
+                  value={ageRestriction}
+                  onValueChange={(v: AgeRestriction) => setAgeRestriction(v)}
+                >
                   <SelectTrigger id="ageRestriction">
                     <SelectValue />
                   </SelectTrigger>
@@ -548,7 +724,9 @@ function ContentItemDialog({
                     <SelectItem value={AgeRestriction.none}>None</SelectItem>
                     <SelectItem value={AgeRestriction.kids}>Kids</SelectItem>
                     <SelectItem value={AgeRestriction.teens}>Teens</SelectItem>
-                    <SelectItem value={AgeRestriction.adultsOnly}>Adults Only</SelectItem>
+                    <SelectItem value={AgeRestriction.adultsOnly}>
+                      Adults Only
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -561,7 +739,9 @@ function ContentItemDialog({
                 <Label htmlFor="hasGuidedTour">Has Guided Tour</Label>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="yearIntroduced">Year Introduced (optional)</Label>
+                <Label htmlFor="yearIntroduced">
+                  Year Introduced (optional)
+                </Label>
                 <Input
                   id="yearIntroduced"
                   type="number"
@@ -588,18 +768,25 @@ function ContentItemDialog({
             <div className="grid gap-2">
               <Label>Custom Date Range</Label>
               {dateRanges.map((range, idx) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: index is needed to update specific range
                 <div key={idx} className="grid grid-cols-2 gap-2">
                   <div>
                     <Label className="text-xs">Start Date</Label>
                     <Input
                       type="date"
-                      value={`${range.startDate.year}-${String(range.startDate.month).padStart(2, '0')}-${String(range.startDate.day).padStart(2, '0')}`}
+                      value={`${range.startDate.year}-${String(range.startDate.month).padStart(2, "0")}-${String(range.startDate.day).padStart(2, "0")}`}
                       onChange={(e) => {
-                        const [year, month, day] = e.target.value.split('-').map(Number);
+                        const [year, month, day] = e.target.value
+                          .split("-")
+                          .map(Number);
                         const newRanges = [...dateRanges];
                         newRanges[idx] = {
                           ...newRanges[idx],
-                          startDate: { year: BigInt(year), month: BigInt(month), day: BigInt(day) }
+                          startDate: {
+                            year: BigInt(year),
+                            month: BigInt(month),
+                            day: BigInt(day),
+                          },
                         };
                         setDateRanges(newRanges);
                       }}
@@ -609,13 +796,19 @@ function ContentItemDialog({
                     <Label className="text-xs">End Date</Label>
                     <Input
                       type="date"
-                      value={`${range.endDate.year}-${String(range.endDate.month).padStart(2, '0')}-${String(range.endDate.day).padStart(2, '0')}`}
+                      value={`${range.endDate.year}-${String(range.endDate.month).padStart(2, "0")}-${String(range.endDate.day).padStart(2, "0")}`}
                       onChange={(e) => {
-                        const [year, month, day] = e.target.value.split('-').map(Number);
+                        const [year, month, day] = e.target.value
+                          .split("-")
+                          .map(Number);
                         const newRanges = [...dateRanges];
                         newRanges[idx] = {
                           ...newRanges[idx],
-                          endDate: { year: BigInt(year), month: BigInt(month), day: BigInt(day) }
+                          endDate: {
+                            year: BigInt(year),
+                            month: BigInt(month),
+                            day: BigInt(day),
+                          },
                         };
                         setDateRanges(newRanges);
                       }}
@@ -631,7 +824,10 @@ function ContentItemDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSave} className="bg-destructive hover:bg-destructive/90">
+          <Button
+            onClick={handleSave}
+            className="bg-destructive hover:bg-destructive/90"
+          >
             Save
           </Button>
         </DialogFooter>
@@ -652,12 +848,14 @@ function ScheduleDialog({
   initialSchedule: EventDateRange[];
 }) {
   const [schedule, setSchedule] = useState<EventDateRange[]>(
-    initialSchedule.length ? initialSchedule : [
-      {
-        startDate: { year: 2024n, month: 9n, day: 15n },
-        endDate: { year: 2024n, month: 11n, day: 1n },
-      }
-    ]
+    initialSchedule.length
+      ? initialSchedule
+      : [
+          {
+            startDate: { year: 2024n, month: 9n, day: 15n },
+            endDate: { year: 2024n, month: 11n, day: 1n },
+          },
+        ],
   );
 
   const handleSave = () => {
@@ -668,26 +866,36 @@ function ScheduleDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="text-destructive">Main Haunt Schedule</DialogTitle>
+          <DialogTitle className="text-destructive">
+            Main Haunt Schedule
+          </DialogTitle>
           <DialogDescription>
-            Set the default operating schedule. Items that inherit this schedule will automatically update when you change it.
+            Set the default operating schedule. Items that inherit this schedule
+            will automatically update when you change it.
           </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           {schedule.map((range, idx) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: index is needed to update specific range
             <div key={idx} className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Start Date</Label>
                 <Input
                   type="date"
-                  value={`${range.startDate.year}-${String(range.startDate.month).padStart(2, '0')}-${String(range.startDate.day).padStart(2, '0')}`}
+                  value={`${range.startDate.year}-${String(range.startDate.month).padStart(2, "0")}-${String(range.startDate.day).padStart(2, "0")}`}
                   onChange={(e) => {
-                    const [year, month, day] = e.target.value.split('-').map(Number);
+                    const [year, month, day] = e.target.value
+                      .split("-")
+                      .map(Number);
                     const newSchedule = [...schedule];
                     newSchedule[idx] = {
                       ...newSchedule[idx],
-                      startDate: { year: BigInt(year), month: BigInt(month), day: BigInt(day) }
+                      startDate: {
+                        year: BigInt(year),
+                        month: BigInt(month),
+                        day: BigInt(day),
+                      },
                     };
                     setSchedule(newSchedule);
                   }}
@@ -697,13 +905,19 @@ function ScheduleDialog({
                 <Label>End Date</Label>
                 <Input
                   type="date"
-                  value={`${range.endDate.year}-${String(range.endDate.month).padStart(2, '0')}-${String(range.endDate.day).padStart(2, '0')}`}
+                  value={`${range.endDate.year}-${String(range.endDate.month).padStart(2, "0")}-${String(range.endDate.day).padStart(2, "0")}`}
                   onChange={(e) => {
-                    const [year, month, day] = e.target.value.split('-').map(Number);
+                    const [year, month, day] = e.target.value
+                      .split("-")
+                      .map(Number);
                     const newSchedule = [...schedule];
                     newSchedule[idx] = {
                       ...newSchedule[idx],
-                      endDate: { year: BigInt(year), month: BigInt(month), day: BigInt(day) }
+                      endDate: {
+                        year: BigInt(year),
+                        month: BigInt(month),
+                        day: BigInt(day),
+                      },
                     };
                     setSchedule(newSchedule);
                   }}
@@ -717,7 +931,10 @@ function ScheduleDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSave} className="bg-destructive hover:bg-destructive/90">
+          <Button
+            onClick={handleSave}
+            className="bg-destructive hover:bg-destructive/90"
+          >
             Update Schedule
           </Button>
         </DialogFooter>

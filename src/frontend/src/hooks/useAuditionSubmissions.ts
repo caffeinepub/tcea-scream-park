@@ -1,6 +1,12 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import type { ScareActorAuditionForm, DanceAuditionForm, CostumeCharacterAuditionForm } from '@/backend';
+import type {
+  CostumeCharacterAuditionForm,
+  DanceAuditionForm,
+  HauntedHouseSupervisorAuditionForm,
+  ScareActorAuditionForm,
+  UsherAuditionForm,
+} from "@/backend";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useActor } from "./useActor";
 
 export function useSubmitScareActorAudition() {
   const { actor } = useActor();
@@ -14,32 +20,32 @@ export function useSubmitScareActorAudition() {
       whatYouLoveToDo: string;
       rolePreference: string;
     }) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
 
       const form: ScareActorAuditionForm = {
         name: formData.name,
         age: BigInt(formData.age),
-        phone: 'Not provided',
-        email: 'Not provided',
+        phone: "Not provided",
+        email: "Not provided",
         experience: formData.experience,
-        specialSkills: 'Not provided',
-        availability: 'Not provided',
-        previousWork: 'Not provided',
-        referredBy: 'Not provided',
+        specialSkills: "Not provided",
+        availability: "Not provided",
+        previousWork: "Not provided",
+        referredBy: "Not provided",
         whyScaryRole: formData.whatYouLoveToDo,
-        physicalLimitations: 'None',
+        physicalLimitations: "None",
         favoriteCharacterType: formData.rolePreference,
-        preferredScareType: 'Not provided',
-        preferenceOutfitType: 'Not provided',
-        conflictSchedule: 'None',
-        preferedWorkingCondition: 'Not provided',
-        operationAgreeStatus: 'Agreed',
+        preferredScareType: "Not provided",
+        preferenceOutfitType: "Not provided",
+        conflictSchedule: "None",
+        preferedWorkingCondition: "Not provided",
+        operationAgreeStatus: "Agreed",
       };
 
       return actor.submitScareActorAudition(form);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auditions'] });
+      queryClient.invalidateQueries({ queryKey: ["auditions"] });
     },
   });
 }
@@ -56,32 +62,32 @@ export function useSubmitDancerAudition() {
       whatYouLoveToDo: string;
       rolePreference: string;
     }) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
 
       const form: DanceAuditionForm = {
         name: formData.name,
         age: BigInt(formData.age),
-        phone: 'Not provided',
-        email: 'Not provided',
+        phone: "Not provided",
+        email: "Not provided",
         experience: formData.experience,
-        danceStyles: 'Not provided',
-        availability: 'Not provided',
-        previousWork: 'Not provided',
-        referredBy: 'Not provided',
+        danceStyles: "Not provided",
+        availability: "Not provided",
+        previousWork: "Not provided",
+        referredBy: "Not provided",
         whyDancing: formData.whatYouLoveToDo,
-        physicalLimitations: 'None',
+        physicalLimitations: "None",
         favoriteDanceType: formData.rolePreference,
-        performanceExperience: 'Not provided',
-        costumePreferences: 'Not provided',
-        scheduleConflicts: 'None',
-        workingConditions: 'Not provided',
-        operationAgreeStatus: 'Agreed',
+        performanceExperience: "Not provided",
+        costumePreferences: "Not provided",
+        scheduleConflicts: "None",
+        workingConditions: "Not provided",
+        operationAgreeStatus: "Agreed",
       };
 
       return actor.submitDanceAudition(form);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auditions'] });
+      queryClient.invalidateQueries({ queryKey: ["auditions"] });
     },
   });
 }
@@ -108,7 +114,7 @@ export function useCostumeCharacterAuditionSubmission() {
       referredBy: string;
       operationAgreeStatus: string;
     }) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
 
       const form: CostumeCharacterAuditionForm = {
         name: formData.name,
@@ -131,7 +137,73 @@ export function useCostumeCharacterAuditionSubmission() {
       return actor.submitCostumeCharacterAudition(form);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auditions'] });
+      queryClient.invalidateQueries({ queryKey: ["auditions"] });
+    },
+  });
+}
+
+export function useSubmitUsherAudition() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (formData: {
+      name: string;
+      age: number;
+      phone: string;
+      email: string;
+      availability: string;
+      experience: string;
+    }) => {
+      if (!actor) throw new Error("Actor not available");
+
+      const form: UsherAuditionForm = {
+        name: formData.name,
+        age: BigInt(formData.age),
+        phone: formData.phone,
+        email: formData.email,
+        availability: formData.availability,
+        experience: formData.experience,
+      };
+
+      return actor.submitUsherAudition(form);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["auditions"] });
+    },
+  });
+}
+
+export function useSubmitHauntedHouseSupervisorAudition() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (formData: {
+      name: string;
+      age: number;
+      phone: string;
+      email: string;
+      experience: string;
+      availability: string;
+      leadershipExperience: string;
+    }) => {
+      if (!actor) throw new Error("Actor not available");
+
+      const form: HauntedHouseSupervisorAuditionForm = {
+        name: formData.name,
+        age: BigInt(formData.age),
+        phone: formData.phone,
+        email: formData.email,
+        experience: formData.experience,
+        availability: formData.availability,
+        leadershipExperience: formData.leadershipExperience,
+      };
+
+      return actor.submitHauntedHouseSupervisorAudition(form);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["auditions"] });
     },
   });
 }

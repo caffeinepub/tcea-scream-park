@@ -11,7 +11,9 @@ import { IDL } from '@icp-sdk/core/candid';
 export const AuditionType = IDL.Variant({
   'scareActor' : IDL.Null,
   'costumeCharacter' : IDL.Null,
+  'usher' : IDL.Null,
   'danceActor' : IDL.Null,
+  'hauntedHouseSupervisor' : IDL.Null,
 });
 export const AuditionLink = IDL.Record({
   'url' : IDL.Text,
@@ -249,6 +251,14 @@ export const CostumeCharacterAuditionForm = IDL.Record({
   'characterVoices' : IDL.Text,
   'whyAudition' : IDL.Text,
 });
+export const UsherAuditionForm = IDL.Record({
+  'age' : IDL.Nat,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'experience' : IDL.Text,
+  'availability' : IDL.Text,
+  'phone' : IDL.Text,
+});
 export const DanceAuditionForm = IDL.Record({
   'age' : IDL.Opt(IDL.Nat),
   'performanceExperience' : IDL.Text,
@@ -268,13 +278,24 @@ export const DanceAuditionForm = IDL.Record({
   'costumePreferences' : IDL.Text,
   'previousWork' : IDL.Text,
 });
+export const HauntedHouseSupervisorAuditionForm = IDL.Record({
+  'age' : IDL.Nat,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'experience' : IDL.Text,
+  'availability' : IDL.Text,
+  'phone' : IDL.Text,
+  'leadershipExperience' : IDL.Text,
+});
 export const Time = IDL.Int;
 export const AuditionSubmission = IDL.Record({
   'submitter' : IDL.Principal,
   'formData' : IDL.Variant({
     'scareActor' : ScareActorAuditionForm,
     'costumeCharacter' : CostumeCharacterAuditionForm,
+    'usher' : UsherAuditionForm,
     'danceActor' : DanceAuditionForm,
+    'hauntedHouseSupervisor' : HauntedHouseSupervisorAuditionForm,
   }),
   'auditionType' : AuditionType,
   'submissionTime' : Time,
@@ -404,11 +425,17 @@ export const idlService = IDL.Service({
       [],
     ),
   'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
+  'submitHauntedHouseSupervisorAudition' : IDL.Func(
+      [HauntedHouseSupervisorAuditionForm],
+      [IDL.Bool],
+      [],
+    ),
   'submitScareActorAudition' : IDL.Func(
       [ScareActorAuditionForm],
       [IDL.Bool],
       [],
     ),
+  'submitUsherAudition' : IDL.Func([UsherAuditionForm], [IDL.Bool], []),
   'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
   'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
   'updateFoodBooth' : IDL.Func([IDL.Nat, ThemedFoodBooth], [], []),
@@ -425,7 +452,9 @@ export const idlFactory = ({ IDL }) => {
   const AuditionType = IDL.Variant({
     'scareActor' : IDL.Null,
     'costumeCharacter' : IDL.Null,
+    'usher' : IDL.Null,
     'danceActor' : IDL.Null,
+    'hauntedHouseSupervisor' : IDL.Null,
   });
   const AuditionLink = IDL.Record({
     'url' : IDL.Text,
@@ -654,6 +683,14 @@ export const idlFactory = ({ IDL }) => {
     'characterVoices' : IDL.Text,
     'whyAudition' : IDL.Text,
   });
+  const UsherAuditionForm = IDL.Record({
+    'age' : IDL.Nat,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'experience' : IDL.Text,
+    'availability' : IDL.Text,
+    'phone' : IDL.Text,
+  });
   const DanceAuditionForm = IDL.Record({
     'age' : IDL.Opt(IDL.Nat),
     'performanceExperience' : IDL.Text,
@@ -673,13 +710,24 @@ export const idlFactory = ({ IDL }) => {
     'costumePreferences' : IDL.Text,
     'previousWork' : IDL.Text,
   });
+  const HauntedHouseSupervisorAuditionForm = IDL.Record({
+    'age' : IDL.Nat,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'experience' : IDL.Text,
+    'availability' : IDL.Text,
+    'phone' : IDL.Text,
+    'leadershipExperience' : IDL.Text,
+  });
   const Time = IDL.Int;
   const AuditionSubmission = IDL.Record({
     'submitter' : IDL.Principal,
     'formData' : IDL.Variant({
       'scareActor' : ScareActorAuditionForm,
       'costumeCharacter' : CostumeCharacterAuditionForm,
+      'usher' : UsherAuditionForm,
       'danceActor' : DanceAuditionForm,
+      'hauntedHouseSupervisor' : HauntedHouseSupervisorAuditionForm,
     }),
     'auditionType' : AuditionType,
     'submissionTime' : Time,
@@ -813,11 +861,17 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'submitDanceAudition' : IDL.Func([DanceAuditionForm], [IDL.Bool], []),
+    'submitHauntedHouseSupervisorAudition' : IDL.Func(
+        [HauntedHouseSupervisorAuditionForm],
+        [IDL.Bool],
+        [],
+      ),
     'submitScareActorAudition' : IDL.Func(
         [ScareActorAuditionForm],
         [IDL.Bool],
         [],
       ),
+    'submitUsherAudition' : IDL.Func([UsherAuditionForm], [IDL.Bool], []),
     'updateAuditionLink' : IDL.Func([IDL.Nat, AuditionLink], [], []),
     'updateContentItem' : IDL.Func([IDL.Nat, ContentItem], [], []),
     'updateFoodBooth' : IDL.Func([IDL.Nat, ThemedFoodBooth], [], []),

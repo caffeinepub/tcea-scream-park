@@ -1,18 +1,26 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
-import { hauntedHouses } from '../content/hauntedHouses';
-import { generatedImages } from '../content/generatedImages';
-import { Separator } from '@/components/ui/separator';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft } from "lucide-react";
+import { generatedImages } from "../content/generatedImages";
+import { hauntedHouses } from "../content/hauntedHouses";
 
 export function HellHoleSneakPeekPage() {
   const handleBackToHome = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const hellHole = hauntedHouses.houses.find(h => h.name === 'Terror Hell hole');
-  const image = generatedImages.hauntedHouses['Terror Hell hole'];
+  const hellHole = hauntedHouses.houses.find(
+    (h) => h.name === "Terror Hell hole",
+  );
+  const image = generatedImages.hauntedHouses["Terror Hell hole"];
 
   if (!hellHole) return null;
 
@@ -77,13 +85,17 @@ export function HellHoleSneakPeekPage() {
           </CardHeader>
           <CardContent>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Deep within the Terror Hell Hole lies Vicky's workshop—a chamber of unspeakable horrors where rusted blades 
-              and grinding gears create a symphony of terror. The air is thick with the metallic scent of fear as massive 
-              saw blades spin endlessly, their teeth stained with the memories of those who dared enter. Vicky, the twisted 
-              architect of this nightmare, has perfected the art of psychological torment, using her mechanical monstrosities 
-              to push victims to the edge of sanity. The walls echo with the screams of the damned, and the machinery never 
-              stops—always hungry, always waiting. In Vicky's domain, escape is an illusion, and survival is merely a 
-              temporary reprieve from the inevitable.
+              Deep within the Terror Hell Hole lies Vicky's workshop—a chamber
+              of unspeakable horrors where rusted blades and grinding gears
+              create a symphony of terror. The air is thick with the metallic
+              scent of fear as massive saw blades spin endlessly, their teeth
+              stained with the memories of those who dared enter. Vicky, the
+              twisted architect of this nightmare, has perfected the art of
+              psychological torment, using her mechanical monstrosities to push
+              victims to the edge of sanity. The walls echo with the screams of
+              the damned, and the machinery never stops—always hungry, always
+              waiting. In Vicky's domain, escape is an illusion, and survival is
+              merely a temporary reprieve from the inevitable.
             </p>
           </CardContent>
         </Card>

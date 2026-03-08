@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { generatedImages } from '../content/generatedImages';
-import { ArrowLeft, AlertTriangle } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AlertTriangle, ArrowLeft } from "lucide-react";
+import { generatedImages } from "../content/generatedImages";
 
 export function FrostedHauntPage() {
   const handleBackToHome = () => {
-    window.location.hash = '';
+    window.location.hash = "";
     setTimeout(() => {
-      const element = document.querySelector('#upcoming-events');
+      const element = document.querySelector("#upcoming-events");
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 100);
   };
@@ -30,7 +30,7 @@ export function FrostedHauntPage() {
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
           <div className="relative h-[500px] overflow-hidden">
             <img
-              src={generatedImages.upcomingEvents['Frosted Haunt']}
+              src={generatedImages.upcomingEvents["Frosted Haunt"]}
               alt="Frosted Haunt"
               className="w-full h-full object-cover"
             />
@@ -47,7 +47,14 @@ export function FrostedHauntPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Experience the chilling terror of winter's darkest nightmare. The Frosted Haunt transforms our park into a frozen hellscape where Christmas cheer meets pure horror. Navigate through two haunted houses—Open Ice Tomb and Wax Works—where the cold will freeze your blood and the scares will stop your heart. Brave two scare zones—Santa's Hell and Chainsaw Cold—where twisted holiday horrors roam freely. All food booths feature Christmas-themed nightmares to fuel your fear.
+              Experience the chilling terror of winter's darkest nightmare. The
+              Frosted Haunt transforms our park into a frozen hellscape where
+              Christmas cheer meets pure horror. Navigate through two haunted
+              houses—Open Ice Tomb and Wax Works—where the cold will freeze your
+              blood and the scares will stop your heart. Brave two scare
+              zones—Santa's Hell and Chainsaw Cold—where twisted holiday horrors
+              roam freely. All food booths feature Christmas-themed nightmares
+              to fuel your fear.
             </p>
 
             <Alert className="bg-destructive/10 border-destructive/40">
@@ -56,32 +63,49 @@ export function FrostedHauntPage() {
                 WARNING
               </AlertTitle>
               <AlertDescription className="text-foreground/90 mt-2">
-                This event contains intense scares, strobe lights, loud noises, fog effects, and extreme horror themes. Not recommended for children under 13 or those with heart conditions. Participation is at your own risk.
+                This event contains intense scares, strobe lights, loud noises,
+                fog effects, and extreme horror themes. Not recommended for
+                children under 13 or those with heart conditions. Participation
+                is at your own risk.
               </AlertDescription>
             </Alert>
 
             <div className="border-t border-destructive/20 pt-6">
-              <h3 className="text-2xl font-bold text-destructive mb-4">Event Highlights</h3>
+              <h3 className="text-2xl font-bold text-destructive mb-4">
+                Event Highlights
+              </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-destructive text-xl mt-1">•</span>
                   <div>
-                    <span className="text-lg font-semibold text-foreground block">Two Haunted Houses</span>
-                    <span className="text-sm text-muted-foreground">Open Ice Tomb and Wax Works</span>
+                    <span className="text-lg font-semibold text-foreground block">
+                      Two Haunted Houses
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Open Ice Tomb and Wax Works
+                    </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-destructive text-xl mt-1">•</span>
                   <div>
-                    <span className="text-lg font-semibold text-foreground block">Two Scare Zones</span>
-                    <span className="text-sm text-muted-foreground">Santa's Hell and Chainsaw Cold</span>
+                    <span className="text-lg font-semibold text-foreground block">
+                      Two Scare Zones
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Santa's Hell and Chainsaw Cold
+                    </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-destructive text-xl mt-1">•</span>
                   <div>
-                    <span className="text-lg font-semibold text-foreground block">Christmas-Themed Food Booths</span>
-                    <span className="text-sm text-muted-foreground">Six new holiday horror food experiences</span>
+                    <span className="text-lg font-semibold text-foreground block">
+                      Christmas-Themed Food Booths
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      Six new holiday horror food experiences
+                    </span>
                   </div>
                 </li>
               </ul>

@@ -1,17 +1,53 @@
-import { EmployeeGuard } from '@/components/auth/EmployeeGuard';
-import { EmployeeLayout } from '@/components/layout/EmployeeLayout';
-import { useTunnelMaps, useRoomAssignments, useTunnelSchedules } from '@/hooks/useTunnelData';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Loader2, MapPin, Users, Clock, AlertTriangle, Map as MapIcon } from 'lucide-react';
+import { EmployeeGuard } from "@/components/auth/EmployeeGuard";
+import { EmployeeLayout } from "@/components/layout/EmployeeLayout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  useRoomAssignments,
+  useTunnelMaps,
+  useTunnelSchedules,
+} from "@/hooks/useTunnelData";
+import {
+  AlertTriangle,
+  Clock,
+  Loader2,
+  Map as MapIcon,
+  MapPin,
+  Users,
+} from "lucide-react";
 
 export function SecretTunnelsPage() {
-  const { data: tunnelMaps, isLoading: mapsLoading, error: mapsError } = useTunnelMaps();
-  const { data: roomAssignments, isLoading: assignmentsLoading, error: assignmentsError } = useRoomAssignments();
-  const { data: tunnelSchedules, isLoading: schedulesLoading, error: schedulesError } = useTunnelSchedules();
+  const {
+    data: tunnelMaps,
+    isLoading: mapsLoading,
+    error: mapsError,
+  } = useTunnelMaps();
+  const {
+    data: roomAssignments,
+    isLoading: assignmentsLoading,
+    error: assignmentsError,
+  } = useRoomAssignments();
+  const {
+    data: tunnelSchedules,
+    isLoading: schedulesLoading,
+    error: schedulesError,
+  } = useTunnelSchedules();
 
   const isLoading = mapsLoading || assignmentsLoading || schedulesLoading;
   const hasError = mapsError || assignmentsError || schedulesError;
@@ -20,15 +56,20 @@ export function SecretTunnelsPage() {
     <EmployeeGuard>
       <EmployeeLayout
         title="Secret Tunnels"
-        breadcrumbs={[{ label: 'Secret Tunnels' }]}
+        breadcrumbs={[{ label: "Secret Tunnels" }]}
       >
         <div className="space-y-8">
           {/* Warning Alert */}
           <Alert className="border-employee-orange bg-employee-bg-darker">
             <AlertTriangle className="h-5 w-5 text-employee-orange" />
-            <AlertTitle className="text-employee-text">Restricted Access - Employees Only</AlertTitle>
+            <AlertTitle className="text-employee-text">
+              Restricted Access - Employees Only
+            </AlertTitle>
             <AlertDescription className="text-employee-text/80">
-              This section contains confidential backstage infrastructure information. The secret tunnels provide hidden access to shows, processions, and backstage facilities. All information is for internal use only and must not be shared with guests.
+              This section contains confidential backstage infrastructure
+              information. The secret tunnels provide hidden access to shows,
+              processions, and backstage facilities. All information is for
+              internal use only and must not be shared with guests.
             </AlertDescription>
           </Alert>
 
@@ -37,7 +78,9 @@ export function SecretTunnelsPage() {
             <div className="flex items-center justify-center py-12">
               <div className="flex flex-col items-center gap-4">
                 <Loader2 className="h-8 w-8 animate-spin text-employee-orange" />
-                <p className="text-employee-text">Loading tunnel information...</p>
+                <p className="text-employee-text">
+                  Loading tunnel information...
+                </p>
               </div>
             </div>
           )}
@@ -46,9 +89,12 @@ export function SecretTunnelsPage() {
           {hasError && !isLoading && (
             <Alert className="border-employee-red bg-employee-bg-darker">
               <AlertTriangle className="h-5 w-5 text-employee-red" />
-              <AlertTitle className="text-employee-text">Error Loading Data</AlertTitle>
+              <AlertTitle className="text-employee-text">
+                Error Loading Data
+              </AlertTitle>
               <AlertDescription className="text-employee-text/80">
-                Unable to load tunnel information. Please try again later or contact IT support.
+                Unable to load tunnel information. Please try again later or
+                contact IT support.
               </AlertDescription>
             </Alert>
           )}
@@ -59,15 +105,20 @@ export function SecretTunnelsPage() {
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <MapIcon className="h-6 w-6 text-employee-orange" />
-                  <h2 className="text-2xl font-bold text-employee-text">Tunnel Maps & Layouts</h2>
+                  <h2 className="text-2xl font-bold text-employee-text">
+                    Tunnel Maps & Layouts
+                  </h2>
                 </div>
 
                 {/* Overview Map Image */}
                 <Card className="bg-employee-bg-darker border-employee-grey/30 mb-6">
                   <CardHeader>
-                    <CardTitle className="text-employee-text">Tunnel System Overview</CardTitle>
+                    <CardTitle className="text-employee-text">
+                      Tunnel System Overview
+                    </CardTitle>
                     <CardDescription className="text-employee-text/60">
-                      Complete underground network connecting all backstage areas
+                      Complete underground network connecting all backstage
+                      areas
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -85,16 +136,24 @@ export function SecretTunnelsPage() {
                 {tunnelMaps && tunnelMaps.length > 0 ? (
                   <div className="grid gap-6 md:grid-cols-2">
                     {tunnelMaps.map((map) => (
-                      <Card key={Number(map.id)} className="bg-employee-bg-darker border-employee-grey/30">
+                      <Card
+                        key={Number(map.id)}
+                        className="bg-employee-bg-darker border-employee-grey/30"
+                      >
                         <CardHeader>
-                          <CardTitle className="text-employee-text">{map.name}</CardTitle>
+                          <CardTitle className="text-employee-text">
+                            {map.name}
+                          </CardTitle>
                           <CardDescription className="text-employee-text/60">
-                            {map.rooms.length} rooms • {map.connections.length} connections
+                            {map.rooms.length} rooms • {map.connections.length}{" "}
+                            connections
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div>
-                            <h4 className="text-sm font-semibold text-employee-text mb-2">Rooms:</h4>
+                            <h4 className="text-sm font-semibold text-employee-text mb-2">
+                              Rooms:
+                            </h4>
                             <div className="flex flex-wrap gap-2">
                               {map.rooms.map((room) => (
                                 <Badge
@@ -108,10 +167,15 @@ export function SecretTunnelsPage() {
                             </div>
                           </div>
                           <div>
-                            <h4 className="text-sm font-semibold text-employee-text mb-2">Connections:</h4>
+                            <h4 className="text-sm font-semibold text-employee-text mb-2">
+                              Connections:
+                            </h4>
                             <div className="space-y-1 text-sm text-employee-text/80">
-                              {map.connections.slice(0, 3).map((conn, idx) => (
-                                <div key={idx} className="flex items-center gap-2">
+                              {map.connections.slice(0, 3).map((conn) => (
+                                <div
+                                  key={conn.tunnelSection}
+                                  className="flex items-center gap-2"
+                                >
                                   <MapPin className="h-3 w-3 text-employee-orange" />
                                   <span>{conn.tunnelSection}</span>
                                 </div>
@@ -130,7 +194,8 @@ export function SecretTunnelsPage() {
                 ) : (
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardContent className="py-8 text-center text-employee-text/60">
-                      No tunnel maps available. Contact facilities management for access.
+                      No tunnel maps available. Contact facilities management
+                      for access.
                     </CardContent>
                   </Card>
                 )}
@@ -142,14 +207,18 @@ export function SecretTunnelsPage() {
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <MapPin className="h-6 w-6 text-employee-orange" />
-                  <h2 className="text-2xl font-bold text-employee-text">Room Directory</h2>
+                  <h2 className="text-2xl font-bold text-employee-text">
+                    Room Directory
+                  </h2>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                   {/* Makeup Rooms */}
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardHeader>
-                      <CardTitle className="text-employee-text text-lg">Makeup Rooms</CardTitle>
+                      <CardTitle className="text-employee-text text-lg">
+                        Makeup Rooms
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <img
@@ -158,7 +227,8 @@ export function SecretTunnelsPage() {
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
                       <p className="text-sm text-employee-text/80">
-                        Professional makeup stations for scare actors and performers. Equipped with lighting and supplies.
+                        Professional makeup stations for scare actors and
+                        performers. Equipped with lighting and supplies.
                       </p>
                     </CardContent>
                   </Card>
@@ -166,7 +236,9 @@ export function SecretTunnelsPage() {
                   {/* Lounge Areas */}
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardHeader>
-                      <CardTitle className="text-employee-text text-lg">Lounge Areas</CardTitle>
+                      <CardTitle className="text-employee-text text-lg">
+                        Lounge Areas
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <img
@@ -175,7 +247,8 @@ export function SecretTunnelsPage() {
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
                       <p className="text-sm text-employee-text/80">
-                        Break rooms with seating, refreshments, and rest areas for staff between shifts.
+                        Break rooms with seating, refreshments, and rest areas
+                        for staff between shifts.
                       </p>
                     </CardContent>
                   </Card>
@@ -183,7 +256,9 @@ export function SecretTunnelsPage() {
                   {/* Costume Rooms */}
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardHeader>
-                      <CardTitle className="text-employee-text text-lg">Costume Rooms</CardTitle>
+                      <CardTitle className="text-employee-text text-lg">
+                        Costume Rooms
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <img
@@ -192,7 +267,8 @@ export function SecretTunnelsPage() {
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
                       <p className="text-sm text-employee-text/80">
-                        Storage and fitting areas for all character costumes, props, and accessories.
+                        Storage and fitting areas for all character costumes,
+                        props, and accessories.
                       </p>
                     </CardContent>
                   </Card>
@@ -200,14 +276,17 @@ export function SecretTunnelsPage() {
                   {/* Access Points */}
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardHeader>
-                      <CardTitle className="text-employee-text text-lg">Access Points</CardTitle>
+                      <CardTitle className="text-employee-text text-lg">
+                        Access Points
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="w-full h-32 bg-employee-bg-dark rounded-md mb-3 flex items-center justify-center">
                         <MapPin className="h-12 w-12 text-employee-orange/50" />
                       </div>
                       <p className="text-sm text-employee-text/80">
-                        Hidden entrances to haunted houses, show areas, and procession routes.
+                        Hidden entrances to haunted houses, show areas, and
+                        procession routes.
                       </p>
                     </CardContent>
                   </Card>
@@ -220,7 +299,9 @@ export function SecretTunnelsPage() {
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <Users className="h-6 w-6 text-employee-orange" />
-                  <h2 className="text-2xl font-bold text-employee-text">Room Assignments</h2>
+                  <h2 className="text-2xl font-bold text-employee-text">
+                    Room Assignments
+                  </h2>
                 </div>
 
                 {roomAssignments && roomAssignments.length > 0 ? (
@@ -229,23 +310,43 @@ export function SecretTunnelsPage() {
                       <Table>
                         <TableHeader>
                           <TableRow className="border-employee-grey/30 hover:bg-employee-bg-dark">
-                            <TableHead className="text-employee-text">Staff Member</TableHead>
-                            <TableHead className="text-employee-text">Room ID</TableHead>
-                            <TableHead className="text-employee-text">Role</TableHead>
-                            <TableHead className="text-employee-text">Shift Time</TableHead>
+                            <TableHead className="text-employee-text">
+                              Staff Member
+                            </TableHead>
+                            <TableHead className="text-employee-text">
+                              Room ID
+                            </TableHead>
+                            <TableHead className="text-employee-text">
+                              Role
+                            </TableHead>
+                            <TableHead className="text-employee-text">
+                              Shift Time
+                            </TableHead>
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {roomAssignments.flat().map((assignment, idx) => (
-                            <TableRow key={idx} className="border-employee-grey/30 hover:bg-employee-bg-dark">
-                              <TableCell className="text-employee-text">{assignment.staffMember}</TableCell>
-                              <TableCell className="text-employee-text/80">#{Number(assignment.roomId)}</TableCell>
+                          {roomAssignments.flat().map((assignment) => (
+                            <TableRow
+                              key={assignment.staffMember}
+                              className="border-employee-grey/30 hover:bg-employee-bg-dark"
+                            >
+                              <TableCell className="text-employee-text">
+                                {assignment.staffMember}
+                              </TableCell>
+                              <TableCell className="text-employee-text/80">
+                                #{Number(assignment.roomId)}
+                              </TableCell>
                               <TableCell>
-                                <Badge variant="outline" className="border-employee-orange text-employee-orange">
+                                <Badge
+                                  variant="outline"
+                                  className="border-employee-orange text-employee-orange"
+                                >
                                   {assignment.role}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="text-employee-text/80">{assignment.shiftTime}</TableCell>
+                              <TableCell className="text-employee-text/80">
+                                {assignment.shiftTime}
+                              </TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
@@ -255,7 +356,8 @@ export function SecretTunnelsPage() {
                 ) : (
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardContent className="py-8 text-center text-employee-text/60">
-                      No room assignments scheduled. Check back closer to event dates.
+                      No room assignments scheduled. Check back closer to event
+                      dates.
                     </CardContent>
                   </Card>
                 )}
@@ -267,13 +369,18 @@ export function SecretTunnelsPage() {
               <section>
                 <div className="flex items-center gap-3 mb-6">
                   <Clock className="h-6 w-6 text-employee-orange" />
-                  <h2 className="text-2xl font-bold text-employee-text">Tunnel Usage Schedules</h2>
+                  <h2 className="text-2xl font-bold text-employee-text">
+                    Tunnel Usage Schedules
+                  </h2>
                 </div>
 
                 {tunnelSchedules && tunnelSchedules.length > 0 ? (
                   <div className="grid gap-6">
                     {tunnelSchedules.map((schedule) => (
-                      <Card key={Number(schedule.id)} className="bg-employee-bg-darker border-employee-grey/30">
+                      <Card
+                        key={Number(schedule.id)}
+                        className="bg-employee-bg-darker border-employee-grey/30"
+                      >
                         <CardHeader>
                           <div className="flex items-center justify-between">
                             <div>
@@ -295,21 +402,28 @@ export function SecretTunnelsPage() {
                           {/* Room Schedules */}
                           {schedule.roomSchedules.length > 0 && (
                             <div>
-                              <h4 className="text-sm font-semibold text-employee-text mb-3">Room Time Slots:</h4>
+                              <h4 className="text-sm font-semibold text-employee-text mb-3">
+                                Room Time Slots:
+                              </h4>
                               <div className="grid gap-2 md:grid-cols-2">
-                                {schedule.roomSchedules.map((roomSchedule, idx) => (
+                                {schedule.roomSchedules.map((roomSchedule) => (
                                   <div
-                                    key={idx}
+                                    key={String(roomSchedule.roomId)}
                                     className="bg-employee-bg-dark p-3 rounded-md border border-employee-grey/20"
                                   >
                                     <p className="text-sm font-medium text-employee-text mb-2">
                                       Room #{Number(roomSchedule.roomId)}
                                     </p>
                                     <div className="space-y-1">
-                                      {roomSchedule.timeSlots.map((slot, slotIdx) => (
-                                        <div key={slotIdx} className="flex items-center gap-2 text-xs text-employee-text/80">
+                                      {roomSchedule.timeSlots.map((slot) => (
+                                        <div
+                                          key={`${slot.startTime}-${slot.endTime}`}
+                                          className="flex items-center gap-2 text-xs text-employee-text/80"
+                                        >
                                           <Clock className="h-3 w-3 text-employee-orange" />
-                                          <span>{slot.startTime} - {slot.endTime}</span>
+                                          <span>
+                                            {slot.startTime} - {slot.endTime}
+                                          </span>
                                         </div>
                                       ))}
                                     </div>
@@ -325,7 +439,8 @@ export function SecretTunnelsPage() {
                 ) : (
                   <Card className="bg-employee-bg-darker border-employee-grey/30">
                     <CardContent className="py-8 text-center text-employee-text/60">
-                      No schedules available. Schedules will be posted before event dates.
+                      No schedules available. Schedules will be posted before
+                      event dates.
                     </CardContent>
                   </Card>
                 )}
@@ -334,9 +449,14 @@ export function SecretTunnelsPage() {
               {/* Additional Info */}
               <Alert className="border-employee-grey/30 bg-employee-bg-darker">
                 <AlertTriangle className="h-5 w-5 text-employee-orange" />
-                <AlertTitle className="text-employee-text">Important Safety Information</AlertTitle>
+                <AlertTitle className="text-employee-text">
+                  Important Safety Information
+                </AlertTitle>
                 <AlertDescription className="text-employee-text/80">
-                  All tunnels are soundproof to prevent guests from hearing backstage activity. Emergency exits are clearly marked. Always carry your employee ID when using tunnel access. Report any maintenance issues immediately to facilities management.
+                  All tunnels are soundproof to prevent guests from hearing
+                  backstage activity. Emergency exits are clearly marked. Always
+                  carry your employee ID when using tunnel access. Report any
+                  maintenance issues immediately to facilities management.
                 </AlertDescription>
               </Alert>
             </>

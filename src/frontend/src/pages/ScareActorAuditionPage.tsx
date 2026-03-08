@@ -1,80 +1,86 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, Skull, Loader2 } from 'lucide-react';
-import { useState } from 'react';
-import { useSubmitScareActorAudition } from '@/hooks/useAuditionSubmissions';
-import { toast } from 'sonner';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useSubmitScareActorAudition } from "@/hooks/useAuditionSubmissions";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { ArrowLeft, Loader2, Skull } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function ScareActorAuditionPage() {
   const { identity, login, loginStatus } = useInternetIdentity();
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
-  const [experience, setExperience] = useState('');
-  const [whatYouLoveToDo, setWhatYouLoveToDo] = useState('');
-  const [rolePreference, setRolePreference] = useState('');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [experience, setExperience] = useState("");
+  const [whatYouLoveToDo, setWhatYouLoveToDo] = useState("");
+  const [rolePreference, setRolePreference] = useState("");
 
   const submitMutation = useSubmitScareActorAudition();
 
   const isAuthenticated = !!identity;
-  const isLoggingIn = loginStatus === 'logging-in';
+  const isLoggingIn = loginStatus === "logging-in";
 
   const handleBack = () => {
-    window.location.hash = '#/auditions';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#/auditions";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetForm = () => {
-    setName('');
-    setAge('');
-    setHeight('');
-    setWeight('');
-    setExperience('');
-    setWhatYouLoveToDo('');
-    setRolePreference('');
+    setName("");
+    setAge("");
+    setHeight("");
+    setWeight("");
+    setExperience("");
+    setWhatYouLoveToDo("");
+    setRolePreference("");
   };
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      toast.error('Please enter your name');
+      toast.error("Please enter your name");
       return;
     }
 
-    const ageNum = parseInt(age);
-    if (!age || isNaN(ageNum) || ageNum <= 0) {
-      toast.error('Please enter a valid age');
+    const ageNum = Number.parseInt(age);
+    if (!age || Number.isNaN(ageNum) || ageNum <= 0) {
+      toast.error("Please enter a valid age");
       return;
     }
 
     if (!height.trim()) {
-      toast.error('Please enter your height');
+      toast.error("Please enter your height");
       return;
     }
 
     if (!weight.trim()) {
-      toast.error('Please enter your weight');
+      toast.error("Please enter your weight");
       return;
     }
 
     if (!experience.trim()) {
-      toast.error('Please describe your experience');
+      toast.error("Please describe your experience");
       return;
     }
 
     if (!whatYouLoveToDo.trim()) {
-      toast.error('Please tell us what you would love to do');
+      toast.error("Please tell us what you would love to do");
       return;
     }
 
     if (!rolePreference) {
-      toast.error('Please select a role preference');
+      toast.error("Please select a role preference");
       return;
     }
 
@@ -87,14 +93,16 @@ export function ScareActorAuditionPage() {
         rolePreference,
       });
 
-      toast.success('Audition application submitted successfully!');
+      toast.success("Audition application submitted successfully!");
       resetForm();
       setTimeout(() => {
         handleBack();
       }, 1500);
     } catch (error: any) {
-      console.error('Submission error:', error);
-      toast.error('Failed to submit application: ' + (error.message || 'Unknown error'));
+      console.error("Submission error:", error);
+      toast.error(
+        `Failed to submit application: ${error.message || "Unknown error"}`,
+      );
     }
   };
 
@@ -102,8 +110,8 @@ export function ScareActorAuditionPage() {
     try {
       await login();
     } catch (error: any) {
-      console.error('Login error:', error);
-      toast.error('Login failed: ' + (error.message || 'Unknown error'));
+      console.error("Login error:", error);
+      toast.error(`Login failed: ${error.message || "Unknown error"}`);
     }
   };
 
@@ -131,12 +139,18 @@ export function ScareActorAuditionPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <Skull className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">EXTREME POSITION</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                EXTREME POSITION
+              </AlertTitle>
               <AlertDescription>
-                This role requires physical stamina, mental fortitude, and the ability to terrify. 
-                You will work in intense conditions and perform extreme scares.
+                This role requires physical stamina, mental fortitude, and the
+                ability to terrify. You will work in intense conditions and
+                perform extreme scares.
               </AlertDescription>
             </Alert>
 
@@ -157,7 +171,7 @@ export function ScareActorAuditionPage() {
                       Logging in...
                     </>
                   ) : (
-                    'Login to Continue'
+                    "Login to Continue"
                   )}
                 </Button>
               </div>
@@ -223,7 +237,9 @@ export function ScareActorAuditionPage() {
                   </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="whatYouLoveToDo">What would you love to do when you work here? *</Label>
+                    <Label htmlFor="whatYouLoveToDo">
+                      What would you love to do when you work here? *
+                    </Label>
                     <Textarea
                       id="whatYouLoveToDo"
                       value={whatYouLoveToDo}
@@ -235,7 +251,9 @@ export function ScareActorAuditionPage() {
                   </div>
 
                   <div className="grid gap-2">
-                    <Label htmlFor="rolePreference">What do you want to be? *</Label>
+                    <Label htmlFor="rolePreference">
+                      What do you want to be? *
+                    </Label>
                     <Select
                       value={rolePreference}
                       onValueChange={setRolePreference}
@@ -247,9 +265,13 @@ export function ScareActorAuditionPage() {
                       <SelectContent>
                         <SelectItem value="Slider">Slider</SelectItem>
                         <SelectItem value="Chainsaw">Chainsaw</SelectItem>
-                        <SelectItem value="Stilt Walker">Stilt Walker</SelectItem>
+                        <SelectItem value="Stilt Walker">
+                          Stilt Walker
+                        </SelectItem>
                         <SelectItem value="Scare Actor">Scare Actor</SelectItem>
-                        <SelectItem value="Makeup Artist">Makeup Artist</SelectItem>
+                        <SelectItem value="Makeup Artist">
+                          Makeup Artist
+                        </SelectItem>
                         <SelectItem value="Dancer">Dancer</SelectItem>
                       </SelectContent>
                     </Select>
@@ -276,7 +298,7 @@ export function ScareActorAuditionPage() {
                         Submitting...
                       </>
                     ) : (
-                      'Submit Application'
+                      "Submit Application"
                     )}
                   </Button>
                 </div>

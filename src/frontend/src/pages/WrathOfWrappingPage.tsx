@@ -1,18 +1,24 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { foodBooths } from '../content/foodBooths';
-import { generatedImages } from '../content/generatedImages';
-import { ArrowLeft } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { foodBooths } from "../content/foodBooths";
+import { generatedImages } from "../content/generatedImages";
 
 export function WrathOfWrappingPage() {
-  const booth = foodBooths.booths.find(b => b.name === 'Wrath of Wrapping');
+  const booth = foodBooths.booths.find((b) => b.name === "Wrath of Wrapping");
 
   const handleBackToHome = () => {
-    window.location.hash = '';
+    window.location.hash = "";
     setTimeout(() => {
-      const element = document.querySelector('#food-booths');
+      const element = document.querySelector("#food-booths");
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 100);
   };
@@ -34,7 +40,7 @@ export function WrathOfWrappingPage() {
         <Card className="bg-card/80 backdrop-blur-sm border-destructive/30 overflow-hidden">
           <div className="relative h-[500px] overflow-hidden">
             <img
-              src={generatedImages.foodBooths['Wrath of Wrapping']}
+              src={generatedImages.foodBooths["Wrath of Wrapping"]}
               alt={booth.name}
               className="w-full h-full object-cover"
             />
@@ -56,14 +62,17 @@ export function WrathOfWrappingPage() {
             <div className="border-t border-destructive/20 pt-6 mt-6">
               <h3 className="text-2xl font-bold text-foreground mb-4">Menu</h3>
               <ul className="space-y-3">
-                {booth.menu.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
+                {booth.menu.map((item) => (
+                  <li
+                    key={typeof item === "string" ? item : item.name}
+                    className="flex items-start gap-3"
+                  >
                     <span className="text-destructive text-xl mt-1">•</span>
                     <div className="flex-1">
                       <span className="text-lg text-muted-foreground font-semibold block">
-                        {typeof item === 'string' ? item : item.name}
+                        {typeof item === "string" ? item : item.name}
                       </span>
-                      {typeof item === 'object' && item.description && (
+                      {typeof item === "object" && item.description && (
                         <span className="text-sm text-muted-foreground/70 italic block mt-1">
                           {item.description}
                         </span>

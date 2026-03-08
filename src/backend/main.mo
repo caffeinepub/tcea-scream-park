@@ -5,11 +5,11 @@ import Iter "mo:core/Iter";
 import Runtime "mo:core/Runtime";
 import Time "mo:core/Time";
 import Principal "mo:core/Principal";
-import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
-import Migration "migration";
+import AccessControl "authorization/access-control";
 
-(with migration = Migration.run)
+
+
 actor {
   // ----------- Core Content Types -----------
   public type Date = {
@@ -129,7 +129,7 @@ actor {
     #interactive;
   };
 
-  // ----------- New Audition Types -----------
+  // ----------- Audition Types -----------
   public type ScareActorAuditionForm = {
     name : Text;
     age : ?Nat;
@@ -188,10 +188,31 @@ actor {
     operationAgreeStatus : Text;
   };
 
+  public type UsherAuditionForm = {
+    name : Text;
+    age : Nat;
+    phone : Text;
+    email : Text;
+    availability : Text;
+    experience : Text;
+  };
+
+  public type HauntedHouseSupervisorAuditionForm = {
+    name : Text;
+    age : Nat;
+    phone : Text;
+    email : Text;
+    experience : Text;
+    availability : Text;
+    leadershipExperience : Text;
+  };
+
   public type AuditionType = {
     #scareActor;
     #danceActor;
     #costumeCharacter;
+    #usher;
+    #hauntedHouseSupervisor;
   };
 
   public type AuditionSubmission = {
@@ -201,6 +222,8 @@ actor {
       #scareActor : ScareActorAuditionForm;
       #danceActor : DanceAuditionForm;
       #costumeCharacter : CostumeCharacterAuditionForm;
+      #usher : UsherAuditionForm;
+      #hauntedHouseSupervisor : HauntedHouseSupervisorAuditionForm;
     };
     submissionTime : Time.Time;
   };
@@ -235,12 +258,9 @@ actor {
     name : Text;
   };
 
-  type SystemId = Nat;
   let accessControlState = AccessControl.initState();
-
   let userProfiles = Map.empty<Principal, UserProfile>();
   let auditions = List.empty<AuditionSubmission>();
-
   include MixinAuthorization(accessControlState);
 
   // Persisted Audition links as [AuditionLink]
@@ -399,6 +419,40 @@ actor {
       submitter = caller;
       auditionType = #costumeCharacter;
       formData = #costumeCharacter(form);
+      submissionTime = Time.now();
+    };
+    auditions.add(submission);
+    true;
+  };
+
+  public shared ({ caller }) func submitUsherAudition(form : UsherAuditionForm) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can submit usher auditions");
+    };
+
+    if (form.age < 16) {
+      Runtime.trap("Age must be 16 or older for usher auditions");
+    };
+
+    let submission : AuditionSubmission = {
+      submitter = caller;
+      auditionType = #usher;
+      formData = #usher(form);
+      submissionTime = Time.now();
+    };
+    auditions.add(submission);
+    true;
+  };
+
+  public shared ({ caller }) func submitHauntedHouseSupervisorAudition(form : HauntedHouseSupervisorAuditionForm) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can submit haunted house supervisor auditions");
+    };
+
+    let submission : AuditionSubmission = {
+      submitter = caller;
+      auditionType = #hauntedHouseSupervisor;
+      formData = #hauntedHouseSupervisor(form);
       submissionTime = Time.now();
     };
     auditions.add(submission);
@@ -970,7 +1024,6 @@ actor {
   };
 
   // ----------- Tunnel Map, Room Assignments, and Schedules -----------
-
   public type Location = {
     x : Nat;
     y : Nat;

@@ -1,13 +1,17 @@
-import { useState, useRef, useEffect } from 'react';
-import { Section } from '../layout/Section';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ChevronLeft, ChevronRight, Film, Play, Maximize } from 'lucide-react';
-import { slidersOfDecadeItems, slidersOfDecadeTitle, slidersOfDecadeSubtitle } from '@/content/slidersOfDecade';
-import { useAutoplayVideo } from '@/hooks/useAutoplayVideo';
-import { useFullscreen } from '@/hooks/useFullscreen';
-import { FullscreenVideoOverlay } from '../media/FullscreenVideoOverlay';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  slidersOfDecadeItems,
+  slidersOfDecadeSubtitle,
+  slidersOfDecadeTitle,
+} from "@/content/slidersOfDecade";
+import { useAutoplayVideo } from "@/hooks/useAutoplayVideo";
+import { useFullscreen } from "@/hooks/useFullscreen";
+import { ChevronLeft, ChevronRight, Film, Maximize, Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Section } from "../layout/Section";
+import { FullscreenVideoOverlay } from "../media/FullscreenVideoOverlay";
 
 export function SlidersOfDecadeSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,10 +22,10 @@ export function SlidersOfDecadeSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentItem = slidersOfDecadeItems[currentIndex];
-  const isCurrentVideo = currentItem.type === 'video';
+  const isCurrentVideo = currentItem.type === "video";
 
   const { isPlaying, isAutoplayBlocked, play } = useAutoplayVideo(
-    isCurrentVideo ? videoRef : { current: null }
+    isCurrentVideo ? videoRef : { current: null },
   );
   const { isFullscreen, toggleFullscreen } = useFullscreen(containerRef);
 
@@ -30,14 +34,16 @@ export function SlidersOfDecadeSection() {
     if (isCurrentVideo && videoRef.current) {
       // Video will autoplay via useAutoplayVideo hook
     }
-  }, [currentIndex, isCurrentVideo]);
+  }, [isCurrentVideo]);
 
   const handlePrevious = () => {
     // Exit fullscreen when changing slides
     if (isFullscreen) {
       document.exitFullscreen?.();
     }
-    setCurrentIndex((prev) => (prev === 0 ? slidersOfDecadeItems.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? slidersOfDecadeItems.length - 1 : prev - 1,
+    );
   };
 
   const handleNext = () => {
@@ -45,7 +51,9 @@ export function SlidersOfDecadeSection() {
     if (isFullscreen) {
       document.exitFullscreen?.();
     }
-    setCurrentIndex((prev) => (prev === slidersOfDecadeItems.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) =>
+      prev === slidersOfDecadeItems.length - 1 ? 0 : prev + 1,
+    );
   };
 
   const handleImageError = (id: number) => {
@@ -93,13 +101,18 @@ export function SlidersOfDecadeSection() {
 
           <Card className="bg-card/80 backdrop-blur border-destructive/30 overflow-hidden">
             <CardContent className="p-0">
-              <div ref={containerRef} className="relative aspect-video bg-black">
-                {currentItem.type === 'image' ? (
+              <div
+                ref={containerRef}
+                className="relative aspect-video bg-black"
+              >
+                {currentItem.type === "image" ? (
                   imageError[currentItem.id] ? (
                     <div className="absolute inset-0 flex items-center justify-center bg-muted">
                       <div className="text-center p-8">
                         <Film className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-                        <p className="text-muted-foreground">Image unavailable</p>
+                        <p className="text-muted-foreground">
+                          Image unavailable
+                        </p>
                       </div>
                     </div>
                   ) : (
@@ -194,8 +207,12 @@ export function SlidersOfDecadeSection() {
 
               {/* Slide Info */}
               <div className="p-6 bg-card/90">
-                <h3 className="text-2xl font-bold text-destructive mb-2">{currentItem.title}</h3>
-                <p className="text-muted-foreground">{currentItem.description}</p>
+                <h3 className="text-2xl font-bold text-destructive mb-2">
+                  {currentItem.title}
+                </h3>
+                <p className="text-muted-foreground">
+                  {currentItem.description}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -205,15 +222,16 @@ export function SlidersOfDecadeSection() {
             <div className="mt-6 flex gap-3 justify-center flex-wrap">
               {slidersOfDecadeItems.map((item, index) => (
                 <button
+                  type="button"
                   key={item.id}
                   onClick={() => handleThumbnailClick(index)}
                   className={`relative w-20 h-14 rounded-md overflow-hidden border-2 transition-all ${
                     index === currentIndex
-                      ? 'border-destructive scale-110'
-                      : 'border-muted-foreground/30 hover:border-destructive/50'
+                      ? "border-destructive scale-110"
+                      : "border-muted-foreground/30 hover:border-destructive/50"
                   }`}
                 >
-                  {item.type === 'image' ? (
+                  {item.type === "image" ? (
                     <img
                       src={item.src}
                       alt={`Slide ${index + 1}`}

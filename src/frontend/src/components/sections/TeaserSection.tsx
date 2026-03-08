@@ -1,5 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Sparkles } from "lucide-react";
 
 export function TeaserSection() {
   return (
@@ -11,7 +11,7 @@ export function TeaserSection() {
             <h2 className="text-4xl md:text-5xl font-bold text-destructive mb-4">
               Many Things to Come
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white">
               Stay tuned for more terrifying announcements...
             </p>
           </CardContent>

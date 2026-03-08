@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,22 +6,22 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { useSubmitDancerAudition } from '@/hooks/useAuditionSubmissions';
-import { toast } from 'sonner';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useSubmitDancerAudition } from "@/hooks/useAuditionSubmissions";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface DancerAuditionSignupDialogProps {
   open: boolean;
@@ -33,50 +33,50 @@ export function DancerAuditionSignupDialog({
   onOpenChange,
 }: DancerAuditionSignupDialogProps) {
   const { identity, login, loginStatus } = useInternetIdentity();
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [experience, setExperience] = useState('');
-  const [whatYouLoveToDo, setWhatYouLoveToDo] = useState('');
-  const [rolePreference, setRolePreference] = useState('');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [experience, setExperience] = useState("");
+  const [whatYouLoveToDo, setWhatYouLoveToDo] = useState("");
+  const [rolePreference, setRolePreference] = useState("");
 
   const submitMutation = useSubmitDancerAudition();
 
   const isAuthenticated = !!identity;
-  const isLoggingIn = loginStatus === 'logging-in';
+  const isLoggingIn = loginStatus === "logging-in";
 
   const resetForm = () => {
-    setName('');
-    setAge('');
-    setExperience('');
-    setWhatYouLoveToDo('');
-    setRolePreference('');
+    setName("");
+    setAge("");
+    setExperience("");
+    setWhatYouLoveToDo("");
+    setRolePreference("");
   };
 
   const handleSubmit = async () => {
     // Validation
     if (!name.trim()) {
-      toast.error('Please enter your name');
+      toast.error("Please enter your name");
       return;
     }
 
-    const ageNum = parseInt(age);
-    if (!age || isNaN(ageNum) || ageNum <= 0) {
-      toast.error('Please enter a valid age');
+    const ageNum = Number.parseInt(age);
+    if (!age || Number.isNaN(ageNum) || ageNum <= 0) {
+      toast.error("Please enter a valid age");
       return;
     }
 
     if (!experience.trim()) {
-      toast.error('Please describe your experience');
+      toast.error("Please describe your experience");
       return;
     }
 
     if (!whatYouLoveToDo.trim()) {
-      toast.error('Please tell us what you would love to do');
+      toast.error("Please tell us what you would love to do");
       return;
     }
 
     if (!rolePreference) {
-      toast.error('Please select a location preference');
+      toast.error("Please select a location preference");
       return;
     }
 
@@ -89,12 +89,14 @@ export function DancerAuditionSignupDialog({
         rolePreference,
       });
 
-      toast.success('Audition application submitted successfully!');
+      toast.success("Audition application submitted successfully!");
       resetForm();
       onOpenChange(false);
     } catch (error: any) {
-      console.error('Submission error:', error);
-      toast.error('Failed to submit application: ' + (error.message || 'Unknown error'));
+      console.error("Submission error:", error);
+      toast.error(
+        `Failed to submit application: ${error.message || "Unknown error"}`,
+      );
     }
   };
 
@@ -102,8 +104,8 @@ export function DancerAuditionSignupDialog({
     try {
       await login();
     } catch (error: any) {
-      console.error('Login error:', error);
-      toast.error('Login failed: ' + (error.message || 'Unknown error'));
+      console.error("Login error:", error);
+      toast.error(`Login failed: ${error.message || "Unknown error"}`);
     }
   };
 
@@ -115,7 +117,8 @@ export function DancerAuditionSignupDialog({
             Dancer Audition Application
           </DialogTitle>
           <DialogDescription>
-            Fill out the form below to apply for a dancer position. All fields are required.
+            Fill out the form below to apply for a dancer position. All fields
+            are required.
           </DialogDescription>
         </DialogHeader>
 
@@ -135,7 +138,7 @@ export function DancerAuditionSignupDialog({
                   Logging in...
                 </>
               ) : (
-                'Login to Continue'
+                "Login to Continue"
               )}
             </Button>
           </div>
@@ -179,7 +182,9 @@ export function DancerAuditionSignupDialog({
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="whatYouLoveToDo">What would you love to do when you work here? *</Label>
+                <Label htmlFor="whatYouLoveToDo">
+                  What would you love to do when you work here? *
+                </Label>
                 <Textarea
                   id="whatYouLoveToDo"
                   value={whatYouLoveToDo}
@@ -201,7 +206,9 @@ export function DancerAuditionSignupDialog({
                     <SelectValue placeholder="Select your preferred location" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Outside dancing">Outside dancing</SelectItem>
+                    <SelectItem value="Outside dancing">
+                      Outside dancing
+                    </SelectItem>
                     <SelectItem value="Inside">Inside</SelectItem>
                   </SelectContent>
                 </Select>
@@ -227,7 +234,7 @@ export function DancerAuditionSignupDialog({
                     Submitting...
                   </>
                 ) : (
-                  'Submit Application'
+                  "Submit Application"
                 )}
               </Button>
             </DialogFooter>

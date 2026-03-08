@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 export function useFullscreen(elementRef: React.RefObject<HTMLElement | null>) {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -8,16 +8,25 @@ export function useFullscreen(elementRef: React.RefObject<HTMLElement | null>) {
       setIsFullscreen(!!document.fullscreenElement);
     };
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange,
+      );
+      document.removeEventListener(
+        "mozfullscreenchange",
+        handleFullscreenChange,
+      );
+      document.removeEventListener(
+        "MSFullscreenChange",
+        handleFullscreenChange,
+      );
     };
   }, []);
 
@@ -36,7 +45,7 @@ export function useFullscreen(elementRef: React.RefObject<HTMLElement | null>) {
         await (element as any).msRequestFullscreen();
       }
     } catch (error) {
-      console.error('Failed to enter fullscreen:', error);
+      console.error("Failed to enter fullscreen:", error);
     }
   }, [elementRef]);
 
@@ -52,7 +61,7 @@ export function useFullscreen(elementRef: React.RefObject<HTMLElement | null>) {
         await (document as any).msExitFullscreen();
       }
     } catch (error) {
-      console.error('Failed to exit fullscreen:', error);
+      console.error("Failed to exit fullscreen:", error);
     }
   }, []);
 

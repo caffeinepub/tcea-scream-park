@@ -1,38 +1,38 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, Users, Shield, Loader2 } from 'lucide-react';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { AccessDeniedScreen } from '@/components/auth/AccessDeniedScreen';
-import { useQuery } from '@tanstack/react-query';
-import { useActor } from '@/hooks/useActor';
+import { AccessDeniedScreen } from "@/components/auth/AccessDeniedScreen";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useActor } from "@/hooks/useActor";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, Loader2, Shield, Users } from "lucide-react";
 
 export function ActorsPage() {
   const { identity, login, loginStatus } = useInternetIdentity();
   const { actor, isFetching: actorFetching } = useActor();
 
   const { data: staffingCounts, isLoading } = useQuery({
-    queryKey: ['staffingCounts'],
+    queryKey: ["staffingCounts"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getStaffingCounts();
     },
     enabled: !!actor && !actorFetching && !!identity,
   });
 
   const isAuthenticated = !!identity;
-  const isLoggingIn = loginStatus === 'logging-in';
+  const isLoggingIn = loginStatus === "logging-in";
 
   const handleBack = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleLogin = async () => {
     try {
       await login();
     } catch (error: any) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
     }
   };
 
@@ -52,9 +52,12 @@ export function ActorsPage() {
           <Card className="bg-card/90 backdrop-blur-sm border-destructive/20">
             <CardContent className="py-12 space-y-6 text-center">
               <Shield className="h-16 w-16 text-destructive mx-auto" />
-              <h2 className="text-3xl font-bold text-destructive">Access Restricted</h2>
+              <h2 className="text-3xl font-bold text-destructive">
+                Access Restricted
+              </h2>
               <p className="text-muted-foreground text-lg">
-                This page is only accessible to authenticated users. Please log in to view actor staffing information.
+                This page is only accessible to authenticated users. Please log
+                in to view actor staffing information.
               </p>
               <Button
                 onClick={handleLogin}
@@ -68,7 +71,7 @@ export function ActorsPage() {
                     Logging in...
                   </>
                 ) : (
-                  'Login to Continue'
+                  "Login to Continue"
                 )}
               </Button>
             </CardContent>
@@ -114,11 +117,17 @@ export function ActorsPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <Shield className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">CONFIDENTIAL INFORMATION</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                CONFIDENTIAL INFORMATION
+              </AlertTitle>
               <AlertDescription>
-                This information is for authorized actors only. Do not share staffing details with guests or unauthorized personnel.
+                This information is for authorized actors only. Do not share
+                staffing details with guests or unauthorized personnel.
               </AlertDescription>
             </Alert>
 
@@ -133,19 +142,24 @@ export function ActorsPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Total Actors:</span>
+                      <span className="text-muted-foreground">
+                        Total Actors:
+                      </span>
                       <span className="text-2xl font-bold text-destructive">
                         {Number(staffingCounts.hauntedHouseActors)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Supervisors:</span>
+                      <span className="text-muted-foreground">
+                        Supervisors:
+                      </span>
                       <span className="text-2xl font-bold text-destructive">
                         {Number(staffingCounts.hauntedHouseSupervisors)}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground pt-2">
-                      All 14 actors work together in one house with 3 supervisors overseeing operations.
+                      All 14 actors work together in one house with 3
+                      supervisors overseeing operations.
                     </p>
                   </CardContent>
                 </Card>
@@ -159,19 +173,24 @@ export function ActorsPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Total Actors:</span>
+                      <span className="text-muted-foreground">
+                        Total Actors:
+                      </span>
                       <span className="text-2xl font-bold text-destructive">
                         {Number(staffingCounts.zoneActors)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Supervisors:</span>
+                      <span className="text-muted-foreground">
+                        Supervisors:
+                      </span>
                       <span className="text-2xl font-bold text-destructive">
                         {Number(staffingCounts.zoneSupervisors)}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground pt-2">
-                      All 16 actors work across outdoor zones with 5 supervisors managing the areas.
+                      All 16 actors work across outdoor zones with 5 supervisors
+                      managing the areas.
                     </p>
                   </CardContent>
                 </Card>
@@ -185,13 +204,16 @@ export function ActorsPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Supervisors:</span>
+                      <span className="text-muted-foreground">
+                        Supervisors:
+                      </span>
                       <span className="text-2xl font-bold text-destructive">
                         {Number(staffingCounts.dancerSupervisors)}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground pt-2">
-                      Dancers have 3 dedicated supervisors overseeing choreography, performances, and safety.
+                      Dancers have 3 dedicated supervisors overseeing
+                      choreography, performances, and safety.
                     </p>
                   </CardContent>
                 </Card>

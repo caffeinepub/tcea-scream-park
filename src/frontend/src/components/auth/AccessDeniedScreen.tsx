@@ -1,6 +1,12 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ShieldAlert } from 'lucide-react';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ShieldAlert } from "lucide-react";
 
 export function AccessDeniedScreen() {
   return (
@@ -9,7 +15,9 @@ export function AccessDeniedScreen() {
         <CardHeader>
           <div className="flex items-center gap-3">
             <ShieldAlert className="h-8 w-8 text-destructive" />
-            <CardTitle className="text-2xl text-destructive">Access Denied</CardTitle>
+            <CardTitle className="text-2xl text-destructive">
+              Access Denied
+            </CardTitle>
           </div>
           <CardDescription>
             You do not have permission to access this content management system.
@@ -18,8 +26,9 @@ export function AccessDeniedScreen() {
         <CardContent>
           <Alert variant="destructive">
             <AlertDescription>
-              Only administrators can create, edit, or delete content. If you believe you should have access,
-              please contact the system administrator.
+              Only administrators can create, edit, or delete content. If you
+              believe you should have access, please contact the system
+              administrator.
             </AlertDescription>
           </Alert>
         </CardContent>

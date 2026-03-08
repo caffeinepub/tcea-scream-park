@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import { Home, ChevronRight } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { ChevronRight, Home } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface EmployeeLayoutProps {
   children: ReactNode;
@@ -8,7 +8,11 @@ interface EmployeeLayoutProps {
   breadcrumbs?: { label: string; href?: string }[];
 }
 
-export function EmployeeLayout({ children, title, breadcrumbs }: EmployeeLayoutProps) {
+export function EmployeeLayout({
+  children,
+  title,
+  breadcrumbs,
+}: EmployeeLayoutProps) {
   return (
     <div data-employee-portal className="min-h-screen bg-employee-bg-primary">
       {/* Employee Portal Header */}
@@ -18,22 +22,28 @@ export function EmployeeLayout({ children, title, breadcrumbs }: EmployeeLayoutP
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => window.location.hash = ''}
+              onClick={() => {
+                window.location.hash = "";
+              }}
               className="text-employee-text/60 hover:text-employee-orange hover:bg-employee-bg-dark"
             >
               <Home className="h-4 w-4 mr-1" />
               Guest Site
             </Button>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-employee-orange font-medium">Employee Portal</span>
-            {breadcrumbs && breadcrumbs.map((crumb, index) => (
-              <div key={index} className="flex items-center gap-2">
+            <span className="text-employee-orange font-medium">
+              Employee Portal
+            </span>
+            {breadcrumbs?.map((crumb) => (
+              <div key={crumb.label} className="flex items-center gap-2">
                 <ChevronRight className="h-4 w-4" />
                 {crumb.href ? (
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => window.location.hash = crumb.href!}
+                    onClick={() => {
+                      window.location.hash = crumb.href ?? "";
+                    }}
                     className="text-employee-text/60 hover:text-employee-orange hover:bg-employee-bg-dark"
                   >
                     {crumb.label}
@@ -53,9 +63,7 @@ export function EmployeeLayout({ children, title, breadcrumbs }: EmployeeLayoutP
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
-        {children}
-      </div>
+      <div className="container mx-auto px-4 py-8">{children}</div>
 
       {/* Employee Footer */}
       <div className="bg-employee-bg-darker border-t border-employee-grey/30 mt-16">

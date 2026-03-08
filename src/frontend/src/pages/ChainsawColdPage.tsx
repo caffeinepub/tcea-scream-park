@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, AlertTriangle, Shield } from 'lucide-react';
-import { generatedImages } from '@/content/generatedImages';
-import { scareZones } from '@/content/scareZones';
-import { slugify } from '@/utils/slug';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { scareZones } from "@/content/scareZones";
+import { slugify } from "@/utils/slug";
+import { AlertTriangle, ArrowLeft, Shield } from "lucide-react";
 
 export function ChainsawColdPage() {
-  const zone = scareZones.find(z => z.name === 'Chainsaw Cold');
+  const zone = scareZones.find((z) => z.name === "Chainsaw Cold");
 
   const handleBack = () => {
-    window.location.hash = '#scare-zones';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#scare-zones";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleViewRules = () => {
-    const slug = slugify('Chainsaw Cold');
+    const slug = slugify("Chainsaw Cold");
     window.location.hash = `#/rules/scare-zone/${slug}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!zone) {
@@ -45,7 +45,7 @@ export function ChainsawColdPage() {
         <Card className="bg-card/90 backdrop-blur-sm border-destructive/20 overflow-hidden">
           <div className="relative h-96 overflow-hidden">
             <img
-              src={generatedImages.scareZones['Chainsaw Cold']}
+              src={generatedImages.scareZones["Chainsaw Cold"]}
               alt="Chainsaw Cold"
               className="w-full h-full object-cover"
             />
@@ -62,13 +62,20 @@ export function ChainsawColdPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <AlertTriangle className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">EXTREME HORROR WARNING</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                EXTREME HORROR WARNING
+              </AlertTitle>
               <AlertDescription className="text-base">
-                This Christmas-horror scare zone features loud chainsaws, aggressive pursuit scares, 
-                and chainsaw-wielding maniacs in winter gear. Not recommended for guests with heart conditions 
-                or sound sensitivity. Actors will pursue you relentlessly. Participation is at your own risk.
+                This Christmas-horror scare zone features loud chainsaws,
+                aggressive pursuit scares, and chainsaw-wielding maniacs in
+                winter gear. Not recommended for guests with heart conditions or
+                sound sensitivity. Actors will pursue you relentlessly.
+                Participation is at your own risk.
               </AlertDescription>
             </Alert>
 

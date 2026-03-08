@@ -1,17 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import { useInternetIdentity } from './useInternetIdentity';
-import { UserRole } from '../backend';
-import type { UserProfile } from '../backend';
+import { useQuery } from "@tanstack/react-query";
+import { UserRole } from "../backend";
+import type { UserProfile } from "../backend";
+import { useActor } from "./useActor";
+import { useInternetIdentity } from "./useInternetIdentity";
 
 export function useGetCallerUserRole() {
   const { actor, isFetching: actorFetching } = useActor();
   const { identity } = useInternetIdentity();
 
   return useQuery<UserRole>({
-    queryKey: ['currentUserRole'],
+    queryKey: ["currentUserRole"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCallerUserRole();
     },
     enabled: !!actor && !actorFetching && !!identity,
@@ -24,9 +24,9 @@ export function useIsCallerAdmin() {
   const { identity } = useInternetIdentity();
 
   return useQuery<boolean>({
-    queryKey: ['isCallerAdmin'],
+    queryKey: ["isCallerAdmin"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.isCallerAdmin();
     },
     enabled: !!actor && !actorFetching && !!identity,
@@ -39,9 +39,9 @@ export function useIsEmployee() {
   const { identity } = useInternetIdentity();
 
   return useQuery<boolean>({
-    queryKey: ['isEmployee'],
+    queryKey: ["isEmployee"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       const role = await actor.getCallerUserRole();
       // Employees have 'user' role, guests have 'guest' role
       return role === UserRole.user || role === UserRole.admin;
@@ -56,9 +56,9 @@ export function useGetCallerUserProfile() {
   const { identity } = useInternetIdentity();
 
   const query = useQuery<UserProfile | null>({
-    queryKey: ['currentUserProfile'],
+    queryKey: ["currentUserProfile"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCallerUserProfile();
     },
     enabled: !!actor && !actorFetching && !!identity,

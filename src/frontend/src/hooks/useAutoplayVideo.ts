@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 export interface AutoplayVideoState {
   isPlaying: boolean;
@@ -6,7 +6,9 @@ export interface AutoplayVideoState {
   error: string | null;
 }
 
-export function useAutoplayVideo(videoRef: React.RefObject<HTMLVideoElement | null>) {
+export function useAutoplayVideo(
+  videoRef: React.RefObject<HTMLVideoElement | null>,
+) {
   const [state, setState] = useState<AutoplayVideoState>({
     isPlaying: false,
     isAutoplayBlocked: false,
@@ -32,7 +34,10 @@ export function useAutoplayVideo(videoRef: React.RefObject<HTMLVideoElement | nu
         });
       } catch (error: any) {
         // Autoplay was blocked by browser
-        if (error.name === 'NotAllowedError' || error.name === 'NotSupportedError') {
+        if (
+          error.name === "NotAllowedError" ||
+          error.name === "NotSupportedError"
+        ) {
           setState({
             isPlaying: false,
             isAutoplayBlocked: true,
@@ -42,7 +47,7 @@ export function useAutoplayVideo(videoRef: React.RefObject<HTMLVideoElement | nu
           setState({
             isPlaying: false,
             isAutoplayBlocked: false,
-            error: error.message || 'Video playback failed',
+            error: error.message || "Video playback failed",
           });
         }
       }
@@ -60,9 +65,16 @@ export function useAutoplayVideo(videoRef: React.RefObject<HTMLVideoElement | nu
 
     try {
       await video.play();
-      setState((prev) => ({ ...prev, isPlaying: true, isAutoplayBlocked: false }));
+      setState((prev) => ({
+        ...prev,
+        isPlaying: true,
+        isAutoplayBlocked: false,
+      }));
     } catch (error: any) {
-      setState((prev) => ({ ...prev, error: error.message || 'Playback failed' }));
+      setState((prev) => ({
+        ...prev,
+        error: error.message || "Playback failed",
+      }));
     }
   };
 

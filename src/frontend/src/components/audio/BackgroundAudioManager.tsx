@@ -1,17 +1,22 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { useSoundPreferences } from '@/hooks/useSoundPreferences';
+import { useSoundPreferences } from "@/hooks/useSoundPreferences";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface BackgroundAudioManagerProps {
   onAutoplayBlockedChange?: (blocked: boolean) => void;
   onRequestStart?: (callback: () => void) => void;
 }
 
-export function BackgroundAudioManager({ onAutoplayBlockedChange, onRequestStart }: BackgroundAudioManagerProps) {
+export function BackgroundAudioManager({
+  onAutoplayBlockedChange,
+  onRequestStart,
+}: BackgroundAudioManagerProps) {
   const { preferences } = useSoundPreferences();
   const chainsawRef = useRef<HTMLAudioElement | null>(null);
   const clownLaughRef = useRef<HTMLAudioElement | null>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
-  const [currentAudio, setCurrentAudio] = useState<'chainsaw' | 'clown' | null>(null);
+  const [currentAudio, setCurrentAudio] = useState<"chainsaw" | "clown" | null>(
+    null,
+  );
   const playAttemptedRef = useRef(false);
   const initialLoadRef = useRef(true);
 
@@ -22,10 +27,10 @@ export function BackgroundAudioManager({ onAutoplayBlockedChange, onRequestStart
 
   // Initialize audio elements
   useEffect(() => {
-    const chainsaw = new Audio('/assets/audio/chainsaw-loop.mp3');
+    const chainsaw = new Audio("/assets/audio/chainsaw-loop.mp3");
     chainsaw.loop = true;
 
-    const clownLaugh = new Audio('/assets/audio/ambient-eerie-loop.mp3');
+    const clownLaugh = new Audio("/assets/audio/ambient-eerie-loop.mp3");
     clownLaugh.loop = true;
 
     chainsawRef.current = chainsaw;
@@ -33,9 +38,9 @@ export function BackgroundAudioManager({ onAutoplayBlockedChange, onRequestStart
 
     return () => {
       chainsaw.pause();
-      chainsaw.src = '';
+      chainsaw.src = "";
       clownLaugh.pause();
-      clownLaugh.src = '';
+      clownLaugh.src = "";
     };
   }, []);
 
@@ -62,20 +67,20 @@ export function BackgroundAudioManager({ onAutoplayBlockedChange, onRequestStart
     try {
       chainsawRef.current.currentTime = 0;
       await chainsawRef.current.play();
-      setCurrentAudio('chainsaw');
+      setCurrentAudio("chainsaw");
       setAutoplayBlocked(false);
       playAttemptedRef.current = true;
       return;
-    } catch (error) {
+    } catch (_error) {
       // Chainsaw failed, try clown laugh fallback
       try {
         clownLaughRef.current.currentTime = 0;
         await clownLaughRef.current.play();
-        setCurrentAudio('clown');
+        setCurrentAudio("clown");
         setAutoplayBlocked(false);
         playAttemptedRef.current = true;
         return;
-      } catch (fallbackError) {
+      } catch (_fallbackError) {
         // Both failed - autoplay is blocked
         setAutoplayBlocked(true);
         playAttemptedRef.current = true;

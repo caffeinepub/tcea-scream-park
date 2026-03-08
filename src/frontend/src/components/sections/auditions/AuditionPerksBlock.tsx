@@ -1,6 +1,6 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Utensils, GraduationCap, Skull } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { GraduationCap, Skull, Utensils } from "lucide-react";
 
 interface Perk {
   icon: React.ReactNode;
@@ -12,18 +12,18 @@ export function AuditionPerksBlock() {
   const perks: Perk[] = [
     {
       icon: <Utensils className="h-8 w-8 text-destructive" />,
-      title: 'Food',
-      description: 'Fuel your fear with complimentary meals during auditions',
+      title: "Food",
+      description: "Fuel your fear with complimentary meals during auditions",
     },
     {
       icon: <GraduationCap className="h-8 w-8 text-destructive" />,
-      title: 'Training',
-      description: 'Learn professional scare techniques from horror veterans',
+      title: "Training",
+      description: "Learn professional scare techniques from horror veterans",
     },
     {
       icon: <Skull className="h-8 w-8 text-destructive" />,
-      title: 'Scary Vibes',
-      description: 'Immerse yourself in our terrifying atmosphere from day one',
+      title: "Scary Vibes",
+      description: "Immerse yourself in our terrifying atmosphere from day one",
     },
   ];
 

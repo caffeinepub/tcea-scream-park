@@ -1,6 +1,12 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Users } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Users } from "lucide-react";
+import { Section } from "../layout/Section";
 
 export function HomeProcessionSection() {
   return (
@@ -31,15 +37,22 @@ export function HomeProcessionSection() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              As darkness falls over Main Street Plaza, the gates creak open and the procession emerges. 
-              Watch in terror as <span className="font-bold text-destructive">sliders</span> crawl from the shadows, 
-              towering <span className="font-bold text-destructive">stilt walkers</span> loom overhead, and 
-              hordes of <span className="font-bold text-destructive">zombies</span> shuffle through the streets. 
-              But that's not all—<span className="font-bold text-destructive">many more</span> nightmarish creatures 
-              join this unholy parade. The procession happens <span className="font-bold text-destructive">only at 6pm</span>, 
-              marking the official beginning of your descent into madness. Don't miss this spectacular display of horror 
-              as the park comes alive with screams.
+            <p className="text-lg text-white leading-relaxed">
+              As darkness falls over Main Street Plaza, the gates creak open and
+              the procession emerges. Watch in terror as{" "}
+              <span className="font-bold text-destructive">sliders</span> crawl
+              from the shadows, towering{" "}
+              <span className="font-bold text-destructive">stilt walkers</span>{" "}
+              loom overhead, and hordes of{" "}
+              <span className="font-bold text-destructive">zombies</span>{" "}
+              shuffle through the streets. But that's not all—
+              <span className="font-bold text-destructive">many more</span>{" "}
+              nightmarish creatures join this unholy parade. The procession
+              happens{" "}
+              <span className="font-bold text-destructive">only at 6pm</span>,
+              marking the official beginning of your descent into madness. Don't
+              miss this spectacular display of horror as the park comes alive
+              with screams.
             </p>
           </CardContent>
         </Card>

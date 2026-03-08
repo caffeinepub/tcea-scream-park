@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { X, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Pause, Play, Volume2, VolumeX, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 interface FullscreenVideoOverlayProps {
   isOpen: boolean;
@@ -26,23 +26,26 @@ export function FullscreenVideoOverlay({
   useEffect(() => {
     if (isOpen && videoRef.current && autoplay) {
       videoRef.current.muted = true;
-      videoRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch((error) => {
-        console.log('Autoplay failed in overlay:', error);
-      });
+      videoRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          console.log("Autoplay failed in overlay:", error);
+        });
     }
   }, [isOpen, autoplay]);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
   const handlePlayPause = () => {
@@ -110,7 +113,11 @@ export function FullscreenVideoOverlay({
             onClick={handlePlayPause}
             className="bg-black/60 hover:bg-black/80 text-white border-destructive/50"
           >
-            {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+            {isPlaying ? (
+              <Pause className="w-5 h-5" />
+            ) : (
+              <Play className="w-5 h-5" />
+            )}
           </Button>
 
           <Button
@@ -119,7 +126,11 @@ export function FullscreenVideoOverlay({
             onClick={handleMuteToggle}
             className="bg-black/60 hover:bg-black/80 text-white border-destructive/50"
           >
-            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+            {isMuted ? (
+              <VolumeX className="w-5 h-5" />
+            ) : (
+              <Volume2 className="w-5 h-5" />
+            )}
           </Button>
         </div>
       </div>

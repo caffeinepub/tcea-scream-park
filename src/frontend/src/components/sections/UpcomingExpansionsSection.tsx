@@ -1,8 +1,14 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Sparkles, Calendar } from 'lucide-react';
-import { themedLands } from '@/content/themedLands';
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { themedLands } from "@/content/themedLands";
+import { Calendar, Sparkles } from "lucide-react";
+import { Section } from "../layout/Section";
 
 export function UpcomingExpansionsSection() {
   return (
@@ -24,10 +30,20 @@ export function UpcomingExpansionsSection() {
                   {land.name}
                 </CardTitle>
                 <div className="flex flex-col gap-2 shrink-0">
-                  <Badge variant="outline" className="border-primary text-primary">
-                    {land.status === 'planned' ? 'Planned' : land.status === 'underConstruction' ? 'Under Construction' : 'Open'}
+                  <Badge
+                    variant="outline"
+                    className="border-primary text-primary"
+                  >
+                    {land.status === "planned"
+                      ? "Planned"
+                      : land.status === "underConstruction"
+                        ? "Under Construction"
+                        : "Open"}
                   </Badge>
-                  <Badge variant="outline" className="border-accent text-accent flex items-center gap-1">
+                  <Badge
+                    variant="outline"
+                    className="border-accent text-accent flex items-center gap-1"
+                  >
                     <Calendar className="h-3 w-3" />
                     Opening {land.openingYear}
                   </Badge>
@@ -38,7 +54,7 @@ export function UpcomingExpansionsSection() {
               <CardDescription className="text-base leading-relaxed">
                 {land.description}
               </CardDescription>
-              
+
               <div className="border-t border-border/50 pt-4">
                 <p className="text-sm font-semibold text-foreground mb-2">
                   Size: {land.sizeSqFt.toLocaleString()} sq ft

@@ -1,13 +1,19 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Sparkles, Mic, Heart, Star } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Heart, Mic, Sparkles, Star } from "lucide-react";
+import { Section } from "../layout/Section";
 
 export function CostumeCharacters2030Section() {
   const handleAuditionClick = () => {
-    window.location.hash = '#auditions';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#auditions";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -26,8 +32,9 @@ export function CostumeCharacters2030Section() {
             <CardTitle className="text-4xl md:text-5xl text-primary">
               In 2030 we are getting our biggest investment for the kids
             </CardTitle>
-            <CardDescription className="text-xl text-muted-foreground mt-4">
-              New costume characters, all new princesses, and exciting opportunities for performers
+            <CardDescription className="text-xl text-white mt-4">
+              New costume characters, all new princesses, and exciting
+              opportunities for performers
             </CardDescription>
           </CardHeader>
         </Card>
@@ -50,14 +57,16 @@ export function CostumeCharacters2030Section() {
             </CardHeader>
             <CardContent>
               <p className="text-foreground/90 leading-relaxed mb-4">
-                Meet our adorable new rabbit duo! Lola the Rabbit and her boyfriend Asher the Rabbit will bring joy, laughter, and heartwarming moments to kids of all ages. These lovable characters will be featured in meet-and-greets, photo opportunities, and special performances throughout the park.
+                Meet our adorable new rabbit duo! Lola the Rabbit and her
+                boyfriend Asher the Rabbit will bring joy, laughter, and
+                heartwarming moments to kids of all ages. These lovable
+                characters will be featured in meet-and-greets, photo
+                opportunities, and special performances throughout the park.
               </p>
               <Badge variant="secondary" className="mr-2">
                 Meet & Greet
               </Badge>
-              <Badge variant="secondary">
-                Photo Ops
-              </Badge>
+              <Badge variant="secondary">Photo Ops</Badge>
             </CardContent>
           </Card>
 
@@ -78,14 +87,16 @@ export function CostumeCharacters2030Section() {
             </CardHeader>
             <CardContent>
               <p className="text-foreground/90 leading-relaxed mb-4">
-                Max is our energetic new character who loves adventure and making friends! With a vibrant personality and interactive performances, Max will engage with kids through games, storytelling, and exciting activities. Get ready for high-energy fun with this dynamic new addition to our character roster.
+                Max is our energetic new character who loves adventure and
+                making friends! With a vibrant personality and interactive
+                performances, Max will engage with kids through games,
+                storytelling, and exciting activities. Get ready for high-energy
+                fun with this dynamic new addition to our character roster.
               </p>
               <Badge variant="secondary" className="mr-2">
                 Interactive
               </Badge>
-              <Badge variant="secondary">
-                High Energy
-              </Badge>
+              <Badge variant="secondary">High Energy</Badge>
             </CardContent>
           </Card>
 
@@ -106,14 +117,16 @@ export function CostumeCharacters2030Section() {
             </CardHeader>
             <CardContent>
               <p className="text-foreground/90 leading-relaxed mb-4">
-                DD brings magic and wonder to every interaction! This charming character specializes in creating memorable moments through gentle performances and heartwarming connections. DD will be a favorite among younger guests and families looking for wholesome entertainment.
+                DD brings magic and wonder to every interaction! This charming
+                character specializes in creating memorable moments through
+                gentle performances and heartwarming connections. DD will be a
+                favorite among younger guests and families looking for wholesome
+                entertainment.
               </p>
               <Badge variant="secondary" className="mr-2">
                 Family Friendly
               </Badge>
-              <Badge variant="secondary">
-                Magical
-              </Badge>
+              <Badge variant="secondary">Magical</Badge>
             </CardContent>
           </Card>
 
@@ -126,7 +139,11 @@ export function CostumeCharacters2030Section() {
             </CardHeader>
             <CardContent>
               <p className="text-foreground/90 leading-relaxed mb-6">
-                We're expanding our princess lineup with all new characters! These elegant performers will bring grace, beauty, and enchantment to our park. From royal meet-and-greets to special princess performances, our new princess cast will create magical memories for guests of all ages.
+                We're expanding our princess lineup with all new characters!
+                These elegant performers will bring grace, beauty, and
+                enchantment to our park. From royal meet-and-greets to special
+                princess performances, our new princess cast will create magical
+                memories for guests of all ages.
               </p>
               <div className="space-y-2">
                 <Badge variant="secondary" className="mr-2">
@@ -135,9 +152,7 @@ export function CostumeCharacters2030Section() {
                 <Badge variant="secondary" className="mr-2">
                   Character Dining
                 </Badge>
-                <Badge variant="secondary">
-                  Special Events
-                </Badge>
+                <Badge variant="secondary">Special Events</Badge>
               </div>
             </CardContent>
           </Card>
@@ -152,7 +167,12 @@ export function CostumeCharacters2030Section() {
           </CardHeader>
           <CardContent className="text-center space-y-6">
             <p className="text-lg text-foreground/90 leading-relaxed max-w-3xl mx-auto">
-              If u want to audition just be vocal and some sing some don't. We're looking for talented performers who can bring these characters to life! Whether you're a singer, dancer, or character performer, we want to hear from you. Vocal skills are important, but remember—some of our characters sing and some don't, so there's a role for everyone.
+              If u want to audition just be vocal and some sing some don't.
+              We're looking for talented performers who can bring these
+              characters to life! Whether you're a singer, dancer, or character
+              performer, we want to hear from you. Vocal skills are important,
+              but remember—some of our characters sing and some don't, so
+              there's a role for everyone.
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-6">
               <Badge variant="outline" className="text-base px-4 py-2">

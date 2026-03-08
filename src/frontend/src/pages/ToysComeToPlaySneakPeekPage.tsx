@@ -1,17 +1,25 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react';
-import { hauntedHouses } from '../content/hauntedHouses';
-import { generatedImages } from '../content/generatedImages';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
+import { generatedImages } from "../content/generatedImages";
+import { hauntedHouses } from "../content/hauntedHouses";
 
 export function ToysComeToPlaySneakPeekPage() {
   const handleBackToHome = () => {
-    window.location.hash = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const toysComeToPlay = hauntedHouses.houses.find(h => h.name === 'Toys Come to Play');
-  const image = generatedImages.hauntedHouses['Toys Come to Play'];
+  const toysComeToPlay = hauntedHouses.houses.find(
+    (h) => h.name === "Toys Come to Play",
+  );
+  const image = generatedImages.hauntedHouses["Toys Come to Play"];
 
   if (!toysComeToPlay) return null;
 

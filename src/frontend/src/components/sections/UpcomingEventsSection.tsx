@@ -1,16 +1,22 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, Eye, ChevronLeft, ChevronRight, Droplets } from 'lucide-react';
-import { upcomingEvents } from '@/content/upcomingEvents';
-import { generatedImages } from '@/content/generatedImages';
-import { useState } from 'react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { upcomingEvents } from "@/content/upcomingEvents";
+import {
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Droplets,
+  Eye,
+} from "lucide-react";
+import { useState } from "react";
+import { Section } from "../layout/Section";
 
 export function UpcomingEventsSection() {
   const handleViewEvent = (eventName: string) => {
-    if (eventName === 'Frosted Haunt') {
-      window.location.hash = '#/event/frosted-haunt';
+    if (eventName === "Frosted Haunt") {
+      window.location.hash = "#/event/frosted-haunt";
     }
   };
 
@@ -23,15 +29,22 @@ export function UpcomingEventsSection() {
     >
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         {upcomingEvents.map((event) => {
-          const imageData = generatedImages.upcomingEvents[event.name as keyof typeof generatedImages.upcomingEvents];
-          const images = Array.isArray(imageData) ? imageData : imageData ? [imageData] : [];
-          const isSoakKingdom = event.name === 'Soak Kingdom';
-          
+          const imageData =
+            generatedImages.upcomingEvents[
+              event.name as keyof typeof generatedImages.upcomingEvents
+            ];
+          const images = Array.isArray(imageData)
+            ? imageData
+            : imageData
+              ? [imageData]
+              : [];
+          const isSoakKingdom = event.name === "Soak Kingdom";
+
           return (
             <Card
               key={event.name}
               className={`bg-card/80 backdrop-blur-sm border-destructive/20 overflow-hidden hover:border-destructive/50 transition-all hover:shadow-glow-green ${
-                isSoakKingdom ? 'md:col-span-2' : ''
+                isSoakKingdom ? "md:col-span-2" : ""
               }`}
             >
               {images.length > 0 && (
@@ -41,15 +54,20 @@ export function UpcomingEventsSection() {
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <CardTitle className="text-2xl text-destructive bloody-text flex items-center gap-2">
                     {event.name}
-                    {isSoakKingdom && <Droplets className="h-6 w-6 text-primary" />}
+                    {isSoakKingdom && (
+                      <Droplets className="h-6 w-6 text-primary" />
+                    )}
                   </CardTitle>
                 </div>
-                <Badge variant="outline" className="w-fit border-destructive/40">
+                <Badge
+                  variant="outline"
+                  className="w-fit border-destructive/40"
+                >
                   {event.dateLabel}
                 </Badge>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm leading-relaxed text-foreground/90">
+                <p className="text-sm leading-relaxed text-white">
                   {event.description}
                 </p>
                 {isSoakKingdom && (
@@ -59,25 +77,41 @@ export function UpcomingEventsSection() {
                     </p>
                     <div className="grid sm:grid-cols-2 gap-3">
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <p className="font-medium text-primary text-sm">🌪️ All Around Funnel Tornado Slide</p>
-                        <p className="text-xs text-muted-foreground mt-1">Swirling water effects and funnel action</p>
+                        <p className="font-medium text-primary text-sm">
+                          🌪️ All Around Funnel Tornado Slide
+                        </p>
+                        <p className="text-xs text-white mt-1">
+                          Swirling water effects and funnel action
+                        </p>
                       </div>
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <p className="font-medium text-primary text-sm">⚡ Lightning Strike Speed Slide</p>
-                        <p className="text-xs text-muted-foreground mt-1">High-speed thrills for adrenaline junkies</p>
+                        <p className="font-medium text-primary text-sm">
+                          ⚡ Lightning Strike Speed Slide
+                        </p>
+                        <p className="text-xs text-white mt-1">
+                          High-speed thrills for adrenaline junkies
+                        </p>
                       </div>
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <p className="font-medium text-primary text-sm">🐍 Serpent's Twist Body Slide</p>
-                        <p className="text-xs text-muted-foreground mt-1">Multiple turns and twists</p>
+                        <p className="font-medium text-primary text-sm">
+                          🐍 Serpent's Twist Body Slide
+                        </p>
+                        <p className="text-xs text-white mt-1">
+                          Multiple turns and twists
+                        </p>
                       </div>
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <p className="font-medium text-primary text-sm">👨‍👩‍👧‍👦 Family Raft Tube Slide</p>
-                        <p className="text-xs text-muted-foreground mt-1">Group fun for the whole family</p>
+                        <p className="font-medium text-primary text-sm">
+                          👨‍👩‍👧‍👦 Family Raft Tube Slide
+                        </p>
+                        <p className="text-xs text-white mt-1">
+                          Group fun for the whole family
+                        </p>
                       </div>
                     </div>
                   </div>
                 )}
-                {event.name === 'Frosted Haunt' && (
+                {event.name === "Frosted Haunt" && (
                   <Button
                     onClick={() => handleViewEvent(event.name)}
                     variant="outline"
@@ -127,12 +161,12 @@ function EventImageGallery({ images, alt }: { images: string[]; alt: string }) {
     <div className="relative w-full h-48 overflow-hidden group">
       <img
         src={validImages[safeIndex]}
-        alt={`${alt} - Image ${safeIndex + 1}`}
+        alt={`${alt} ${safeIndex + 1}`}
         className="w-full h-full object-cover transition-opacity duration-300"
         onError={() => handleImageError(images.indexOf(validImages[safeIndex]))}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card/80" />
-      
+
       {showControls && (
         <>
           <Button
@@ -144,7 +178,7 @@ function EventImageGallery({ images, alt }: { images: string[]; alt: string }) {
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
-          
+
           <Button
             variant="ghost"
             size="icon"
@@ -154,15 +188,16 @@ function EventImageGallery({ images, alt }: { images: string[]; alt: string }) {
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
-          
+
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-            {validImages.map((_, index) => (
+            {validImages.map((src, index) => (
               <button
-                key={index}
+                type="button"
+                key={src}
                 className={`w-2 h-2 rounded-full transition-all ${
                   index === safeIndex
-                    ? 'bg-destructive w-4'
-                    : 'bg-white/50 hover:bg-white/70'
+                    ? "bg-destructive w-4"
+                    : "bg-white/50 hover:bg-white/70"
                 }`}
                 onClick={() => setCurrentIndex(index)}
                 aria-label={`Go to image ${index + 1}`}

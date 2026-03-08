@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ArrowLeft, AlertTriangle, Shield } from 'lucide-react';
-import { generatedImages } from '@/content/generatedImages';
-import { scareZones } from '@/content/scareZones';
-import { slugify } from '@/utils/slug';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { scareZones } from "@/content/scareZones";
+import { slugify } from "@/utils/slug";
+import { AlertTriangle, ArrowLeft, Shield } from "lucide-react";
 
 export function SantasHellPage() {
-  const zone = scareZones.find(z => z.name === "Santa's Hell");
+  const zone = scareZones.find((z) => z.name === "Santa's Hell");
 
   const handleBack = () => {
-    window.location.hash = '#scare-zones';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.location.hash = "#scare-zones";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleViewRules = () => {
     const slug = slugify("Santa's Hell");
     window.location.hash = `#/rules/scare-zone/${slug}`;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!zone) {
@@ -62,13 +62,20 @@ export function SantasHellPage() {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <Alert variant="destructive" className="border-2 border-destructive bg-destructive/10">
+            <Alert
+              variant="destructive"
+              className="border-2 border-destructive bg-destructive/10"
+            >
               <AlertTriangle className="h-5 w-5" />
-              <AlertTitle className="text-xl font-bold">EXTREME HORROR WARNING</AlertTitle>
+              <AlertTitle className="text-xl font-bold">
+                EXTREME HORROR WARNING
+              </AlertTitle>
               <AlertDescription className="text-base">
-                This Christmas-horror scare zone features demonic elves, corrupted Santa, twisted reindeer, 
-                and intense holiday horror themes. Not recommended for young children or those sensitive to 
-                Christmas horror. Roaming actors may pursue you. Participation is at your own risk.
+                This Christmas-horror scare zone features demonic elves,
+                corrupted Santa, twisted reindeer, and intense holiday horror
+                themes. Not recommended for young children or those sensitive to
+                Christmas horror. Roaming actors may pursue you. Participation
+                is at your own risk.
               </AlertDescription>
             </Alert>
 

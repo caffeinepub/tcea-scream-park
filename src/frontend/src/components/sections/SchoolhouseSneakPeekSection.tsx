@@ -1,49 +1,62 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Eye } from 'lucide-react';
-import { hauntedHouses } from '@/content/hauntedHouses';
-import { generatedImages } from '@/content/generatedImages';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import { hauntedHouses } from "@/content/hauntedHouses";
+import { Eye } from "lucide-react";
+import { Section } from "../layout/Section";
 
 export function SchoolhouseSneakPeekSection() {
-  const schoolhouse = hauntedHouses.houses.find(h => h.name === 'Schoolhouse break and blackout');
-  const clownTown = hauntedHouses.houses.find(h => h.name === 'Clown town');
-  const hellHole = hauntedHouses.houses.find(h => h.name === 'Terror Hell hole');
-  const toysComeToPlay = hauntedHouses.houses.find(h => h.name === 'Toys Come to Play');
+  const schoolhouse = hauntedHouses.houses.find(
+    (h) => h.name === "Schoolhouse break and blackout",
+  );
+  const clownTown = hauntedHouses.houses.find((h) => h.name === "Clown town");
+  const hellHole = hauntedHouses.houses.find(
+    (h) => h.name === "Terror Hell hole",
+  );
+  const toysComeToPlay = hauntedHouses.houses.find(
+    (h) => h.name === "Toys Come to Play",
+  );
 
-  const schoolhouseImage = generatedImages.hauntedHouses['Schoolhouse break and blackout'];
-  const clownTownImage = generatedImages.hauntedHouses['Clown town'];
-  const hellHoleImage = generatedImages.hauntedHouses['Terror Hell hole'];
-  const toysImage = generatedImages.hauntedHouses['Toys Come to Play'];
+  const schoolhouseImage =
+    generatedImages.hauntedHouses["Schoolhouse break and blackout"];
+  const clownTownImage = generatedImages.hauntedHouses["Clown town"];
+  const hellHoleImage = generatedImages.hauntedHouses["Terror Hell hole"];
+  const toysImage = generatedImages.hauntedHouses["Toys Come to Play"];
 
   const sneakPeeks = [
     {
-      title: schoolhouse?.name || 'Schoolhouse',
-      tagline: schoolhouse?.tagline || '',
-      description: schoolhouse?.description || '',
+      title: schoolhouse?.name || "Schoolhouse",
+      tagline: schoolhouse?.tagline || "",
+      description: schoolhouse?.description || "",
       image: schoolhouseImage,
-      route: '#sneak-peek/schoolhouse',
+      route: "#sneak-peek/schoolhouse",
     },
     {
-      title: clownTown?.name || 'Clown Town',
-      tagline: clownTown?.tagline || '',
-      description: clownTown?.description || '',
+      title: clownTown?.name || "Clown Town",
+      tagline: clownTown?.tagline || "",
+      description: clownTown?.description || "",
       image: clownTownImage,
-      route: '#sneak-peek/clown-town',
+      route: "#sneak-peek/clown-town",
     },
     {
-      title: hellHole?.name || 'Hell Hole',
-      tagline: hellHole?.tagline || '',
-      description: hellHole?.description || '',
+      title: hellHole?.name || "Hell Hole",
+      tagline: hellHole?.tagline || "",
+      description: hellHole?.description || "",
       image: hellHoleImage,
-      route: '#sneak-peek/hell-hole',
+      route: "#sneak-peek/hell-hole",
     },
     {
-      title: toysComeToPlay?.name || 'Toys Come to Play',
-      tagline: toysComeToPlay?.tagline || '',
-      description: toysComeToPlay?.description || '',
+      title: toysComeToPlay?.name || "Toys Come to Play",
+      tagline: toysComeToPlay?.tagline || "",
+      description: toysComeToPlay?.description || "",
       image: toysImage,
-      route: '#sneak-peek/toys-come-to-play',
+      route: "#sneak-peek/toys-come-to-play",
     },
   ];
 
@@ -82,9 +95,7 @@ export function SchoolhouseSneakPeekSection() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-muted-foreground line-clamp-3">
-                {peek.description}
-              </p>
+              <p className="text-white line-clamp-3">{peek.description}</p>
               <Button
                 onClick={() => handleNavigate(peek.route)}
                 variant="outline"

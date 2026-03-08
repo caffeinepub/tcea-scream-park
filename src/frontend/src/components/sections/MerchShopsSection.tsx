@@ -1,21 +1,32 @@
-import { Section } from '../layout/Section';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ShoppingBag, Sparkles } from 'lucide-react';
-import { merchProducts, merchCategories, type MerchProduct } from '@/content/merchStorefront';
-import { generatedImages } from '@/content/generatedImages';
-import { useState } from 'react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { generatedImages } from "@/content/generatedImages";
+import {
+  type MerchProduct,
+  merchCategories,
+  merchProducts,
+} from "@/content/merchStorefront";
+import { ShoppingBag, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Section } from "../layout/Section";
 
 export function MerchShopsSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [boothImageError, setBoothImageError] = useState(false);
 
-  const filteredProducts = selectedCategory === 'all' 
-    ? merchProducts 
-    : merchProducts.filter(p => p.category === selectedCategory);
+  const filteredProducts =
+    selectedCategory === "all"
+      ? merchProducts
+      : merchProducts.filter((p) => p.category === selectedCategory);
 
-  const felixBoothImage = generatedImages.other['Felix Merch Booth'];
+  const felixBoothImage = generatedImages.other["Felix Merch Booth"];
 
   return (
     <Section
@@ -47,9 +58,11 @@ export function MerchShopsSection() {
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <CardDescription className="text-center text-lg">
-              Step inside Felix's exclusive merch booth and discover a treasure trove of character collectibles, 
-              limited-edition items, and fan favorites. From cozy hoodies to adorable plushies, Felix has curated 
-              the ultimate selection for true fans. Come see what's waiting for you!
+              Step inside Felix's exclusive merch booth and discover a treasure
+              trove of character collectibles, limited-edition items, and fan
+              favorites. From cozy hoodies to adorable plushies, Felix has
+              curated the ultimate selection for true fans. Come see what's
+              waiting for you!
             </CardDescription>
           </CardHeader>
         </Card>
@@ -57,8 +70,8 @@ export function MerchShopsSection() {
         {/* Category Filter */}
         <div className="flex flex-wrap gap-3 justify-center">
           <Button
-            variant={selectedCategory === 'all' ? 'default' : 'outline'}
-            onClick={() => setSelectedCategory('all')}
+            variant={selectedCategory === "all" ? "default" : "outline"}
+            onClick={() => setSelectedCategory("all")}
             className="poster-spotlight"
           >
             All Items
@@ -66,7 +79,7 @@ export function MerchShopsSection() {
           {merchCategories.map((cat) => (
             <Button
               key={cat.id}
-              variant={selectedCategory === cat.id ? 'default' : 'outline'}
+              variant={selectedCategory === cat.id ? "default" : "outline"}
               onClick={() => setSelectedCategory(cat.id)}
               className="poster-spotlight"
             >
@@ -86,7 +99,9 @@ export function MerchShopsSection() {
         {filteredProducts.length === 0 && (
           <Card className="max-w-2xl mx-auto bg-accent/50 border-primary/20">
             <CardContent className="pt-6 text-center">
-              <p className="text-muted-foreground">No products found in this category.</p>
+              <p className="text-muted-foreground">
+                No products found in this category.
+              </p>
             </CardContent>
           </Card>
         )}
@@ -97,17 +112,21 @@ export function MerchShopsSection() {
 
 function MerchProductCard({ product }: { product: MerchProduct }) {
   const characterColors: Record<string, string> = {
-    Riley: 'bg-amber-500/20 border-amber-500/40 text-amber-700 dark:text-amber-300',
-    Ace: 'bg-blue-500/20 border-blue-500/40 text-blue-700 dark:text-blue-300',
-    Kevin: 'bg-green-500/20 border-green-500/40 text-green-700 dark:text-green-300',
-    Rocky: 'bg-red-500/20 border-red-500/40 text-red-700 dark:text-red-300',
+    Riley:
+      "bg-amber-500/20 border-amber-500/40 text-amber-700 dark:text-amber-300",
+    Ace: "bg-blue-500/20 border-blue-500/40 text-blue-700 dark:text-blue-300",
+    Kevin:
+      "bg-green-500/20 border-green-500/40 text-green-700 dark:text-green-300",
+    Rocky: "bg-red-500/20 border-red-500/40 text-red-700 dark:text-red-300",
   };
 
   return (
     <Card className="bg-card/80 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all hover:shadow-xl poster-spotlight">
       <CardHeader>
         <CardTitle className="text-xl">{product.name}</CardTitle>
-        <CardDescription className="text-sm">{product.description}</CardDescription>
+        <CardDescription className="text-sm">
+          {product.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex flex-wrap gap-2">
@@ -115,9 +134,11 @@ function MerchProductCard({ product }: { product: MerchProduct }) {
             {product.category}
           </Badge>
           {product.character && (
-            <Badge 
-              variant="outline" 
-              className={characterColors[product.character] || 'border-primary/30'}
+            <Badge
+              variant="outline"
+              className={
+                characterColors[product.character] || "border-primary/30"
+              }
             >
               {product.character}
             </Badge>

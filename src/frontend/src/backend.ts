@@ -93,8 +93,11 @@ export interface Location {
     x: bigint;
     y: bigint;
 }
-export interface UserProfile {
+export interface HauntedHouseCharacter {
+    voiceType: VoiceType;
     name: string;
+    description: string;
+    scareType: ScareType;
 }
 export type ContentType = {
     __kind__: "hauntedHouse";
@@ -177,8 +180,14 @@ export interface AuditionSubmission {
         __kind__: "costumeCharacter";
         costumeCharacter: CostumeCharacterAuditionForm;
     } | {
+        __kind__: "usher";
+        usher: UsherAuditionForm;
+    } | {
         __kind__: "danceActor";
         danceActor: DanceAuditionForm;
+    } | {
+        __kind__: "hauntedHouseSupervisor";
+        hauntedHouseSupervisor: HauntedHouseSupervisorAuditionForm;
     };
     auditionType: AuditionType;
     submissionTime: Time;
@@ -265,15 +274,24 @@ export interface ShowSpecificFields {
     yearIntroduced?: bigint;
     performanceType: PerformanceType;
 }
-export interface Date_ {
-    day: bigint;
-    month: bigint;
-    year: bigint;
+export interface HauntedHouseSupervisorAuditionForm {
+    age: bigint;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    phone: string;
+    leadershipExperience: string;
 }
 export interface EventUnlockStatus {
     hasSecretEntrance: boolean;
     hasFireworks: boolean;
     hasFlynAppearance: boolean;
+}
+export interface Date_ {
+    day: bigint;
+    month: bigint;
+    year: bigint;
 }
 export interface Connection {
     fromRoomId: bigint;
@@ -287,11 +305,6 @@ export interface AuditionLink {
     title: string;
     auditionType: AuditionType;
     description: string;
-}
-export interface AttractionSpecificFields {
-    yearIntroduced?: bigint;
-    ageRestriction: AgeRestriction;
-    hasGuidedTour: boolean;
 }
 export interface ThemedLand {
     id: bigint;
@@ -310,6 +323,14 @@ export interface ThemedFoodBooth {
     location: string;
     paintMenu: Array<FoodItem>;
 }
+export interface UsherAuditionForm {
+    age: bigint;
+    name: string;
+    email: string;
+    experience: string;
+    availability: string;
+    phone: string;
+}
 export interface ScareZoneSpecificFields {
     yearIntroduced?: bigint;
     indoorOutdoor: ZoneLocation;
@@ -318,6 +339,11 @@ export interface ScareZoneSpecificFields {
 export interface EventDateRange {
     endDate: Date_;
     startDate: Date_;
+}
+export interface AttractionSpecificFields {
+    yearIntroduced?: bigint;
+    ageRestriction: AgeRestriction;
+    hasGuidedTour: boolean;
 }
 export interface HauntedHouseSpecificFields {
     yearIntroduced?: bigint;
@@ -333,11 +359,8 @@ export interface Product {
     category: ProductCategory;
     price: number;
 }
-export interface HauntedHouseCharacter {
-    voiceType: VoiceType;
+export interface UserProfile {
     name: string;
-    description: string;
-    scareType: ScareType;
 }
 export enum AgeRestriction {
     teens = "teens",
@@ -348,7 +371,9 @@ export enum AgeRestriction {
 export enum AuditionType {
     scareActor = "scareActor",
     costumeCharacter = "costumeCharacter",
-    danceActor = "danceActor"
+    usher = "usher",
+    danceActor = "danceActor",
+    hauntedHouseSupervisor = "hauntedHouseSupervisor"
 }
 export enum AvailabilityStatus {
     inStock = "inStock",
@@ -471,7 +496,9 @@ export interface backendInterface {
     seedInitialContent(): Promise<void>;
     submitCostumeCharacterAudition(form: CostumeCharacterAuditionForm): Promise<boolean>;
     submitDanceAudition(form: DanceAuditionForm): Promise<boolean>;
+    submitHauntedHouseSupervisorAudition(form: HauntedHouseSupervisorAuditionForm): Promise<boolean>;
     submitScareActorAudition(form: ScareActorAuditionForm): Promise<boolean>;
+    submitUsherAudition(form: UsherAuditionForm): Promise<boolean>;
     updateAuditionLink(index: bigint, updatedLink: AuditionLink): Promise<void>;
     updateContentItem(id: bigint, updatedItem: ContentItem): Promise<void>;
     updateFoodBooth(id: bigint, updatedBooth: ThemedFoodBooth): Promise<void>;
@@ -481,7 +508,7 @@ export interface backendInterface {
     updateTunnelMap(id: bigint, updatedMap: TunnelMap): Promise<void>;
     updateTunnelSchedule(id: bigint, updatedSchedule: TunnelSchedule): Promise<void>;
 }
-import type { AgeRestriction as _AgeRestriction, AttractionSpecificFields as _AttractionSpecificFields, AuditionLink as _AuditionLink, AuditionSubmission as _AuditionSubmission, AuditionType as _AuditionType, AvailabilityStatus as _AvailabilityStatus, Connection as _Connection, ContentItem as _ContentItem, ContentType as _ContentType, CostumeCharacterAuditionForm as _CostumeCharacterAuditionForm, DanceAuditionForm as _DanceAuditionForm, EventDateRange as _EventDateRange, EventSpecificFields as _EventSpecificFields, EventType as _EventType, FoodItem as _FoodItem, FoodTheme as _FoodTheme, FoodType as _FoodType, HauntedHouseCharacter as _HauntedHouseCharacter, HauntedHouseSpecificFields as _HauntedHouseSpecificFields, LandStatus as _LandStatus, Location as _Location, MerchShop as _MerchShop, PerformanceType as _PerformanceType, Product as _Product, ProductCategory as _ProductCategory, Room as _Room, RoomAssignment as _RoomAssignment, RoomSchedule as _RoomSchedule, ScareActorAuditionForm as _ScareActorAuditionForm, ScareLevel as _ScareLevel, ScareType as _ScareType, ScareZoneSpecificFields as _ScareZoneSpecificFields, ShowSpecificFields as _ShowSpecificFields, ThemedFoodBooth as _ThemedFoodBooth, ThemedLand as _ThemedLand, Time as _Time, TunnelMap as _TunnelMap, TunnelSchedule as _TunnelSchedule, UserProfile as _UserProfile, UserRole as _UserRole, VoiceType as _VoiceType, ZoneLocation as _ZoneLocation } from "./declarations/backend.did.d.ts";
+import type { AgeRestriction as _AgeRestriction, AttractionSpecificFields as _AttractionSpecificFields, AuditionLink as _AuditionLink, AuditionSubmission as _AuditionSubmission, AuditionType as _AuditionType, AvailabilityStatus as _AvailabilityStatus, Connection as _Connection, ContentItem as _ContentItem, ContentType as _ContentType, CostumeCharacterAuditionForm as _CostumeCharacterAuditionForm, DanceAuditionForm as _DanceAuditionForm, EventDateRange as _EventDateRange, EventSpecificFields as _EventSpecificFields, EventType as _EventType, FoodItem as _FoodItem, FoodTheme as _FoodTheme, FoodType as _FoodType, HauntedHouseCharacter as _HauntedHouseCharacter, HauntedHouseSpecificFields as _HauntedHouseSpecificFields, HauntedHouseSupervisorAuditionForm as _HauntedHouseSupervisorAuditionForm, LandStatus as _LandStatus, Location as _Location, MerchShop as _MerchShop, PerformanceType as _PerformanceType, Product as _Product, ProductCategory as _ProductCategory, Room as _Room, RoomAssignment as _RoomAssignment, RoomSchedule as _RoomSchedule, ScareActorAuditionForm as _ScareActorAuditionForm, ScareLevel as _ScareLevel, ScareType as _ScareType, ScareZoneSpecificFields as _ScareZoneSpecificFields, ShowSpecificFields as _ShowSpecificFields, ThemedFoodBooth as _ThemedFoodBooth, ThemedLand as _ThemedLand, Time as _Time, TunnelMap as _TunnelMap, TunnelSchedule as _TunnelSchedule, UserProfile as _UserProfile, UserRole as _UserRole, UsherAuditionForm as _UsherAuditionForm, VoiceType as _VoiceType, ZoneLocation as _ZoneLocation } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -1198,6 +1225,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async submitHauntedHouseSupervisorAudition(arg0: HauntedHouseSupervisorAuditionForm): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitHauntedHouseSupervisorAudition(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitHauntedHouseSupervisorAudition(arg0);
+            return result;
+        }
+    }
     async submitScareActorAudition(arg0: ScareActorAuditionForm): Promise<boolean> {
         if (this.processError) {
             try {
@@ -1209,6 +1250,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.submitScareActorAudition(to_candid_ScareActorAuditionForm_n160(this._uploadFile, this._downloadFile, arg0));
+            return result;
+        }
+    }
+    async submitUsherAudition(arg0: UsherAuditionForm): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.submitUsherAudition(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.submitUsherAudition(arg0);
             return result;
         }
     }
@@ -1689,7 +1744,11 @@ function from_candid_record_n66(_uploadFile: (file: ExternalBlob) => Promise<Uin
     } | {
         costumeCharacter: _CostumeCharacterAuditionForm;
     } | {
+        usher: _UsherAuditionForm;
+    } | {
         danceActor: _DanceAuditionForm;
+    } | {
+        hauntedHouseSupervisor: _HauntedHouseSupervisorAuditionForm;
     };
     auditionType: _AuditionType;
     submissionTime: _Time;
@@ -1702,8 +1761,14 @@ function from_candid_record_n66(_uploadFile: (file: ExternalBlob) => Promise<Uin
         __kind__: "costumeCharacter";
         costumeCharacter: CostumeCharacterAuditionForm;
     } | {
+        __kind__: "usher";
+        usher: UsherAuditionForm;
+    } | {
         __kind__: "danceActor";
         danceActor: DanceAuditionForm;
+    } | {
+        __kind__: "hauntedHouseSupervisor";
+        hauntedHouseSupervisor: HauntedHouseSupervisorAuditionForm;
     };
     auditionType: AuditionType;
     submissionTime: Time;
@@ -2058,7 +2123,11 @@ function from_candid_variant_n67(_uploadFile: (file: ExternalBlob) => Promise<Ui
 } | {
     costumeCharacter: _CostumeCharacterAuditionForm;
 } | {
+    usher: _UsherAuditionForm;
+} | {
     danceActor: _DanceAuditionForm;
+} | {
+    hauntedHouseSupervisor: _HauntedHouseSupervisorAuditionForm;
 }): {
     __kind__: "scareActor";
     scareActor: ScareActorAuditionForm;
@@ -2066,8 +2135,14 @@ function from_candid_variant_n67(_uploadFile: (file: ExternalBlob) => Promise<Ui
     __kind__: "costumeCharacter";
     costumeCharacter: CostumeCharacterAuditionForm;
 } | {
+    __kind__: "usher";
+    usher: UsherAuditionForm;
+} | {
     __kind__: "danceActor";
     danceActor: DanceAuditionForm;
+} | {
+    __kind__: "hauntedHouseSupervisor";
+    hauntedHouseSupervisor: HauntedHouseSupervisorAuditionForm;
 } {
     return "scareActor" in value ? {
         __kind__: "scareActor",
@@ -2075,9 +2150,15 @@ function from_candid_variant_n67(_uploadFile: (file: ExternalBlob) => Promise<Ui
     } : "costumeCharacter" in value ? {
         __kind__: "costumeCharacter",
         costumeCharacter: from_candid_CostumeCharacterAuditionForm_n71(_uploadFile, _downloadFile, value.costumeCharacter)
+    } : "usher" in value ? {
+        __kind__: "usher",
+        usher: value.usher
     } : "danceActor" in value ? {
         __kind__: "danceActor",
         danceActor: from_candid_DanceAuditionForm_n73(_uploadFile, _downloadFile, value.danceActor)
+    } : "hauntedHouseSupervisor" in value ? {
+        __kind__: "hauntedHouseSupervisor",
+        hauntedHouseSupervisor: value.hauntedHouseSupervisor
     } : value;
 }
 function from_candid_variant_n76(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
@@ -2085,9 +2166,13 @@ function from_candid_variant_n76(_uploadFile: (file: ExternalBlob) => Promise<Ui
 } | {
     costumeCharacter: null;
 } | {
+    usher: null;
+} | {
     danceActor: null;
+} | {
+    hauntedHouseSupervisor: null;
 }): AuditionType {
-    return "scareActor" in value ? AuditionType.scareActor : "costumeCharacter" in value ? AuditionType.costumeCharacter : "danceActor" in value ? AuditionType.danceActor : value;
+    return "scareActor" in value ? AuditionType.scareActor : "costumeCharacter" in value ? AuditionType.costumeCharacter : "usher" in value ? AuditionType.usher : "danceActor" in value ? AuditionType.danceActor : "hauntedHouseSupervisor" in value ? AuditionType.hauntedHouseSupervisor : value;
 }
 function from_candid_variant_n81(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     hauntedHouse: _HauntedHouseSpecificFields;
@@ -2951,14 +3036,22 @@ function to_candid_variant_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8
 } | {
     costumeCharacter: null;
 } | {
+    usher: null;
+} | {
     danceActor: null;
+} | {
+    hauntedHouseSupervisor: null;
 } {
     return value == AuditionType.scareActor ? {
         scareActor: null
     } : value == AuditionType.costumeCharacter ? {
         costumeCharacter: null
+    } : value == AuditionType.usher ? {
+        usher: null
     } : value == AuditionType.danceActor ? {
         danceActor: null
+    } : value == AuditionType.hauntedHouseSupervisor ? {
+        hauntedHouseSupervisor: null
     } : value;
 }
 function to_candid_variant_n40(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ZoneLocation): {

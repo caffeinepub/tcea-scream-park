@@ -1,16 +1,16 @@
-import { EmployeeGuard } from '@/components/auth/EmployeeGuard';
-import { EmployeeLayout } from '@/components/layout/EmployeeLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { MapPin, Bed, Utensils, Tv, Armchair, ShieldAlert } from 'lucide-react';
-import { tceaTunnelsContent } from '@/content/tceaTunnels';
+import { EmployeeGuard } from "@/components/auth/EmployeeGuard";
+import { EmployeeLayout } from "@/components/layout/EmployeeLayout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { tceaTunnelsContent } from "@/content/tceaTunnels";
+import { Armchair, Bed, MapPin, ShieldAlert, Tv, Utensils } from "lucide-react";
 
 export function TCEATunnelsPage() {
   return (
     <EmployeeGuard>
       <EmployeeLayout
         title="TCEA Tunnels"
-        breadcrumbs={[{ label: 'TCEA Tunnels' }]}
+        breadcrumbs={[{ label: "TCEA Tunnels" }]}
       >
         {/* Header Image */}
         <div className="mb-8 rounded-lg overflow-hidden border border-employee-grey/30">
@@ -29,15 +29,15 @@ export function TCEATunnelsPage() {
           </AlertTitle>
           <AlertDescription className="text-employee-text/80 mt-2 space-y-2">
             <p>
-              <strong className="text-employee-orange">Location:</strong>{' '}
+              <strong className="text-employee-orange">Location:</strong>{" "}
               {tceaTunnelsContent.secretEntrance.location}
             </p>
             <p>
-              <strong className="text-employee-orange">Access:</strong>{' '}
+              <strong className="text-employee-orange">Access:</strong>{" "}
               {tceaTunnelsContent.secretEntrance.accessInstructions}
             </p>
             <p className="text-employee-red">
-              <strong>Security Note:</strong>{' '}
+              <strong>Security Note:</strong>{" "}
               {tceaTunnelsContent.secretEntrance.securityNotes}
             </p>
           </AlertDescription>

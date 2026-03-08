@@ -1,9 +1,17 @@
-import { EmployeeGuard } from '@/components/auth/EmployeeGuard';
-import { EmployeeLayout } from '@/components/layout/EmployeeLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useEventUnlockStatus } from '@/hooks/useEventUnlockStatus';
-import { Lock, Unlock, User, Calendar, MapPin, Shirt, Loader2 } from 'lucide-react';
+import { EmployeeGuard } from "@/components/auth/EmployeeGuard";
+import { EmployeeLayout } from "@/components/layout/EmployeeLayout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEventUnlockStatus } from "@/hooks/useEventUnlockStatus";
+import {
+  Calendar,
+  Loader2,
+  Lock,
+  MapPin,
+  Shirt,
+  Unlock,
+  User,
+} from "lucide-react";
 
 export function FlynCharacterPage() {
   const { data: unlockStatus, isLoading } = useEventUnlockStatus();
@@ -14,8 +22,8 @@ export function FlynCharacterPage() {
       <EmployeeLayout
         title="Flyn Character"
         breadcrumbs={[
-          { label: 'Upcoming Events', href: '#/employee/upcoming-events' },
-          { label: 'Flyn Character' },
+          { label: "Upcoming Events", href: "#/employee/upcoming-events" },
+          { label: "Flyn Character" },
         ]}
       >
         {isLoading ? (
@@ -28,8 +36,8 @@ export function FlynCharacterPage() {
             <Alert
               className={`mb-8 ${
                 isUnlocked
-                  ? 'border-employee-orange bg-employee-bg-darker'
-                  : 'border-employee-grey bg-employee-bg-darker'
+                  ? "border-employee-orange bg-employee-bg-darker"
+                  : "border-employee-grey bg-employee-bg-darker"
               }`}
             >
               {isUnlocked ? (
@@ -38,12 +46,12 @@ export function FlynCharacterPage() {
                 <Lock className="h-5 w-5 text-employee-grey" />
               )}
               <AlertTitle className="text-employee-text text-lg">
-                {isUnlocked ? 'Character Now Active' : 'Debuting January 2030'}
+                {isUnlocked ? "Character Now Active" : "Debuting January 2030"}
               </AlertTitle>
               <AlertDescription className="text-employee-text/80 mt-2">
                 {isUnlocked
-                  ? 'Flyn is now part of our character roster and available for meet-and-greets.'
-                  : 'Flyn will join our character lineup in January 2030.'}
+                  ? "Flyn is now part of our character roster and available for meet-and-greets."
+                  : "Flyn will join our character lineup in January 2030."}
               </AlertDescription>
             </Alert>
 
@@ -52,7 +60,7 @@ export function FlynCharacterPage() {
               <img
                 src="/assets/generated/flyn-character.dim_600x800.png"
                 alt="Flyn Character"
-                className={`w-full h-auto ${!isUnlocked ? 'grayscale' : ''}`}
+                className={`w-full h-auto ${!isUnlocked ? "grayscale" : ""}`}
               />
             </div>
 
@@ -67,12 +75,13 @@ export function FlynCharacterPage() {
               <CardContent>
                 <p className="text-employee-text/80 leading-relaxed mb-4">
                   {isUnlocked
-                    ? 'Flyn is a mischievous trickster character who roams the park spreading chaos and laughter in equal measure. With a distinctive orange and black costume featuring LED accents, Flyn has quickly become a guest favorite. This high-energy character specializes in interactive photo opportunities and surprise appearances throughout the haunt.'
-                    : 'Flyn is a new costume character currently in development. This mysterious figure will bring a unique energy to the park with an innovative costume design and interactive personality. Full character details will be revealed closer to the debut date.'}
+                    ? "Flyn is a mischievous trickster character who roams the park spreading chaos and laughter in equal measure. With a distinctive orange and black costume featuring LED accents, Flyn has quickly become a guest favorite. This high-energy character specializes in interactive photo opportunities and surprise appearances throughout the haunt."
+                    : "Flyn is a new costume character currently in development. This mysterious figure will bring a unique energy to the park with an innovative costume design and interactive personality. Full character details will be revealed closer to the debut date."}
                 </p>
                 {!isUnlocked && (
                   <p className="text-employee-orange text-sm">
-                    Character training materials and costume specifications will be distributed to performers in late 2029.
+                    Character training materials and costume specifications will
+                    be distributed to performers in late 2029.
                   </p>
                 )}
               </CardContent>
@@ -91,13 +100,22 @@ export function FlynCharacterPage() {
                   <CardContent>
                     <div className="space-y-2 text-employee-text/80">
                       <p>
-                        <strong className="text-employee-orange">Friday-Sunday:</strong> 7:00 PM - 11:00 PM (rotating 30-minute sets)
+                        <strong className="text-employee-orange">
+                          Friday-Sunday:
+                        </strong>{" "}
+                        7:00 PM - 11:00 PM (rotating 30-minute sets)
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Special Events:</strong> Extended hours during peak season
+                        <strong className="text-employee-orange">
+                          Special Events:
+                        </strong>{" "}
+                        Extended hours during peak season
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Break Schedule:</strong> 15-minute breaks every hour
+                        <strong className="text-employee-orange">
+                          Break Schedule:
+                        </strong>{" "}
+                        15-minute breaks every hour
                       </p>
                     </div>
                   </CardContent>
@@ -132,13 +150,25 @@ export function FlynCharacterPage() {
                   <CardContent>
                     <div className="space-y-3 text-employee-text/80">
                       <p>
-                        <strong className="text-employee-orange">Costume Components:</strong> Full-body suit with LED accents, character head with cooling system, gloves, and character shoes
+                        <strong className="text-employee-orange">
+                          Costume Components:
+                        </strong>{" "}
+                        Full-body suit with LED accents, character head with
+                        cooling system, gloves, and character shoes
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Battery Pack:</strong> 4-hour runtime, spare batteries available at costume station
+                        <strong className="text-employee-orange">
+                          Battery Pack:
+                        </strong>{" "}
+                        4-hour runtime, spare batteries available at costume
+                        station
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Maintenance:</strong> Daily cleaning required, LED system check before each shift
+                        <strong className="text-employee-orange">
+                          Maintenance:
+                        </strong>{" "}
+                        Daily cleaning required, LED system check before each
+                        shift
                       </p>
                     </div>
                   </CardContent>
@@ -147,24 +177,42 @@ export function FlynCharacterPage() {
                 {/* Character Interaction Guidelines */}
                 <Card className="bg-employee-bg-darker border-employee-orange/50">
                   <CardHeader>
-                    <CardTitle className="text-employee-text">Character Interaction Guidelines</CardTitle>
+                    <CardTitle className="text-employee-text">
+                      Character Interaction Guidelines
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3 text-employee-text/80">
                       <p>
-                        <strong className="text-employee-orange">Personality:</strong> Playful, energetic, mischievous but never mean-spirited
+                        <strong className="text-employee-orange">
+                          Personality:
+                        </strong>{" "}
+                        Playful, energetic, mischievous but never mean-spirited
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Interactions:</strong> Non-verbal communication only (gestures, poses, dance moves)
+                        <strong className="text-employee-orange">
+                          Interactions:
+                        </strong>{" "}
+                        Non-verbal communication only (gestures, poses, dance
+                        moves)
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Photo Protocol:</strong> Always pose enthusiastically, maintain character at all times
+                        <strong className="text-employee-orange">
+                          Photo Protocol:
+                        </strong>{" "}
+                        Always pose enthusiastically, maintain character at all
+                        times
                       </p>
                       <p>
-                        <strong className="text-employee-orange">Safety:</strong> Maintain clear sightlines, avoid running, stay in designated areas
+                        <strong className="text-employee-orange">
+                          Safety:
+                        </strong>{" "}
+                        Maintain clear sightlines, avoid running, stay in
+                        designated areas
                       </p>
                       <p className="text-employee-red text-sm mt-4">
-                        <strong>Important:</strong> Never remove character head in guest areas. Use designated break rooms only.
+                        <strong>Important:</strong> Never remove character head
+                        in guest areas. Use designated break rooms only.
                       </p>
                     </div>
                   </CardContent>

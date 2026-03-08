@@ -1,4 +1,4 @@
-import type { EventDateRange, Date_ } from '../backend';
+import type { Date_, EventDateRange } from "../backend";
 
 /**
  * Generate a stable date key string from a Date_ object
@@ -31,9 +31,9 @@ function getNextDate(date: Date_): Date_ {
 
   // Days in each month (non-leap year)
   const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  
+
   // Check for leap year
-  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
   if (isLeapYear) {
     daysInMonth[1] = 29;
   }
@@ -73,12 +73,12 @@ export function expandDateRange(range: EventDateRange): string[] {
 
   while (compareDates(current, end) <= 0 && iterations < maxIterations) {
     keys.push(dateToKey(current));
-    
+
     // If we've reached the end date, stop
     if (compareDates(current, end) === 0) {
       break;
     }
-    
+
     current = getNextDate(current);
     iterations++;
   }
@@ -91,11 +91,13 @@ export function expandDateRange(range: EventDateRange): string[] {
  */
 export function expandItemDateRanges(dates: EventDateRange[]): string[] {
   const allKeys = new Set<string>();
-  
-  dates.forEach(range => {
+
+  for (const range of dates) {
     const keys = expandDateRange(range);
-    keys.forEach(key => allKeys.add(key));
-  });
+    for (const key of keys) {
+      allKeys.add(key);
+    }
+  }
 
   return Array.from(allKeys);
 }
