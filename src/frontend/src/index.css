@@ -1,96 +1,81 @@
-@import url("https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Bricolage Grotesque (display) ── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Outfit (body) ── */
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    /* OKLCH Horror Theme - Orange/Black/Green */
-    --background: oklch(0.15 0.02 30);
-    --foreground: oklch(0.98 0 0);
+    /* OKLCH Horror Carnival Theme */
+    --background: 0.08 0.01 0;
+    --foreground: 0.97 0.01 80;
 
-    --card: oklch(0.18 0.03 30);
-    --card-foreground: oklch(0.98 0 0);
+    --card: 0.11 0.01 0;
+    --card-foreground: 0.97 0.01 80;
 
-    --popover: oklch(0.16 0.02 30);
-    --popover-foreground: oklch(0.98 0 0);
+    --popover: 0.1 0.01 0;
+    --popover-foreground: 0.97 0.01 80;
 
-    --primary: oklch(0.65 0.25 40);
-    --primary-foreground: oklch(0.98 0 0);
+    /* Blood red primary */
+    --primary: 0.55 0.22 25;
+    --primary-foreground: 0.97 0.01 80;
 
-    --secondary: oklch(0.25 0.05 30);
-    --secondary-foreground: oklch(0.98 0 0);
+    /* Dark orange secondary */
+    --secondary: 0.45 0.18 50;
+    --secondary-foreground: 0.97 0.01 80;
 
-    --muted: oklch(0.22 0.03 30);
-    --muted-foreground: oklch(0.7 0.05 30);
+    --muted: 0.18 0.02 0;
+    --muted-foreground: 0.65 0.05 60;
 
-    --accent: oklch(0.55 0.2 145);
-    --accent-foreground: oklch(0.98 0 0);
+    /* Orange glow accent */
+    --accent: 0.65 0.18 60;
+    --accent-foreground: 0.08 0.01 0;
 
-    --destructive: oklch(0.6 0.22 35);
-    --destructive-foreground: oklch(0.98 0 0);
+    --destructive: 0.5 0.24 22;
+    --destructive-foreground: 0.97 0.01 80;
 
-    --border: oklch(0.3 0.05 30);
-    --input: oklch(0.3 0.05 30);
-    --ring: oklch(0.6 0.22 35);
+    --border: 0.22 0.04 25;
+    --input: 0.15 0.02 0;
+    --ring: 0.55 0.22 25;
 
-    --radius: 0.5rem;
-
-    /* Employee Portal Theme - Dark Industrial with Orange/Red Accents */
-    --employee-bg-primary: oklch(0.18 0.01 30);
-    --employee-bg-secondary: oklch(0.2 0.01 30);
-    --employee-bg-dark: oklch(0.15 0.01 30);
-    --employee-bg-darker: oklch(0.12 0.01 30);
-
-    --employee-orange: oklch(0.65 0.25 40);
-    --employee-red: oklch(0.55 0.22 25);
-    --employee-grey: oklch(0.45 0.02 30);
-
-    --employee-text: oklch(0.95 0.01 30);
-    --employee-text-muted: oklch(0.7 0.02 30);
-
-    --employee-border: oklch(0.3 0.02 30);
-  }
-
-  .dark {
-    --background: oklch(0.12 0.02 30);
-    --foreground: oklch(0.98 0 0);
-
-    --card: oklch(0.15 0.03 30);
-    --card-foreground: oklch(0.98 0 0);
-
-    --popover: oklch(0.13 0.02 30);
-    --popover-foreground: oklch(0.98 0 0);
-
-    --primary: oklch(0.65 0.25 40);
-    --primary-foreground: oklch(0.98 0 0);
-
-    --secondary: oklch(0.22 0.05 30);
-    --secondary-foreground: oklch(0.98 0 0);
-
-    --muted: oklch(0.2 0.03 30);
-    --muted-foreground: oklch(0.65 0.05 30);
-
-    --accent: oklch(0.55 0.2 145);
-    --accent-foreground: oklch(0.98 0 0);
-
-    --destructive: oklch(0.6 0.22 35);
-    --destructive-foreground: oklch(0.98 0 0);
-
-    --border: oklch(0.28 0.05 30);
-    --input: oklch(0.28 0.05 30);
-    --ring: oklch(0.6 0.22 35);
+    --radius: 0.375rem;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
-    font-family: "Inter", sans-serif;
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: "Outfit", sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
   h1,
@@ -99,95 +84,114 @@
   h4,
   h5,
   h6 {
-    font-family: "Creepster", cursive;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 800;
+    color: oklch(var(--foreground));
   }
 
-  /* Force white text globally */
-  body,
-  body * {
-    color: white !important;
-  }
-
-  /* Employee portal text colors */
-  [data-employee-portal] * {
-    color: var(--employee-text) !important;
-  }
-
-  [data-employee-portal] .text-employee-text {
-    color: var(--employee-text) !important;
-  }
-
-  [data-employee-portal] .text-employee-text\/80 {
-    color: oklch(from var(--employee-text) l c h / 0.8) !important;
-  }
-
-  [data-employee-portal] .text-employee-text\/60 {
-    color: oklch(from var(--employee-text) l c h / 0.6) !important;
-  }
-
-  [data-employee-portal] .text-employee-orange {
-    color: var(--employee-orange) !important;
-  }
-
-  [data-employee-portal] .text-employee-red {
-    color: var(--employee-red) !important;
-  }
-
-  [data-employee-portal] .text-employee-grey {
-    color: var(--employee-grey) !important;
+  p,
+  span,
+  li,
+  td,
+  th,
+  label,
+  a,
+  button {
+    color: oklch(var(--foreground));
   }
 }
 
-@layer utilities {
-  .glow-orange {
-    text-shadow: 0 0 10px oklch(0.65 0.25 40), 0 0 20px oklch(0.65 0.25 40);
-  }
+/* ── Blood Drip Header Effect ── */
+.blood-header-drip {
+  position: relative;
+}
 
-  .glow-green {
-    text-shadow: 0 0 10px oklch(0.55 0.2 145), 0 0 20px oklch(0.55 0.2 145);
-  }
+.blood-header-drip::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 24'%3E%3Cpath fill='oklch(0.45 0.24 22)' d='M0,0 L60,0 Q65,14 70,14 Q75,14 80,0 L140,0 Q148,18 155,18 Q162,18 168,0 L230,0 Q235,20 242,20 Q249,20 254,0 L320,0 Q325,16 330,16 Q335,16 340,0 L400,0 Q408,22 416,22 Q424,22 430,0 L490,0 Q497,15 504,15 Q511,15 516,0 L580,0 Q585,19 592,19 Q599,19 604,0 L660,0 Q668,17 675,17 Q682,17 688,0 L750,0 Q758,21 765,21 Q772,21 778,0 L840,0 Q845,13 850,13 Q855,13 860,0 L920,0 Q928,20 936,20 Q944,20 950,0 L1010,0 Q1016,18 1022,18 Q1028,18 1034,0 L1100,0 Q1107,23 1115,23 Q1123,23 1128,0 L1190,0 Q1197,16 1204,16 Q1211,16 1216,0 L1280,0 Q1287,19 1295,19 Q1303,19 1308,0 L1370,0 Q1377,14 1384,14 Q1391,14 1396,0 L1440,0 L1440,24 L0,24 Z'/%3E%3C/svg%3E")
+    no-repeat bottom center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 10;
+}
 
-  .bloody-text {
-    color: oklch(0.6 0.22 35);
-    text-shadow: 0 2px 4px oklch(0.15 0.02 30);
-  }
+/* ── Typography Utilities ── */
+.font-display {
+  font-family: "Bricolage Grotesque", sans-serif;
+}
 
-  .poster-spotlight {
-    transition: all 0.3s ease;
-  }
+.text-blood {
+  color: oklch(0.62 0.22 25);
+}
 
-  .poster-spotlight:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px oklch(0.65 0.25 40 / 0.5);
-  }
+.text-orange-glow {
+  color: oklch(0.72 0.18 60);
+}
 
-  .shadow-glow-green {
-    box-shadow: 0 4px 20px oklch(0.55 0.2 145 / 0.3);
-  }
+.glow-text-red {
+  text-shadow: 0 0 20px oklch(0.55 0.22 25 / 0.8), 0 0 40px
+    oklch(0.45 0.22 25 / 0.5);
+}
 
-  .shadow-glow-orange {
-    box-shadow: 0 4px 20px oklch(0.65 0.25 40 / 0.3);
-  }
+.glow-text-orange {
+  text-shadow: 0 0 20px oklch(0.65 0.18 60 / 0.8), 0 0 40px
+    oklch(0.55 0.18 60 / 0.5);
+}
 
-  /* Noise texture utility */
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* ── Card Hover Effects ── */
+.horror-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid oklch(var(--border));
+  background-color: oklch(var(--card));
+}
+
+.horror-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 8px 40px oklch(0.55 0.22 25 / 0.35), 0 0 0 1px
+    oklch(0.55 0.22 25 / 0.4);
+}
+
+/* ── Section Heading Flicker ── */
+@media (prefers-reduced-motion: no-preference) {
+  .flicker-title {
+    animation: section-flicker 8s ease-in-out infinite;
   }
 }
 
-@keyframes blood-drip {
+/* ── Strobe Effect (on homepage bg) ── */
+@media (prefers-reduced-motion: no-preference) {
+  .strobe-bg {
+    animation: strobe-pulse 0.08s step-end infinite;
+  }
+}
+
+/* ── Keyframes ── */
+@keyframes section-flicker {
   0%,
+  95%,
   100% {
-    transform: translateY(0);
-    opacity: 0.3;
+    opacity: 1;
   }
-  50% {
-    transform: translateY(10px);
-    opacity: 0.6;
+  96% {
+    opacity: 0.85;
+  }
+  97% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.7;
+  }
+  99% {
+    opacity: 1;
   }
 }
 
-@keyframes flicker-slow {
+@keyframes strobe-pulse {
   0%,
   100% {
     opacity: 1;
@@ -197,104 +201,48 @@
   }
 }
 
-@keyframes flicker-fast {
-  0%,
-  100% {
+@keyframes blood-drip-fall {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  30% {
     opacity: 1;
   }
-  25% {
+  80% {
+    transform: scaleY(1);
     opacity: 0.7;
   }
-  50% {
-    opacity: 0.9;
-  }
-  75% {
-    opacity: 0.6;
-  }
-}
-
-@keyframes flicker-subtle {
-  0%,
   100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.15;
-  }
-}
-
-@keyframes flicker {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes float-subtle {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-@keyframes float-debris {
-  0%,
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  25% {
-    transform: translate(10px, -10px) rotate(5deg);
-  }
-  50% {
-    transform: translate(-5px, -20px) rotate(-5deg);
-  }
-  75% {
-    transform: translate(-10px, -10px) rotate(3deg);
-  }
-}
-
-@keyframes drift-fog {
-  0%,
-  100% {
-    transform: translateX(0) translateY(0);
-  }
-  50% {
-    transform: translateX(20px) translateY(-10px);
-  }
-}
-
-@keyframes spotlight {
-  0%,
-  100% {
+    transform: scaleY(1);
     opacity: 0;
   }
-  50% {
-    opacity: 1;
-  }
 }
 
-@keyframes drip {
+@keyframes float-up {
   0% {
-    height: 0;
+    transform: translateY(20px);
     opacity: 0;
-  }
-  50% {
-    height: 32px;
-    opacity: 0.8;
   }
   100% {
-    height: 32px;
-    opacity: 0;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-@keyframes spin-slow {
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px oklch(0.55 0.22 25 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px oklch(0.55 0.22 25 / 0.7), 0 0 60px
+      oklch(0.55 0.22 25 / 0.3);
+  }
+}
+
+@keyframes carnival-spin {
   from {
     transform: rotate(0deg);
   }
@@ -303,149 +251,225 @@
   }
 }
 
-@keyframes pulse-slow {
+@keyframes drift-fog {
   0%,
   100% {
+    transform: translateX(0) scaleY(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateX(40px) scaleY(1.1);
+    opacity: 0.25;
+  }
+}
+
+@keyframes text-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+@keyframes slide-up-fade {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
-  50% {
-    opacity: 0.7;
-  }
 }
 
-@keyframes pulse-slower {
-  0%,
-  100% {
+@keyframes scale-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
     opacity: 1;
   }
-  50% {
-    opacity: 0.5;
-  }
 }
 
-@keyframes glitch-subtle {
-  0%,
-  100% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
+/* ── Animation Utilities ── */
+.animate-float-up {
+  animation: float-up 0.6s ease-out forwards;
 }
 
-@keyframes float-particle-1 {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translate(30px, -30px);
-    opacity: 0.6;
-  }
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
 }
 
-@keyframes float-particle-2 {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: 0.2;
-  }
-  50% {
-    transform: translate(-40px, -20px);
-    opacity: 0.5;
-  }
-}
-
-@keyframes float-particle-3 {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translate(20px, -40px);
-    opacity: 0.7;
-  }
-}
-
-.animate-blood-drip {
-  animation: blood-drip 3s ease-in-out infinite;
-}
-
-.animate-flicker-slow {
-  animation: flicker-slow 4s ease-in-out infinite;
-}
-
-.animate-flicker-fast {
-  animation: flicker-fast 0.3s ease-in-out infinite;
-}
-
-.animate-flicker-subtle {
-  animation: flicker-subtle 5s ease-in-out infinite;
-}
-
-.animate-flicker {
-  animation: flicker 2s ease-in-out infinite;
-}
-
-.animate-float-subtle {
-  animation: float-subtle 3s ease-in-out infinite;
-}
-
-.animate-float-debris {
-  animation: float-debris 20s ease-in-out infinite;
+.animate-carnival-spin {
+  animation: carnival-spin 20s linear infinite;
 }
 
 .animate-drift-fog {
-  animation: drift-fog 8s ease-in-out infinite;
+  animation: drift-fog 12s ease-in-out infinite;
 }
 
-.animate-spotlight {
-  animation: spotlight 3s ease-in-out infinite;
+.animate-slide-up-fade {
+  animation: slide-up-fade 0.7s ease-out forwards;
 }
 
-.animate-drip {
-  animation: drip 2s ease-in-out infinite;
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out forwards;
 }
 
-.animate-spin-slow {
-  animation: spin-slow 3s linear infinite;
+/* ── Atmospheric Background Overlay ── */
+.horror-bg-overlay {
+  background: radial-gradient(
+      ellipse 80% 60% at 20% 30%,
+      oklch(0.25 0.08 22 / 0.18) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 70%,
+      oklch(0.2 0.06 50 / 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 100% 80% at 50% 100%,
+      oklch(0.15 0.04 22 / 0.25) 0%,
+      transparent 50%
+    );
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 3s ease-in-out infinite;
+/* ── Nav ── */
+.nav-link {
+  color: oklch(var(--foreground));
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+  position: relative;
+  text-decoration: none;
 }
 
-.animate-pulse-slower {
-  animation: pulse-slower 5s ease-in-out infinite;
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: oklch(0.55 0.22 25);
+  transition: width 0.3s ease;
 }
 
-.animate-glitch-subtle {
-  animation: glitch-subtle 5s ease-in-out infinite;
+.nav-link:hover {
+  color: oklch(0.72 0.18 60);
 }
 
-.animate-float-particle-1 {
-  animation: float-particle-1 15s ease-in-out infinite;
+.nav-link:hover::after {
+  width: 100%;
 }
 
-.animate-float-particle-2 {
-  animation: float-particle-2 18s ease-in-out infinite;
+/* ── Image Cards ── */
+.card-img-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
-.animate-float-particle-3 {
-  animation: float-particle-3 20s ease-in-out infinite;
+.card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.animate-pulse-glow-button {
-  animation: pulse-glow 2s ease-in-out infinite;
+.card-img-wrapper:hover img {
+  transform: scale(1.06);
+}
+
+/* ── Blood Stroke Divider ── */
+.blood-divider {
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(0.55 0.22 25),
+    oklch(0.65 0.18 60),
+    oklch(0.55 0.22 25),
+    transparent
+  );
+  margin: 0;
+}
+
+/* ── Section Tag Badge ── */
+.section-tag {
+  display: inline-block;
+  font-family: "Outfit", sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: oklch(0.72 0.18 60);
+  border: 1px solid oklch(0.65 0.18 60 / 0.4);
+  border-radius: 2px;
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Menu item styling ── */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed oklch(var(--border));
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+/* ── Strobe overlay ── */
+@media (prefers-reduced-motion: no-preference) {
+  .strobe-overlay {
+    animation: strobe-overlay-anim 0.12s step-end infinite;
+  }
+}
+
+@keyframes strobe-overlay-anim {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.04;
+  }
+  92% {
+    opacity: 0;
+  }
+  94% {
+    opacity: 0.06;
+  }
+}
+
+/* ── Scrollbar Styling ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.1 0.01 0);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.45 0.18 25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.55 0.22 25);
+}
+
+/* ── Focus Visible ── */
+*:focus-visible {
+  outline: 2px solid oklch(0.55 0.22 25);
+  outline-offset: 2px;
 }
